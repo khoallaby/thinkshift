@@ -11,6 +11,7 @@ web/wp
 web/.htaccess
 
 # Dotenv
+# use 'git update-index --assume-unchanged .env' to ignore our .env file after modifying locally
 .env
 .env.*
 !.env.example
