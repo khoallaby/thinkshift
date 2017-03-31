@@ -18,3 +18,7 @@ web/.htaccess
 # Composer
 vendor/*
 !vendor/.gitkeep
+
+
+# Plugin exceptions (premium plugins)
+!web/app/plugins/users-ultra
