@@ -27,11 +27,12 @@ export ts_DB_password="tH1nk~_sh1ft@20141188sdfF"
 while true; do
     clear
     echo "
-    1   Prep & Install
+    1   Install wp/project files
     2   Install mysql DB, user
-    ---3   Delete everything (todo)---
+    3   Git pull/Update project
     4   Restart services
     5   Import DB
+    ( Delete everything (todo) )
     6   Quit
     "
     read INPUT
@@ -55,9 +56,9 @@ while true; do
             read
             ;;
         3)
-            bash ts_delete.sh
+            bash ts_3_update.sh
             echo -e "\n#########################################################################################################"
-            echo "Everything's deleted"
+            echo "Project updated"
             echo -e "#########################################################################################################"
             read
             ;;
@@ -71,6 +72,13 @@ while true; do
             bash import_db.sh
             echo -e "\n#########################################################################################################"
             echo "sql imported"
+            echo -e "#########################################################################################################"
+            read
+            ;;
+        9)
+            bash ts_delete.sh
+            echo -e "\n#########################################################################################################"
+            echo "Everything's deleted"
             echo -e "#########################################################################################################"
             read
             ;;
