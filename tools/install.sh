@@ -15,12 +15,10 @@ export ts_dir
 
 #export ts_branch
 
-#
-# Settings in the following section should only be changed if required for production.
-#
-export PATH=/usr/local/bin/ts_bin:/usr/local/bin:$PATH
+
 
 # Database Information
+# todo: pull from .env
 export ts_DB="thinkshift"
 export ts_DB_user="thinkshift"
 export ts_DB_password="tH1nk~_sh1ft@20141188sdfF"
@@ -31,9 +29,10 @@ while true; do
     echo "
     1   Prep & Install
     2   Install mysql DB, user
-    3   Delete everything
+    ---3   Delete everything (todo)---
     4   Restart services
-    5   Quit
+    5   Import DB
+    6   Quit
     "
     read INPUT
 
@@ -63,8 +62,16 @@ while true; do
             read
             ;;
         4)
+            # todo: make more generic
             sudo /opt/bitnami/ctlscript.sh restart apache
             # sudo /opt/bitnami/ctlscript.sh restart mysql
+            read
+            ;;
+        5)
+            bash import_db.sh
+            echo -e "\n#########################################################################################################"
+            echo "sql imported"
+            echo -e "#########################################################################################################"
             read
             ;;
         *)
