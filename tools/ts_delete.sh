@@ -14,12 +14,12 @@ fi
 
 
 
-read -p "Do you want to delete all the Wordpress files? (y/n) " RESP
+read -p "Do you want to delete all the files in platform? (y/n) " RESP
 if [ "$RESP" = "y" ]; then
     cd /var/www
     if cd wordpress; then
         echo -e "\n#########################################################################################################"
-        echo -e "Deleting wordpress/apache html dir /var/www/wordpress.."
+        echo -e "Deleting platform folder/"
         echo -e "#########################################################################################################\n"
         cd ..; rm -rf wordpress
         # delete our custom wordpress.conf file

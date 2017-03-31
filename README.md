@@ -10,31 +10,18 @@ git clone https://github.com/khoallaby/tsdevserver.com.git thinkshift
 cd thinkshift/tools
 chmod +x *.sh
 bash install.sh
-
 ```
 
  
  
- 
- 
-### Install dependencies
-
-From the command line on your host machine (not on your Vagrant development box), navigate to the theme directory then run `yarn`:
-
-```shell
-```
-
-You now have all the necessary dependencies to run the build process.
-
-
-
-
 
 ### Apache stuff
 
-Set your DocumentRoot to "...../platform/web/""
+Set your DocumentRoot to 
+* "thinkshift/platform/web/"
 
-Conf file on dev: /opt/bitnami/apache2/conf/bitnami/bitnami.conf
+Conf file to modify on dev: 
+* /opt/bitnami/apache2/conf/bitnami/bitnami.conf
  
 
 

@@ -5,6 +5,7 @@ if [ "$#" -ne 1 ]; then
     ts_dir="thinkshift"
 fi
 
+export ts_dir
 
 # todo add branch later
 #ts_branch="$2"
@@ -63,7 +64,7 @@ while true; do
             ;;
         4)
             sudo /opt/bitnami/ctlscript.sh restart apache
-            sudo /opt/bitnami/ctlscript.sh restart mysql
+            # sudo /opt/bitnami/ctlscript.sh restart mysql
             read
             ;;
         *)

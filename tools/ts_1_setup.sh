@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 sudo apt-get update
 
 
@@ -57,18 +56,16 @@ sudo apt-get update && sudo apt-get -y install yarn
 # rm -rf htdocs/*
 
 
-# clone the repo
-git clone https://github.com/thinkshift/tsdevserver.com.git "$ts_dir"
 
-cd "$ts_dir"
+# we need to run composer install inside both bedrock and sage directories to install dependencies
+
+cd ../platform
 composer install
 
 
-
-
 # run yarn, and build assets
-cd platform/web/app/themes/thinkshift
-# composer install
+cd web/app/themes/thinkshift
+composer install
 yarn
 yarn run build
 

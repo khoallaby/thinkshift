@@ -2,11 +2,13 @@
 
 
 # resets root password to the same pw
-/opt/bitnami/mysql/bin/mysqladmin -p -u root password "$ts_DB_password"
-
+read -p "Do you want to reset the root user's password? useful for first install of bitnami (y/n) " RESP
+if [ "$RESP" = "y" ]; then
+    /opt/bitnami/mysql/bin/mysqladmin -p -u root password "$ts_DB_password"
+fi
 
 # creates new DB and user, adds user to DB
-sudo /usr/bin/mysql -uroot -p"$ts_DB_password" -e "CREATE DATABASE IF NOT EXISTS $ts_DB; \
+sudo /opt/bitnami/mysql/bin/mysql -uroot -p"$ts_DB_password" -e "CREATE DATABASE IF NOT EXISTS $ts_DB; \
      GRANT USAGE ON *.* TO $ts_DB_user@localhost IDENTIFIED BY '$ts_DB_password'; \
      GRANT ALL PRIVILEGES ON $ts_DB.* TO $ts_DB_user@localhost; FLUSH PRIVILEGES;"
 

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+####### this is if for starting a brand new project
+####### might be useful later to abstract bedrock out of the repo
+
 sudo apt-get -y install git
 
 # install composer
@@ -13,3 +16,6 @@ fi
 
 cd ../
 composer create-project roots/bedrock platform
+
+cd platform/web/app/themes
+composer create-project roots/sage thinkshift 8.5.1
