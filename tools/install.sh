@@ -5,7 +5,6 @@ if [ "$#" -ne 1 ]; then
     ts_dir="thinkshift"
 fi
 
-echo $ts_dir
 
 # todo add branch later
 #ts_branch="$2"
@@ -13,8 +12,6 @@ echo $ts_dir
 #    ts_branch="master"
 #fi
 
-echo $ts_dir
-exit;
 #export ts_branch
 
 #
@@ -34,7 +31,8 @@ while true; do
     1   Prep & Install
     2   Install mysql DB, user
     3   Delete everything
-    4   Quit
+    4   Restart services
+    5   Quit
     "
     read INPUT
 
@@ -61,6 +59,11 @@ while true; do
             echo -e "\n#########################################################################################################"
             echo "Everything's deleted"
             echo -e "#########################################################################################################"
+            read
+            ;;
+        4)
+            sudo /opt/bitnami/ctlscript.sh restart apache
+            sudo /opt/bitnami/ctlscript.sh restart mysql
             read
             ;;
         *)

@@ -18,7 +18,7 @@ else
 fi
 
 
-# composer
+# install composer
 if [ -e '/usr/local/bin/composer' ] ; then
     echo -e "WP-CLI already installed."
 else
@@ -34,7 +34,7 @@ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get -y install nodejs
 sudo apt-get -y install npm
 
-# bower, gulp
+# install bower, gulp
 sudo npm install -g bower
 sudo npm install --global gulp-cli
 
