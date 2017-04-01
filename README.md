@@ -6,7 +6,7 @@
 
 ```
 sudo apt-get -y install git
-git clone https://github.com/khoallaby/tsdevserver.com.git thinkshift
+git clone https://github.com/thinkshift/tsdevserver.com.git thinkshift
 cd thinkshift/tools
 chmod +x *.sh
 bash install.sh
