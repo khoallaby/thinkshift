@@ -72,4 +72,7 @@ yarn run build
 
 
 
+cd ../../plugins/think-shift
+composer install
+
 
