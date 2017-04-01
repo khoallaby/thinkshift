@@ -27,10 +27,10 @@ class Shortcodes extends Base {
 	*/
 
 	public function showTags() {
-		if ( current_user_can( 'subscriber' ) )
+		#if ( current_user_can( 'subscriber' ) )
 			return $this->getView( 'showTags' );
-		else
-			return null;
+		#else
+		#	return null;
 	}
 
 

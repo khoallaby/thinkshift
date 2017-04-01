@@ -19,4 +19,5 @@
 require_once( dirname(__FILE__) . '/resources/controllers/Base.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Infusionsoft.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Users.php');
+require_once( dirname(__FILE__) . '/resources/controllers/Shortcodes.php');
 
