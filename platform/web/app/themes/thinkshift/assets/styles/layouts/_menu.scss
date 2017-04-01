@@ -1,0 +1,5 @@
+
+// fixes admin bar from overlapping bootstrap's fixed menu
+.admin-bar nav.fixed-top {
+  top: 32px;
+}
