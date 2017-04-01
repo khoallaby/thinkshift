@@ -1,6 +1,6 @@
 <?php
 
-namespace ThinkShift;
+namespace ThinkShift\Plugin;
 
 class Base{
 		private static $instance = array();
@@ -98,6 +98,4 @@ class Base{
 }
 
 
-add_action( 'plugins_loaded', array( Base::get_instance(), 'init' ));
-echo 'weeee';
-die();
+add_action( 'plugins_loaded', array( \ThinkShift\Plugin\Base::get_instance(), 'init' ));

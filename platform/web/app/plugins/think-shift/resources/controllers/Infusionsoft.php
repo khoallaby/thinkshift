@@ -5,27 +5,29 @@ namespace ThinkShift\Plugin;
 use iSDK;
 
 
-class Infusion {
+class Infusionsoft extends base{
 	private $api, $apiKey;
 	private $clientId, $clientSecret, $token;
 
 
-	function __construct( $url, $apiKey ) {
-
-
-		require_once dirname(__FILE__) . '../../vendor/infusionsoft-php-isdk-master/src/isdk.php';
+	function init() {
+		require_once dirname(__FILE__) . '/../../vendor/infusionsoft-php-isdk-master/src/isdk.php';
 
 		error_reporting(E_ALL);
 		error_reporting(-1);
 		ini_set('error_reporting', E_ALL);
 
+	}
+
+
+	function connect( $url, $apiKey ) {
 		$this->apiKey = $apiKey;
 
 		$this->api = new iSDK();
-		$this->api->cfgCon('fd341', $this->apiKey);
-
-
+		$this->api->cfgCon( $url, $this->apiKey );
 	}
+
+
 
 	public function getUserFields() {
 		return array( 'Id', 'Email', 'FirstName', 'LastName', 'City', 'State' );
@@ -112,11 +114,17 @@ class Infusion {
 }
 
 
+$infusionsoft = \ThinkShift\Plugin\Infusionsoft::get_instance();
+
+add_action( 'plugins_loaded', array( $infusionsoft, 'init' ));
+
+
+
 
 $appName = 'fd341';
 $apiKey = '9122d201f6892d5b3397f675849baafa';
 
-$infusionsoft = new Infusion( $appName, $apiKey );
+$infusionsoft->connect( $appName, $apiKey );
 
 
 $contactId = $infusionsoft->addContact( array(
@@ -135,8 +143,6 @@ var_dump($contact);
 
 $contact = $infusionsoft->getContactByEmail( 'mminton@wethinkshift.org' );
 var_dump($contact);
-/*
 
 $tags = $infusionsoft->getTagsByContactId( 81 );
 var_dump($tags);
-*/

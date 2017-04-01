@@ -1,30 +1,33 @@
 <?php
-namespace ThinkShift;
+namespace ThinkShift\Plugin;
 
-use XooUserUltra;
+use \ThinkShift\Plugin\Infusionsoft;
 
 class Users extends Base {
 
 	public function init() {
+		parent::init();
 
 
-		add_action( 'wp_login', array( $this, 'wp_login' ), 10, 2 );
-		echo 'weeeeee';
-		$xoouserultra = new XooUserUltra();
-		$xoouserultra->plugin_init();
-		echo 'weeeeee';
+		add_action( 'wp_login', array( $this, 'wpLogin' ), 10, 2 );
+
 	}
 
 
-	public function wp_login( $user_login, $user ) {
-		var_dump($user_login);
-		var_dump($user);
-		die();
+	/*
+	 * Runs on successful user log in
+	 */
+	public function wpLogin( $user_login, $user ) {
+		if ( current_user_can( 'subscriber' ) ) {
+			$infusionsoft = new \ThinkShift\Plugin\Infusionsoft();
+			#print_r($user_login);
+			#print_r($user);
+		}
+
 
 	}
 
 
 }
 
-
-add_action( 'plugins_loaded', array( \ThinkShift\Users::get_instance(), 'init' ));
+add_action( 'plugins_loaded', array( \ThinkShift\Plugin\Users::get_instance(), 'init' ));
