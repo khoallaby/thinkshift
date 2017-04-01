@@ -11,10 +11,9 @@
  * Domain Path: /languages
  */
 
-/**
- * Use statements. Add any useful class import
- * below.
- */
+
+define('thinkshift_plugin_url',plugin_dir_url(__FILE__ ));
+define('thinkshift_plugin_path',plugin_dir_path(__FILE__ ));
 
 require_once( dirname(__FILE__) . '/resources/controllers/Base.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Infusionsoft.php');

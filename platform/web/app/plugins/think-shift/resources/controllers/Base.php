@@ -22,46 +22,8 @@ class Base{
 	}
 
 	public function init() {
-		require_once dirname(__FILE__) . '/../../vendor/autoload.php';
+		//require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 
-		add_action( 'after_setup_theme', array( $this, 'theme_setup' ) );
-		#add_action( 'init', array( $this, 'add_excerpts' ) );
-
-	}
-
-
-
-	public function theme_setup() {
-		add_image_size( 'small', 480, 0 );
-
-		// replace default image sizes
-		if( get_option( 'medium_size_w' ) == 300 && get_option( 'medium_size_h' ) == 300 ) {
-			update_option( 'medium_size_w', 768, true );
-			update_option( 'medium_size_h', 0, true );
-		}
-		if( get_option( 'large_size_w' ) == 1024 && get_option( 'large_size_h' ) == 1024 ) {
-			update_option( 'large_size_w', 1170, true );
-			update_option( 'large_size_h', 0, true );
-		}
-
-	}
-
-
-	public function get_responsive_image( $post_id, $size = 'medium', $attr ) {
-		$defaults = array (
-			'col-xs' => 12,
-			'col-sm' => 6,
-			'col-md' => 4,
-			'fluid' => false,
-			'gutter' => '15px',
-			'class' => 'img-responsive',
-			'srcset' => '',
-			'sizes' => ''
-		);
-		$attr = wp_parse_args( $attr, $defaults );
-
-		# todo: set up srcset/sizes
-		return get_the_post_thumbnail( $post_id, $size, $attr );
 
 	}
 
