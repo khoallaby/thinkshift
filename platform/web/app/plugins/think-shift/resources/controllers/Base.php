@@ -2,6 +2,9 @@
 
 namespace ThinkShift\Plugin;
 
+use WP_Query;
+
+
 class Base{
 		private static $instance = array();
 

@@ -10,12 +10,14 @@ class Infusionsoft extends base{
 	private $clientId, $clientSecret, $token;
 
 
-	function init() {
+	function __construct() {
 		require_once dirname(__FILE__) . '/../../vendor/infusionsoft-php-isdk-master/src/isdk.php';
 
-		error_reporting(E_ALL);
-		error_reporting(-1);
-		ini_set('error_reporting', E_ALL);
+		# todo: pull these from wp_options
+		$appName = 'fd341';
+		$this->apiKey = '9122d201f6892d5b3397f675849baafa';
+
+		$this->connect( $appName, $this->apiKey );
 
 	}
 
@@ -115,18 +117,13 @@ class Infusionsoft extends base{
 
 
 $infusionsoft = \ThinkShift\Plugin\Infusionsoft::get_instance();
-
-add_action( 'plugins_loaded', array( $infusionsoft, 'init' ));
-
+#add_action( 'plugins_loaded', array( $infusionsoft, 'init' ));
 
 
 
-$appName = 'fd341';
-$apiKey = '9122d201f6892d5b3397f675849baafa';
-
-$infusionsoft->connect( $appName, $apiKey );
 
 
+/*
 $contactId = $infusionsoft->addContact( array(
 	'FirstName' => 'Andy',
 	'LastName' => 'Nguyen',
@@ -135,14 +132,16 @@ $contactId = $infusionsoft->addContact( array(
 
 var_dump($contactId);
 
+*/
+
+/*
 $contact = $infusionsoft->getContactById( $contactId );
 var_dump($contact);
-
-
-
-
 $contact = $infusionsoft->getContactByEmail( 'mminton@wethinkshift.org' );
 var_dump($contact);
+*/
 
+/*
 $tags = $infusionsoft->getTagsByContactId( 81 );
 var_dump($tags);
+*/
