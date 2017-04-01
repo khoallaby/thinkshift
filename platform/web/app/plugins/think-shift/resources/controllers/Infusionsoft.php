@@ -6,8 +6,8 @@ use iSDK;
 
 
 class Infusionsoft extends base{
-	private $api, $apiKey;
-	private $clientId, $clientSecret, $token;
+	private static $api;
+	private $clientId, $clientSecret, $token, $apiKey;
 
 
 	function __construct() {
@@ -25,8 +25,8 @@ class Infusionsoft extends base{
 	function connect( $url, $apiKey ) {
 		$this->apiKey = $apiKey;
 
-		$this->api = new iSDK();
-		$this->api->cfgCon( $url, $this->apiKey );
+		self::$api = new iSDK();
+		self::$api->cfgCon( $url, $this->apiKey );
 	}
 
 
@@ -36,13 +36,13 @@ class Infusionsoft extends base{
 	}
 
 
-	public function getContactByEmail($email) {
+	public static function getContactByEmail($email) {
 
 		$table = 'Contact';
 		$query = array('Email' => $email );
-		$fields = $this->getUserFields();
+		$fields = self::getUserFields();
 
-		$data = $this->api->dsQuery( $table, 1 ,0 , $query, $fields);
+		$data = self::$api->dsQuery( $table, 1 ,0 , $query, $fields);
 
 		if (is_array($data))
 			return $data;
@@ -56,7 +56,7 @@ class Infusionsoft extends base{
 		$query = array('Id' => $id );
 		$fields = array( 'Id', 'Email', 'FirstName', 'LastName', 'City', 'State' );
 
-		$data = $this->api->dsQuery( $table, 1 ,0 , $query, $fields);
+		$data = self::$api->dsQuery( $table, 1 ,0 , $query, $fields);
 
 		if (is_array($data))
 			return $data;
@@ -68,12 +68,12 @@ class Infusionsoft extends base{
 
 	public function addContact( $fields ) {
 
-		$data = $this->api->addWithDupCheck( $fields, 'Email' );
+		$data = self::$api->addWithDupCheck( $fields, 'Email' );
 		if( $data ) {
 			/*
 			# opt in email
 			if ( isset( $fields['Email'] ) )
-				$this->api->optIn( $fields['Email'] );
+				self::$api->optIn( $fields['Email'] );
 			*/
 		}
 
@@ -94,15 +94,15 @@ class Infusionsoft extends base{
 	public function getTagsByContact( $where ) {
 
 		# get Contact
-		$data = $this->api->dsQuery( 'ContactGroupAssign', 10, 1, $where, ["Contact.Groups"] );
+		$data = self::$api->dsQuery( 'ContactGroupAssign', 10, 1, $where, ["Contact.Groups"] );
 
 		$groupsId = array_map( 'intval', explode(",", $data[0]["Contact.Groups"]));
-		$groups = $this->api->dsQuery( 'ContactGroup', 10000, 0, ["Id" => $groupsId], ["GroupName", "GroupDescription", "GroupCategoryId"] );
+		$groups = self::$api->dsQuery( 'ContactGroup', 10000, 0, ["Id" => $groupsId], ["GroupName", "GroupDescription", "GroupCategoryId"] );
 
 		$groupsCat = array();
 
 		foreach ($groups as $group){
-			$category = $this->api->dsFind("ContactGroupCategory", 1, 0, "Id", $group["GroupCategoryId"], ["CategoryName"]);
+			$category = self::$api->dsFind("ContactGroupCategory", 1, 0, "Id", $group["GroupCategoryId"], ["CategoryName"]);
 			if( isset($category[0]) )
 				$group["CategoryName"] = $category[0]["CategoryName"];
 
@@ -116,32 +116,3 @@ class Infusionsoft extends base{
 }
 
 
-$infusionsoft = \ThinkShift\Plugin\Infusionsoft::get_instance();
-#add_action( 'plugins_loaded', array( $infusionsoft, 'init' ));
-
-
-
-
-
-/*
-$contactId = $infusionsoft->addContact( array(
-	'FirstName' => 'Andy',
-	'LastName' => 'Nguyen',
-	'Email' => 'andrew.nguyen@colorado.edu'
-) );
-
-var_dump($contactId);
-
-*/
-
-/*
-$contact = $infusionsoft->getContactById( $contactId );
-var_dump($contact);
-$contact = $infusionsoft->getContactByEmail( 'mminton@wethinkshift.org' );
-var_dump($contact);
-*/
-
-/*
-$tags = $infusionsoft->getTagsByContactId( 81 );
-var_dump($tags);
-*/

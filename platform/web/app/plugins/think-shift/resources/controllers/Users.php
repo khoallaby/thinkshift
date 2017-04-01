@@ -3,10 +3,13 @@ namespace ThinkShift\Plugin;
 
 
 class Users extends Base {
+	private static $infusionsoft;
+
 
 	public function init() {
 		parent::init();
 
+		self::$infusionsoft = new \ThinkShift\Plugin\Infusionsoft();
 
 		add_action( 'wp_login', array( $this, 'wpLogin' ), 10, 2 );
 		add_action( 'wp_register', array( $this, 'wpRegister' ), 1 );
@@ -16,13 +19,13 @@ class Users extends Base {
 
 
 	/*
-	 * Runs on successful user registration
+	 * Runs on successful user Log in
 	 */
 	public function wpLogin( $user_login, $user ) {
-		if ( current_user_can( 'subscriber' ) ) {
+		#if ( current_user_can( 'subscriber' ) ) {
 			$fields = $this->parseFields( $user->ID );
-			$this->addContact( $user->ID, $fields );
-		}
+			$this->addInfusionsoftContact( $user->ID, $fields );
+		#}
 	}
 
 	/*
@@ -30,7 +33,7 @@ class Users extends Base {
 	 */
 	public function wpRegister( $userId ) {
 			$fields = $this->parseFields( $userId );
-			$this->addContact( $userId, $fields );
+			$this->addInfusionsoftContact( $userId, $fields );
 	}
 
 
@@ -51,12 +54,23 @@ class Users extends Base {
 	}
 
 
-	public function addContact( $userId, $fields ) {
-		$infusionsoft = new \ThinkShift\Plugin\Infusionsoft();
+	public function addInfusionsoftContact( $userId, $fields ) {
 
-		$contactId = $infusionsoft->addContact( $fields );
+		$contactId = self::$infusionsoft->addContact( $fields );
 		if( $contactId )
 			update_user_meta( $userId, 'infusionsoft_id', $contactId );
+
+	}
+
+
+	public static function getUserTags( $userId ) {
+		$contactId = get_user_meta( $userId, 'infusionsoft_id', true );
+
+		# todo: save tags somewhere later
+		if( $contactId )
+			return self::$infusionsoft->getTagsByContactId( $contactId );
+		else
+			return false;
 
 	}
 
