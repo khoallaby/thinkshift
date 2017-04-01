@@ -65,7 +65,8 @@ while true; do
         4)
             # todo: make more generic
             sudo /opt/bitnami/ctlscript.sh restart apache
-            # sudo /opt/bitnami/ctlscript.sh restart mysql
+            sudo /opt/bitnami/ctlscript.sh restart mysql
+            sudo /opt/bitnami/ctlscript.sh restart php-fpm
             read
             ;;
         5)
