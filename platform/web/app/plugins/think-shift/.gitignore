@@ -1,3 +1,8 @@
 .idea/
 assets/components/
 node_modules/
+
+
+vendor/*
+!vendor/.gitkeep
+!vendor/infusionsoft-php-isdk-master/
