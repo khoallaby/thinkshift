@@ -68,6 +68,11 @@ get_template_part('templates/page', 'header');
           </div>
         </div>
       </div>
+      <div class="card mb-4 hidden-md-down">
+        <?php while (have_posts()) : the_post(); ?>
+          <?php get_template_part('templates/content', 'page'); ?>
+        <?php endwhile; ?>
+      </div>
     </div>
     <div class="col-lg-3">
       <div class="alert alert-warning alert-dismissible hidden-md-down" role="alert">
