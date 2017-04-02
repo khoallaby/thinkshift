@@ -12,12 +12,10 @@ class Users extends Base {
 
         self::$infusionsoft = new \ThinkShift\Plugin\Infusionsoft();
         self::$contactId = self::getContactId();
-        #var_dump( is_user_logged_in() );
         add_action('init', array( __CLASS__, 'setUserId' ) );
-        //self::setUserId();
 
-        //add_action( 'wp_login', array( $this, 'wpLogin' ), 200, 2 );
-        //add_action( 'wp_register', array( $this, 'wpRegister' ), 1 );
+        add_action( 'wp_login', array( $this, 'wp_login' ), 20, 2 );
+        add_action( 'user_register', array( $this, 'user_register' ), 1 );
 
     }
 
@@ -38,7 +36,7 @@ class Users extends Base {
      * @param $user_login
      * @param $user
      */
-    public function wpLogin( $user_login, $user ) {
+    public function wp_login( $user_login, $user ) {
         #if ( current_user_can( 'subscriber' ) ) {
         $fields = $this->parseFields( $user->ID );
         $this->addInfusionsoftContact( $user->ID, $fields );
@@ -58,9 +56,9 @@ class Users extends Base {
     /**
      * Runs on successful user registration
      */
-    public function wpRegister() {
-        $fields = $this->parseFields( self::$userId );
-        $this->addInfusionsoftContact( self::$userId, $fields );
+    public function user_register( $userId ) {
+        $fields = $this->parseFields( $userId );
+        $this->addInfusionsoftContact( $userId, $fields );
     }
 
 
@@ -235,7 +233,4 @@ class Users extends Base {
 
 }
 
-add_action( 'wp_head', array( \ThinkShift\Plugin\Users::get_instance(), 'init' ));
-add_action( 'wp_login', array( \ThinkShift\Plugin\Users::get_instance(), 'wpLogin' ), 200, 2 );
-//add_action( 'wp_register', array( $this, 'wpRegister' ), 1 );
-#add_action( 'init', array( \ThinkShift\Plugin\Users::get_instance(), 'init' ));
+add_action( 'init', array( \ThinkShift\Plugin\Users::get_instance(), 'init' ));
