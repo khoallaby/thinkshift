@@ -98,12 +98,7 @@ class Users extends Base {
         if( !$userId )
             $userId = self::$userId;
 
-        if( !is_int(self::$contactId) ) {
-            self::$contactId = $contactId = get_user_meta( $userId, 'infusionsoft_id', true );
-        } else {
-            # todo: check on IS
-            $contactId = null;
-        }
+        self::$contactId = $contactId = get_user_meta( $userId, 'infusionsoft_id', true );
 
         return (int) $contactId;
 
