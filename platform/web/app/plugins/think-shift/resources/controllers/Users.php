@@ -168,6 +168,9 @@ class Users extends Base {
      * @return array|bool Array of matching tag/categories
      */
     public static function getUserTags( $userId = null ) {
+        if( !$userId )
+            $userId = self::$userId;
+
         $contactId = self::getContactId( $userId );
 
         # todo: save tags somewhere later
@@ -191,6 +194,23 @@ class Users extends Base {
             return self::$infusionsoft->getTagsByContactId( $contactId );
         else
             return false;
+
+    }
+
+
+    /**
+     * Gets user's tags by Category Name or ID
+     *
+     * @param null $category
+     * @param null $contactId
+     *
+     * @return array
+     */
+    public static function getUserTagsByCategory( $category = null, $contactId = null ) {
+        if( !$contactId )
+            $contactId = self::getContactId();
+
+        return self::$infusionsoft->getUserTagsByCategory( $category, $contactId );
 
     }
 

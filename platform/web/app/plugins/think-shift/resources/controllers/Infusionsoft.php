@@ -11,7 +11,7 @@ class Infusionsoft extends base{
 
 
 	function __construct() {
-		require_once dirname(__FILE__) . '/../../vendor/infusionsoft-php-isdk-master/src/isdk.php';
+		require_once dirname(__FILE__) . '/../../vendor/infusionsoft-php-isdk/src/isdk.php';
 
 		# todo: pull these from wp_options
 		$appName = 'fd341';
@@ -83,24 +83,35 @@ class Infusionsoft extends base{
 
 
 	public function getTagsByContactId( $contactId ) {
-		return $this->getTagsByContact( array('Contact.Id'=> $contactId ) );
+		return $this->getUserTags( array( 'Contact.Id' => $contactId ) );
 	}
 
 	public function getTagsByContactEmail( $contactEmail ) {
-		return $this->getTagsByContact( array('Contact.Email'=> $contactEmail ) );
+		return $this->getUserTags( array( 'Contact.Email' => $contactEmail ) );
 	}
 
 
-	public function getTagsByContact( $where ) {
+    /**
+     * Gets all the tags of a Contact
+     * @param $where
+     * @return array
+     */
+	public function getUserTags( $where ) {
 
 		# get Contact
 		$data = self::$api->dsQuery( 'ContactGroupAssign', 10, 1, $where, ["Contact.Groups"] );
+
+		# queries the Groups with list of IDs (Contact.Groups)
+
+        if( !isset($data[0]["Contact.Groups"]) )
+            exit;
 
 		$groupsId = array_map( 'intval', explode(",", $data[0]["Contact.Groups"]));
 		$groups = self::$api->dsQuery( 'ContactGroup', 10000, 0, ["Id" => $groupsId], ["GroupName", "GroupDescription", "GroupCategoryId"] );
 
 		$groupsCat = array();
 
+        # builds the array
 		foreach ($groups as $group){
 			$category = self::$api->dsFind("ContactGroupCategory", 1, 0, "Id", $group["GroupCategoryId"], ["CategoryName"]);
 			if( isset($category[0]) )
@@ -111,6 +122,29 @@ class Infusionsoft extends base{
 		return $groupsCat;
 
 	}
+
+
+    /**
+     * Calls Infusionsoft, to get a user's tags by Category Name or ID
+     * @param $category
+     * @param $contactId
+     *
+     * @return array
+     */
+    public function getUserTagsByCategory( $category, $contactId ) {
+        $key = is_int($category) ? 'GroupCategoryId' : 'CategoryName';
+	    $tags = $this->getUserTags( array( 'Contact.Id' => $contactId ) );
+
+
+	    foreach( $tags as $k => $tag ) {
+            // careful, some might not have CategoryName
+	        if( !isset($tag[$key]) || $tag[$key] != $category )
+	            unset( $tags[$k] );
+        }
+
+        return $tags;
+    }
+
 
 
 }
