@@ -8,7 +8,7 @@ if [ "$RESP" = "y" ]; then
 fi
 
 # creates new DB and user, adds user to DB
-sudo /opt/bitnami/mysql/bin/mysql -uroot -p"$ts_DB_password" -e "CREATE DATABASE IF NOT EXISTS $ts_DB; \
+mysql -uroot -p"$ts_DB_password" -e "CREATE DATABASE IF NOT EXISTS $ts_DB; \
      GRANT USAGE ON *.* TO $ts_DB_user@localhost IDENTIFIED BY '$ts_DB_password'; \
      GRANT ALL PRIVILEGES ON $ts_DB.* TO $ts_DB_user@localhost; FLUSH PRIVILEGES;"
 
