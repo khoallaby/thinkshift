@@ -48,8 +48,8 @@ class Users extends Base {
         // update user's "strengths" metadata
         $tags = self::getUserTagsByCategory( 'MA Value Creation Strengths' ); // or 41
         $i = 1;
-        #foreach( $tags as $k => $tag )
-            #update_user_meta( self::$userId, 'strength_' . $i, $tag['GroupName'] );
+        foreach( $tags as $k => $tag )
+            update_user_meta( self::$userId, 'strength_' . $i++, $tag['GroupName'] );
 
         #}
     }
