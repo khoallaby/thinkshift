@@ -22,6 +22,6 @@
     }
   },
   "config": {
-    "devUrl": "http://54.175.128.181"
+    "devUrl": "http://tsdevserver.com"
   }
 }
