@@ -1,14 +1,12 @@
 <?php
 namespace ThinkShift\Plugin;
 
-use PHPExcel_IOFactory, PHPExcel_Cell;
+use PHPExcel_IOFactory;
 
 
 class Importer extends Base {
-	protected $the_title = 'the_title';
 
 	public function init() {
-		add_shortcode( 'ts_show_tags', array( $this, 'showTags' ) );
 
 	}
 
@@ -44,9 +42,34 @@ class Importer extends Base {
 
     }
 
-    public static function parseFileWithHeaders( $file ) {
-	    $data = self::parseFile( $file );
+    public static function importCareersIntoCpt( $file ) {
+	    $ignoreKeys = ['occup'];
+
+	    $careers = self::parseFile( $file );
+	    if( $careers ) {
+            foreach( $careers as $career ) {
+
+                $postTitle = $career['occup'];
+
+                # unset our ignored keys
+                foreach( $career as $key => $value ) {
+                    if( in_array( $key, $ignoreKeys ) )
+                        unset($career[$key] );
+                }
+
+                $args = [
+                    'post_title'  => $postTitle,
+                    'post_status' => 'publish',
+                    'post_type'   => 'career',
+                    'meta_input'  => $career
+                ];
+
+                wp_insert_post( $args );
+
+            }
+        }
     }
+
 
 
 }
