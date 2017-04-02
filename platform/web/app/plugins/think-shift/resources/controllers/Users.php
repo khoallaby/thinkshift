@@ -3,7 +3,8 @@ namespace ThinkShift\Plugin;
 
 
 class Users extends Base {
-    private static $infusionsoft, $contactId, $user, $userId;
+    private static $infusionsoft, $user;
+    public static  $contactId, $userId;
 
 
     public function init() {
@@ -11,6 +12,7 @@ class Users extends Base {
 
         self::$infusionsoft = new \ThinkShift\Plugin\Infusionsoft();
         self::$contactId = self::getContactId();
+        #var_dump( is_user_logged_in() );
         self::setUserId();
 
         add_action( 'wp_login', array( $this, 'wpLogin' ), 20, 2 );
@@ -31,8 +33,8 @@ class Users extends Base {
             if( $user = get_user_by( 'id', $userId ) )
                 self::$user = $user;
         } elseif( is_user_logged_in() ) {
+            self::$user = wp_get_current_user();
             self::$userId = self::$user->ID;
-            self::$user = get_current_user();
         }
 
         self::$contactId = get_user_meta( self::$userId, 'infusionsoft_id', true );
@@ -43,13 +45,17 @@ class Users extends Base {
      * Retrieves Infusionsoft's contact ID, stored in usermeta
      * @return int Infusionsoft's contact ID
      */
-    public static function getContactId() {
-        if( !self::$contactId ) {
-            $contactId = get_user_meta( self::$userId, 'infusionsoft_id', true );
+    public static function getContactId( $userId = null) {
+        if( !$userId )
+            $userId = self::$userId;
+
+        if( !is_int(self::$contactId) ) {
+            $contactId = get_user_meta( $userId, 'infusionsoft_id', true );
         } else {
             # todo: check on IS
             $contactId = null;
         }
+
         return (int) $contactId;
 
     }
@@ -115,12 +121,31 @@ class Users extends Base {
 
     /**
      * Gets all the tags and categories for a user
+     *
+     * @param null $contactId Optional, defaults to current user's contactID
      * @return array|bool Array of matching tag/categories
      */
-    public static function getUserTags( ) {
-        $contactId = self::getContactId();
+    public static function getUserTags( $userId = null ) {
+        $contactId = self::getContactId( $userId );
+        var_dump($contactId);
 
         # todo: save tags somewhere later
+        return self::getUserTagsByContactId( $contactId );
+
+    }
+
+
+    /**
+     * Gets all the tags and categories for a user (by contactID)
+     *
+     * @param null $contactId Optional, defaults to current user's contactID
+     * @return array|bool Array of matching tag/categories
+     */
+    public static function getUserTagsByContactId( $contactId = null ) {
+
+        if( !$contactId )
+            $contactId = self::getContactId();
+
         if( $contactId )
             return self::$infusionsoft->getTagsByContactId( $contactId );
         else
@@ -133,4 +158,4 @@ class Users extends Base {
 
 }
 
-add_action( 'plugins_loaded', array( \ThinkShift\Plugin\Users::get_instance(), 'init' ));
+#add_action( 'init', array( \ThinkShift\Plugin\Users::get_instance(), 'init' ));
