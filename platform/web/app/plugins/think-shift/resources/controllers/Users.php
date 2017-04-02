@@ -171,6 +171,19 @@ class Users extends Base {
 
 
     /**
+     * Returns the user's strengths (3) from usermeta
+     * @return array
+     */
+    public static function getUserStrengths() {
+        $strengths = [];
+        for( $i = 1; $i <= 3; $i++ )
+            $strengths[] = get_user_meta( self::$userId, 'strength_' . $i, true );
+
+        return $strengths;
+    }
+
+
+    /**
      * Gets all the tags and categories for a user
      *
      * @param null $contactId Optional, defaults to current user's contactID
