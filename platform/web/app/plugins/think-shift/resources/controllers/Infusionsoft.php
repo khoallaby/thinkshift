@@ -5,13 +5,13 @@ namespace ThinkShift\Plugin;
 use iSDK;
 
 
-class Infusionsoft extends base{
+class Infusionsoft extends base {
 	private static $api;
 	private $clientId, $clientSecret, $token, $apiKey;
 
 
 	function __construct() {
-		require_once dirname(__FILE__) . '/../../vendor/infusionsoft-php-isdk/src/isdk.php';
+		require_once dirname(__FILE__) . '/../../vendor/jimitit/infusionsoft-php-isdk/src/isdk.php';
 
 		# todo: pull these from wp_options
 		$appName = 'fd341';
@@ -94,7 +94,7 @@ class Infusionsoft extends base{
     /**
      * Gets all the tags of a Contact
      * @param $where
-     * @return array
+     * @return array|false
      */
 	public function getUserTags( $where ) {
 
@@ -104,7 +104,7 @@ class Infusionsoft extends base{
 		# queries the Groups with list of IDs (Contact.Groups)
 
         if( !isset($data[0]["Contact.Groups"]) )
-            exit;
+            return false;
 
 		$groupsId = array_map( 'intval', explode(",", $data[0]["Contact.Groups"]));
 		$groups = self::$api->dsQuery( 'ContactGroup', 10000, 0, ["Id" => $groupsId], ["GroupName", "GroupDescription", "GroupCategoryId"] );
@@ -129,20 +129,24 @@ class Infusionsoft extends base{
      * @param $category
      * @param $contactId
      *
-     * @return array
+     * @return array|false
      */
     public function getUserTagsByCategory( $category, $contactId ) {
         $key = is_int($category) ? 'GroupCategoryId' : 'CategoryName';
 	    $tags = $this->getUserTags( array( 'Contact.Id' => $contactId ) );
 
+        if( $tags ) {
+            foreach ( $tags as $k => $tag ) {
+                // careful, some might not have CategoryName
+                if ( ! isset( $tag[ $key ] ) || $tag[ $key ] != $category ) {
+                    unset( $tags[ $k ] );
+                }
+            }
 
-	    foreach( $tags as $k => $tag ) {
-            // careful, some might not have CategoryName
-	        if( !isset($tag[$key]) || $tag[$key] != $category )
-	            unset( $tags[$k] );
+            return $tags;
+        } else {
+            return false;
         }
-
-        return $tags;
     }
 
 
