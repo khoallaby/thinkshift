@@ -177,9 +177,10 @@ class Users extends Base {
      * @return array
      */
     public static function getUserStrengths() {
+        $metaKey = 'strength_';
         $strengths = [];
         for( $i = 1; $i <= 3; $i++ )
-            $strengths[] = get_user_meta( self::$userId, 'strength_' . $i, true );
+            $strengths[ $metaKey . $i] = get_user_meta( self::$userId, $metaKey . $i, true );
 
         return $strengths;
     }
@@ -240,6 +241,28 @@ class Users extends Base {
 
 
 
+
+
+    public static function getUserMatchingCareers( $limit = 10 ) {
+        $strengths = self::getUserStrengths();
+        $meta_query = [];
+
+        for( $i = 1; $i <= 3; $i++ ) {
+            $meta_query[] = [
+                'key'     => 'ValueType' . $i,
+                'value'   => $strengths,
+                'compare' => 'IN'
+            ];
+        }
+
+        $careers = self::getPosts( 'career', [
+            'limit' => $limit,
+            'meta_query' => $meta_query
+        ]);
+
+        return $careers;
+
+    }
 
 }
 
