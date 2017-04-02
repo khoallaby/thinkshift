@@ -61,6 +61,8 @@ sudo apt-get update && sudo apt-get -y install yarn
 
 cd ../platform
 composer install
+#ignore our .env file, even if changed.
+git update-index --assume-unchanged .env
 
 
 # run yarn, and build assets
