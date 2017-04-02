@@ -19,7 +19,7 @@
             </div>
             <div class="col-lg-6">
                 <h6>Not interested?</h6>
-                <button class="btn btn-outline-primary btn-sm">Explore more careers</button>
+                <a class="btn btn-outline-primary btn-sm" href="<?php echo get_post_type_archive_link( 'career' ); ?>">Explore more careers</a>
             </div>
         </div>
     </div>
