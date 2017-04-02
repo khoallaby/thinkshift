@@ -28,7 +28,7 @@ class Shortcodes extends Base {
 
 	public function showTags() {
 		#if ( current_user_can( 'subscriber' ) )
-			return $this->getView( 'showTags' );
+			return $this->getView( 'show-tags' );
 		#else
 		#	return null;
 	}
