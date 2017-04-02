@@ -18,10 +18,49 @@ class Users extends Base {
         add_action( 'wp_login', array( $this, 'wpLogin' ), 20, 2 );
         //add_action( 'wp_register', array( $this, 'wpRegister' ), 1 );
 
-
-
     }
 
+
+
+
+
+
+
+
+
+    /******************************************************************************************
+     * Actions/filters, i.e. for user log in/registration
+     ******************************************************************************************/
+
+    /**
+     * Runs on (successful?) user Log in
+     * @param $user_login
+     * @param $user
+     */
+    public function wpLogin( $user_login, $user ) {
+        #if ( current_user_can( 'subscriber' ) ) {
+        $fields = $this->parseFields( $user->ID );
+        $this->addInfusionsoftContact( $user->ID, $fields );
+        #}
+    }
+
+
+    /**
+     * Runs on successful user registration
+     */
+    public function wpRegister() {
+        $fields = $this->parseFields( self::$userId );
+        $this->addInfusionsoftContact( self::$userId, $fields );
+    }
+
+
+
+
+
+
+    /******************************************************************************************
+     * Misc helper functions
+     ******************************************************************************************/
 
     /**
      * Sets up our user/userID variables. If user is logged in, use current user.
@@ -62,28 +101,6 @@ class Users extends Base {
 
 
     /**
-     * Runs on (successful?) user Log in
-     * @param $user_login
-     * @param $user
-     */
-    public function wpLogin( $user_login, $user ) {
-        #if ( current_user_can( 'subscriber' ) ) {
-        $fields = $this->parseFields( $user->ID );
-        $this->addInfusionsoftContact( $user->ID, $fields );
-        #}
-    }
-
-
-    /**
-     * Runs on successful user registration
-     */
-    public function wpRegister() {
-        $fields = $this->parseFields( self::$userId );
-        $this->addInfusionsoftContact( self::$userId, $fields );
-    }
-
-
-    /**
      * Parses data from our user and compiles it to the right field names. Then sends it to infusionsoft
      * @return array Fields with [infusionsoft-key] => [usermeta name]
      */
@@ -104,6 +121,19 @@ class Users extends Base {
     }
 
 
+
+
+
+
+
+
+    /******************************************************************************************
+     * Functions for handling Contacts
+     ******************************************************************************************/
+
+
+
+
     /**
      * Adds a contact to Infusionsoft
      * @param $fields Fields of user meta to change. In form of [infusionsoft-key] => [usermeta name]
@@ -119,6 +149,18 @@ class Users extends Base {
     }
 
 
+
+
+
+
+
+
+
+    /******************************************************************************************
+     * Tag handling functions
+     ******************************************************************************************/
+
+
     /**
      * Gets all the tags and categories for a user
      *
@@ -127,7 +169,6 @@ class Users extends Base {
      */
     public static function getUserTags( $userId = null ) {
         $contactId = self::getContactId( $userId );
-        var_dump($contactId);
 
         # todo: save tags somewhere later
         return self::getUserTagsByContactId( $contactId );
