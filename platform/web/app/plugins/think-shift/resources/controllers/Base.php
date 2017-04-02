@@ -23,7 +23,7 @@ class Base {
 
 	public function init() {
 		require_once dirname(__FILE__) . '/../../vendor/autoload.php';
-
+        #add_filter( 'posts_where', array( $this, 'posts_where' ), 10, 2 );
 
 	}
 
@@ -35,7 +35,36 @@ class Base {
 
 
 
-	public static function get_query( $post_type = 'post', $args = array() ) {
+    /******************************************************************************************
+     * Actions/filters, i.e. for user log in/registration
+     ******************************************************************************************/
+
+    /**
+     * Ability to use post_title__in, in WP_Query. Search for post titles from an array
+     * @param $where
+     * @param $wp_query
+     *
+     * @return string
+     */
+    public function posts_where( $where, &$wp_query ) {
+        global $wpdb;
+        if ( $post_title__in = $wp_query->get( 'post_title__in' ) ) {
+            $post_title__in = array_map( 'sanitize_title_for_query', $post_title__in );
+            $post_title__in = "'" . implode( "','", $post_title__in ) . "'";
+			$where .= " AND {$wpdb->posts}.post_name IN ($post_title__in)";
+        }
+        return $where;
+    }
+
+
+
+
+
+    /******************************************************************************************
+     * Querying Functions
+     ******************************************************************************************/
+
+	public static function getQuery( $post_type = 'post', $args = array() ) {
 		$defaults = array (
 			'post_type'      => array( $post_type ),
 			'post_status'    => array( 'publish' ),
@@ -51,11 +80,10 @@ class Base {
 	}
 
 
-	public static function get_posts( $post_type = 'post', $args = array() ) {
-		$query = self::get_query( $post_type, $args );
+	public static function getPosts( $post_type = 'post', $args = array() ) {
+		$query = self::getQuery( $post_type, $args );
 		return $query->get_posts();
 	}
-
 
 
 
