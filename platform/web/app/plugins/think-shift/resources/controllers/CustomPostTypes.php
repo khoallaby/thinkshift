@@ -10,7 +10,10 @@ class CustomPostTypes extends Base {
 
 
 	public function registerAll() {
-        $this->registerCpt('career', 'careers' );
+        $this->registerCpt('career', 'careers', array(
+            'exclude_from_search' => true,
+            'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields' )
+        ) );
         //$this->register_tax( 'career-category', 'career-categories', 'careers' );
     }
 
@@ -50,20 +53,23 @@ class CustomPostTypes extends Base {
 			'label'               => __( $cptNamePlural ),
 			'description'         => __( ucwords($cptName) . ' Description' ),
 			'labels'              => $labels,
-			'supports'            => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
+			'supports'            => array( 'title', 'editor', 'thumbnail', /*'excerpt', 'custom-fields'*/ ),
 			'taxonomies'          => array( /*'category', 'post_tag'*/ ),
 			'hierarchical'        => true,
 			'public'              => true,
+            /*
+            # Defaults for public = true
 			'show_ui'             => true,
+            'exclude_from_search' => false,
+            'publicly_queryable'  => true,
 			'show_in_menu'        => true,
 			'show_in_nav_menus'   => true,
 			'show_in_admin_bar'   => true,
+            */
 			'menu_position'       => 5,
 			'menu_icon'           => 'dashicons-admin-post',
 			'can_export'          => true,
 			'has_archive'         => true,
-			'exclude_from_search' => true,
-			'publicly_queryable'  => true,
 			'capability_type'     => 'page',
 		);
 		$args = wp_parse_args( $args, $defaults );
