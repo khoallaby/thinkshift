@@ -1,8 +1,8 @@
 <?php
-$current_user = wp_get_current_user();
 $users = \ThinkShift\Plugin\Users::get_instance();
+$tags = $users::getUserTagsByCategory( 'MA Value Creation Strengths' ); // or 41
 
-if( $tags = $users::getUserTags( $current_user->ID ) ) {
+if( $tags ) {
 ?>
 <table class="table table-stripeduser-tags">
 	<thead>
@@ -14,7 +14,7 @@ if( $tags = $users::getUserTags( $current_user->ID ) ) {
 	<tbody>
 	<?php foreach( $tags as $tag ) { ?>
 	<tr class="category-id-<?= $tag['GroupCategoryId']; ?>">
-		<td class="group"><?= $tag['GroupName']; ?></td>
+        <td class="group"><?= $tag['GroupName']; ?></td>
 		<td class="category"><?= $tag['CategoryName']; ?></td>
 	</tr>
 	<?php } ?>
