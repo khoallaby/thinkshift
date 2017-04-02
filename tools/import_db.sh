@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-mysql -u "$ts_DB_user" -p"$ts_DB_password" < dev.sql
+sql_file="$1"
+
+if [ "$#" -ne 1 ]; then
+    sql_file="dev"
+fi
+
+mysql -u root -p "$ts_DB" < "$sql_file".sql
 
 
-
+echo imported "$sql_file".sql
