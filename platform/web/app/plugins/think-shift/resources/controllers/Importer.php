@@ -42,10 +42,17 @@ class Importer extends Base {
 
     }
 
-    public static function importCareersIntoCpt( $file ) {
-	    $ignoreKeys = ['occup'];
 
+    /**
+     * Imports excel sheet into Careers CPT
+     * @param $file
+     * @return int  Number of posts imported
+     */
+    public static function importCareersIntoCpt( $file ) {
 	    $careers = self::parseFile( $file );
+        $ignoreKeys = ['occup'];
+        $i = 0;
+
 	    if( $careers ) {
             foreach( $careers as $career ) {
 
@@ -64,10 +71,12 @@ class Importer extends Base {
                     'meta_input'  => $career
                 ];
 
-                wp_insert_post( $args );
+                if( wp_insert_post( $args ) )
+                    $i++;
 
             }
         }
+        return $i;
     }
 
 
