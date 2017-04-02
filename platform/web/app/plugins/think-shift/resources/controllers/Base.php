@@ -5,7 +5,7 @@ namespace ThinkShift\Plugin;
 use WP_Query;
 
 
-class Base{
+class Base {
 		private static $instance = array();
 
 	protected function __construct() {
@@ -22,7 +22,7 @@ class Base{
 	}
 
 	public function init() {
-		//require_once dirname(__FILE__) . '/../../vendor/autoload.php';
+		require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 
 
 	}

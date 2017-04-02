@@ -4,15 +4,15 @@ namespace ThinkShift\Plugin;
 
 class CustomPostTypes extends Base {
 
-	protected function __construct() {
-		parent::__construct();
-	}
-
 	public function init() {
-		$this->registerCpt('career', 'careers' );
-		//$this->register_tax( 'career-category', 'career-categories', 'careers' );
 
 	}
+
+
+	public function registerAll() {
+        $this->registerCpt('career', 'careers' );
+        //$this->register_tax( 'career-category', 'career-categories', 'careers' );
+    }
 
 
 	public function registerTaxonomy( $taxName, $taxNamePlural, $postType, $args = array() ) {
@@ -67,8 +67,7 @@ class CustomPostTypes extends Base {
 			'capability_type'     => 'page',
 		);
 		$args = wp_parse_args( $args, $defaults );
-		register_post_type( ucwords( str_replace(' ', '-', $cptNamePlural) ), $args );
-		die();
+		register_post_type( ucwords( str_replace(' ', '-', $cptName) ), $args );
 
 	}
 
@@ -79,4 +78,4 @@ class CustomPostTypes extends Base {
 
 }
 
-add_action( 'init', array( \ThinkShift\Plugin\CustomPostTypes::get_instance(), 'init' ));
+add_action( 'init', array( \ThinkShift\Plugin\CustomPostTypes::get_instance(), 'registerAll' ));
