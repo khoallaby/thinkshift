@@ -7,6 +7,25 @@
     <?php get_search_form(); ?>
 <?php endif; ?>
 
+<!--FILTER FOR POST LOOP-->
+<div id="post-filter">
+  <div class="row">
+    <div class="col-lg-12 text-xs-center">
+      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-success">Assess</button>
+      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-success">Collaborate</button>
+      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-success">Cultivate Talent</button>
+      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Generate Insight</button>
+      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Innovate</button>
+      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Lead</button>
+      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Organize</button>
+      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Persuade</button>
+      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Serve</button>
+      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Work Physically</button>
+    </div>
+  </div>
+</div>
+
+
 <?php while (have_posts()) : the_post(); ?>
     <article <?php post_class(); ?>>
         <header>
@@ -15,19 +34,7 @@
         <div class="row">
           <div class="col-lg-12">
             <?php
-                #get_template_part('templates/content', get_post_type() != 'post' ? get_post_type() : get_post_format());
-
-                $keys = ['occcode', 'occup', 'occdesc', 'alttitle1', 'alttitle2', 'alttitle3',
-                'alttitle4', 'WorkActivity1', 'WorkActivity2','WorkActivity3', 'WorkActivity4',
-                'WorkActivity5', 'WorkActivity6','WorkActivity7', 'ValueType1', 'ValueType2',
-                'ValueType3','EducationNorm', 'EducationMin', 'techskillkn1', 'techskillkn2',
-                'techskillkn3', 'techskillkn4', 'MedWage', 'PrEarnGrowth','PrLongUnemp',
-                'openingscount', 'openingsrate', 'openingsratecat', 'pctselfemp',
-                'pctselfempcat', 'highoppjobfamily', 'jobzone'];
-
-
-                foreach( $keys as $key )
-                    echo sprintf( '<strong>%s:</strong> %s', $key, get_post_meta( get_the_ID(), $key, true ) );
+                get_template_part('templates/' . get_post_type() . '/index', 'occupation' );
             ?>
           </div>
         </div>

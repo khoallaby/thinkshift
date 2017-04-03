@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cc873dba0b0f7e9a1afff3a6e35e8371",
+    "hash": "c17d7e9653a350f15678d53d17b69527",
+    "content-hash": "5b1ddd9c0c780864acedb37171e9a9b0",
     "packages": [
         {
             "name": "composer/installers",
@@ -104,7 +105,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-04-13T19:46:30+00:00"
+            "time": "2016-04-13 19:46:30"
         },
         {
             "name": "johnpbloch/wordpress",
@@ -141,7 +142,7 @@
                 "blog",
                 "cms"
             ],
-            "time": "2017-03-06T16:01:58+00:00"
+            "time": "2017-03-06 16:01:58"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -189,7 +190,7 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2015-06-11T15:15:30+00:00"
+            "time": "2015-06-11 15:15:30"
         },
         {
             "name": "oscarotero/env",
@@ -231,7 +232,7 @@
             "keywords": [
                 "env"
             ],
-            "time": "2016-05-08T17:14:32+00:00"
+            "time": "2016-05-08 17:14:32"
         },
         {
             "name": "roots/wp-password-bcrypt",
@@ -288,7 +289,7 @@
             "keywords": [
                 "wordpress wp bcrypt password"
             ],
-            "time": "2016-03-01T16:27:06+00:00"
+            "time": "2016-03-01 16:27:06"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -338,7 +339,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2016-09-01T10:05:43+00:00"
+            "time": "2016-09-01 10:05:43"
         },
         {
             "name": "wpackagist-plugin/bbpress",
@@ -361,16 +362,16 @@
             "homepage": "https://wordpress.org/plugins/bbpress/"
         },
         {
-            "name": "wpackagist-plugin/profilepress",
-            "version": "0.0.7",
+            "name": "wpackagist-plugin/buddypress",
+            "version": "2.8.0",
             "source": {
                 "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/profilepress/",
-                "reference": "trunk"
+                "url": "https://plugins.svn.wordpress.org/buddypress/",
+                "reference": "tags/2.8.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/profilepress.zip?timestamp=1427856342",
+                "url": "https://downloads.wordpress.org/plugin/buddypress.2.8.0.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -378,7 +379,7 @@
                 "composer/installers": "~1.0"
             },
             "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/profilepress/"
+            "homepage": "https://wordpress.org/plugins/buddypress/"
         }
     ],
     "packages-dev": [
@@ -458,7 +459,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-03-01T22:17:45+00:00"
+            "time": "2017-03-01 22:17:45"
         }
     ],
     "aliases": [],
