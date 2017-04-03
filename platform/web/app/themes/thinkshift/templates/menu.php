@@ -17,6 +17,7 @@
 	        ?>
 
             <ul id="#js-popoverContent" class="nav navbar-nav float-right mr-0 hidden-sm-down">
+                <li class="nav-item ml-2">Andrew Clarkwest</li>
                 <li class="nav-item ml-2">
                     <button class="btn btn-default navbar-btn navbar-btn-avatar" data-toggle="popover">
                         <img class="rounded-circle" src="assets/img/avatar-dhg.png">
