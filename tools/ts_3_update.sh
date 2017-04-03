@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-cd ../
+cd ..
 # hard reset on staging servers
 # git reset --hard origin/master
 git pull
