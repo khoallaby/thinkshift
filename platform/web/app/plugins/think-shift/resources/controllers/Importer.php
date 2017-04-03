@@ -10,6 +10,20 @@ class Importer extends Base {
 
 	}
 
+	public function getHeaders( $file, $string = false ) {
+
+        $phpExcel = PHPExcel_IOFactory::load( $file );
+        $worksheet = $phpExcel->getActiveSheet();
+
+        //excel with first row header, use header as key
+        $highestColumn = $worksheet->getHighestColumn();
+        $headingsArray = $worksheet->rangeToArray( 'A1:' . $highestColumn . '1', null, true, true, true );
+        if( $string )
+            return "['" . implode("', '", $headingsArray[1]) . "']";
+        else
+            return $headingsArray[1];
+    }
+
 
 	# https://gist.github.com/calvinchoy/5821235
     public static function parseFile( $file, $useHeaders = true ) {
