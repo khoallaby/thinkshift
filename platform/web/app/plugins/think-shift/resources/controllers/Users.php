@@ -10,7 +10,6 @@ class Users extends Base {
     public function init() {
         parent::init();
 
-        self::$infusionsoft = new \ThinkShift\Plugin\Infusionsoft();
         self::$contactId = self::getContactId();
         add_action('init', array( __CLASS__, 'setUserId' ) );
 
@@ -128,6 +127,11 @@ class Users extends Base {
 
     }
 
+    public function getInfusionsoft() {
+        $is = self::$infusionsoft = \ThinkShift\Plugin\Infusionsoft::get_instance();
+        return $is;
+    }
+
 
 
 
@@ -150,7 +154,7 @@ class Users extends Base {
         if( !$userId )
             $userId = self::$userId;
 
-        $contactId = self::$infusionsoft->addContact( $fields );
+        $contactId = self::getInfusionsoft()->addContact( $fields );
 
         if( $contactId ) {
             update_user_meta( self::$userId, 'infusionsoft_id', $contactId );
@@ -216,7 +220,7 @@ class Users extends Base {
             $contactId = self::getContactId();
 
         if( $contactId )
-            return self::$infusionsoft->getTagsByContactId( $contactId );
+            return self::getInfusionsoft()->getTagsByContactId( $contactId );
         else
             return false;
 
@@ -235,7 +239,7 @@ class Users extends Base {
         if( !$contactId )
             $contactId = self::getContactId();
 
-        return self::$infusionsoft->getUserTagsByCategory( $category, $contactId );
+        return self::getInfusionsoft()->getUserTagsByCategory( $category, $contactId );
 
     }
 
