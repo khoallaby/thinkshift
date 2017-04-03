@@ -28,10 +28,12 @@ fi
 
 
 
-# install node, npm
+# install node, npm, php-xdebug
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get -y install nodejs
 sudo apt-get -y install npm
+sudo apt-get -y install php5-xdebug
+
 
 # install bower, gulp
 sudo npm install -g bower

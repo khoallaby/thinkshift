@@ -32,6 +32,7 @@ while true; do
     3   Git pull/Update project
     4   Restart services
     5   Import DB
+    6   Log into MySQL
     ( Delete everything (todo) )
     6   Quit
     "
@@ -64,9 +65,9 @@ while true; do
             ;;
         4)
             # todo: make more generic
-            sudo /opt/bitnami/ctlscript.sh restart apache
-            sudo /opt/bitnami/ctlscript.sh restart mysql
-            sudo /opt/bitnami/ctlscript.sh restart php-fpm
+            sudo bash services.sh restart apache
+            sudo bash services.sh restart php-fpm
+            sudo bash services.sh restart mysql
             read
             ;;
         5)
@@ -74,6 +75,10 @@ while true; do
             echo -e "\n#########################################################################################################"
             echo "sql imported"
             echo -e "#########################################################################################################"
+            read
+            ;;
+        6)
+            mysql -u root -p"$ts_DB_password"
             read
             ;;
         9)
