@@ -6,7 +6,7 @@ use WP_Query;
 
 
 class Base {
-		private static $instance = array();
+    private static $instance = array();
 
 	protected function __construct() {
 	}
@@ -30,7 +30,7 @@ class Base {
 
 
 	public static function get( $var ) {
-		return self::$$var;
+		return static::$$var;
 	}
 
 

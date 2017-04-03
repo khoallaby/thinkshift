@@ -6,7 +6,7 @@ use iSDK;
 
 
 class Infusionsoft extends base {
-	private static $api;
+	public static $api;
 	private $clientId, $clientSecret, $token, $apiKey;
 
 
@@ -98,28 +98,43 @@ class Infusionsoft extends base {
      */
 	public function getUserTags( $where ) {
 
-		# get Contact
-		$data = self::$api->dsQuery( 'ContactGroupAssign', 10, 1, $where, ["Contact.Groups"] );
+        $groupIds = $groupCats = [];
 
-		# queries the Groups with list of IDs (Contact.Groups)
+		# get Contact groupIDs. -- "Groups" is a prebuilt array, GroupId is a row per group
 
-        if( !isset($data[0]["Contact.Groups"]) )
-            return false;
+        #$data = self::$api->dsQuery( 'ContactGroupAssign', 1000, 0, $where, [ /*'Contact.Email', 'Contact.FirstName', 'ContactGroup',*/ 'GroupId' ] );
+		$data = self::$api->dsQuery( 'ContactGroupAssign', 1, 0, $where, [ 'Contact.Groups' ] );
 
-		$groupsId = array_map( 'intval', explode(",", $data[0]["Contact.Groups"]));
-		$groups = self::$api->dsQuery( 'ContactGroup', 10000, 0, ["Id" => $groupsId], ["GroupName", "GroupDescription", "GroupCategoryId"] );
 
-		$groupsCat = array();
+        # builds our groupIds
+        if( isset($data[0]["Contact.Groups"]) ) {
+            $groupIds = array_map( 'intval', explode(",", $data[0]["Contact.Groups"]));
+        } elseif( isset($data[0]["GroupId"]) ) {
+            foreach( $data  as $datum )
+                $groupIds[] = intval( $datum['GroupId'] );
+        }
 
-        # builds the array
-		foreach ($groups as $group){
-			$category = self::$api->dsFind("ContactGroupCategory", 1, 0, "Id", $group["GroupCategoryId"], ["CategoryName"]);
-			if( isset($category[0]) )
-				$group["CategoryName"] = $category[0]["CategoryName"];
 
-			$groupsCat[] = $group;
-		}
-		return $groupsCat;
+        if( empty($groupIds) ) {
+            return [];
+        } else {
+            # queries the Groups with list of IDs (Contact.Groups)
+            $groups = self::$api->dsQuery( 'ContactGroup', 10000, 0, [ "Id" => $groupIds ], [
+                "GroupName",
+                "GroupDescription",
+                "GroupCategoryId"
+            ] );
+
+            # builds the array
+            foreach ( (array) $groups as $group ) {
+                $category = self::$api->dsFind( "ContactGroupCategory", 1, 0, "Id", $group["GroupCategoryId"], [ "CategoryName" ] );
+                if ( isset( $category[0] ) )
+                    $group["CategoryName"] = $category[0]["CategoryName"];
+                $groupCats[] = $group;
+            }
+
+            return $groupCats;
+        }
 
 	}
 
