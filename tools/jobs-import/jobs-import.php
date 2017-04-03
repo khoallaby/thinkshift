@@ -8,4 +8,4 @@ $importer = \ThinkShift\Plugin\Importer::get_instance();
 $numberPostsImported = $importer::importCareersIntoCpt( dirname(__FILE__) . '/' . $file );
 
 # echos out header in array format
-echo $importer->getHeaders( dirname(__FILE__) . '/' . $file, true );
+#echo $importer::getHeaders( dirname(__FILE__) . '/' . $file, true );
