@@ -86,6 +86,7 @@ function display_sidebar() {
     is_404(),
     is_front_page(),
     is_page_template(),
+    is_post_type_archive('career')
   ]);
 
   return apply_filters('sage/display_sidebar', $display);

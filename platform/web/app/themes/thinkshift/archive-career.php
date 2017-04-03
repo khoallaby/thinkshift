@@ -13,6 +13,7 @@
             <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
         </header>
         <div class="row">
+          <div class="col-lg-12">
             <?php
                 #get_template_part('templates/content', get_post_type() != 'post' ? get_post_type() : get_post_format());
 
@@ -26,8 +27,9 @@
 
 
                 foreach( $keys as $key )
-                    echo sprintf( '<div class="col-lg-12"><strong>%s:</strong> %s</div>', $key, get_post_meta( get_the_ID(), $key, true ) );
+                    echo sprintf( '<strong>%s:</strong> %s', $key, get_post_meta( get_the_ID(), $key, true ) );
             ?>
+          </div>
         </div>
     </article>
 <?php
