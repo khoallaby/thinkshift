@@ -5,7 +5,10 @@ cd ../
 # hard reset on staging servers
 # git reset --hard origin/master
 git pull
-cd platform
+cd tools
+chmod +x *.sh
+
+cd ../platform
 composer update
 cd web/app/themes/thinkshift
 composer update
