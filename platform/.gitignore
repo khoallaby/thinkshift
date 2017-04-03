@@ -8,7 +8,7 @@ web/app/uploads/*
 
 # WordPress
 web/wp
-web/.htaccess
+# web/.htaccess
 
 # Dotenv
 # use 'git update-index --assume-unchanged .env' to ignore our .env file after modifying locally
