@@ -24,7 +24,13 @@ class Base{
     public function init() {
         add_action( 'after_setup_theme', array( $this, 'themeSetup' ) );
         #add_action( 'wp_head', array( $this, 'head' ) );
+
+        # adds nav-link class to all menu anchor tags
         add_filter( 'nav_menu_link_attributes', array( $this, 'addClassMenuLink'),  10, 3 );
+
+        # remove buddypress admin bar
+        add_action('wp', array( $this, 'removeBpAdminBar' ) );
+
 
     }
 
@@ -85,6 +91,13 @@ class Base{
      * Actions/Filters
      **********************************************/
 
+
+
+    # remove buddypress admin bar
+    function removeBpAdminBar() {
+        if( !is_super_admin() )
+            add_filter( 'show_admin_bar', '__return_false' );
+    }
 
     # adds nav-link class to all menu anchor tags
     function addClassMenuLink( $atts, $item, $args ) {
