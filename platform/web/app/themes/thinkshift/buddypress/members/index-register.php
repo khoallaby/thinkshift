@@ -6,6 +6,7 @@
  * @subpackage bp-legacy
  */
 
+get_template_part( 'templates/page', 'header' );
 ?>
 
 <div id="buddypress">
@@ -82,7 +83,6 @@
 
                     <div class="register-section" id="profile-details-section">
 
-                        <h2><?php _e( 'Profile Details', 'buddypress' ); ?></h2>
 
                         <?php /* Use the profile field loop to render input fields for the 'base' profile field group */ ?>
                         <?php if ( bp_is_active( 'xprofile' ) ) : if ( bp_has_profile( array( 'profile_group_id' => 1, 'fetch_field_data' => false ) ) ) : while ( bp_profile_groups() ) : bp_the_profile_group(); ?>
@@ -188,8 +188,6 @@
                 <div class="register-section" id="basic-details-section">
 
                     <?php /***** Basic Account Details ******/ ?>
-
-                    <h2><?php _e( 'Account Details', 'buddypress' ); ?></h2>
 
                     <!--
                     <label for="signup_username"><?php _e( 'Username', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
