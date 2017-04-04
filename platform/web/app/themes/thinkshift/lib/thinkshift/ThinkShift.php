@@ -1,11 +1,10 @@
 <?php
 
-
 namespace ThinkShift\Theme;
 
 
 
-class Base{
+class Base {
     private static $instance = array();
 
     protected function __construct() {
@@ -29,12 +28,6 @@ class Base{
         add_filter( 'nav_menu_link_attributes', array( $this, 'addClassMenuLink'),  10, 3 );
 
 
-
-        # remove buddypress admin bar
-        add_action('wp', array( $this, 'removeBpAdminBar' ) );
-        # changes url of login
-        add_filter( 'login_url', array( $this, 'changeLoginUrl' ), 10, 3 );
-
     }
 
 
@@ -43,24 +36,6 @@ class Base{
      * Actions/Filters
      **********************************************/
 
-
-    # changes url of login
-    function changeLoginUrl( $login_url, $redirect, $force_reauth ) {
-        $login_url = get_bloginfo( 'url' ) . '/login';
-        if ( !empty($redirect) )
-            $login_url = add_query_arg('redirect_to', urlencode($redirect), $login_url);
-        if ( $force_reauth )
-            $login_url = add_query_arg('reauth', '1', $login_url);
-
-        return $login_url;
-    }
-
-
-    # remove buddypress admin bar
-    function removeBpAdminBar() {
-        if( !is_super_admin() )
-            add_filter( 'show_admin_bar', '__return_false' );
-    }
 
     # adds nav-link class to all menu anchor tags
     function addClassMenuLink( $atts, $item, $args ) {
