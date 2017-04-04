@@ -70,6 +70,16 @@ composer install
 git update-index --assume-unchanged .env
 
 
+# install wordpress
+# @todo: remove this later when figure out how bedrock installs WP
+cd web/wp
+composer install
+mv wordpress/* ./
+rm -rf wordpress
+cd ../..
+
+
+
 # run yarn, and build assets
 cd web/app/themes/thinkshift
 composer install
