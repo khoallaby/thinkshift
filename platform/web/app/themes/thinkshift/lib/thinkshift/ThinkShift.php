@@ -28,12 +28,49 @@ class Base{
         # adds nav-link class to all menu anchor tags
         add_filter( 'nav_menu_link_attributes', array( $this, 'addClassMenuLink'),  10, 3 );
 
+
+
         # remove buddypress admin bar
         add_action('wp', array( $this, 'removeBpAdminBar' ) );
-
+        # changes url of login
+        add_filter( 'login_url', array( $this, 'changeLoginUrl' ), 10, 3 );
 
     }
 
+
+
+    /**********************************************
+     * Actions/Filters
+     **********************************************/
+
+
+    # changes url of login
+    function changeLoginUrl( $login_url, $redirect, $force_reauth ) {
+        $login_url = get_bloginfo( 'url' ) . '/login';
+        if ( !empty($redirect) )
+            $login_url = add_query_arg('redirect_to', urlencode($redirect), $login_url);
+        if ( $force_reauth )
+            $login_url = add_query_arg('reauth', '1', $login_url);
+
+        return $login_url;
+    }
+
+
+    # remove buddypress admin bar
+    function removeBpAdminBar() {
+        if( !is_super_admin() )
+            add_filter( 'show_admin_bar', '__return_false' );
+    }
+
+    # adds nav-link class to all menu anchor tags
+    function addClassMenuLink( $atts, $item, $args ) {
+        // check if the item is in the primary menu
+        if( $args->theme_location == 'primary_navigation' ) {
+            // add the desired attributes:
+            $atts['class'] = 'nav-link';
+        }
+        return $atts;
+    }
 
 
 
@@ -85,29 +122,6 @@ class Base{
 
 
 
-
-
-    /**********************************************
-     * Actions/Filters
-     **********************************************/
-
-
-
-    # remove buddypress admin bar
-    function removeBpAdminBar() {
-        if( !is_super_admin() )
-            add_filter( 'show_admin_bar', '__return_false' );
-    }
-
-    # adds nav-link class to all menu anchor tags
-    function addClassMenuLink( $atts, $item, $args ) {
-        // check if the item is in the primary menu
-        if( $args->theme_location == 'primary_navigation' ) {
-            // add the desired attributes:
-            $atts['class'] = 'nav-link';
-        }
-        return $atts;
-    }
 
 }
 
