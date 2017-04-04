@@ -81,6 +81,7 @@
 
                     <h2><?php _e( 'Account Details', 'buddypress' ); ?></h2>
 
+                    <!--
                     <label for="signup_username"><?php _e( 'Username', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
                     <?php
 
@@ -91,6 +92,9 @@
                      */
                     do_action( 'bp_signup_username_errors' ); ?>
                     <input type="text" name="signup_username" id="signup_username" value="<?php bp_signup_username_value(); ?>" <?php bp_form_field_attributes( 'username' ); ?>/>
+
+                    -->
+
 
                     <label for="signup_email"><?php _e( 'Email Address', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
                     <?php
