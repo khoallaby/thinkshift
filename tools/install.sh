@@ -30,13 +30,17 @@ export ts_DB_password="tH1nk~_sh1ft@20141188sdfF"
 while true; do
     clear
     echo "
+    [initial installation process]
     1   Install wp/project files
     2   Install mysql DB, user
+    ------------------------------------------
     3   Git pull/Update project
+    ------------------------------------------
     4   Restart services
     5   Import/Export DB
     6   Log into MySQL
-    ( Delete everything (todo) )
+    _   ( Delete everything (todo) )
+
     6   Quit
     "
     read INPUT
@@ -75,12 +79,8 @@ while true; do
             ;;
         5)
 
-            read -p "File name to use? (no .sql extension)" RESP
+            read -p "File name to use? (defaults to dev.sql)" RESP
             bash import_db.sh "$RESP"
-            echo -e "\n#########################################################################################################"
-            echo "sql ex/imported"
-            echo -e "#########################################################################################################"
-            read
             ;;
         6)
             mysql -u root -p"$ts_DB_password"
