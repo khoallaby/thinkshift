@@ -19,6 +19,9 @@ export ts_dir
 
 # Database Information
 # todo: pull from .env
+export lamp_dir="/opt/bitnami"
+
+
 export ts_DB="thinkshift"
 export ts_DB_user="thinkshift"
 export ts_DB_password="tH1nk~_sh1ft@20141188sdfF"

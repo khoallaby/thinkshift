@@ -54,6 +54,9 @@ sudo apt-get update && sudo apt-get -y install yarn
 
 
 
+cp conf-files/bitnami.conf "$lamp_dir"/apache2/conf/bitnami/
+cp conf-files/php.ini "$lamp_dir"/php/etc/
+
 
 # clear out htdocs
 #bash ts_bedrock.sh
