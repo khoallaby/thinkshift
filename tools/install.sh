@@ -34,7 +34,7 @@ while true; do
     2   Install mysql DB, user
     3   Git pull/Update project
     4   Restart services
-    5   Import DB
+    5   Import/Export DB
     6   Log into MySQL
     ( Delete everything (todo) )
     6   Quit
@@ -74,9 +74,11 @@ while true; do
             read
             ;;
         5)
-            bash import_db.sh
+
+            read -p "File name to use? (no .sql extension)" RESP
+            bash import_db.sh "$RESP"
             echo -e "\n#########################################################################################################"
-            echo "sql imported"
+            echo "sql ex/imported"
             echo -e "#########################################################################################################"
             read
             ;;
