@@ -54,6 +54,7 @@ sudo apt-get update && sudo apt-get -y install yarn
 
 
 
+cp conf/bitnami-apps-vhosts.conf "$lamp_dir"/apache2/conf/bitnami/
 cp conf/php.ini "$lamp_dir"/php/etc/
 
 
