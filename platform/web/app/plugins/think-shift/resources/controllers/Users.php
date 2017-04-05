@@ -164,13 +164,13 @@ class Users extends Base {
      */
     public function addInfusionsoftContact( $userId = null, $fields = array() ) {
         if( !$userId )
-            $userId = static::$userId;
+            $userId = self::$userId;
 
-        $contactId = static::getInfusionsoft()->addContact( $fields );
+        $contactId = self::getInfusionsoft()->addContact( $fields );
 
         if( $contactId ) {
             update_user_meta( $userId, 'infusionsoft_id', $contactId );
-            static::$contactId = $contactId;
+            self::$contactId = $contactId;
         }
 
     }
