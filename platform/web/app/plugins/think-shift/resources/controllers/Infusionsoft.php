@@ -30,9 +30,31 @@ class Infusionsoft extends base {
 	}
 
 
-	# general function to use for querying the api, in case SDK changes
-    public static function apiQuery( $table, $limit, $page, $query, $fields ) {
-	    return self::$api->dsQuery( $table, $limit, $page, $query, $fields );
+    /**
+     * General function to use for querying the api, in case SDK changes
+     * https://developer.infusionsoft.com/docs/xml-rpc/#data-query-a-data-table
+     *
+     * @param $table                The name of the $table
+     * @param $limit                Limit on rows returned
+     * @param $page                 Starts on page
+     * @param $query                The query, defaults to pulling all records (where ID != 0)
+     * @param $fields               Array of field names to retrieve
+     * @param string $orderByField  Orders by this field name
+     * @param bool $ascending       Orders by ascending (true), or descending (false)
+     *
+     * @return mixed
+     */
+    public static function apiQuery( $table, $limit = 100, $page = 0, $query = [], $fields = [], $orderByField = '', $ascending = TRUE ) {
+
+        if( empty( $query ) )
+            $query = ['Id' =>  '~<>~0']; # this lets us grab ALL the fields (translates to WHERE Id != 0)
+
+	    if( empty( $orderByField ) )
+            return self::$api->dsQuery( $table, $limit, $page, $query, $fields );
+	    else
+            return self::$api->dsQueryOrderBy( $table, $limit, $page, $query, $fields, $orderByField, $ascending );
+
+
     }
 
 
