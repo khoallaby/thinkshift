@@ -41,14 +41,8 @@ class Users extends Base {
         #$this->addInfusionsoftContact( $user->ID, $fields );
         self::setUserId( $user->ID );
 
-
         // update user's "strengths" metadata
-        $tags = self::getUserTagsByCategory( 'MA Value Creation Strengths' ); // or 41
-        $i = 1;
-        if( $tags ) {
-            foreach ( $tags as $k => $tag )
-                update_user_meta( self::$userId, 'strength_' . $i ++, $tag['GroupName'] );
-        }
+        self::updateUserStrengths();
 
         #}
     }
@@ -128,7 +122,7 @@ class Users extends Base {
 
     }
 
-    public function getInfusionsoft() {
+    public static function getInfusionsoft() {
         $is = self::$infusionsoft = \ThinkShift\Plugin\Infusionsoft::get_instance();
         return $is;
     }
@@ -175,6 +169,17 @@ class Users extends Base {
 
     }
 
+
+    public static function updateUserStrengths() {
+
+        $tags = self::getUserTagsByCategory( 'MA Value Creation Strengths' ); // or 41
+        $i = 1;
+        if( $tags ) {
+            foreach ( $tags as $k => $tag )
+                update_user_meta( self::$userId, 'strength_' . $i ++, $tag['GroupName'] );
+        }
+
+    }
 
 
 
