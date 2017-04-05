@@ -28,6 +28,7 @@ class Base {
         add_filter( 'nav_menu_link_attributes', array( $this, 'addClassMenuLink'),  10, 3 );
 
 
+        add_action( 'pre_get_posts', array( $this, 'alterPageQueries' ) );
     }
 
 
@@ -48,6 +49,32 @@ class Base {
     }
 
 
+    # Alters the main queries on selected pages
+    function alterPageQueries ( $query ) {
+
+        # Career archives
+        if ( !is_admin() && $query->is_main_query() && $query->is_post_type_archive( 'career' ) ) {
+            if( isset($_GET['limit']) && is_numeric($_GET['limit']) )
+                $query->set( 'posts_per_page', intval($_GET['limit']) );
+
+
+            $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : \ThinkShift\Plugin\Users::getUserStrengths();
+            $relation =  count($strengths) < 3 ? 'OR' : 'AND';
+
+            # set the meta query
+            $metaQuery = [
+                'relation' => $relation
+            ];
+            for( $i = 1; $i <= 3; $i++ ) {
+                $metaQuery[] = [
+                    'key'     => 'ValueType' . $i,
+                    'value'   => (array) $strengths,
+                    'compare' => 'IN'
+                ];
+            }
+            $query->set('meta_query',$metaQuery);
+        }
+    }
 
 
 
