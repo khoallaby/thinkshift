@@ -1,0 +1,25 @@
+
+/* darken/lightens the active/hover states of .btn-primary */
+
+
+$active-background: darken($btn-primary-bg, 20%);
+$active-border: darken($btn-primary-border, 22%);
+.btn-primary {
+
+  &:active,
+  &.active,
+  .show > &.dropdown-toggle {
+    //color: $btn-primary-color;
+    background-color: $active-background;
+    //background-image: none; // Remove the gradient for the pressed/active state
+    border-color: $active-border;
+    //@include box-shadow($btn-active-box-shadow);
+  }
+
+
+  @include hover {
+    background-color: $btn-primary-bg !important;
+    border-color: $btn-primary-border;
+  }
+
+}
