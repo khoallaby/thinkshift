@@ -8,7 +8,7 @@ class BuddyPress extends Users {
         #add_action( 'wp_login', array( $this, 'wp_login' ), 20, 2 );
 
         #buddypress on user register
-        add_action( 'user_register', array( $this, 'user_register' ), 20 );
+        add_action( 'user_register', array( $this, 'user_register' ), 9 );
     }
 
 
@@ -26,20 +26,19 @@ class BuddyPress extends Users {
     public function user_register( $user_id ) {
         if( $user = get_user_by('ID', $user_id ) ) {
 
+            $nickname = $_POST['first_name'] . ' ' . $_POST['last_name'];
+
             # update usermeta
             $updateUserId = wp_update_user( [
                 'ID' => $user_id,
-                'display_name' => $_POST['first_name'] . ' ' . $_POST['last_name'],
+                'display_name' => $nickname,
+                'nickname' => $nickname,
                 'first_name' => $_POST['first_name'],
                 'last_name' => $_POST['last_name'],
                 #'user_login' => $user_email # updating user_login not allowed
             ] );
 
             $updateEmail = static::updateUserLogin( $user_id, $user->user_email );
-
-
-
-
 
 
 
