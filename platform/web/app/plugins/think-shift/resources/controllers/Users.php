@@ -14,7 +14,7 @@ class Users extends Base {
         add_action('init', array( __CLASS__, 'setUserId' ) );
 
         add_action( 'wp_login', array( $this, 'wp_login' ), 20, 2 );
-        add_action( 'user_register', array( $this, 'user_register' ), 1 );
+        add_action( 'user_register', array( $this, 'user_register' ), 50 );
 
     }
 
@@ -37,8 +37,8 @@ class Users extends Base {
      */
     public function wp_login( $user_login, $user ) {
         #if ( current_user_can( 'subscriber' ) ) {
-        $fields = $this->parseFields( $user->ID );
-        $this->addInfusionsoftContact( $user->ID, $fields );
+        #$fields = $this->parseFields( $user->ID );
+        #$this->addInfusionsoftContact( $user->ID, $fields );
         self::setUserId( $user->ID );
 
 
@@ -164,13 +164,13 @@ class Users extends Base {
      */
     public function addInfusionsoftContact( $userId = null, $fields = array() ) {
         if( !$userId )
-            $userId = self::$userId;
+            $userId = static::$userId;
 
-        $contactId = self::getInfusionsoft()->addContact( $fields );
+        $contactId = static::getInfusionsoft()->addContact( $fields );
 
         if( $contactId ) {
-            update_user_meta( self::$userId, 'infusionsoft_id', $contactId );
-            self::$contactId = $contactId;
+            update_user_meta( $userId, 'infusionsoft_id', $contactId );
+            static::$contactId = $contactId;
         }
 
     }
