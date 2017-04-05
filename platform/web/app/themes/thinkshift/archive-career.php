@@ -6,7 +6,7 @@
             <div class="col-12 text-xs-center" data-toggle="buttons">
                 <?php
                 $strengths = [
-                    'Assess', 'Collaborate', 'Cultivate Talent', 'Generating Insight',
+                    'Assessing', 'Collaborating', 'Cultivating Talent', 'Generating Insight',
                     'Innovating', 'Leading', 'organize', 'Persuade', 'Serve', 'Work Physically'
                 ];
                 $userStrengths = \ThinkShift\Plugin\Users::getUserStrengths();
