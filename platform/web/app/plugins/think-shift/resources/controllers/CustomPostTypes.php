@@ -27,6 +27,8 @@ class CustomPostTypes extends Base {
 				#'public' => false,
 				'rewrite' => false,
 				'hierarchical' => true,
+                'query_var' => true
+                #'sort' => true
 			)
 		);
 	}
@@ -46,8 +48,8 @@ class CustomPostTypes extends Base {
 			'edit_item'           => __( 'Edit ' . ucwords($cptName) ),
 			'update_item'         => __( 'Update ' . ucwords($cptName) ),
 			'search_items'        => __( 'Search ' . ucwords($cptName) ),
-			'not_found'           => __( 'Not found' ),
-			'not_found_in_trash'  => __( 'Not found in Trash' ),
+			'not_found'           => __( 'No ' . ucwords($cptNamePlural) .' found' ),
+			'not_found_in_trash'  => __( 'No ' . ucwords($cptNamePlural) .' in Trash' ),
 		);
 		$defaults = array(
 			'label'               => __( $cptNamePlural ),
