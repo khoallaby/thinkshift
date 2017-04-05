@@ -115,10 +115,60 @@ class Infusionsoft extends base {
 
 
 
-	public function getTagsByContactId( $contactId ) {
+
+
+
+    /******************************************************************************************
+     * Tags
+     ******************************************************************************************/
+
+
+    /**
+     * Gets all the Tag categories
+     * @return array
+     */
+    public function getAllTagCategories() {
+
+        $table      = 'ContactGroupCategory';
+        $where      = [ 'Id' => '~<>~0' ];
+        $fields     = [ 'Id', 'CategoryDescription', 'CategoryName' ];
+        $categories = self::apiQuery( $table, 1000, 0, $where, $fields, 'Id' );
+
+        return $categories;
+
+    }
+
+
+    /**
+     * Gets all the Tags
+     * @return array
+     */
+    public function getAllTags() {
+
+        $table  = 'ContactGroup';
+        $where  = [ 'Id' => '~<>~0' ];
+        $fields = [ 'Id', 'GroupName', 'GroupCategoryId', 'GroupDescription' ];
+        $tags   = self::apiQuery( $table, 1000, 0, $where, $fields, 'Id' );
+
+        return $tags;
+
+    }
+
+
+    /**
+     * Gets a user's Tags by their Contact ID
+     * @param $contactId
+     * @return array|false
+     */
+    public function getTagsByContactId( $contactId ) {
 		return $this->getUserTags( array( 'Contact.Id' => $contactId ) );
 	}
 
+    /**
+     * Gets a user's Tags by their Email
+     * @param $contactId
+     * @return array|false
+     */
 	public function getTagsByContactEmail( $contactEmail ) {
 		return $this->getUserTags( array( 'Contact.Email' => $contactEmail ) );
 	}
