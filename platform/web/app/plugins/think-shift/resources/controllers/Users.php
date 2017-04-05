@@ -101,6 +101,7 @@ class Users extends Base {
 
         self::$contactId = $contactId = get_user_meta( $userId, 'infusionsoft_id', true );
 
+        # @todo: update to return null if no user
         return (int) $contactId;
 
     }
@@ -132,6 +133,17 @@ class Users extends Base {
         return $is;
     }
 
+
+
+    public static function updateUserLogin( $userId, $userLogin ) {
+        global $wpdb;
+        return $wpdb->update( $wpdb->users,
+            [ 'user_login' => $userLogin ],
+            [ 'ID' => $userId ],
+            [ '%s' ],
+            [ '%d' ]
+        );
+    }
 
 
 

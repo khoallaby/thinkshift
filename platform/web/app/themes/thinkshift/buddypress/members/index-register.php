@@ -189,8 +189,6 @@ get_template_part( 'templates/page', 'header' );
 
                     <?php /***** Basic Account Details ******/ ?>
 
-                    <!--
-                    <label for="signup_username"><?php _e( 'Username', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
                     <?php
 
                     /**
@@ -198,10 +196,21 @@ get_template_part( 'templates/page', 'header' );
                      *
                      * @since 1.1.0
                      */
-                    do_action( 'bp_signup_username_errors' ); ?>
-                    <input type="text" name="signup_username" id="signup_username" value="<?php bp_signup_username_value(); ?>" <?php bp_form_field_attributes( 'username' ); ?>/>
+                    #do_action( 'bp_signup_username_errors' );
 
-                    -->
+                    # generate random hash for username
+                    ?>
+
+                    <label for="first_name"><?php _e( 'First Name', 'buddypress' ); ?> <?php #_e( '(required)', 'buddypress' ); ?></label>
+                    <input type="text" name="first_name" id=first_name" value="<?php echo isset( $_POST['first_name'] ) ? $_POST['first_name'] : ''; ?>" />
+
+                    <label for="last_name"><?php _e( 'Last Name', 'buddypress' ); ?> <?php #_e( '(required)', 'buddypress' ); ?></label>
+                    <input type="text" name="last_name" id=last_name" value="<?php echo isset( $_POST['last_name'] ) ? $_POST['last_name'] : ''; ?>" />
+
+
+                    <input type="hidden" name="signup_username" id="signup_username" value="<?php echo md5(microtime()); # bp_get_signup_username_value() ?>" <?php bp_form_field_attributes( 'username' ); ?>/>
+
+
 
 
                     <label for="signup_email"><?php _e( 'Email Address', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
