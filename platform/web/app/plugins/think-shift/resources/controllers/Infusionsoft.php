@@ -30,6 +30,17 @@ class Infusionsoft extends base {
 	}
 
 
+	# general function to use for querying the api, in case SDK changes
+    public static function apiQuery( $table, $limit, $page, $query, $fields ) {
+	    return self::$api->dsQuery( $table, $limit, $page, $query, $fields );
+    }
+
+
+
+
+    /******************************************************************************************
+     * Contact/users related
+     ******************************************************************************************/
 
 	public function getUserFields() {
 		return array( 'Id', 'Email', 'FirstName', 'LastName', 'City', 'State' );
@@ -42,7 +53,7 @@ class Infusionsoft extends base {
 		$query = array('Email' => $email );
 		$fields = self::getUserFields();
 
-		$data = self::$api->dsQuery( $table, 1 ,0 , $query, $fields);
+		$data = self::apiQuery( $table, 1 ,0 , $query, $fields );
 
 		if (is_array($data))
 			return $data;
@@ -56,7 +67,7 @@ class Infusionsoft extends base {
 		$query = array('Id' => $id );
 		$fields = array( 'Id', 'Email', 'FirstName', 'LastName', 'City', 'State' );
 
-		$data = self::$api->dsQuery( $table, 1 ,0 , $query, $fields);
+		$data = self::apiQuery( $table, 1 ,0 , $query, $fields);
 
 		if (is_array($data))
 			return $data;
@@ -102,8 +113,8 @@ class Infusionsoft extends base {
 
 		# get Contact groupIDs. -- "Groups" is a prebuilt array, GroupId is a row per group
 
-        #$data = self::$api->dsQuery( 'ContactGroupAssign', 1000, 0, $where, [ /*'Contact.Email', 'Contact.FirstName', 'ContactGroup',*/ 'GroupId' ] );
-		$data = self::$api->dsQuery( 'ContactGroupAssign', 1, 0, $where, [ 'Contact.Groups' ] );
+        #$data = self::apiQuery( 'ContactGroupAssign', 1000, 0, $where, [ /*'Contact.Email', 'Contact.FirstName', 'ContactGroup',*/ 'GroupId' ] );
+		$data = self::apiQuery( 'ContactGroupAssign', 1, 0, $where, [ 'Contact.Groups' ] );
 
 
         # builds our groupIds
@@ -119,7 +130,7 @@ class Infusionsoft extends base {
             return [];
         } else {
             # queries the Groups with list of IDs (Contact.Groups)
-            $groups = self::$api->dsQuery( 'ContactGroup', 10000, 0, [ "Id" => $groupIds ], [
+            $groups = self::apiQuery( 'ContactGroup', 10000, 0, [ "Id" => $groupIds ], [
                 "GroupName",
                 "GroupDescription",
                 "GroupCategoryId"
