@@ -2,7 +2,7 @@
 
 namespace ThinkShift\Plugin;
 
-use WP_Query;
+use WP_Query, WP_User_Query;
 
 
 class Base {
@@ -65,16 +65,32 @@ class Base {
      ******************************************************************************************/
 
 	public static function getQuery( $post_type = 'post', $args = array() ) {
-		$defaults = array (
-			'post_type'      => array( $post_type ),
-			'post_status'    => array( 'publish' ),
-			'posts_per_page' => - 1,
-			'order'          => 'DESC',
-			'orderby'        => 'post_date'
-		);
+	    if( $post_type == 'user' ) {
 
-		$args = wp_parse_args( $args, $defaults );
-		$query = new WP_Query( $args );
+            $defaults = array (
+                'order'          => 'DESC',
+                'orderby'        => 'display_name',
+                #'role'           => '',
+                #'search'         => '*'.esc_attr( $search_term ).'*',
+                #'count_total'    => true
+            );
+
+            $args = wp_parse_args( $args, $defaults );
+            $query = new WP_User_Query( $args );
+
+        } else {
+
+            $defaults = array(
+                'post_type'      => array( $post_type ),
+                'post_status'    => array( 'publish' ),
+                'posts_per_page' => - 1,
+                'order'          => 'DESC',
+                'orderby'        => 'post_date'
+            );
+
+            $args  = wp_parse_args( $args, $defaults );
+            $query = new WP_Query( $args );
+        }
 
 		return $query;
 	}
@@ -82,7 +98,10 @@ class Base {
 
 	public static function getPosts( $post_type = 'post', $args = array() ) {
 		$query = self::getQuery( $post_type, $args );
-		return $query->get_posts();
+		if( $post_type == 'user' )
+		    return $query->get_results();
+		else
+		    return $query->get_posts();
 	}
 
 
