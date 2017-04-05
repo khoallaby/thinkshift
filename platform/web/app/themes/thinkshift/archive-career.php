@@ -1,24 +1,44 @@
 <?php get_template_part('templates/page', 'header'); ?>
 
 
-<!--FILTER FOR POST LOOP-->
-<div id="post-filter">
-  <div class="row">
-    <div class="col-lg-12 text-xs-center">
-      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-success">Assess</button>
-      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-success">Collaborate</button>
-      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-success">Cultivate Talent</button>
-      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Generate Insight</button>
-      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Innovate</button>
-      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Lead</button>
-      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Organize</button>
-      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Persuade</button>
-      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Serve</button>
-      <button type="button" class="btn mr-4 mb-4 btn-lg btn-pill btn-secondary">Work Physically</button>
-    </div>
-  </div>
-</div>
+    <form id="post-filter">
+        <div class="row">
+            <div class="col-12 text-xs-center" data-toggle="buttons">
+                <?php
+                $strengths = [
+                    'Assess', 'Collaborate', 'Cultivate Talent', 'Generating Insight',
+                    'Innovating', 'Leading', 'organize', 'Persuade', 'Serve', 'Work Physically'
+                ];
+                $userStrengths = \ThinkShift\Plugin\Users::getUserStrengths();
 
+                foreach( $strengths as $strength ) {
+
+                    if( isset($_GET['strengths']) )
+                        $strengthArray = $_GET['strengths'];
+                    else
+                        $strengthArray = $userStrengths;
+
+                    $checked = in_array( $strength, $strengthArray );
+                    ?>
+
+                    <label class="btn mr-4 mb-4 btn-lg btn-pill btn-primary <?php echo $checked ? 'active' : ''; ?>">
+                        <?php
+                        echo sprintf('<input type="checkbox" %s class="" autocomplete="off" name="strengths[]" value="%s"/> %s',
+                            $checked ? 'checked' : '',
+                            $strength,
+                            $strength
+                        );
+                        ?>
+                    </label>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-xs-right">
+                <input type="submit" class="btn btn-primary" value="Submit" />
+            </div>
+        </div>
+    </form>
 
 <?php if (!have_posts()) : ?>
     <div class="alert alert-warning">
@@ -42,6 +62,7 @@
     <?php
 
     endwhile;
+
     the_posts_navigation();
 
 endif;
