@@ -183,9 +183,9 @@ class Users extends Base {
 
             # add all user's strengths into usermeta, have to convert from IS title to WP tag ID#
             foreach ( $tags as $tag ) {
-                foreach( $allStrengths as $strength ) {
-                    if( $strength->post_title == $tag['GroupName'] ) {
-                        update_user_meta( self::$userId, 'strength_' . $i ++, $strength->ID );
+                foreach( $allStrengths as $strengthId => $strengthTitle ) {
+                    if( $strengthTitle == $tag['GroupName'] ) {
+                        update_user_meta( self::$userId, 'strength_' . $i ++, $strengthId );
                         break;
                     }
                 }

@@ -28,7 +28,11 @@ class Tags extends Users {
             ),
         ] );
 
-        return $strengths;
+        $return = [];
+        foreach( $strengths as $strength )
+            $return[ $strength->ID ] = $strength->post_title;
+
+        return $return;
 
     }
 
