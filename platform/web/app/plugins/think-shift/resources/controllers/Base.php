@@ -100,7 +100,7 @@ class Base {
 	    $args['posts_per_page'] = 1;
 
         $query = self::getQuery( $post_type, $args );
-        if( $query ) {
+        if( $query->have_posts() ) {
             if( $post_type == 'user' )
                 $posts = $query->get_results();
             else
