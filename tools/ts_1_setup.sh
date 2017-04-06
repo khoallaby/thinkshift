@@ -8,6 +8,8 @@ sudo apt-get -y install git
 # git st, ci aliases
 git config --global alias.st status
 git config --global alias.ci 'commit -v'
+git config --global push.default simple
+
 
 
 # Install wp-cli as 'wp'

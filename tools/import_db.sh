@@ -6,7 +6,7 @@ if [ -z "$1" ]; then
     sql_file="dev.sql"
 fi
 
-read -p "(i)mport or e(xport) $sql_file? (i/e) " RESP
+read -p "(i)mport or (e)xport $sql_file? (i/e) " RESP
 
 if [ "$RESP" = "i" ]; then
     # drop / recreate db / import

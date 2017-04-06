@@ -1,8 +1,24 @@
 #!/usr/bin/env bash
 
 
+export lamp_dir="/opt/bitnami"
+
+
+
 sudo apt-get update
 sudo apt-get -y install git
+
+
+
+
+
+cp tools/conf/bitnami-apps-vhosts.conf "$lamp_dir"/apache2/conf/bitnami/
+cp tools/conf/php.ini "$lamp_dir"/php/etc/
+
+# @todo: add cron job
+# * * * * * /opt/bitnami/php/bin/php /home/bitnami/thinkshift/tools/cron-jobs/infusionsoft.php
+# 0 * * * * /opt/bitnami/php/bin/php /home/bitnami/thinkshift/tools/cron-jobs/import-tags.php
+
 
 
 
@@ -11,6 +27,7 @@ sudo apt-get -y install git
 cd ..
 
 # @todo: add staging/dev servers
+
 
 
 git clone https://github.com/thinkshift/tsdevserver.com.git andy-thinkshift
@@ -33,3 +50,4 @@ bash install.sh
 
 
 # @todo: modify .env file after each install
+
