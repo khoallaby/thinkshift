@@ -6,6 +6,7 @@ use ThinkShift\Plugin\Infusionsoft;
 class Users extends Base {
     private static $infusionsoft, $user;
     public static  $contactId, $userId;
+    public static $strengthMetaKey = 'MA Value Creation Strengths';
 
 
     public function init() {
@@ -173,16 +174,28 @@ class Users extends Base {
 
     public static function updateUserStrengths() {
 
-        $tags = self::getUserTagsByCategory( 'MA Value Creation Strengths' ); // or 41
+        $tags = self::getUserTagsByCategory( static::$strengthMetaKey ); // or 41
+
+
         $i = 1;
         if( $tags ) {
-        foreach ( $tags as $k => $tag )
-            update_user_meta( self::$userId, 'strength_' . $i ++, $tag['GroupName'] );
+            $allStrengths = Tags::getAllStrengths();
 
-        for( $i2 = $i; ( $i2 <= 3 || $i2 <= count($tags) ) ; $i2++ ) {
-            update_user_meta( self::$userId, 'strength_' . $i2 ++, '' );
+            # add all user's strengths into usermeta, have to convert from IS title to WP tag ID#
+            foreach ( $tags as $tag ) {
+                foreach( $allStrengths as $strength ) {
+                    if( $strength->post_title == $tag['GroupName'] ) {
+                        update_user_meta( self::$userId, 'strength_' . $i ++, $strength->ID );
+                        break;
+                    }
+                }
+            }
+
+            # blank the un-used/deleted strengths
+
+            for( $i2 = $i; ( $i2 <= 3 || $i2 <= count($tags) ) ; $i2++ )
+                update_user_meta( self::$userId, 'strength_' . $i2, '' );
         }
-    }
 
     }
 
