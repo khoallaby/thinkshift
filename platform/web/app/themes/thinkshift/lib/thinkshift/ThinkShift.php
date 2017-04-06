@@ -30,6 +30,10 @@ class Base {
 
         add_filter('sage/display_sidebar', array( $this, 'removeSidebar' ) );
         add_action( 'pre_get_posts', array( $this, 'alterPageQueries' ) );
+
+
+
+        add_action( 'wp_footer', array( $this, 'wpFooter' ), 111 );
     }
 
 
@@ -91,6 +95,24 @@ class Base {
     public function removeSidebar() {
         return false;
     }
+
+
+
+
+    public function wpFooter() {
+        global $current_user;
+
+
+        # prints user email autofill script on assessment, by injecting the $current_user's email into the JS.
+        if( is_singular('assessment') ) {
+            $jsFile = file_get_contents( dirname(__FILE__) . '/../../assets/scripts/assessments.js' );
+            $js = str_replace( '{{user_email}}', $current_user->user_email, $jsFile );
+            echo "<script type='text/javascript'>$js</script>";
+        }
+
+
+    }
+
 
 
 
