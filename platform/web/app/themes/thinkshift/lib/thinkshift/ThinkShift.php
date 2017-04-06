@@ -59,7 +59,7 @@ class Base {
 
 
             $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : \ThinkShift\Plugin\Users::getUserStrengths();
-            $relation =  count($strengths) < 3 ? 'OR' : 'AND';
+            $relation = \ThinkShift\Plugin\Users::searchCareerRelation( count($strengths) );
 
             # set the meta query
             $metaQuery = [

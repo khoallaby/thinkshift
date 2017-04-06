@@ -297,11 +297,16 @@ class Users extends Base {
 
 
 
+    public static function searchCareerRelation( $count, $less = 3 ) {
+        return count($count) < $less ? 'OR' : 'AND';
+    }
+
 
 
     public static function getUserMatchingCareers( $limit = 10 ) {
         $strengths = self::getUserStrengths();
-        $meta_query = [];
+
+        $meta_query = [ 'relation' => static::searchCareerRelation( $strengths ) ];
 
         for( $i = 1; $i <= 3; $i++ ) {
             $meta_query[] = [
@@ -312,7 +317,7 @@ class Users extends Base {
         }
 
         $careers = self::getPosts( 'career', [
-            'limit' => $limit,
+            'posts_per_page' => $limit,
             'meta_query' => $meta_query
         ]);
 
