@@ -4,7 +4,7 @@
  * Plugin Name: Think Shift Plugin
  * Plugin URI: http://www.domain.tld
  * Description: Communicates with Infusionsoft
- * Version: 1.0.0
+ * Version: 0.2.0
  * Author: Think Shift
  * Author URI: http://tsdevserver.com/
  * Text Domain: ts
