@@ -9,4 +9,5 @@ $keys = ['ValueType1', 'ValueType2','ValueType3','occcode', 'occup', 'occdesc', 
 
 
 foreach( $keys as $key )
-    echo sprintf( '<div class="col-lg-12"><h5 style="display: inline-block">%s:</h5> %s</div>', $key, get_post_meta( get_the_ID(), $key, true ) );
+    //echo sprintf( '<div style="display: none;" class="col-lg-12"><h5 style="display: inline-block">%s:</h5> %s</div>', $key, get_post_meta( get_the_ID(), $key, true ));
+?>
