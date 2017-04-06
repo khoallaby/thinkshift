@@ -5,22 +5,16 @@
         <div class="row">
             <div class="col-12 text-xs-center" data-toggle="buttons">
                 <?php
-                $strengths = [
-                    'Assessing', 'Collaborating', 'Cultivating Talent', 'Generating Insight',
-                    'Innovating', 'Leading', 'organize', 'Persuade', 'Serve', 'Work Physically'
-                ];
-                $userStrengths = \ThinkShift\Plugin\Users::getUserStrengths();
+                $strengths = ThinkShift\Plugin\Tags::getAllStrengths();
 
                 foreach( $strengths as $strength ) {
-
                     if( isset($_GET['strengths']) )
                         $strengthArray = $_GET['strengths'];
                     else
-                        $strengthArray = $userStrengths;
+                        $strengthArray = ThinkShift\Plugin\Users::getUserStrengths();
 
                     $checked = in_array( $strength, $strengthArray );
                     ?>
-
                     <label class="btn mr-4 mb-4 btn-lg btn-pill btn-primary <?php echo $checked ? 'active' : ''; ?>">
                         <?php
                         echo sprintf('<input type="checkbox" %s class="" autocomplete="off" name="strengths[]" value="%s"/> %s',
