@@ -1,6 +1,7 @@
 <?php
 namespace ThinkShift\Plugin;
 
+use ThinkShift\Plugin\Infusionsoft;
 
 class Users extends Base {
     private static $infusionsoft, $user;
@@ -123,7 +124,7 @@ class Users extends Base {
     }
 
     public static function getInfusionsoft() {
-        $is = self::$infusionsoft = \ThinkShift\Plugin\Infusionsoft::get_instance();
+        $is = self::$infusionsoft = Infusionsoft::get_instance();
         return $is;
     }
 
@@ -282,6 +283,32 @@ class Users extends Base {
         ]);
 
         return $careers;
+
+    }
+
+
+    /**
+     * Saves all Infusionsoft Tags and Categorys, into the Tag CPT
+     */
+    public static function saveAllTagsFromInfusionsoft() {
+
+        $categories = Infusionsoft::get_instance()->getAllTagCategories();
+        $tags = Infusionsoft::get_instance()->getAllTags();
+
+        foreach( $categories as $category ) {
+            $term = wp_insert_term( $category['CategoryName'], 'tag-category' );
+
+            # term already exists, update that record
+            # @todo: potential bug if users have more than 1 category with the same exact name, as they'll get overwritten
+            if( is_wp_error($term) && $term->get_error_code() == 'term_exists' ) {
+                $termId = $term->get_error_data();
+                update_term_meta( $termId, 'infusionsoft_id', $category['Id'] );
+            # tag was inserted successfully, update the metadata
+            } else {
+                update_term_meta( $term['term_id'], 'infusionsoft_id', $category['Id'] );
+            }
+
+        }
 
     }
 
