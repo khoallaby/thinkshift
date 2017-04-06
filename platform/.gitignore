@@ -22,5 +22,4 @@ vendor/*
 
 
 # Plugin exceptions (premium plugins)
-!web/app/plugins/users-ultra/
 !web/app/plugins/think-shift
