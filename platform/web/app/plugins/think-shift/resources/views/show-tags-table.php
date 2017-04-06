@@ -1,6 +1,9 @@
 <?php
+/* todo: remove? */
+
+
 $users = \ThinkShift\Plugin\Users::get_instance();
-$tags = $users::getUserTagsByCategory( 'MA Value Creation Strengths' ); // or 41
+$tags = $users::getUserTagsByCategory( $user::$strengthMetaKey ); // or 41
 
 if( $tags ) {
 ?>
