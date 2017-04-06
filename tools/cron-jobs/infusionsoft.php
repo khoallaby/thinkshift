@@ -12,8 +12,8 @@ $users = \ThinkShift\Plugin\Base::getPosts( 'user' );
 
 foreach( $users as $user ) {
 
-    \ThinkShift\Plugin\Users::setUserId( $user->ID );
-    \ThinkShift\Plugin\Users::updateUserStrengths();
+    \ThinkShift\Plugin\Cron::setUserId( $user->ID );
+    \ThinkShift\Plugin\Cron::updateUserStrengths();
 
     # @todo: update IS with names/email/metadata
     # \iSDK::dsUpdate($tName, $id, $iMap)

@@ -25,6 +25,7 @@ require_once( dirname(__FILE__) . '/resources/controllers/Tags.php');
 require_once( dirname(__FILE__) . '/resources/controllers/BuddyPress.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Shortcodes.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Importer.php');
+require_once( dirname(__FILE__) . '/resources/controllers/Cron.php');
 
 
 function vard($s) {

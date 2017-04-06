@@ -41,10 +41,10 @@ class Users extends Base {
         #if ( current_user_can( 'subscriber' ) ) {
         #$fields = $this->parseFields( $user->ID );
         #$this->addInfusionsoftContact( $user->ID, $fields );
-        self::setUserId( $user->ID );
 
         // update user's "strengths" metadata
-        self::updateUserStrengths();
+        self::setUserId( $user->ID );
+        \ThinkShift\Plugin\Cron::updateUserStrengths();
 
         #}
     }
@@ -170,36 +170,6 @@ class Users extends Base {
         }
 
     }
-
-
-    public static function updateUserStrengths() {
-
-        $tags = self::getUserTagsByCategory( static::$strengthMetaKey ); // or 41
-
-
-        $i = 1;
-        if( $tags ) {
-            $allStrengths = Tags::getAllStrengths();
-
-            # add all user's strengths into usermeta, have to convert from IS title to WP tag ID#
-            foreach ( $tags as $tag ) {
-                foreach( $allStrengths as $strengthId => $strengthTitle ) {
-                    if( $strengthTitle == $tag['GroupName'] ) {
-                        update_user_meta( self::$userId, 'strength_' . $i ++, $strengthId );
-                        break;
-                    }
-                }
-            }
-
-            # blank the un-used/deleted strengths
-
-            for( $i2 = $i; ( $i2 <= 3 || $i2 <= count($tags) ) ; $i2++ )
-                update_user_meta( self::$userId, 'strength_' . $i2, '' );
-        }
-
-    }
-
-
 
 
 
