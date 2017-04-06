@@ -28,6 +28,7 @@ class Base {
         add_filter( 'nav_menu_link_attributes', array( $this, 'addClassMenuLink'),  10, 3 );
 
 
+        add_filter('sage/display_sidebar', array( $this, 'removeSidebar' ) );
         add_action( 'pre_get_posts', array( $this, 'alterPageQueries' ) );
     }
 
@@ -51,7 +52,7 @@ class Base {
 
     # Alters the main queries on selected pages
     function alterPageQueries ( $query ) {
-        if ( !is_admin() && $query->is_main_query() ) {
+        if ( !is_admin() && $query->is_main_query() ) :
 
 
             # Career archives
@@ -80,11 +81,15 @@ class Base {
             } elseif( $query->is_post_type_archive( 'assessment' ) ) {
                 $query->set( 'orderby', 'menu_order' );
                 $query->set( 'order', 'ASC' );
-        }
+            }
 
-        }
+        endif;
 
+    }
 
+    # removes the.. sidebar
+    public function removeSidebar() {
+        return false;
     }
 
 
