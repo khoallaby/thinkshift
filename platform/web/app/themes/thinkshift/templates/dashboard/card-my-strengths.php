@@ -8,7 +8,7 @@
         if( $tags ) {
             ?>
             <ul class="list-unstyled list-spaced user-tags">
-                <?php foreach( $tags as $tag ) { ?>
+                <?php foreach( $tags as $tagId => $tag ) { ?>
                     <li><span class="text-muted icon mr-3"></span> <?= $tag; ?></li>
                 <?php } ?>
             </ul>

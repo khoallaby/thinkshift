@@ -216,10 +216,27 @@ class Users extends Base {
      * @return array
      */
     public static function getUserStrengths() {
+        global $wpdb;
+
+        /*
         $metaKey = 'strength_';
         $strengths = [];
         for( $i = 1; $i <= 3; $i++ )
             $strengths[ $metaKey . $i] = get_user_meta( self::$userId, $metaKey . $i, true );
+        */
+
+        $query = $wpdb->get_results( $wpdb->prepare( "
+            SELECT um.meta_key, p.ID, p.post_title FROM wp_usermeta um 
+            LEFT JOIN wp_posts p ON um.meta_value = p.ID 
+            WHERE meta_key LIKE %s AND user_id = %d AND meta_value != '' 
+            ORDER BY um.meta_key",
+            '%' . $wpdb->esc_like('strength_') . '%',
+            self::$userId
+        ) );
+        foreach( $query as $q ) {
+            $strengths[ $q->ID ] = $q->post_title;
+        }
+
 
         return $strengths;
     }
