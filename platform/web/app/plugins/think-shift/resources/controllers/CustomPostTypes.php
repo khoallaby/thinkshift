@@ -10,6 +10,13 @@ class CustomPostTypes extends Base {
 
 
 	public function registerAll() {
+
+        $this->registerCpt('assessment', 'assessments', array(
+            'exclude_from_search' => true,
+            'supports' => array( 'title', 'editor' ),
+        ) );
+
+
         $this->registerCpt('career', 'careers', array(
             'exclude_from_search' => true,
             'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields' )
