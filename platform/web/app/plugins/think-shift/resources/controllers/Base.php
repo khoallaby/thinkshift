@@ -83,7 +83,7 @@ class Base {
             $defaults = array(
                 'post_type'      => array( $post_type ),
                 'post_status'    => array( 'publish' ),
-                'posts_per_page' => - 1,
+                'posts_per_page' => -1,
                 'order'          => 'DESC',
                 'orderby'        => 'post_date'
             );
@@ -94,6 +94,23 @@ class Base {
 
 		return $query;
 	}
+
+
+    public static function getOne( $post_type = 'post', $args = array() ) {
+	    $args['posts_per_page'] = 1;
+
+        $query = self::getQuery( $post_type, $args );
+        if( $query ) {
+            if( $post_type == 'user' )
+                $posts = $query->get_results();
+            else
+                $posts = $query->get_posts();
+            return $posts[0];
+
+        } else {
+            return false;
+        }
+    }
 
 
 	public static function getPosts( $post_type = 'post', $args = array() ) {
