@@ -287,31 +287,6 @@ class Users extends Base {
     }
 
 
-    /**
-     * Saves all Infusionsoft Tags and Categorys, into the Tag CPT
-     */
-    public static function saveAllTagsFromInfusionsoft() {
-
-        $categories = Infusionsoft::get_instance()->getAllTagCategories();
-        $tags = Infusionsoft::get_instance()->getAllTags();
-
-        foreach( $categories as $category ) {
-            $term = wp_insert_term( $category['CategoryName'], 'tag-category' );
-
-            # term already exists, update that record
-            # @todo: potential bug if users have more than 1 category with the same exact name, as they'll get overwritten
-            if( is_wp_error($term) && $term->get_error_code() == 'term_exists' ) {
-                $termId = $term->get_error_data();
-                update_term_meta( $termId, 'infusionsoft_id', $category['Id'] );
-            # tag was inserted successfully, update the metadata
-            } else {
-                update_term_meta( $term['term_id'], 'infusionsoft_id', $category['Id'] );
-            }
-
-        }
-
-    }
-
 }
 
 add_action( 'init', array( \ThinkShift\Plugin\Users::get_instance(), 'init' ));
