@@ -13,7 +13,7 @@ class CustomPostTypes extends Base {
 
         $this->registerCpt('assessment', 'assessments', array(
             'exclude_from_search' => true,
-            'supports' => array( 'title', 'editor' ),
+            'supports' => array( 'title', 'editor', 'page-attributes' ),
         ) );
 
 

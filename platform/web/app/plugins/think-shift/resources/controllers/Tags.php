@@ -16,7 +16,7 @@ class Tags extends Users {
      ******************************************************************************************/
 
 
-    public static function getAllStrengths( $return = '' ) {
+    public static function getAllStrengths() {
         $strengths = static::getPosts( 'tag', [
             'tax_query' => array(
                 array(

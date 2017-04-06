@@ -51,29 +51,40 @@ class Base {
 
     # Alters the main queries on selected pages
     function alterPageQueries ( $query ) {
-
-        # Career archives
-        if ( !is_admin() && $query->is_main_query() && $query->is_post_type_archive( 'career' ) ) {
-            if( isset($_GET['limit']) && is_numeric($_GET['limit']) )
-                $query->set( 'posts_per_page', intval($_GET['limit']) );
+        if ( !is_admin() && $query->is_main_query() ) {
 
 
-            $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : \ThinkShift\Plugin\Users::getUserStrengths();
-            $relation = \ThinkShift\Plugin\Users::searchCareerRelation( count($strengths) );
+            # Career archives
+            if( $query->is_post_type_archive( 'career' ) ) {
 
-            # set the meta query
-            $metaQuery = [
-                'relation' => $relation
-            ];
-            for( $i = 1; $i <= 3; $i++ ) {
-                $metaQuery[] = [
-                    'key'     => 'ValueType' . $i,
-                    'value'   => (array) $strengths,
-                    'compare' => 'IN'
+                if( isset($_GET['limit']) && is_numeric($_GET['limit']) )
+                    $query->set( 'posts_per_page', intval($_GET['limit']) );
+
+
+                $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : \ThinkShift\Plugin\Users::getUserStrengths();
+                $relation = \ThinkShift\Plugin\Users::searchCareerRelation( count($strengths) );
+
+                # set the meta query
+                $metaQuery = [
+                    'relation' => $relation
                 ];
-            }
-            $query->set('meta_query',$metaQuery);
+                for( $i = 1; $i <= 3; $i++ ) {
+                    $metaQuery[] = [
+                        'key'     => 'ValueType' . $i,
+                        'value'   => (array) $strengths,
+                        'compare' => 'IN'
+                    ];
+                }
+                $query->set('meta_query',$metaQuery);
+
+            } elseif( $query->is_post_type_archive( 'assessment' ) ) {
+                $query->set( 'orderby', 'menu_order' );
+                $query->set( 'order', 'ASC' );
         }
+
+        }
+
+
     }
 
 
