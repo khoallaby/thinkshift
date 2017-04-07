@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e140697d102fab77fb8e0b02398ed65f",
     "content-hash": "96279c0f378298a8ba48d8f01ba4dbee",
     "packages": [
         {
@@ -112,7 +111,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-08-13 20:53:52"
+            "time": "2016-08-13T20:53:52+00:00"
         },
         {
             "name": "jimitit/infusionsoft-php-isdk",
@@ -204,7 +203,7 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2015-05-01 07:00:55"
+            "time": "2015-05-01T07:00:55+00:00"
         }
     ],
     "packages-dev": [],
