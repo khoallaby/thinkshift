@@ -19,6 +19,7 @@ define('thinkshift_plugin_path',plugin_dir_path(__FILE__ ));
 # todo: build importer pls
 require_once( dirname(__FILE__) . '/resources/controllers/Base.php');
 require_once( dirname(__FILE__) . '/resources/controllers/CustomPostTypes.php');
+require_once( dirname(__FILE__) . '/resources/controllers/CareersCPT.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Infusionsoft.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Users.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Tags.php');
