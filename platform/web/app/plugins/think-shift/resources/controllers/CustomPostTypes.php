@@ -13,12 +13,14 @@ class CustomPostTypes extends Base {
 
         $this->registerCpt('assessment', 'assessments', array(
             'exclude_from_search' => true,
+            'menu_icon' => 'dashicons-chart-line',
             'supports' => array( 'title', 'editor', 'page-attributes', 'custom-fields' ),
         ) );
 
 
         $this->registerCpt('career', 'careers', array(
             'exclude_from_search' => true,
+            'menu_icon' => 'dashicons-admin-customizer',
             'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields' )
         ) );
 
