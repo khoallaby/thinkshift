@@ -17,10 +17,6 @@
                 $strengths = ThinkShift\Plugin\Tags::getAllStrengths( false );
 
                 foreach( $strengths as $strength ) {
-                    if( isset($_GET['strengths']) )
-                        $strengthArray = $_GET['strengths'];
-                    else
-                        $strengthArray = ThinkShift\Plugin\Users::getUserStrengths();
 
                     $checked = in_array( $strength, $strengthArray );
                     ?>
