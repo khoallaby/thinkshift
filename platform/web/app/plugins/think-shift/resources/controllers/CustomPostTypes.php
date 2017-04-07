@@ -22,6 +22,18 @@ class CustomPostTypes extends Base {
             'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields' )
         ) );
 
+        $this->registerCpt('resource', 'resources', array(
+            'exclude_from_search' => true,
+            'menu_icon' => 'dashicons-archive',
+            'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields' )
+        ) );
+
+        $this->registerCpt('video', 'videos', array(
+            'exclude_from_search' => true,
+            'menu_icon' => 'dashicons-video-alt3',
+            'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields' )
+        ) );
+
 
 
         $this->registerTaxonomy( 'tag-category', 'tag-categories', 'user', [
