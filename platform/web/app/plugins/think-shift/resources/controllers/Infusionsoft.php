@@ -156,6 +156,22 @@ class Infusionsoft extends base {
 
 
     /**
+     * Gets all the Tags for all Users
+     * @return array
+     */
+    public function getAllUserTags() {
+
+        $table  = 'ContactGroupAssign';
+        $where  = [ 'Contact.Id' => '~<>~0' ];
+        $fields = [ 'Contact.Id', 'Contact.Email', 'Contact.Groups' ];
+        $tags   = self::apiQuery( $table, 1000, 0, $where, $fields, 'Contact.Id' );
+
+        return $tags;
+
+    }
+
+
+    /**
      * Gets a user's Tags by their Contact ID
      * @param $contactId
      * @return array|false

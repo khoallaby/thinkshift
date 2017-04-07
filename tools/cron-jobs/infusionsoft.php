@@ -16,7 +16,8 @@ $users = Base::getPosts( 'user' );
 foreach( $users as $user ) {
 
     Cron::setUserId( $user->ID );
-    Cron::updateUserStrengths();
+    Cron::updateUserTags();
+    #Cron::updateUserStrengths();
 
     # @todo: update IS with WP's names/email/metadata
     # \iSDK::dsUpdate($tName, $id, $iMap)
