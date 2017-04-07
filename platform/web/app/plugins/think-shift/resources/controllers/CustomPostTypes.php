@@ -23,24 +23,15 @@ class CustomPostTypes extends Base {
         ) );
 
 
-        $this->registerCpt('tag', 'tags', array(
-            'exclude_from_search' => true,
-            'supports' => array( 'title', 'editor', 'custom-fields' ),
-            #'taxonomies' => array( 'category', 'post_tag' )
-        ) );
 
-        $this->registerTaxonomy( 'tag-category', 'tag-categories', 'tag' );
-
-        /*
         $this->registerTaxonomy( 'tag-category', 'tag-categories', 'user', [
             'rewrite' => array(
                 'with_front' => true,
                 'slug' => 'author/tag' // Use 'author' (default WP user slug).
             ),
-            # @todo: update function http://justintadlock.com/archives/2011/10/20/custom-user-taxonomies-in-wordpress
+            # @todo? update function http://justintadlock.com/archives/2011/10/20/custom-user-taxonomies-in-wordpress
             #'update_count_callback' => 'my_update_profession_count'
         ] );
-        */
 
     }
 
