@@ -272,6 +272,17 @@ class Users extends Base {
     }
 
 
+    /**
+     * Check if user has a certain Tag
+     * @param null|int|string|array $terms*
+     * @return bool|\WP_Error
+     */
+    public static function userHasTag( $terms = null ) {
+        if( is_string($terms) )
+            $terms = sanitize_title($terms);
+        return is_object_in_term( static::$userId, 'tag-category', $terms );
+    }
+
 }
 
 add_action( 'init', array( \ThinkShift\Plugin\Users::get_instance(), 'init' ));
