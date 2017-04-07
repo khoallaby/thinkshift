@@ -182,11 +182,33 @@ class Users extends Base {
 
 
     /**
+     * General function for pulling User Tags from WP
+     * @param $category
+     *
+     * @return array|\WP_Error
+     */
+    public static function getUserTags( $category = null ) {
+        if( $category ) {
+            if( is_int($category) ) {
+                $args = [ 'parent' => $category ];
+            } else {
+                $cat = get_term_by( 'name', $category, 'tag-category' );
+                $args = [ 'parent' => $cat->term_id ];
+            }
+            return wp_get_object_terms( self::$userId, 'tag-category', $args );
+        } else {
+            return wp_get_object_terms( self::$userId, 'tag-category' );
+        }
+
+    }
+
+    /**
      * Returns the user's strengths (3) from usermeta
      * @return array
      */
     public static function getUserStrengths() {
-        $strengths = wp_get_object_terms( self::$userId, 'tag-category');
+        $strengths = self::getUserTags( self::$strengthMetaKey );
+
 
         $return = [];
         foreach( $strengths as $strength )
@@ -196,41 +218,6 @@ class Users extends Base {
     }
 
 
-    /**
-     * Gets all the tags and categories for a user
-     *
-     * @param null $contactId Optional, defaults to current user's contactID
-     * @return array|bool Array of matching tag/categories
-     */
-    public static function getUserTags( $userId = null ) {
-        if( !$userId )
-            $userId = self::$userId;
-
-        $contactId = self::getContactId( $userId );
-
-        # todo: save tags somewhere later
-        return self::getUserTagsByContactId( $contactId );
-
-    }
-
-
-    /**
-     * Gets all the tags and categories for a user (by contactID)
-     *
-     * @param null $contactId Optional, defaults to current user's contactID
-     * @return array|bool Array of matching tag/categories
-     */
-    public static function getUserTagsByContactId( $contactId = null ) {
-
-        if( !$contactId )
-            $contactId = self::getContactId();
-
-        if( $contactId )
-            return self::getInfusionsoft()->getTagsByContactId( $contactId );
-        else
-            return false;
-
-    }
 
 
     /**
@@ -256,8 +243,13 @@ class Users extends Base {
     }
 
 
-
-    public static function getUserMatchingCareers( $limit = 10 ) {
+    /**
+     * Function responsible for 3 career cards on dashboard
+     * @param int $limit
+     *
+     * @return array    Array of careers that match all 3 strengths
+     */
+    public static function getUserMatchingCareers( $limit = 5 ) {
         $strengths = self::getUserStrengths();
 
         $meta_query = [ 'relation' => static::searchCareerRelation( $strengths ) ];
