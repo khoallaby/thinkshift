@@ -1,8 +1,11 @@
 <?php
-require dirname(__FILE__) . '/../../platform/web/wp/wp-load.php';
+require_once dirname(__FILE__) . '/../../platform/web/wp/wp-load.php';
+
+use ThinkShift\Plugin\Cron as Cron,
+    ThinkShift\Plugin\Base as Base;
 
 
-$users = \ThinkShift\Plugin\Base::getPosts( 'user' );
+$users = Base::getPosts( 'user' );
 
 
 
@@ -12,10 +15,10 @@ $users = \ThinkShift\Plugin\Base::getPosts( 'user' );
 
 foreach( $users as $user ) {
 
-    \ThinkShift\Plugin\Cron::setUserId( $user->ID );
-    \ThinkShift\Plugin\Cron::updateUserStrengths();
+    Cron::setUserId( $user->ID );
+    Cron::updateUserStrengths();
 
-    # @todo: update IS with names/email/metadata
+    # @todo: update IS with WP's names/email/metadata
     # \iSDK::dsUpdate($tName, $id, $iMap)
 
 }

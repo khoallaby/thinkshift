@@ -4,18 +4,21 @@ namespace ThinkShift\Plugin;
 #use ThinkShift\Plugin\Infusionsoft;
 
 class Cron extends Users {
-
+    #object for storing key/value relations, so it can be referenced and not have multiple query calls
+    public static $taxonomyName;
+    public static $obj = [];
 
     public function init() {
+        static::$taxonomyName = \ThinkShift\Plugin\Tags::getTaxName();
+        die( static::$taxonomyName);
     }
 
 
-    public function runAll() {
-        static::updateUserStrengths();
-        static::saveAllTagsFromInfusionsoft();
+
+
+    public static function destroyObj() {
+        static::$obj = [];
     }
-
-
 
 
 
@@ -62,10 +65,7 @@ class Cron extends Users {
      * Ideally used in a cron job
      */
     public static function saveAllTagsFromInfusionsoft() {
-
         $categories = Infusionsoft::get_instance()->getAllTagCategories();
-        $tags = Infusionsoft::get_instance()->getAllTags();
-        $relationalArray = [];
 
 
         # add all the categories as terms into
@@ -73,10 +73,9 @@ class Cron extends Users {
             $term = wp_insert_term( $category['CategoryName'], 'tag-category' );
 
             # term already exists, update that record
-            # @todo: potential bug if users have more than 1 category with the same exact name, as they'll get overwritten
             if( is_wp_error($term) && $term->get_error_code() == 'term_exists' ) {
                 $termId = $term->get_error_data();
-                # tag was inserted successfully, update the metadata
+            # tag was inserted successfully, update the metadata
             } else {
                 $termId = $term['term_id'];
             }
@@ -85,42 +84,42 @@ class Cron extends Users {
             if( isset( $category['CategoryDescription'] ) )
                 update_term_meta( $termId, 'category_description', $category['CategoryDescription'] );
 
-            $relationalArray[ $category['Id'] ] = $termId;
+            #save the term ID, so we can reference it while saving the children tags
+            self::$obj[ $category['Id'] ] = $termId;
         }
 
+
+
+
+        $tags = Infusionsoft::get_instance()->getAllTags();
 
 
         # Adds all the Tags as posts. Adds any categories the Tag belongs to
         foreach( $tags as $tag ) {
-            $tagExists = static::getOne( 'tag', [
-                'title' => $tag['GroupName'],
-                'posts_per_page' => 1
-            ] );
+            #if( !isset(self::$obj[ $tag['GroupCategoryId'] ])  )
+            #    break;
 
-            # create new Tag if not exists
-            if( $tagExists ) {
-                $tagId = $tagExists->ID;
+            $term = wp_insert_term( $tag['GroupName'], 'tag-category', [
+                'parent' => self::$obj[ $tag['GroupCategoryId'] ]
+            ]);
+
+
+            # term already exists, update that record
+            if( is_wp_error($term) && $term->get_error_code() == 'term_exists' ) {
+                $termId = $term->get_error_data();
+            # tag was inserted successfully, update the metadata
             } else {
-                $tagId = wp_insert_post( [
-                    'post_content' => '',
-                    'post_title' => $tag['GroupName'],
-                    'post_status' => 'publish',
-                    'post_type' => 'tag',
-                ]);
+                $termId = $term['term_id'];
             }
 
             #update meta
-            update_term_meta( $tagId, 'infusionsoft__tag_id', $tag['Id'] );
-            if( isset( $category['GroupDescription'] ) )
-                update_term_meta( $tagId, 'tag_description', $tag['GroupDescription'] );
+            update_term_meta( $termId, 'infusionsoft__tag_id', $tag['Id'] );
+            if( isset( $category['CategoryDescription'] ) )
+                update_term_meta( $termId, 'tag_description', $tag['CategoryDescription'] );
 
-            # add the matching term (category) to our Tag
-            if( $tag['GroupCategoryId'] ) {
-                $termId = $relationalArray[ $tag['GroupCategoryId'] ];
-                wp_set_post_terms( $tagId, $termId, 'tag-category' );
-            }
 
         }
+
 
 
 
