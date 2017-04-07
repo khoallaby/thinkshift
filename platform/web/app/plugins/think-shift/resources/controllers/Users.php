@@ -18,6 +18,8 @@ class Users extends Base {
         add_action( 'wp_login', array( $this, 'wp_login' ), 20, 2 );
         add_action( 'user_register', array( $this, 'user_register' ), 50 );
 
+        add_action( 'wp', array( $this, 'userCanAccess' ) );
+
     }
 
 
@@ -56,6 +58,31 @@ class Users extends Base {
     public function user_register( $userId ) {
         $fields = $this->parseFields( $userId );
         $this->addInfusionsoftContact( $userId, $fields );
+    }
+
+
+    /**
+     * The action to check for user permissions and redirect to login if not.
+     */
+    public function userCanAccess() {
+        if( !$this->userRoutes() )
+            wp_redirect( '/login' );
+    }
+
+
+    /**
+     * Determines what the user can see depending on page and logged in status
+     * @return bool
+     */
+    public function userRoutes() {
+        if( is_front_page() || is_home() || is_page( 'login' ) || is_page( 'register' ) ) :
+            return true;
+        elseif( is_user_logged_in()) :
+            return true;
+        else :
+            return false;
+        endif;
+
     }
 
 
