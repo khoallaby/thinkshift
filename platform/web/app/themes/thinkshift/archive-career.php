@@ -5,7 +5,16 @@
         <div class="row">
             <div class="col-12 text-xs-center" data-toggle="buttons">
                 <?php
-                $strengths = ThinkShift\Plugin\Tags::getAllStrengths();
+
+                if( isset($_GET['strengths']) )
+                    $strengthArray = $_GET['strengths'];
+                else
+                    $strengthArray = ThinkShift\Plugin\Users::getUserStrengths();
+                if( !$strengthArray )
+                    $strengthArray = [];
+
+
+                $strengths = ThinkShift\Plugin\Tags::getAllStrengths( false );
 
                 foreach( $strengths as $strength ) {
                     if( isset($_GET['strengths']) )
