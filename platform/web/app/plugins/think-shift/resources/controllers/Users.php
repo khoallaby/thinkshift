@@ -305,8 +305,12 @@ class Users extends Base {
      * @return bool|\WP_Error
      */
     public static function userHasTag( $terms = null ) {
-        if( is_string($terms) )
-            $terms = sanitize_title($terms);
+        if( is_string($terms) ) {
+            $terms = sanitize_title( $terms );
+            if( $terms == '' )
+                $terms = false;
+        }
+
         return is_object_in_term( static::$userId, 'tag-category', $terms );
     }
 
