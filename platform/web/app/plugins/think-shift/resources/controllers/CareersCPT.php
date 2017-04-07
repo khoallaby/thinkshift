@@ -21,11 +21,12 @@ class CareersCPT extends CustomPostTypes {
 
 
     # Alters the main queries on selected pages
-    public static function alterPageQueries ( $query ) {
+    public static function alterPageQueries( $query ) {
         /**
          * Filters/searches all the posts on /career archive page.
          */
-        if( $query->is_post_type_archive( 'career' ) ) {
+
+        if( $query->is_main_query()  && !is_admin() && $query->is_post_type_archive( 'career' ) ) {
 
             if( isset($_GET['limit']) && is_numeric($_GET['limit']) )
                 $limit = $_GET['limit'];

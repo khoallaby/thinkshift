@@ -9,7 +9,6 @@
  * Author URI: http://tsdevserver.com/
  * Text Domain: ts
  * Domain Path: /languages
- * Plugin Type: Piklist
  */
 
 
