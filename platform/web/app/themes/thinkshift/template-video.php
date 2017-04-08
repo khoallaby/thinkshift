@@ -1,13 +1,12 @@
 <?php
 /* Template Name: Video */
 
-use ThinkShift\Theme\Template;
 use ThinkShift\Plugin\Tags;
 use ThinkShift\Plugin\Videos;
 
-/* featured image */
 
 
+get_template_part( 'templates/page', 'header' );
 $strengths = Tags::getAllStrengths( false );
 get_template_part( 'templates/shared/header', 'strengths-filter' );
 

@@ -57,6 +57,22 @@ class Videos extends CustomPostTypes {
         return $image;
 
     }
+
+
+    public static function getVideos() {
+        $videos = get_post_meta( get_the_ID(), 'videos', true );
+        return $videos;
+    }
+
+
+    public static function filterVideos() {
+        $videos = self::getVideos();
+        foreach( $videos as $video ) {
+            vard($video);
+        }
+        return $videos;
+
+    }
 }
 
 
