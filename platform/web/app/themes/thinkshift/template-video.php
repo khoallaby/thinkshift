@@ -3,6 +3,7 @@
 
 use ThinkShift\Theme\Template;
 use ThinkShift\Plugin\Tags;
+use ThinkShift\Plugin\Videos;
 
 /* featured image */
 
@@ -23,24 +24,8 @@ while (have_posts()) : the_post();
         foreach( $videos as $k => $video ) :
             Template::echo_open_row( $i, $columns );
 
-            if( $video['video_source'] == 'youtube' ) {
-                $url = 'https://www.youtube.com/embed/' . $video['video_url'];
-                $imgUrl = 'https://img.youtube.com/vi/' . $video['video_url'] . '/0.jpg';
-            } elseif( $video['video_source'] == 'vimeo' ) {
-                $url = 'https://player.vimeo.com/video/' . $video['video_url'];
-                # todo: vimeo urls -- https://gist.github.com/tjFogarty/08cddb1854e2ae593bf0
-                $imgUrl = '';
-            } else {
-                $url = $video['video_url'];
-                $imgUrl = '';
-            }
-
-
-            if( isset($imgUrl) ) {
-                $link = '<img src="' . esc_attr( $imgUrl ) . '" />';
-            } else {
-                $link = $video['video_url'];
-            }
+            $url = Videos::getVideoLink( $video['video_url'], $video['video_source'] );
+            $link = Videos::getVideoThummbnailLink( $video['video_url'], $video['video_source'], true );
 
             ?>
             <div class="col-md-4">
