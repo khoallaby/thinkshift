@@ -1,6 +1,10 @@
 <?php
 use ThinkShift\Plugin\Tags;
 use ThinkShift\Plugin\Users;
+
+global $strengths;
+if( !isset($strengths) )
+    $strengths = Tags::getAllStrengths( false );
 ?>
 
 <form id="post-filter">
@@ -16,7 +20,6 @@ use ThinkShift\Plugin\Users;
                 $strengthArray = [];
 
 
-            $strengths = Tags::getAllStrengths( false );
 
             foreach( $strengths as $strength ) {
 
