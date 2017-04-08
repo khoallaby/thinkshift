@@ -53,16 +53,17 @@ class Videos extends CustomPostTypes {
                 break;
             case 'vimeo':
                 # todo: vimeo thumbnail urls -- https://gist.github.com/tjFogarty/08cddb1854e2ae593bf0
-                $imgUrl = '';
+                $imgUrl = '//lorempixel.com/460/450';
                 break;
             default:
                 $imgUrl = '';
                 break;
         }
 
+        #vard($imgUrl);
 
-        if( !$asImage )
-            return $asImage;
+        if( !$asImage || $imgUrl == '' )
+            return $imgUrl;
 
 
         if( isset($imgUrl) )
@@ -70,6 +71,8 @@ class Videos extends CustomPostTypes {
         else
             $image = $imgUrl;
 
+
+        #vard($image);
         return $image;
 
     }
