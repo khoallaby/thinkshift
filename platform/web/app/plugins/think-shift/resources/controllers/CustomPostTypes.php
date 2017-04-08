@@ -92,6 +92,9 @@ class CustomPostTypes extends Base {
 
         } elseif( $query->is_post_type_archive( 'video' ) ) {
 
+            #vard($query);
+            #die();
+            #return wp_get_object_terms( self::$userId, 'tag-category', $args );
 
         }
 

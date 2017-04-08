@@ -4,7 +4,7 @@ namespace ThinkShift\Plugin;
 
 
 
-class CareersCPT extends CustomPostTypes {
+class Careers extends CustomPostTypes {
 
     public function init() {
         #add_action( 'wp_footer', array( $this, 'wpFooter' ) );
@@ -25,5 +25,5 @@ class CareersCPT extends CustomPostTypes {
 }
 
 
-add_action( 'plugins_loaded', array( \ThinkShift\Plugin\CareersCPT::get_instance(), 'init' ));
+add_action( 'plugins_loaded', array( \ThinkShift\Plugin\Careers::get_instance(), 'init' ));
 

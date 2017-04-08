@@ -20,7 +20,7 @@ define('thinkshift_plugin_path',plugin_dir_path(__FILE__ ));
 require_once( dirname(__FILE__) . '/resources/controllers/Base.php');
 require_once( dirname(__FILE__) . '/resources/controllers/CustomPostTypes.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Assessments.php');
-require_once( dirname(__FILE__) . '/resources/controllers/CareersCPT.php');
+require_once( dirname(__FILE__) . '/resources/controllers/Careers.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Videos.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Infusionsoft.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Users.php');
