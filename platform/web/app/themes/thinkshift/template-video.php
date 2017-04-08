@@ -10,26 +10,21 @@ use ThinkShift\Plugin\Videos;
 
 $strengths = Tags::getAllStrengths( false );
 get_template_part( 'templates/shared/header', 'strengths-filter' );
-while (have_posts()) : the_post();
+
+if ( have_posts() ) : while( have_posts() ) : the_post();
 ?>
     <section class="container pt-4">
-    <?php
-        the_content();
+        <div class="row">
+        <?php
 
         $videos = get_post_meta( get_the_ID(), 'videos', true );
 
-        $columns = 3;
-        $i = 0;
-
         foreach( $videos as $k => $video ) :
-            Template::echo_open_row( $i, $columns );
-
             $url = Videos::getVideoLink( $video['video_url'], $video['video_source'] );
             $link = Videos::getVideoThummbnailLink( $video['video_url'], $video['video_source'], true );
 
             ?>
             <div class="col-md-4">
-
 
                 <a href="#modal-video-<?php echo esc_attr( $k ); ?>" data-toggle="modal"><?php echo $link; ?></a>
 
@@ -49,13 +44,14 @@ while (have_posts()) : the_post();
                 </div>
 
             </div>
-            <?php
-            $i++;
-            Template::echo_close_row( $i, $columns, count($videos) );
-        endforeach;
-    ?>
+        <?php endforeach; ?>
+        </div>
     </section>
 <?php
 endwhile;
 
+
+else :
+    get_template_part( 'templates/content' , 'no-results' );
+endif;
 

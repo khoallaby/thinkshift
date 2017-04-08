@@ -50,9 +50,9 @@ class Videos extends CustomPostTypes {
 
 
         if( isset($imgUrl) )
-            $image = '<img src="' . esc_attr( $imgUrl ) . '" />';
+            $image = '<img src="' . esc_attr( $imgUrl ) . '" class="img-fluid" />';
         else
-            $image = $url;
+            $image = $imgUrl;
 
         return $image;
 
