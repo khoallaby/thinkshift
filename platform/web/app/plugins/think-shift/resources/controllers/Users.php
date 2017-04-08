@@ -94,6 +94,17 @@ class Users extends Base {
      * Misc helper functions
      ******************************************************************************************/
 
+
+
+    public static function getStrengthMetaId() {
+        $strengths = get_term_by( 'name' , self::$strengthMetaKey, 'tag-category' );
+        if( $strengths )
+            return $strengths->term_id;
+        else
+            return $strengths;
+    }
+
+
     /**
      * Sets up our user/userID variables. If user is logged in, use current user.
      * @param null $userId

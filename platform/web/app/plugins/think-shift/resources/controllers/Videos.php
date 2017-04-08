@@ -2,11 +2,27 @@
 
 namespace ThinkShift\Plugin;
 
+use ThinkShift\Plugin\Users;
+
 
 class Videos extends CustomPostTypes {
 
     public function init() {
     }
+
+
+
+
+
+
+
+
+
+
+
+    /******************************************************************************************
+     * Misc functions
+     ******************************************************************************************/
 
 
     public static function getVideoLink( $id, $source = '' ) {

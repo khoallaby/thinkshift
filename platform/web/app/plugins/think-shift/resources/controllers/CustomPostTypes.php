@@ -2,14 +2,51 @@
 namespace ThinkShift\Plugin;
 
 
+
 class CustomPostTypes extends Base {
 
 	public function init() {
 
-	}
+        add_filter( 'wp_terms_checklist_args', array( $this, 'showStrengthsOnly' ), 20, 2 );
+    }
 
 
-	public function registerAll() {
+
+
+    /******************************************************************************************
+     * Actions/filters
+     ******************************************************************************************/
+
+
+
+    /**
+     * Shows only the strengths on admin edit screens that use the tag-category taxonomy
+     */
+    public function showStrengthsOnly( $args, $post_id ) {
+
+        if( is_admin() ) {
+            $screen = get_current_screen();
+            if ( is_object( $screen ) && $screen->post_type == 'video' )
+                $args['descendants_and_self'] = Users::getStrengthMetaId();
+        }
+
+        return $args;
+    }
+
+
+
+
+
+
+
+    /******************************************************************************************
+     * Register CPT functions
+     ******************************************************************************************/
+
+
+
+    #todo maybe move to their own class
+    public function registerAll() {
 
         $this->registerCpt('assessment', 'assessments', array(
             'exclude_from_search' => true,
@@ -33,11 +70,18 @@ class CustomPostTypes extends Base {
         $this->registerCpt('video', 'videos', array(
             'exclude_from_search' => true,
             'menu_icon' => 'dashicons-video-alt3',
-            'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields' )
+            'supports' => array( 'title', 'editor', 'thumbnail' )
         ) );
 
 
+        $this->registerTaxonomy( 'tag-category', 'tag-categories', [ 'video', 'user'], [
+            'rewrite' => array(
+                'with_front' => true,
+                'slug' => 'author/tag' // Use 'author' (default WP user slug).
+            )
+        ] );
 
+        /*
         $this->registerTaxonomy( 'tag-category', 'tag-categories', 'user', [
             'rewrite' => array(
                 'with_front' => true,
@@ -45,7 +89,7 @@ class CustomPostTypes extends Base {
             ),
             # @todo? update function http://justintadlock.com/archives/2011/10/20/custom-user-taxonomies-in-wordpress
             #'update_count_callback' => 'my_update_profession_count'
-        ] );
+        ] );*/
 
     }
 
