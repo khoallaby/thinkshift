@@ -103,7 +103,7 @@ class CustomPostTypes extends Base {
 			'menu_position'       => 5,
 			'menu_icon'           => 'dashicons-admin-post',
 			'can_export'          => true,
-			'has_archive'         => true,
+			'has_archive'         => $cptNamePlural,
 			'capability_type'     => 'page',
 		);
 		$args = wp_parse_args( $args, $defaults );
