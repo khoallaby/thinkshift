@@ -11,7 +11,7 @@ if ( have_posts() ) :
         <?php
         while ( have_posts() ) : the_post();
             ?>
-            <div class="col-md">
+            <div class="col-md-4">
                 <h2><?php the_title(); ?></h2>
                 <div><?php the_content(); ?></div>
                 <figure><a href="<?php the_permalink(); ?>"><img src="//lorempixel.com/640/360" class="img-fluid" /></a></figure>
