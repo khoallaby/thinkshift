@@ -7,6 +7,7 @@ class CustomPostTypes extends Base {
 
 	public function init() {
 
+        add_action( 'pre_get_posts', array( $this, 'alterPageQueries' ) );
         add_filter( 'wp_terms_checklist_args', array( $this, 'showStrengthsOnly' ), 20, 2 );
     }
 
@@ -18,6 +19,25 @@ class CustomPostTypes extends Base {
      ******************************************************************************************/
 
 
+
+    # Alters the main queries on selected pages
+    public static function alterPageQueries( $query ) {
+        /**
+         * Filters/searches all the posts on /career archive page.
+         */
+
+        if( $query->is_main_query()  && !is_admin() ) {
+            if( $query->is_post_type_archive( 'career' ) || $query->is_post_type_archive( 'video' ) ) {
+
+                $query = self::filterQuery( $query );
+                # do filtering
+            }
+
+
+        }
+        return $query;
+
+    }
 
     /**
      * Shows only the strengths on admin edit screens that use the tag-category taxonomy
@@ -32,6 +52,55 @@ class CustomPostTypes extends Base {
 
         return $args;
     }
+
+
+    /**
+     * Checks the $_GET variables and does filtering
+     * @param $query
+     *
+     * @return mixed
+     */
+    public static function filterQuery( $query ) {
+
+        if( isset($_GET['limit']) && is_numeric($_GET['limit']) )
+            $limit = $_GET['limit'];
+        else
+            $limit = 100;
+        $query->set( 'posts_per_page', intval($limit) );
+
+
+
+        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : \ThinkShift\Plugin\Users::getUserStrengths();
+        $relation = \ThinkShift\Plugin\Users::searchCareerRelation( $strengths );
+
+        # todo: careers needs to use tag-category taxonomy later instead of metakeys
+        if( $query->is_post_type_archive( 'career' ) ) {
+
+
+            # set the meta query
+            $metaQuery = [
+                'relation' => $relation
+            ];
+            for( $i = 1; $i <= 3; $i++ ) {
+                $metaQuery[] = [
+                    'key'     => 'ValueType' . $i,
+                    'value'   => (array) $strengths,
+                    'compare' => 'IN'
+                ];
+            }
+            $query->set('meta_query',$metaQuery);
+
+        } elseif( $query->is_post_type_archive( 'video' ) ) {
+
+
+        }
+
+
+
+
+        return $query;
+    }
+
 
 
 
