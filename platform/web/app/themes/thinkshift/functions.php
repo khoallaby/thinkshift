@@ -11,6 +11,7 @@
  */
 $sage_includes = [
   'lib/thinkshift/ThinkShift.php',
+  'lib/thinkshift/Template.php',
   'lib/thinkshift/Users.php',
   'lib/assets.php',    // Scripts and stylesheets
   'lib/extras.php',    // Custom functions
