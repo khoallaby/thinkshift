@@ -30,11 +30,12 @@ class CustomPostTypes extends Base {
             'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields' )
         ) );
 
+        /*
         $this->registerCpt('video', 'videos', array(
             'exclude_from_search' => true,
             'menu_icon' => 'dashicons-video-alt3',
             'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields' )
-        ) );
+        ) );*/
 
 
 
