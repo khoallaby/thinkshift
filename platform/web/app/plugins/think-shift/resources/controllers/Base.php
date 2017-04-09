@@ -64,6 +64,17 @@ class Base {
      * @return array
      */
     public static function getTaxQuery( $values ) {
+        return self::getTaxQueryBy( 'id', $values );
+    }
+
+
+    /**
+     * Returns an array to use for $wp_query[tax_query]
+     * @param $values
+     *
+     * @return array
+     */
+    public static function getTaxQueryBy( $field = 'id', $values = [] ) {
         $less = 3;
         $relation = count($values) < $less ? 'OR' : 'AND';
 
@@ -78,7 +89,6 @@ class Base {
 
         return $taxQuery;
     }
-
 
     #add_action( 'wp', array( $this, 'force_404' ) );
     public function force_404() {
