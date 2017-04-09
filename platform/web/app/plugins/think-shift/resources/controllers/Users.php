@@ -44,9 +44,10 @@ class Users extends Base {
         #$fields = $this->parseFields( $user->ID );
         #$this->addInfusionsoftContact( $user->ID, $fields );
 
+        # todo: update the user's entire profile
         // update user's "strengths" metadata
         self::setUserId( $user->ID );
-        \ThinkShift\Plugin\Cron::updateUserStrengths();
+        Cron::updateUserStrengths();
 
         #}
     }

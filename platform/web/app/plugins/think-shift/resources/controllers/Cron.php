@@ -72,14 +72,15 @@ class Cron extends Users {
 
         $i = 1;
         if( $tags ) {
-            $allStrengths = Tags::getAllStrengths();
 
             # add all user's strengths into usermeta, have to convert from IS title to WP tag ID#
             foreach ( $tags as $tag ) {
-                foreach( $allStrengths as $strengthId => $strengthTitle ) {
-                    if( $strengthTitle == $tag['GroupName'] ) {
-                        update_user_meta( static::$userId, 'strength_' . $i ++, $strengthId );
-                        break;
+                if( $allStrengths = Tags::getAllStrengths() ) {
+                    foreach( $allStrengths as $strengthId => $strengthTitle ) {
+                        if( $strengthTitle == $tag['GroupName'] ) {
+                            update_user_meta( static::$userId, 'strength_' . $i ++, $strengthId );
+                            break;
+                        }
                     }
                 }
             }
