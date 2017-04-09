@@ -12,6 +12,7 @@ $importer::setKeys( dirname(__FILE__) . '/' . $fileMap );
 $numberPostsImported = $importer::importCareersIntoCpt( dirname(__FILE__) . '/' . $file );
 
 
+flush_rewrite_rules();
 
 # echos out header in array format
 #echo $importer::getHeaders( dirname(__FILE__) . '/' . $file, true );
