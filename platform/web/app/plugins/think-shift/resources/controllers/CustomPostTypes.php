@@ -46,7 +46,7 @@ class CustomPostTypes extends Base {
 
         if( is_admin() ) {
             $screen = get_current_screen();
-            if ( is_object( $screen ) && $screen->post_type == 'video' )
+            if ( is_object( $screen ) && ( $screen->post_type == 'career' || $screen->post_type == 'video'  ) )
                 $args['descendants_and_self'] = Users::getStrengthMetaId();
         }
 
@@ -152,7 +152,7 @@ class CustomPostTypes extends Base {
         ) );
 
 
-        $this->registerTaxonomy( 'tag-category', 'tag-categories', [ 'video', 'user'], [
+        $this->registerTaxonomy( 'tag-category', 'tag-categories', [ 'career', 'video', 'user'], [
             'rewrite' => array(
                 'with_front' => true,
                 'slug' => 'author/tag' // Use 'author' (default WP user slug).
