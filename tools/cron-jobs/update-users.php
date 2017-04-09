@@ -1,8 +1,9 @@
 <?php
 require_once dirname(__FILE__) . '/../../platform/web/wp/wp-load.php';
 
-use ThinkShift\Plugin\Cron as Cron,
-    ThinkShift\Plugin\Base as Base;
+use ThinkShift\Plugin\Cron,
+    ThinkShift\Plugin\Base,
+    ThinkShift\Plugin\Users;
 
 
 $users = Base::getPosts( 'user' );
@@ -16,7 +17,7 @@ $users = Base::getPosts( 'user' );
 foreach( $users as $user ) {
 
     Cron::setUserId( $user->ID );
-    Cron::updateUserTags();
+    Users::updateUserTags();
     #Cron::updateUserStrengths();
 
     # @todo: update IS with WP's names/email/metadata

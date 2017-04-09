@@ -1,4 +1,13 @@
 <?php
+/**
+ *
+ * Actions/Filters
+ * Helper functions
+ * Contacts
+ * Tags
+ *
+ */
+
 namespace ThinkShift\Plugin;
 
 use ThinkShift\Plugin\Infusionsoft;
@@ -243,38 +252,6 @@ class Users extends Base {
 
 
 
-    /**
-     * Returns the user's strengths (3) from usermeta
-     * @param bool $returnAsIds     Returns as an arry of IDs, else associative array
-     * @return array                Returns all the strength Tags
-     */
-    public static function getUserStrengths( $returnAsIds = false ) {
-        $strengths = self::getUserTags( self::$strengthMetaKey );
-
-
-        $return = [];
-        foreach( $strengths as $strength ) {
-            if( $returnAsIds )
-                $return[] = $strength->term_id;
-            else
-                $return[ $strength->term_id ] = $strength->name;
-        }
-
-        return $return;
-    }
-
-
-
-    /**
-     * Returns the user's strengths (3) from usermeta
-     * @return array
-     */
-    public static function getUserStrengthsIds() {
-        return self::getUserStrengths( true );
-    }
-
-
-
 
     /**
      * Gets user's tags by Category Name or ID
@@ -292,6 +269,44 @@ class Users extends Base {
 
     }
 
+
+
+    /**
+     * Check if user has a certain Tag
+     * @param null|int|string|array $terms*
+     * @return bool|\WP_Error
+     */
+    public static function userHasTag( $terms = null ) {
+        if( is_string($terms) ) {
+            $terms = sanitize_title( $terms );
+            if( $terms == '' )
+                $terms = false;
+        }
+
+        return is_object_in_term( static::$userId, 'tag-category', $terms );
+    }
+
+
+
+    /**
+     * Returns the user's strengths (3) from usermeta
+     * @param bool $returnAsIds     Returns as an arry of IDs, else associative array
+     * @return array                Returns all the strength Tags
+     */
+    public static function getUserStrengths( $returnAsArray = true ) {
+        $strengths = self::getUserTags( self::$strengthMetaKey );
+
+
+        $return = [];
+        foreach( $strengths as $strength ) {
+            if( $returnAsArray )
+                $return[] = $strength->term_id;
+            else
+                $return[ $strength->term_id ] = $strength->name;
+        }
+
+        return $return;
+    }
 
 
 
@@ -324,20 +339,36 @@ class Users extends Base {
     }
 
 
-    /**
-     * Check if user has a certain Tag
-     * @param null|int|string|array $terms*
-     * @return bool|\WP_Error
-     */
-    public static function userHasTag( $terms = null ) {
-        if( is_string($terms) ) {
-            $terms = sanitize_title( $terms );
-            if( $terms == '' )
-                $terms = false;
-        }
 
-        return is_object_in_term( static::$userId, 'tag-category', $terms );
+
+    /**
+     * Grab all the User Tags from IS, and save to WP
+     * @return array|\WP_Error
+     */
+    public static function updateUserTags() {
+        $taxonomy = 'tag-category';
+
+
+        # @todo: replace this with self::updateAllUserTags()
+        $tags = \ThinkShift\Plugin\Infusionsoft::get_instance()->getTagsByContactId( static::$contactId );
+        $tags2 = [];
+
+        foreach( $tags as $tag )
+            $tags2[] = $tag['GroupName'];
+
+        $sanitizedTags = array_map( 'sanitize_title', $tags2 );
+
+
+        $objs = wp_set_object_terms( static::$userId, $sanitizedTags, $taxonomy, false );
+        // Save the data
+        clean_object_term_cache( static::$userId, $taxonomy );
+
+        return $objs;
+
     }
+
+
+
 
 }
 

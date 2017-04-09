@@ -54,7 +54,7 @@ class CustomPostTypes extends Base {
         $query->set( 'posts_per_page', intval($limit) );
 
 
-        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : Users::getUserStrengthsIds();
+        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : Users::getUserStrengths( false );
 
         if( $query->is_post_type_archive( 'career' ) || $query->is_post_type_archive( 'video' ) ) {
             $taxQuery = static::getTaxQuery( $strengths );
@@ -121,10 +121,12 @@ class CustomPostTypes extends Base {
 
 
         $this->registerTaxonomy( 'tag-category', 'tag-categories', [ 'career', 'video', 'user'], [
+            /*
             'rewrite' => array(
-                'with_front' => true,
+                'with_front' => false,
                 'slug' => 'author/tag' // Use 'author' (default WP user slug).
             )
+            */
         ] );
 
         /*
