@@ -276,10 +276,6 @@ class Users extends Base {
 
 
 
-    public static function searchCareerRelation( $count, $less = 3 ) {
-        return count($count) < $less ? 'OR' : 'AND';
-    }
-
 
     /**
      * Function responsible for 3 career cards on dashboard

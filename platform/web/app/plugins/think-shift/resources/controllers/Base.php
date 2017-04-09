@@ -57,6 +57,28 @@ class Base {
     }
 
 
+    /**
+     * Returns an array to use for $wp_query[tax_query]
+     * @param $values
+     *
+     * @return array
+     */
+    public static function getTaxQuery( $values ) {
+        $less = 3;
+        $relation = count($values) < $less ? 'OR' : 'AND';
+
+        $taxQuery = [
+            'relation' => $relation,
+            [
+                'taxonomy' => 'tag-category',
+                'field' => 'id',
+                'terms'   => array_map( 'intval', $values ),
+            ]
+        ];
+
+        return $taxQuery;
+    }
+
 
     #add_action( 'wp', array( $this, 'force_404' ) );
     public function force_404() {
