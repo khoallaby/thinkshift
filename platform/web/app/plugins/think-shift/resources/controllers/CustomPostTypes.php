@@ -39,20 +39,6 @@ class CustomPostTypes extends Base {
 
     }
 
-    /**
-     * Shows only the strengths on admin edit screens that use the tag-category taxonomy
-     */
-    public function showStrengthsOnly( $args, $post_id ) {
-
-        if( is_admin() ) {
-            $screen = get_current_screen();
-            if ( is_object( $screen ) && ( $screen->post_type == 'career' || $screen->post_type == 'video'  ) )
-                $args['descendants_and_self'] = Users::getStrengthMetaId();
-        }
-
-        return $args;
-    }
-
 
     /**
      * Checks the $_GET variables and does filtering
@@ -68,7 +54,7 @@ class CustomPostTypes extends Base {
         $query->set( 'posts_per_page', intval($limit) );
 
 
-        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : Users::getUserStrengths();
+        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : Users::getUserStrengthsIds();
 
         if( $query->is_post_type_archive( 'career' ) || $query->is_post_type_archive( 'video' ) ) {
             $taxQuery = static::getTaxQuery( $strengths );
@@ -79,6 +65,20 @@ class CustomPostTypes extends Base {
     }
 
 
+
+    /**
+     * Shows only the strengths on admin edit screens that use the tag-category taxonomy
+     */
+    public function showStrengthsOnly( $args, $post_id ) {
+
+        if( is_admin() ) {
+            $screen = get_current_screen();
+            if ( is_object( $screen ) && ( $screen->post_type == 'career' || $screen->post_type == 'video'  ) )
+                $args['descendants_and_self'] = Users::getStrengthMetaId();
+        }
+
+        return $args;
+    }
 
 
 

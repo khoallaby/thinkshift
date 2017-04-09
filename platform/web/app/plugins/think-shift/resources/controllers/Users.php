@@ -240,19 +240,36 @@ class Users extends Base {
 
     }
 
+
+
     /**
      * Returns the user's strengths (3) from usermeta
-     * @return array
+     * @param bool $returnAsIds     Returns as an arry of IDs, else associative array
+     * @return array                Returns all the strength Tags
      */
-    public static function getUserStrengths() {
+    public static function getUserStrengths( $returnAsIds = false ) {
         $strengths = self::getUserTags( self::$strengthMetaKey );
 
 
         $return = [];
-        foreach( $strengths as $strength )
-            $return[ $strength->term_id ] = $strength->name;
+        foreach( $strengths as $strength ) {
+            if( $returnAsIds )
+                $return[] = $strength->term_id;
+            else
+                $return[ $strength->term_id ] = $strength->name;
+        }
 
         return $return;
+    }
+
+
+
+    /**
+     * Returns the user's strengths (3) from usermeta
+     * @return array
+     */
+    public static function getUserStrengthsIds() {
+        return self::getUserStrengths( true );
     }
 
 
