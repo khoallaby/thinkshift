@@ -5,12 +5,37 @@ use PHPExcel_IOFactory;
 
 
 class Importer extends Base {
+    public static $keys;
 
-	public function init() {
+
+    public function __construct( $keys = [] ) {
+        if( !empty($keys) )
+            self::setKeys( $keys );
+
+    }
+
+    public function init() {
 
 	}
 
-	public function getHeaders( $file, $string = false ) {
+
+    /**
+     * Sets the keys array. Which converts the meta_key names used between the file and the data in the DB
+     * @param $keys
+     */
+	public static function setKeys( $keys ) {
+        if( file_exists($keys) ) {
+            $file = file_get_contents( $keys );
+            $keys = json_decode( $file );
+            self::$keys = $keys;
+        } else {
+            self::$keys = $keys;
+        }
+
+        return $keys;
+    }
+
+	public static function getHeaders( $file, $string = false ) {
 
         $phpExcel = PHPExcel_IOFactory::load( $file );
         $worksheet = $phpExcel->getActiveSheet();
@@ -97,4 +122,4 @@ class Importer extends Base {
 
 }
 
-add_action( 'plugins_loaded', array( \ThinkShift\Plugin\Importer::get_instance(), 'init' ));
+#add_action( 'plugins_loaded', array( \ThinkShift\Plugin\Importer::get_instance(), 'init' ));
