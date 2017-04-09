@@ -72,9 +72,9 @@ class CustomPostTypes extends Base {
 
         $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : \ThinkShift\Plugin\Users::getUserStrengths();
 
-        # todo: careers needs to use tag-category taxonomy later instead of instead of metaquery
         if( $query->is_post_type_archive( 'career' ) ) {
 
+            #### todo: remove below
             $relation = count($strengths) < 3 ? 'OR' : 'AND';
 
             # set the meta query
@@ -88,10 +88,16 @@ class CustomPostTypes extends Base {
                     'compare' => 'IN'
                 ];
             }
-            $query->set('tax_query',$metaQuery);
+            $query->set('meta_query',$metaQuery);
+
+
+
+            # todo: change to this later
+            #$taxQuery = static::getTaxQuery( $strengths );
+            #$query->set('tax_query',$taxQuery);
+
 
         } elseif( $query->is_post_type_archive( 'video' ) ) {
-
             $taxQuery = static::getTaxQuery( $strengths );
 
             $query->set( 'tax_query', $taxQuery );
