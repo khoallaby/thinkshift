@@ -75,15 +75,13 @@ class Base {
      * @return array
      */
     public static function getTaxQueryBy( $field = 'id', $values = [] ) {
-        $less = 3;
-        $relation = count($values) < $less ? 'OR' : 'AND';
 
         $taxQuery = [
-            'relation' => $relation,
             [
                 'taxonomy' => 'tag-category',
-                'field' => 'id',
-                'terms'   => array_map( 'intval', $values ),
+                'field'    => $field,
+                'terms'    => array_map( 'intval', $values ),
+                'operator' => 'AND'
             ]
         ];
 

@@ -2,7 +2,6 @@
 use ThinkShift\Plugin\Tags;
 use ThinkShift\Plugin\Users;
 
-global $strengths;
 if( !isset($strengths) )
     $strengths = Tags::getAllStrengths( false );
 ?>

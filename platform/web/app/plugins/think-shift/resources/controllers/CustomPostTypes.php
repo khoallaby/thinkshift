@@ -61,7 +61,6 @@ class CustomPostTypes extends Base {
      * @return mixed
      */
     public static function filterQuery( $query ) {
-
         if( isset($_GET['limit']) && is_numeric($_GET['limit']) )
             $limit = $_GET['limit'];
         else
@@ -69,43 +68,12 @@ class CustomPostTypes extends Base {
         $query->set( 'posts_per_page', intval($limit) );
 
 
+        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : Users::getUserStrengths();
 
-        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : \ThinkShift\Plugin\Users::getUserStrengths();
-
-        if( $query->is_post_type_archive( 'career' ) ) {
-
-            #### todo: remove below
-            $relation = count($strengths) < 3 ? 'OR' : 'AND';
-
-            # set the meta query
-            $metaQuery = [
-                'relation' => $relation
-            ];
-            for( $i = 1; $i <= 3; $i++ ) {
-                $metaQuery[] = [
-                    'key'     => 'ValueType' . $i,
-                    'value'   => (array) $strengths,
-                    'compare' => 'IN'
-                ];
-            }
-            $query->set('meta_query',$metaQuery);
-
-
-
-            # todo: change to this later
-            #$taxQuery = static::getTaxQuery( $strengths );
-            #$query->set('tax_query',$taxQuery);
-
-
-        } elseif( $query->is_post_type_archive( 'video' ) ) {
+        if( $query->is_post_type_archive( 'career' ) || $query->is_post_type_archive( 'video' ) ) {
             $taxQuery = static::getTaxQuery( $strengths );
-
             $query->set( 'tax_query', $taxQuery );
-
         }
-
-
-
 
         return $query;
     }
