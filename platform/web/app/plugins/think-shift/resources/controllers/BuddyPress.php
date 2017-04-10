@@ -7,8 +7,25 @@ class BuddyPress extends Users {
 
         #add_action( 'wp_login', array( $this, 'wp_login' ), 20, 2 );
 
-        #buddypress on user register
-        add_action( 'user_register', array( $this, 'user_register' ), 9 );
+
+
+
+        # registration hooks
+        add_action( 'bp_signup_pre_validate', [ $this, 'bp_signup_pre_validate' ] );
+        add_filter( 'bp_core_validate_user_signup', [ $this, 'bp_core_validate_user_signup' ] );
+        add_action( 'bp_core_activated_user', [ $this, 'bp_core_activated_user' ], 20, 3 );
+
+
+        # remove buddypress admin bar
+        add_action( 'wp', [ $this, 'removeBpAdminBar' ] );
+
+        # do_action( 'bp_signup_validate' ); # after validateion complete
+        # do_action( 'bp_complete_signup' ); # after complete
+
+
+
+        # After registration, we update the first/lastname fields
+        add_action( 'user_register', [ $this, 'user_register' ], 9 );
     }
 
 
@@ -20,26 +37,62 @@ class BuddyPress extends Users {
      ******************************************************************************************/
 
 
+
+    # adds something to the $_POST[user_name] so we can bypass the BP validation methods
+    public function bp_signup_pre_validate() {
+        if( $_POST['signup_email'] )
+            $_POST['signup_username'] = md5($_POST['signup_email']);
+    }
+
+
+    #
+    # Sets the username as the email, after BP validation methods have ran
+    public function bp_core_validate_user_signup( $results ) {
+        $results['user_name'] = $results['user_email'];
+        return $results;
+    }
+
+
+    # sets username after activation
+     public function bp_core_activated_user(  $userId, $key, $user ) {
+         global $wpdb;
+         $user = get_user_by( 'ID', $userId );
+
+         $update = $wpdb->update( $wpdb->users,
+             [ 'user_login' => $user->user_email ],
+             [ 'ID' => $userId],
+             [ '%s' ],
+             [ '%d' ]
+         );
+         vard( $userId);
+         vard( $key);
+         vard( $user);
+         return $update;
+
+     }
+
+
     /**
-     * Hook into BP, after registration process is done
+     * After successful registration, adds our custom registration meta, (first/last name)
      */
-    public function user_register( $user_id ) {
-        if( $user = get_user_by('ID', $user_id ) ) {
+    public function user_register( $userId ) {
+        if( $user = get_user_by('ID', $userId ) ) {
 
             $nickname = $_POST['first_name'] . ' ' . $_POST['last_name'];
 
             # update usermeta
             $updateUserId = wp_update_user( [
-                'ID' => $user_id,
+                'ID' => $userId,
                 'display_name' => $nickname,
                 'nickname' => $nickname,
+                'user_nicename' => $nickname,
                 'first_name' => $_POST['first_name'],
                 'last_name' => $_POST['last_name'],
-                #'user_login' => $user_email # updating user_login not allowed
+                #'user_login' => $user->user_email # updating user_login not allowed
             ] );
 
-            $updateEmail = static::updateUserLogin( $user_id, $user->user_email );
-
+            # can't save email as user_login before activating
+            #self::updateUserLogin( $userId, $user->user_email );
 
 
         }
@@ -47,7 +100,12 @@ class BuddyPress extends Users {
 
 
 
-
+    # @todo: also remove the admin-bar body class.
+    # remove buddypress admin bar
+    function removeBpAdminBar() {
+        if( !is_super_admin() )
+            add_filter( 'show_admin_bar', '__return_false' );
+    }
 
 
 }
