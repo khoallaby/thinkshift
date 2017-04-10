@@ -14,15 +14,17 @@ $users = Base::getPosts( 'user' );
 # $query = $wpdb->query( "DELETE FROM $wpdb->usermeta WHERE meta_key IN ('strength_1', 'strength_2', 'strength_3');" );
 
 
+# todo:
+# low priority - update all user's tags
+# high  priority - check for users that need update (via metakey). update them only
+# update IS with user's personal info
 foreach( $users as $user ) {
 
-    Cron::setUserId( $user->ID );
+    Users::setUserId( $user->ID );
     Users::updateUserTags();
-    #Cron::updateUserStrengths();
 
     # @todo: update IS with WP's names/email/metadata
     # \iSDK::dsUpdate($tName, $id, $iMap)
 
 }
-
 
