@@ -12,7 +12,7 @@ class AdminUi extends Base {
 
 
 
-        add_filter('piklist_taxonomies', 'piklistTaxonomies');
+        add_filter('piklist_taxonomies', [ $this, 'piklistTaxonomies' ] );
 
 	    /**
          * stuff for adding user taxonomy
