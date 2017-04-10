@@ -40,8 +40,10 @@
     "oscarotero/env": "^1.0",
     "roots/wp-password-bcrypt": "1.0.0",
     "wpackagist-plugin/buddypress": "2.8.2",
+    "wpackagist-plugin/bbpress": "2.5.12",
     "wpackagist-plugin/wordpress-social-login": "2.3.3",
-    "wpackagist-plugin/lh-user-taxonomies": "1.52"
+    "wpackagist-plugin/lh-user-taxonomies": "1.52",
+    "wpackagist-plugin/piklist": "0.9.9.11"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.5.1"
