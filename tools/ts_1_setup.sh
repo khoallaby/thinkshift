@@ -74,6 +74,14 @@ composer install
 #ignore our .env file, even if changed.
 git update-index --assume-unchanged .env
 
+# permissions - allow write access to uploads/plugins
+sudo chown -v -R bitnami:daemon web/app/uploads
+#sudo chmod -v -R 755 web/app/uploads
+#sudo chown -v -R bitnami:daemon web/app/plugins
+#sudo chmod -v -R 755 web/app/plugins
+#sudo find web/ -type f -exec chmod 664 {} \;
+#sudo find web/ -type d -exec chmod 775 {} \;
+
 
 # install wordpress
 # @todo: remove this later when figure out how bedrock installs WP
