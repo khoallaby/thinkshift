@@ -8,8 +8,6 @@
     <title><?php bloginfo( 'title'); ?></title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
 	<?php wp_head(); ?>
-  <link type="text/css" rel="stylesheet" href="https://tympanus.net/Tutorials/ThumbnailGridExpandingPreview/css/default.css" />
-  <link type="text/css" rel="stylesheet" href="https://tympanus.net/Tutorials/ThumbnailGridExpandingPreview/css/component.css" />
   <script type="text/javascript" src="https://tympanus.net/Tutorials/ThumbnailGridExpandingPreview/js/modernizr.custom.js"></script>
 
 </head>
