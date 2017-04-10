@@ -7,7 +7,14 @@ $keys = ['ValueType1', 'ValueType2','ValueType3','occcode', 'occup', 'occdesc', 
     'openingscount', 'openingsrate', 'openingsratecat', 'pctselfemp',
     'pctselfempcat', 'highoppjobfamily', 'jobzone'];
 
-
-foreach( $keys as $key )
-    //echo sprintf( '<div style="display: none;" class="col-lg-12"><h5 style="display: inline-block">%s:</h5> %s</div>', $key, get_post_meta( get_the_ID(), $key, true ));
+    echo sprintf('
+      <a class="job-title"
+      href="' . get_the_permalink() .'"
+      data-largesrc="images/1.jpg"
+      data-ValueType2="'.get_post_meta( get_the_ID(), 'ValueType2', true).'"
+      data-title="' . get_the_permalink() .'"
+      data-description="Swiss chard pumpkin bunya nuts maize plantain aubergine napa cabbage soko coriander sweet pepper water spinach winter purslane shallot tigernut lentil beetroot.">
+        <h1>' . get_the_title() . '</h1>
+      </a>
+    ');
 ?>
