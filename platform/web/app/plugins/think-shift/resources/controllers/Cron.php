@@ -27,41 +27,6 @@ class Cron extends Users {
      ******************************************************************************************/
 
 
-    public static function updateAllUserTags() {
-        # todo: pull all users at the same time and loop through their tags (vs making 1 request per user)
-
-        $tags   = \ThinkShift\Plugin\Infusionsoft::get_instance()->getAllUserTags();
-        var_dump($tags);
-    }
-
-
-    /**
-     * Grab all the User Tags from IS, and save to WP
-     * @return array|\WP_Error
-     */
-    public static function updateUserTags() {
-        $taxonomy = 'tag-category';
-
-
-        # @todo: replace this with self::updateAllUserTags()
-        $tags = \ThinkShift\Plugin\Infusionsoft::get_instance()->getTagsByContactId( static::$contactId );
-        $tags2 = [];
-
-        foreach( $tags as $tag )
-            $tags2[] = $tag['GroupName'];
-
-        $sanitizedTags = array_map( 'sanitize_title', $tags2 );
-
-
-        $objs = wp_set_object_terms( static::$userId, $sanitizedTags, $taxonomy, false );
-        // Save the data
-        clean_object_term_cache( static::$userId, $taxonomy );
-
-        return $objs;
-
-    }
-
-
 
 
     # deprecate to use new categories instead of metadata
@@ -72,14 +37,15 @@ class Cron extends Users {
 
         $i = 1;
         if( $tags ) {
-            $allStrengths = Tags::getAllStrengths();
 
             # add all user's strengths into usermeta, have to convert from IS title to WP tag ID#
             foreach ( $tags as $tag ) {
-                foreach( $allStrengths as $strengthId => $strengthTitle ) {
-                    if( $strengthTitle == $tag['GroupName'] ) {
-                        update_user_meta( static::$userId, 'strength_' . $i ++, $strengthId );
-                        break;
+                if( $allStrengths = Tags::getAllStrengths() ) {
+                    foreach( $allStrengths as $strengthId => $strengthTitle ) {
+                        if( $strengthTitle == $tag['GroupName'] ) {
+                            update_user_meta( static::$userId, 'strength_' . $i ++, $strengthId );
+                            break;
+                        }
                     }
                 }
             }

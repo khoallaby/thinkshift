@@ -1,4 +1,13 @@
 <?php
+/**
+ *
+ * Actions/Filters
+ * Helper functions
+ * Contacts
+ * Tags
+ *
+ */
+
 namespace ThinkShift\Plugin;
 
 use ThinkShift\Plugin\Infusionsoft;
@@ -44,9 +53,10 @@ class Users extends Base {
         #$fields = $this->parseFields( $user->ID );
         #$this->addInfusionsoftContact( $user->ID, $fields );
 
+        # todo: update the user's entire profile
         // update user's "strengths" metadata
         self::setUserId( $user->ID );
-        \ThinkShift\Plugin\Cron::updateUserStrengths();
+        Cron::updateUserStrengths();
 
         #}
     }
@@ -93,6 +103,17 @@ class Users extends Base {
     /******************************************************************************************
      * Misc helper functions
      ******************************************************************************************/
+
+
+
+    public static function getStrengthMetaId() {
+        $strengths = get_term_by( 'name' , self::$strengthMetaKey, 'tag-category' );
+        if( $strengths )
+            return $strengths->term_id;
+        else
+            return $strengths;
+    }
+
 
     /**
      * Sets up our user/userID variables. If user is logged in, use current user.
@@ -229,21 +250,6 @@ class Users extends Base {
 
     }
 
-    /**
-     * Returns the user's strengths (3) from usermeta
-     * @return array
-     */
-    public static function getUserStrengths() {
-        $strengths = self::getUserTags( self::$strengthMetaKey );
-
-
-        $return = [];
-        foreach( $strengths as $strength )
-            $return[ $strength->term_id ] = $strength->name;
-
-        return $return;
-    }
-
 
 
 
@@ -265,9 +271,43 @@ class Users extends Base {
 
 
 
-    public static function searchCareerRelation( $count, $less = 3 ) {
-        return count($count) < $less ? 'OR' : 'AND';
+    /**
+     * Check if user has a certain Tag
+     * @param null|int|string|array $terms*
+     * @return bool|\WP_Error
+     */
+    public static function userHasTag( $terms = null ) {
+        if( is_string($terms) ) {
+            $terms = sanitize_title( $terms );
+            if( $terms == '' )
+                $terms = false;
+        }
+
+        return is_object_in_term( static::$userId, 'tag-category', $terms );
     }
+
+
+
+    /**
+     * Returns the user's strengths (3) from usermeta
+     * @param bool $returnAsIds     Returns as an arry of IDs, else associative array
+     * @return array                Returns all the strength Tags
+     */
+    public static function getUserStrengths( $returnAsArray = true ) {
+        $strengths = self::getUserTags( self::$strengthMetaKey );
+
+
+        $return = [];
+        foreach( $strengths as $strength ) {
+            if( $returnAsArray )
+                $return[] = $strength->term_id;
+            else
+                $return[ $strength->term_id ] = $strength->name;
+        }
+
+        return $return;
+    }
+
 
 
     /**
@@ -299,16 +339,36 @@ class Users extends Base {
     }
 
 
+
+
     /**
-     * Check if user has a certain Tag
-     * @param null|int|string|array $terms*
-     * @return bool|\WP_Error
+     * Grab all the User Tags from IS, and save to WP
+     * @return array|\WP_Error
      */
-    public static function userHasTag( $terms = null ) {
-        if( is_string($terms) )
-            $terms = sanitize_title($terms);
-        return is_object_in_term( static::$userId, 'tag-category', $terms );
+    public static function updateUserTags() {
+        $taxonomy = 'tag-category';
+
+
+        # @todo: replace this with self::updateAllUserTags()
+        $tags = \ThinkShift\Plugin\Infusionsoft::get_instance()->getTagsByContactId( static::$contactId );
+        $tags2 = [];
+
+        foreach( $tags as $tag )
+            $tags2[] = $tag['GroupName'];
+
+        $sanitizedTags = array_map( 'sanitize_title', $tags2 );
+
+
+        $objs = wp_set_object_terms( static::$userId, $sanitizedTags, $taxonomy, false );
+        // Save the data
+        clean_object_term_cache( static::$userId, $taxonomy );
+
+        return $objs;
+
     }
+
+
+
 
 }
 

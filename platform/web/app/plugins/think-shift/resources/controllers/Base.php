@@ -57,6 +57,47 @@ class Base {
     }
 
 
+    /**
+     * Returns an array to use for $wp_query[tax_query]
+     * @param $values
+     *
+     * @return array
+     */
+    public static function getTaxQuery( $values ) {
+        return self::getTaxQueryBy( 'id', $values );
+    }
+
+
+    /**
+     * Returns an array to use for $wp_query[tax_query]
+     * @param $values
+     *
+     * @return array
+     */
+    public static function getTaxQueryBy( $field = 'id', $values = [] ) {
+
+        $taxQuery = [
+            [
+                'taxonomy' => 'tag-category',
+                'field'    => $field,
+                'terms'    => array_map( 'intval', $values ),
+                'operator' => 'AND'
+            ]
+        ];
+
+        return $taxQuery;
+    }
+
+    #add_action( 'wp', array( $this, 'force_404' ) );
+    public function force_404() {
+        #global $wp_query; //$posts (if required)
+        #if(is_page()){ // your condition
+        status_header( 404 );
+        nocache_headers();
+        include( get_query_template( '404' ) );
+        die();
+        #}
+    }
 
 
 

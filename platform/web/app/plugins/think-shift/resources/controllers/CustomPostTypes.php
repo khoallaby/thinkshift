@@ -2,28 +2,134 @@
 namespace ThinkShift\Plugin;
 
 
+
 class CustomPostTypes extends Base {
 
 	public function init() {
 
-	}
+        add_action( 'pre_get_posts', array( $this, 'alterPageQueries' ) );
+        add_filter( 'wp_terms_checklist_args', array( $this, 'showStrengthsOnly' ), 20, 2 );
+    }
 
 
-	public function registerAll() {
+
+
+    /******************************************************************************************
+     * Actions/filters
+     ******************************************************************************************/
+
+
+
+    # Alters the main queries on selected pages
+    public static function alterPageQueries( $query ) {
+        /**
+         * Filters/searches all the posts on /career archive page.
+         */
+
+        if( $query->is_main_query()  && !is_admin() ) {
+            if( $query->is_post_type_archive( 'career' ) || $query->is_post_type_archive( 'video' ) ) {
+
+                $query = self::filterQuery( $query );
+                # do filtering
+            }
+
+
+        }
+        return $query;
+
+    }
+
+
+    /**
+     * Checks the $_GET variables and does filtering
+     * @param $query
+     *
+     * @return mixed
+     */
+    public static function filterQuery( $query ) {
+        if( isset($_GET['limit']) && is_numeric($_GET['limit']) )
+            $limit = $_GET['limit'];
+        else
+            $limit = 100;
+        $query->set( 'posts_per_page', intval($limit) );
+
+
+        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : Users::getUserStrengths( false );
+
+        if( $query->is_post_type_archive( 'career' ) || $query->is_post_type_archive( 'video' ) ) {
+            $taxQuery = static::getTaxQuery( $strengths );
+            $query->set( 'tax_query', $taxQuery );
+        }
+
+        return $query;
+    }
+
+
+
+    /**
+     * Shows only the strengths on admin edit screens that use the tag-category taxonomy
+     */
+    public function showStrengthsOnly( $args, $post_id ) {
+
+        if( is_admin() ) {
+            $screen = get_current_screen();
+            if ( is_object( $screen ) && ( $screen->post_type == 'career' || $screen->post_type == 'video'  ) )
+                $args['descendants_and_self'] = Users::getStrengthMetaId();
+        }
+
+        return $args;
+    }
+
+
+
+
+
+
+    /******************************************************************************************
+     * Register CPT functions
+     ******************************************************************************************/
+
+
+
+    #todo maybe move to their own class
+    public function registerAll() {
 
         $this->registerCpt('assessment', 'assessments', array(
             'exclude_from_search' => true,
+            'menu_icon' => 'dashicons-chart-line',
             'supports' => array( 'title', 'editor', 'page-attributes', 'custom-fields' ),
         ) );
 
 
         $this->registerCpt('career', 'careers', array(
             'exclude_from_search' => true,
+            'menu_icon' => 'dashicons-admin-customizer',
             'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields' )
         ) );
 
+        $this->registerCpt('resource', 'resources', array(
+            'exclude_from_search' => true,
+            'menu_icon' => 'dashicons-archive',
+            'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields' )
+        ) );
+
+        $this->registerCpt('video', 'videos', array(
+            'exclude_from_search' => true,
+            'menu_icon' => 'dashicons-video-alt3',
+            'supports' => array( 'title', 'editor', 'thumbnail' )
+        ) );
 
 
+        $this->registerTaxonomy( 'tag-category', 'tag-categories', [ 'career', 'video', 'user'], [
+            /*
+            'rewrite' => array(
+                'with_front' => false,
+                'slug' => 'author/tag' // Use 'author' (default WP user slug).
+            )
+            */
+        ] );
+
+        /*
         $this->registerTaxonomy( 'tag-category', 'tag-categories', 'user', [
             'rewrite' => array(
                 'with_front' => true,
@@ -31,7 +137,7 @@ class CustomPostTypes extends Base {
             ),
             # @todo? update function http://justintadlock.com/archives/2011/10/20/custom-user-taxonomies-in-wordpress
             #'update_count_callback' => 'my_update_profession_count'
-        ] );
+        ] );*/
 
     }
 
@@ -89,7 +195,7 @@ class CustomPostTypes extends Base {
 			'menu_position'       => 5,
 			'menu_icon'           => 'dashicons-admin-post',
 			'can_export'          => true,
-			'has_archive'         => true,
+			'has_archive'         => $cptNamePlural,
 			'capability_type'     => 'page',
 		);
 		$args = wp_parse_args( $args, $defaults );

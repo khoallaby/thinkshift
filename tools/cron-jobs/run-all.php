@@ -7,4 +7,4 @@ require 'import-tags.php';
 
 
 # communicates with IS. pull/update user's metadata
-require 'infusionsoft.php';
+require 'update-users.php';
