@@ -7,7 +7,7 @@ class Shortcodes extends Base {
 	protected $the_title = 'the_title';
 
 	public function init() {
-		add_shortcode( 'ts_show_tags', array( $this, 'showTags' ) );
+		#add_shortcode( 'ts_show_tags', array( $this, 'showTags' ) );
 
 		#add_filter( 'no_texturize_shortcodes', array( $this, 'no_wptexturize' ) );
 		#add_action('wp_head', array( $this, 'shortcode_unautop' ) );
@@ -15,27 +15,16 @@ class Shortcodes extends Base {
 
 
 	/*
-	# example shortcode
-	public function shortcode( $atts, $content = null ) {
-		$a = shortcode_atts( array(
-			'id'        => '',
-			'class'     => '',
-		), $atts );
-
-		return $this->getView( 'fileName' );
-	}
-	*/
-
+	 * shortcode example
+	 */
 	public function showTags() {
-		#if ( current_user_can( 'subscriber' ) )
-			return $this->getView( 'show-tags' );
-		#else
-		#	return null;
+        return $this->getView( 'show-tags' );
 	}
 
 
 
 	public function getView( $file ) {
+	    # todo: pull from get_template_part()
 		$dir = dirname(__FILE__) . '/../views/';
 		ob_start();
 		include $dir . $file . '.php';
