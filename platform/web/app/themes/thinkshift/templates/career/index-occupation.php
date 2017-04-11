@@ -13,14 +13,13 @@ $keys = ['ValueType1', 'ValueType2','ValueType3','occcode', 'occup', 'occdesc', 
 $strengths = Users::getObjStrengths( get_the_ID() );
 $strengthIds = array_keys($strengths);
 
-
 echo sprintf('
 <a class="job-title"
     href="' . get_the_permalink() . '"
     data-largesrc="images/1.jpg"
     data-strengths="' . implode( ',', $strengthIds ) . '"
-    data-title="' . get_the_permalink() .'"
-    data-description="' . the_content() . '">
+    data-title="' . get_the_title() .'"
+    data-description="' . get_the_content() . '">
     <h1>' . get_the_title() . '</h1>
 </a>
 ');
