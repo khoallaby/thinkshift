@@ -293,17 +293,12 @@ class Users extends Base {
      * @param bool $returnAsIds     Returns as an arry of IDs, else associative array
      * @return array                Returns all the strength Tags
      */
-    public static function getUserStrengths( $returnAsArray = true ) {
+    public static function getUserStrengths() {
         $strengths = self::getUserTags( self::$strengthMetaKey );
-
-
         $return = [];
-        foreach( $strengths as $strength ) {
-            if( $returnAsArray )
-                $return[] = $strength->term_id;
-            else
-                $return[ $strength->term_id ] = $strength->name;
-        }
+
+        foreach( $strengths as $strength )
+            $return[ $strength->term_id ] = $strength->name;
 
         return $return;
     }
@@ -317,7 +312,7 @@ class Users extends Base {
      * @return array    Array of careers that match all 3 strengths
      */
     public static function getUserMatchingCareers( $limit = 5 ) {
-        $strengths = array_keys( self::getUserStrengths( false ) );
+        $strengths = array_keys( self::getUserStrengths() );
 
         $careers = static::getPosts( 'career', [
             'posts_per_page' => $limit,

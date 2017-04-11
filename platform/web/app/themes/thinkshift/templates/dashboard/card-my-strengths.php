@@ -1,7 +1,7 @@
 <?php
 use ThinkShift\Plugin\Users;
 
-$tags = Users::getUserStrengths( false);
+$tags = Users::getUserStrengths();
 ?>
 <div class="card visible-md-block visible-lg-block mb-4">
     <div class="card-block">

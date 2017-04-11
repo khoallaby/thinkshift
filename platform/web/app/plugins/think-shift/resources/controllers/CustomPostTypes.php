@@ -54,7 +54,7 @@ class CustomPostTypes extends Base {
         $query->set( 'posts_per_page', intval($limit) );
 
 
-        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : Users::getUserStrengths( false );
+        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : Users::getUserStrengths();
 
         if( $query->is_post_type_archive( 'career' ) || $query->is_post_type_archive( 'video' ) ) {
             $taxQuery = static::getTaxQuery( $strengths );
