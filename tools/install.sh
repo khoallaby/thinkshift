@@ -93,7 +93,7 @@ while true; do
             bash import_db.sh "$RESP"
             ;;
         6)
-            mysql -u root -p"$ts_DB_password"
+            mysql -u root -p"$ts_DB_password" "$ts_DB"
             read
             ;;
         7)
