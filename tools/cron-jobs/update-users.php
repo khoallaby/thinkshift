@@ -15,8 +15,14 @@ $users = Base::getPosts( 'user' );
 
 
 # todo:
+
 # low priority - update all user's tags
-# high  priority - check for users that need update (via metakey). update them only
+
+# high  priority - update select users only
+# - check for users that need update (via metakey)
+# - also check/update if not activated yet
+
+
 # update IS with user's personal info
 foreach( $users as $user ) {
 

@@ -4,6 +4,8 @@
 cd ..
 # hard reset on staging servers
 # git reset --hard origin/master
+# deletes all untracked files as well
+# git clean -fd
 git pull
 cd tools
 chmod +x *.sh
