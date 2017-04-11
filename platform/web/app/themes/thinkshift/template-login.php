@@ -13,16 +13,8 @@ if ( is_user_logged_in() ) {
     echo " | ";
     wp_register('', ''); # Site Admin link
 } else {
-    $args = array(
-        'redirect'       => $dashboardUrl,
-        'form_id'        => 'loginform-custom',
-        'label_username' => __( 'Email' ),
-        'label_password' => __( 'Password' ),
-        'label_remember' => __( 'Remember Me' ),
-        'label_log_in'   => __( 'Log In' ),
-        'remember'       => true
-    );
-    wp_login_form( $args );
+    get_template_part( 'templates/form', 'login' );
+    the_content();
 }
 ?>
 

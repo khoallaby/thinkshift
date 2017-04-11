@@ -3,6 +3,8 @@
 
 get_template_part( 'templates/page', 'header' );
 
+
+if ( is_user_logged_in() ) {
 ?>
 
 <section class="container pt-4">
@@ -19,13 +21,16 @@ get_template_part( 'templates/page', 'header' );
             get_template_part( 'templates/dashboard/card', 'career' );
             get_template_part( 'templates/dashboard/card', 'congratulations' );
             ?>
+            <!--
             <div class="card mb-4 hidden-md-down">
-                <?php
+                <?php/*
                 while ( have_posts() ) : the_post();
                     get_template_part( 'templates/content', 'page' );
                 endwhile;
+                */
                 ?>
             </div>
+            -->
         </div>
         <div class="col-lg-3">
             <?php
@@ -38,3 +43,8 @@ get_template_part( 'templates/page', 'header' );
     </div>
 </section>
 
+<?php
+
+} else {
+    get_template_part( 'templates/form', 'login' );
+}
