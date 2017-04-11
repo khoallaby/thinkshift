@@ -24,6 +24,8 @@ class AdminUi extends Base {
         #add_filter( 'parent_file', array( $this, 'filter_user_taxonomy_admin_page_parent_file' ) );
 
 
+        # shows the strength Tags on admin CPTs like videos/careers
+        add_filter( 'wp_terms_checklist_args', array( $this, 'showStrengthsOnly' ), 20, 2 );
     }
 
 
@@ -32,6 +34,23 @@ class AdminUi extends Base {
      * Actions/filters 
      ******************************************************************************************/
 
+
+
+
+
+    /**
+     * Shows only the strengths on admin edit screens that use the tag-category taxonomy (sidebar)
+     */
+    public function showStrengthsOnly( $args, $post_id ) {
+
+        if( is_admin() ) {
+            $screen = get_current_screen();
+            if ( is_object( $screen ) && ( $screen->post_type == 'career' || $screen->post_type == 'video'  ) )
+                $args['descendants_and_self'] = Users::getStrengthMetaId();
+        }
+
+        return $args;
+    }
 
     /**
      * Re-register our tag-category taxonomy, so it shows up on admin / user profile

@@ -6,9 +6,7 @@ namespace ThinkShift\Plugin;
 class CustomPostTypes extends Base {
 
 	public function init() {
-
         add_action( 'pre_get_posts', array( $this, 'alterPageQueries' ) );
-        add_filter( 'wp_terms_checklist_args', array( $this, 'showStrengthsOnly' ), 20, 2 );
     }
 
 
@@ -65,20 +63,6 @@ class CustomPostTypes extends Base {
     }
 
 
-
-    /**
-     * Shows only the strengths on admin edit screens that use the tag-category taxonomy
-     */
-    public function showStrengthsOnly( $args, $post_id ) {
-
-        if( is_admin() ) {
-            $screen = get_current_screen();
-            if ( is_object( $screen ) && ( $screen->post_type == 'career' || $screen->post_type == 'video'  ) )
-                $args['descendants_and_self'] = Users::getStrengthMetaId();
-        }
-
-        return $args;
-    }
 
 
 
