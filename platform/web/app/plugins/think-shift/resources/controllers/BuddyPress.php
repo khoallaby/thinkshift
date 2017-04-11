@@ -23,9 +23,6 @@ class BuddyPress extends Users {
         # do_action( 'bp_complete_signup' ); # after complete
 
 
-
-        # After registration, we update the first/lastname fields
-        add_action( 'user_register', [ $this, 'user_register' ], 9 );
     }
 
 
@@ -67,33 +64,6 @@ class BuddyPress extends Users {
 
          return $update;
      }
-
-
-    /**
-     * After successful registration, adds our custom registration meta, (first/last name)
-     */
-    public function user_register( $userId ) {
-        if( $user = get_user_by('ID', $userId ) ) {
-
-            $nickname = $_POST['first_name'] . ' ' . $_POST['last_name'];
-
-            # update usermeta
-            $updateUserId = wp_update_user( [
-                'ID' => $userId,
-                'display_name' => $nickname,
-                'nickname' => $nickname,
-                'user_nicename' => $nickname,
-                'first_name' => $_POST['first_name'],
-                'last_name' => $_POST['last_name'],
-                #'user_login' => $user->user_email # updating user_login not allowed
-            ] );
-
-            # can't save email as user_login before activating
-            #self::updateUserLogin( $userId, $user->user_email );
-
-
-        }
-    }
 
 
 
