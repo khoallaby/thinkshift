@@ -10,6 +10,9 @@ class UserAuthentication extends Users {
 
         # After registration, we update the first/lastname fields
         add_action( 'user_register', [ $this, 'user_register' ], 9 );
+
+        # redirect normal users to homepage
+        add_filter( 'login_redirect', [ $this, 'login_redirect' ], 10, 3 );
     }
 
 
@@ -20,6 +23,30 @@ class UserAuthentication extends Users {
      * Actions/filters, i.e. for user log in/registration
      ******************************************************************************************/
 
+    /**
+     * Redirect normal users to homepage
+     *
+     * @param string $redirect_to URL to redirect to.
+     * @param string $request URL the user is coming from.
+     * @param object $user Logged user's data.
+     * @return string
+     */
+    function login_redirect( $redirect_to, $request, $user ) {
+        //is there a user to check?
+        if ( isset( $user->roles ) && is_array( $user->roles ) ) {
+            //check for admins
+            #vard($user->roles); die();
+            if ( in_array( 'administrator', $user->roles ) ) {
+                // redirect them to the default place
+                return admin_url();
+            } else {
+                return $redirect_to;
+                #return home_url();
+            }
+        } else {
+            return $redirect_to;
+        }
+    }
 
 
 
