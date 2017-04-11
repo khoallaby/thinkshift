@@ -31,6 +31,7 @@ while true; do
     clear
     echo "
     [initial installation process]
+    ------------------------------------------
     1   Install wp/project files
     2   Install mysql DB, user
     ------------------------------------------
@@ -39,9 +40,18 @@ while true; do
     4   Restart services
     5   Import/Export DB
     6   Log into MySQL
+    ------------------------------------------
+    7   Run all cron jobs (once)
     _   ( Delete everything (todo) )
 
-    6   Quit
+    0   Quit
+
+
+
+    ------------------------------------------
+      Run 'crontab -e' to view all cron jobs
+    ------------------------------------------
+
     "
     read INPUT
 
@@ -84,6 +94,10 @@ while true; do
             ;;
         6)
             mysql -u root -p"$ts_DB_password"
+            read
+            ;;
+        7)
+            php cron-jobs/run-all.php
             read
             ;;
         9)
