@@ -64,11 +64,8 @@ class BuddyPress extends Users {
              [ '%s' ],
              [ '%d' ]
          );
-         vard( $userId);
-         vard( $key);
-         vard( $user);
-         return $update;
 
+         return $update;
      }
 
 
