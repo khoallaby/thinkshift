@@ -46,7 +46,7 @@ class Base {
     # adds nav-link class to all menu anchor tags
     function addClassMenuLink( $atts, $item, $args ) {
         // check if the item is in the primary menu
-        if( $args->theme_location == 'primary_navigation' ) {
+        if( $args->theme_location == 'primary_navigation' || $args->theme_location == 'logged_out_navigation' ) {
             // add the desired attributes:
             $atts['class'] = 'nav-link';
         }

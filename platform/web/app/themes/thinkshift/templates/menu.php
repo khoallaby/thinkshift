@@ -7,13 +7,21 @@
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
 	        <?php
-	        if ( has_nav_menu( 'primary_navigation' ) ) :
+	        if ( has_nav_menu( 'primary_navigation' ) && is_user_logged_in() ) :
 		        wp_nav_menu( [
 			        'theme_location' => 'primary_navigation',
 			        'menu_class'     => 'nav navbar-nav mr-auto',
 			        'container'      => ''
 		        ] );
 	        endif;
+
+            if ( has_nav_menu( 'logged_out_navigation' ) && !is_user_logged_in() ) :
+                wp_nav_menu( [
+                    'theme_location' => 'logged_out_navigation',
+                    'menu_class'     => 'nav navbar-nav mr-auto',
+                    'container'      => ''
+                ] );
+            endif;
 	        ?>
 
             <ul id="#js-popoverContent" class="nav navbar-nav float-right mr-0 hidden-sm-down">
