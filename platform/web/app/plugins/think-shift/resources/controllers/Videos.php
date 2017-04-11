@@ -25,6 +25,14 @@ class Videos extends CustomPostTypes {
      ******************************************************************************************/
 
 
+    /**
+     * Gets the Video's URL based on $source
+     * @todo: Get rid of using ID, parse for youtube.com/vimeo.com and show accordingly
+     * @param $id
+     * @param string $source    (custom)/youtube/vimeo
+     *
+     * @return string           The URL to the Video
+     */
     public static function getVideoLink( $id, $source = '' ) {
 
         switch( $source ) {
@@ -45,6 +53,14 @@ class Videos extends CustomPostTypes {
     }
 
 
+    /**
+     * Retrieves URL of the Video's thumbnail based on $source
+     * @param $id
+     * @param string $source    Youtube/Vimeo/etc
+     * @param bool $asImage     Returns as an <img> tag or just the URL
+     *
+     * @return string           Link to the video as an absolute URL or <img> tag
+     */
     public static function getVideoThummbnailLink( $id, $source = '', $asImage = false ) {
 
         switch( $source ) {
@@ -60,7 +76,6 @@ class Videos extends CustomPostTypes {
                 break;
         }
 
-        #vard($imgUrl);
 
         if( !$asImage || $imgUrl == '' )
             return $imgUrl;
@@ -72,26 +87,11 @@ class Videos extends CustomPostTypes {
             $image = $imgUrl;
 
 
-        #vard($image);
         return $image;
 
     }
 
 
-    public static function getVideos() {
-        $videos = get_post_meta( get_the_ID(), 'videos', true );
-        return $videos;
-    }
-
-
-    public static function filterVideos() {
-        $videos = self::getVideos();
-        foreach( $videos as $video ) {
-            vard($video);
-        }
-        return $videos;
-
-    }
 }
 
 
