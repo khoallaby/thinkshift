@@ -314,6 +314,9 @@ class Users extends Base {
     public static function getUserMatchingCareers( $limit = 5 ) {
         $strengths = array_keys( self::getUserStrengths() );
 
+        if( empty( $strengths ) )
+            return null;
+
         $careers = static::getPosts( 'career', [
             'posts_per_page' => $limit,
             'tax_query'      => static::getTaxQuery( $strengths )
