@@ -317,21 +317,11 @@ class Users extends Base {
      * @return array    Array of careers that match all 3 strengths
      */
     public static function getUserMatchingCareers( $limit = 5 ) {
-        $strengths = self::getUserStrengths();
+        $strengths = array_keys( self::getUserStrengths( false ) );
 
-        $meta_query = [ 'relation' => static::searchCareerRelation( $strengths ) ];
-
-        for( $i = 1; $i <= 3; $i++ ) {
-            $meta_query[] = [
-                'key'     => 'ValueType' . $i,
-                'value'   => $strengths,
-                'compare' => 'IN'
-            ];
-        }
-
-        $careers = self::getPosts( 'career', [
+        $careers = static::getPosts( 'career', [
             'posts_per_page' => $limit,
-            'meta_query' => $meta_query
+            'tax_query'      => static::getTaxQuery( $strengths )
         ]);
 
         return $careers;
@@ -350,7 +340,7 @@ class Users extends Base {
 
 
         # @todo: replace this with self::updateAllUserTags()
-        $tags = \ThinkShift\Plugin\Infusionsoft::get_instance()->getTagsByContactId( static::$contactId );
+        $tags = Infusionsoft::get_instance()->getTagsByContactId( static::$contactId );
         $tags2 = [];
 
         foreach( $tags as $tag )
