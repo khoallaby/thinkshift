@@ -1,3 +1,4 @@
+<?php global $current_user; ?>
     <nav class="navbar navbar-toggleable-sm fixed-top navbar-inverse bg-primary app-navbar">
 
         <a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>">
@@ -25,7 +26,7 @@
 	        ?>
 
             <ul id="#js-popoverContent" class="nav navbar-nav float-right mr-0 hidden-sm-down">
-                <li class="nav-item ml-2">Andrew Clarkwest</li>
+                <li class="nav-item ml-2"><?php echo $current_user ? $current_user->first_name .  ' ' . $current_user->last_name : ''; ?></li>
                 <li class="nav-item ml-2">
                     <button class="btn btn-default navbar-btn navbar-btn-avatar" data-toggle="popover">
                         <img class="rounded-circle" src="assets/img/avatar-dhg.png">
