@@ -230,12 +230,12 @@ class Users extends Base {
 
 
     /**
-     * General function for pulling User Tags from WP
+     * General function for pulling an object's Tags
      * @param $category
      *
      * @return array|\WP_Error
      */
-    public static function getUserTags( $category = null ) {
+    public static function getObjTags( $objectId, $category = null ) {
         if( $category ) {
             if( is_int($category) ) {
                 $args = [ 'parent' => $category ];
@@ -243,11 +243,39 @@ class Users extends Base {
                 $cat = get_term_by( 'name', $category, 'tag-category' );
                 $args = [ 'parent' => $cat->term_id ];
             }
-            return wp_get_object_terms( self::$userId, 'tag-category', $args );
+            return wp_get_object_terms( $objectId, 'tag-category', $args );
         } else {
-            return wp_get_object_terms( self::$userId, 'tag-category' );
+            return wp_get_object_terms( $objectId, 'tag-category' );
         }
 
+    }
+
+
+    /**
+     * Returns the object's strengths (3) from Tags taxonomy
+     * @param bool $returnAsIds     Returns as an array of IDs, else associative array
+     * @return array                Returns all the strength Tags
+     */
+    public static function getObjStrengths( $objectId ) {
+        $strengths = self::getObjTags( $objectId, self::$strengthMetaKey );
+        $return = [];
+
+        foreach( $strengths as $strength )
+            $return[ $strength->term_id ] = $strength->name;
+
+        return $return;
+    }
+
+
+
+    /**
+     * General function for pulling User Tags from WP
+     * @param $category
+     *
+     * @return array|\WP_Error
+     */
+    public static function getUserTags( $category = null ) {
+        return self::getObjTags( self::$userId, $category );
     }
 
 
@@ -289,8 +317,8 @@ class Users extends Base {
 
 
     /**
-     * Returns the user's strengths (3) from usermeta
-     * @param bool $returnAsIds     Returns as an arry of IDs, else associative array
+     * Returns the user's strengths (3) from Tags taxonomy
+     * @param bool $returnAsIds     Returns as an array of IDs, else associative array
      * @return array                Returns all the strength Tags
      */
     public static function getUserStrengths() {
