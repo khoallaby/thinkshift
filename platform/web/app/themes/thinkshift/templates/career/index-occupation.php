@@ -2,7 +2,7 @@
 
 use ThinkShift\Plugin\Users;
 
-$keys = ['ValueType1', 'ValueType2','ValueType3', 'alt_title1', 'alt_title2', 'alt_title3',
+$keys = ['alt_title1', 'alt_title2', 'alt_title3',
     'alt_title4', 'work_activity1', 'work_activity2','work_activity3', 'work_activity4',
     'work_activity5', 'work_activity6','work_activity7', 'education_norm', 'education_min', 'tech_skill_kn1', 'tech_skill_kn2',
     'tech_skill_kn3', 'tech_skill_kn4', 'med_wage', 'openings_count', 'openings_rate', 'openings_rate_cat', 'pct_self_emp',
@@ -11,13 +11,20 @@ $keys = ['ValueType1', 'ValueType2','ValueType3', 'alt_title1', 'alt_title2', 'a
 $strengths = Users::getObjStrengths( get_the_ID() );
 $strengthIds = array_keys($strengths);
 
+var_dump($strengths);
+
+$i = 0;
+$strengthString = '';
+
+foreach( $strengths as $k => $strength ) {
+    $i++;
+    $strengthString .= 'data-valuetype' . $i . '="' . $strength . '" ';
+}
+
 echo sprintf('
   <a class="job-title"
       href="' . get_the_permalink() . '"
-      data-valuetype1="'. get_post_meta( get_the_ID(), 'ValueType1', true) .'"
-      data-valuetype2="'. get_post_meta( get_the_ID(), 'ValueType2', true) .'"
-      data-valuetype3="'. get_post_meta( get_the_ID(), 'ValueType3', true) .'"
-
+      '.$strengthString.'
       data-work_activity1="'. get_post_meta( get_the_ID(), 'work_activity1', true) .'"
       data-work_activity2="'. get_post_meta( get_the_ID(), 'work_activity2', true) .'"
       data-work_activity3="'. get_post_meta( get_the_ID(), 'work_activity3', true) .'"
