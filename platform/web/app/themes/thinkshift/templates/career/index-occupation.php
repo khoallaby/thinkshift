@@ -11,8 +11,6 @@ $keys = ['alt_title1', 'alt_title2', 'alt_title3',
 $strengths = Users::getObjStrengths( get_the_ID() );
 $strengthIds = array_keys($strengths);
 
-var_dump($strengths);
-
 $i = 0;
 $strengthString = '';
 

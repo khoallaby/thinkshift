@@ -2,12 +2,12 @@
 /* darken/lightens the active/hover states of .btn-primary */
 
 
-$active-background: darken($btn-primary-bg, 20%);
-$active-border: darken($btn-primary-border, 22%);
-.btn-primary {
+$active-background: darken($btn-success-bg, 20%);
+$active-border: darken($btn-success-border, 22%);
+.card-header .btn-default {
 
   .show > &.dropdown-toggle {
-    //color: $btn-primary-color;
+    //color: $btn-success-color;
     background-color: $active-background;
     //background-image: none; // Remove the gradient for the pressed/active state
     border-color: $active-border;
@@ -17,14 +17,17 @@ $active-border: darken($btn-primary-border, 22%);
 
   &:active,
   &.active {
-    background-color: $btn-primary-bg !important;
-    border-color: $btn-primary-border;
+    background-color: $btn-success-bg !important;
+    border-color: $btn-success-border;
+    color: $btn-success-color;
   }
 
   @include hover {
-    background-color: $btn-primary-bg;
-    border-color: $btn-primary-border;
+    background-color: $btn-success-bg;
+    border-color: $btn-success-border;
+    color: $btn-success-color;
   }
 
 
 }
+
