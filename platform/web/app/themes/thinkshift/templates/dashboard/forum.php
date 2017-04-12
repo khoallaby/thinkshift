@@ -1,7 +1,7 @@
 
 <div class="card mb-4 hidden-md-down">
     <div class="card-block">
-        <h6 class="mb-3">Job Bank Video</h6>
+        <h6 class="mb-3">Forum</h6>
         <!-- <div data-grid="images" data-target-height="150">
             <img class="media-object" data-width="640" data-height="640" data-action="zoom"
                  src="assets/img/instagram_2.jpg">

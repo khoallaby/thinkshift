@@ -1,16 +1,15 @@
-<?php 
+<?php
 use ThinkShift\Theme\Menu;
-global $current_user; 
+global $current_user;
 ?>
 
 
 <aside class="app-sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <a class="sidebar-brand" href="<?php echo esc_url( home_url() ); ?>"><span class="highlight"><?php bloginfo('title'); ?></span></a>
+    <!-- <div class="sidebar-header">
         <button type="button" class="sidebar-toggle">
             <i class="fa fa-times"></i>
         </button>
-    </div>
+    </div> -->
     <div class="sidebar-menu">
 
         <?php

@@ -4,36 +4,39 @@ use ThinkShift\Plugin\Assessments;
 $statuses = Assessments::canAccess();
 
 
-if( have_posts() ) :
-    $i = 0;
-    while (have_posts()) : the_post();
-        $completed = $statuses[ $i ];
-        $i++;
+?>
+<div class="card">
+  <div class="card-body">
+        <div class="step">
+          <ul class="nav nav-tabs nav-justified" role="tablist">
 
-        # checks if User has the in/complete Tag for the following assessment
+            <?php if( have_posts() ) :
+                $i = 0;
+                while (have_posts()) : the_post();
+                    $completed = $statuses[ $i ];
+                    $i++;
 
-
-        if( $completed ) {
-            echo sprintf( '<h2 class="entry-title"><a href="%s" class="btn btn-secondary disabled">%s</a></h2>', get_permalink(), get_the_title() );
-        } else {
+            # checks if User has the in/complete Tag for the following assessment
             ?>
-            <article <?php post_class(); ?>>
-                <header>
-                    <h2 class="entry-title"><a href="<?php the_permalink(); ?>" class="btn btn-primary "><?php the_title(); ?></a></h2>
-                </header>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <?php
-                        get_template_part( 'templates/' . get_post_type() . '/index', 'occupation' );
-                        ?>
+            <li role="step" class="<?php if($completed){ echo ''; }else{ echo 'active'; }?>">
+                <a href="#" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"
+                class="">
+
+                    <div class="icon fa fa-shopping-cart"></div>
+                    <div class="heading">
+                        <div class="title"><?php echo get_the_title(); ?></div>
+                        <div class="description"><?php get_template_part( 'templates/' . get_post_type() . '/index', 'occupation' ); ?></div>
                     </div>
-                </div>
-            </article>
-            <?php
+                </a>
+            </li>
+          <?php
+              endwhile;
 
-        }
-    endwhile;
+              the_posts_navigation();
 
-    the_posts_navigation();
+          endif; ?>
 
-endif;
+          </ul>
+        </div>
+  </div>
+</div>

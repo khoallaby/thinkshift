@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+    "hash": "6e4dcc3c0900af5f5e76685feedb8cfe",
     "content-hash": "d0ce163b056002fe67c8e8036573e276",
     "packages": [
         {
@@ -111,7 +112,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-08-13T20:53:52+00:00"
+            "time": "2016-08-13 20:53:52"
         }
     ],
     "packages-dev": [],

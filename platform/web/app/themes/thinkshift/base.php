@@ -33,14 +33,14 @@ use Roots\Sage\Wrapper;
             <div class="row">
                 <div class="col-lg-12">
 
-                    <main class="card main">
+                    <!-- <main class="card main"> -->
                         <?php include Wrapper\template_path(); ?>
-                    </main><!-- /.main -->
+                    <!-- </main><!-- /.main -->
 
-                    <div class="card card-tab">
+                    <!-- <div class="card card-tab">
                         <div class="card-body no-padding tab-content">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
