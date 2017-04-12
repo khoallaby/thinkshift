@@ -14,11 +14,11 @@
             <div class="row">
               <div class="col-lg-6">
                 <p><small><strong>Average Salary:</strong> $<?php echo number_format($career->med_wage); ?></small></p>
-                <p><small><strong># of Openings:</strong> <?php echo $career->openings_count; ?></small></p>
+                <p><small><strong># of Openings:</strong> <?php echo round($career->openings_count); ?></small></p>
               </div>
               <div class="col-lg-6">
-                <p><small><strong>Average Salary:</strong> $<?php echo number_format($career->med_wage); ?></small></p>
-                <p><small><strong># of Openings:</strong> <?php echo $career->openings_count; ?></small></p>
+                <p><small><strong>Minimum Education:</strong> $<?php echo $career->education_min; ?></small></p>
+                <p><small><strong>Skillset</strong> <?php echo $career->tech_skill_kn1; ?></small></p>
               </div>
             </div>
             <small><a class="btn btn-default btn-xs" href="<?php echo get_post_type_archive_link( 'career' ); ?>">Learn more</a></small>
