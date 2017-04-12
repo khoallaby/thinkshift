@@ -2,39 +2,37 @@
 use ThinkShift\Plugin\Assessments;
 
 $statuses = Assessments::canAccess();
-
+vard($statuses);
 
 ?>
 <div class="card">
   <div class="card-body">
         <div class="step">
-          <ul class="nav nav-tabs nav-justified" role="tablist">
-
-            <?php if( have_posts() ) :
+            <ul class="nav nav-justified">
+            <?php
+            if ( have_posts() ) :
                 $i = 0;
-                while (have_posts()) : the_post();
+                while ( have_posts() ) : the_post();
                     $completed = $statuses[ $i ];
-                    $i++;
+                    $i ++;
 
-            # checks if User has the in/complete Tag for the following assessment
-            ?>
-            <li role="step" class="<?php if($completed){ echo ''; }else{ echo 'active'; }?>">
-                <a href="#" id="step1-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"
-                class="">
+                    # checks if User has the in/complete Tag for the following assessment
+                    ?>
+                    <li class="<?php if ( ! $completed ) echo 'active'; ?>">
+                        <a href="<?php the_permalink(); ?>">
+                            <div class="icon fa fa-shopping-cart"></div>
+                            <div class="heading">
+                                <div class="title"><?php echo the_title(); ?></div>
+                                <div class="description"><?php get_template_part( 'templates/' . get_post_type() . '/index', 'occupation' ); ?></div>
+                            </div>
+                        </a>
+                    </li>
+                    <?php
+                endwhile;
 
-                    <div class="icon fa fa-shopping-cart"></div>
-                    <div class="heading">
-                        <div class="title"><?php echo get_the_title(); ?></div>
-                        <div class="description"><?php get_template_part( 'templates/' . get_post_type() . '/index', 'occupation' ); ?></div>
-                    </div>
-                </a>
-            </li>
-          <?php
-              endwhile;
+                the_posts_navigation();
 
-              the_posts_navigation();
-
-          endif; ?>
+            endif; ?>
 
           </ul>
         </div>
