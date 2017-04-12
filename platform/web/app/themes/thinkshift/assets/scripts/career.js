@@ -379,6 +379,7 @@ var Grid = (function() {
 			this.$pct_self_emp_cat = $( '<p class="pct_self_emp_cat"></p>' );
 
 			this.$href = $( '<a href="#">Visit website</a>' );
+			this.$row111 = $( '<a href="#">Visit website</a>' );
 			this.$details = $( '<div class="og-details"></div>' ).append(
 				this.$valuetype1, this.$valuetype2, this.$valuetype3,
 				this.$alt_title1, this.$alt_title2, this.$alt_title3, this.$alt_title4,
@@ -386,10 +387,21 @@ var Grid = (function() {
 				this.$education_norm, this.$education_min, this.$tech_skill_kn1, this.$tech_skill_kn2, this.$tech_skill_kn3, this.$tech_skill_kn4,
 				this.$med_wage, this.$openings_count, this.$openings_rate, this.$openings_rate_cat, this.$pct_self_emp, this.$pct_self_emp_cat
 			);
+
+			this.$goodForPeople = $('<div class="good-for-people"></div>').append(this.$valuetype1, this.$valuetype2, this.$valuetype3);
+			this.$majorActivities = $('<li></li>').append(this.$work_activity1, this.$work_activity2, this.$work_activity3, this.$work_activity4, this.$work_activity5, this.$work_activity6, this.$work_activity7);
+			this.$majorActivitiesUL = $('<ul class="major-activities"></ul>').append(this.$majorActivities);
+
+			this.$majorSpecialties = $('<li></li>').append(this.$tech_skill_kn1, this.$tech_skill_kn2, this.$tech_skill_kn3, this.$tech_skill_kn4);
+			this.$majorSpecialtiesUL = $('<ul class="major-specialties"></ul>').append(this.$majorSpecialties);
+
 			this.$loading = $( '<div class="og-loading"></div>' );
 			this.$fullimage = $( '<div class="og-fullimg"></div>' ).append( this.$loading );
 			this.$closePreview = $( '<span class="og-close"></span>' );
-			this.$previewInner = $( '<div class="og-expander-inner"></div>' ).append( this.$closePreview, this.$details );
+			this.$columnLeft = $('<div class="col-lg-6"></div>').append(this.$goodForPeople, this.$majorActivitiesUL);
+			this.$columnReft = $('<div class="col-lg-6"></div>').append(this.$majorSpecialtiesUL);
+			this.$previewInner = $( '<div class="og-expander-inner row"></div>' ).append( this.$closePreview, this.$columnLeft, this.$columnReft);
+
 			this.$previewEl = $( '<div class="og-expander"></div>' ).append( this.$previewInner );
 
 			// Good for people: ValueType1, ValueType2, ValueType3
