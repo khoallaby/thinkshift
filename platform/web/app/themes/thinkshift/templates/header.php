@@ -106,7 +106,7 @@ global $current_user;
                     -->
                 <li class="dropdown profile">
                     <a href="<?php echo bp_loggedin_user_domain(); ?>l" class="dropdown-toggle"  data-toggle="dropdown">
-                        <img class="profile-img" src="../assets/images/profile.png">
+                        <img class="profile-img" src="<?php echo get_avatar_url( $current_user->ID ); ?>">
                         <div class="title">Profile</div>
                     </a>
                     <div class="dropdown-menu">
