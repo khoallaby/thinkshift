@@ -59,7 +59,15 @@ class Assessments extends CustomPostTypes {
         global $wp_query;
         $assesments = [];
 
-        foreach ( $wp_query->get_posts() as $post ) {
+        if( is_post_type_archive( 'assessment' ) ) {
+            $posts = $wp_query->get_posts();
+        } else {
+            $posts = \ThinkShift\Plugin\Base::getPosts( 'assessment', [
+                'orderby' => 'menu_order',
+                'order' => 'ASC'
+            ] );
+        }
+        foreach ( $posts as $post ) {
             $completeTag = get_post_meta( $post->ID, 'tag-complete', true );
             $assesments[] = Users::userHasTag( $completeTag );
         }

@@ -1,5 +1,6 @@
 <?php
 use ThinkShift\Plugin\Assessments;
+global $wp_query;
 
 $statuses = Assessments::canAccess();
 
@@ -9,18 +10,26 @@ $statuses = Assessments::canAccess();
         <div class="step">
             <ul class="nav">
                 <?php
-                if ( have_posts() ) :
+                if( is_post_type_archive( 'assessment' ) ) {
+                    $posts = $wp_query->get_posts();
+                } else {
+                    $posts = \ThinkShift\Plugin\Base::getPosts( 'assessment', [
+                        'orderby' => 'menu_order',
+                        'order' => 'ASC'
+                    ] );
+                }
+                if ( !empty($posts) ) :
                     $i = 0;
-                    while ( have_posts() ) : the_post();
+                    foreach( $posts as $post ) {
                         $completed = $statuses[ $i ];
                         $i ++;
 
-                        if( $completed ) {
+                        if ( $completed ) {
                             $active = 'inactive';
-                            $link = '#';
+                            $link   = '#';
                         } else {
                             $active = 'active';
-                            $link = get_the_permalink();
+                            $link   = get_the_permalink( $post->ID );
                         }
                         # checks if User has the in/complete Tag for the following assessment
                         ?>
@@ -28,13 +37,13 @@ $statuses = Assessments::canAccess();
                             <a href="<?php echo $link; ?>">
                                 <div class="icon fa fa-shopping-cart"></div>
                                 <div class="heading">
-                                    <div class="title"><?php echo the_title(); ?></div>
+                                    <div class="title"><?php echo get_the_title( $post->ID ); ?></div>
                                     <div class="description"><?php get_template_part( 'templates/' . get_post_type() . '/index', 'occupation' ); ?></div>
                                 </div>
                             </a>
                         </li>
                         <?php
-                    endwhile;
+                    }
 
                     the_posts_navigation();
 
