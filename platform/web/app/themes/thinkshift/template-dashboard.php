@@ -6,7 +6,7 @@
 if ( is_user_logged_in() ) {
 ?>
 
-<section class="container pt-4">
+<section class="container-fluid pt-4">
     <div class="row">
         <div class="col-lg-3">
             <?php

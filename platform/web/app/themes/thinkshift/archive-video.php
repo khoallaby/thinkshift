@@ -14,7 +14,7 @@ get_template_part( 'templates/shared/header', 'strengths-filter' );
 
 if ( have_posts() ) :
     ?>
-    <section class="container pt-4">
+    <section class="container-fluid pt-4">
         <div class="row">
         <?php
         while ( have_posts() ) : the_post();
@@ -26,18 +26,6 @@ if ( have_posts() ) :
             $videoUrl = get_post_meta( get_the_ID(), 'video_url', true );
             $videoSource = get_post_meta( get_the_ID(), 'video_source', true );
             $tags = wp_get_object_terms( get_the_ID(), 'tag-category');
-            #vard( $tags );
-            /*
-             * Tag
-              object(WP_Term)#1516 (10) {
-                ["term_id"]=>
-                int(102)
-                ["name"]=>
-                string(13) "Collaborating"
-                ["slug"]=>
-                string(13) "collaborating"
-              }
-             */
             $url = Videos::getVideoLink( $videoUrl, $videoSource );
             $link = Videos::getVideoThummbnailLink( $videoUrl, $videoSource, true );
 

@@ -5,7 +5,7 @@ global $wp_query;
 
 if ( have_posts() ) :
 ?>
-    <section class="container pt-4">
+    <section class="container-fluid pt-4">
         <div class="row">
         <?php
         while ( have_posts() ) : the_post();
