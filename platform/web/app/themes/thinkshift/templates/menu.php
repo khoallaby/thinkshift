@@ -1,42 +1,43 @@
-<?php global $current_user; ?>
-    <nav class="navbar navbar-toggleable-sm fixed-top navbar-inverse bg-primary app-navbar">
-
-        <a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>">
-            <h4>ThinkShift's Marketplace</h4>
-        </a>
+<?php 
+use ThinkShift\Theme\Menu;
+global $current_user; 
+?>
 
 
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-	        <?php
-	        if ( has_nav_menu( 'primary_navigation' ) && is_user_logged_in() ) :
-		        wp_nav_menu( [
-			        'theme_location' => 'primary_navigation',
-			        'menu_class'     => 'nav navbar-nav mr-auto',
-			        'container'      => ''
-		        ] );
-	        endif;
+<aside class="app-sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <a class="sidebar-brand" href="<?php echo esc_url( home_url() ); ?>"><span class="highlight"><?php bloginfo('title'); ?></span></a>
+        <button type="button" class="sidebar-toggle">
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+    <div class="sidebar-menu">
 
-            if ( has_nav_menu( 'logged_out_navigation' ) && !is_user_logged_in() ) :
-                wp_nav_menu( [
-                    'theme_location' => 'logged_out_navigation',
-                    'menu_class'     => 'nav navbar-nav mr-auto',
-                    'container'      => ''
-                ] );
-            endif;
-	        ?>
+        <?php
+        $args = [
+            'menu_class'     => 'sidebar-nav',
+            'container'      => '',
+            'walker'         => new Menu()
+        ];
+        if ( has_nav_menu( 'primary_navigation' ) && is_user_logged_in() ) :
+            $args['theme_location'] = 'primary_navigation';
+            wp_nav_menu( $args );
+        endif;
 
-            <ul id="#js-popoverContent" class="nav navbar-nav float-right mr-0 hidden-sm-down">
-                <li class="nav-item ml-2"><?php echo $current_user ? $current_user->first_name .  ' ' . $current_user->last_name : ''; ?></li>
-                <li class="nav-item ml-2">
-                    <button class="btn btn-default navbar-btn navbar-btn-avatar" data-toggle="popover">
-                        <img class="rounded-circle" src="assets/img/avatar-dhg.png">
-                    </button>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav hidden-xs-up" id="js-popoverContent">
-                <li class="nav-item"><a class="nav-link" href="#" data-action="growl">My Account</a></li>
-                <li class="nav-item"><a class="nav-link" href="login/index.html">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
+        if ( has_nav_menu( 'logged_out_navigation' ) && !is_user_logged_in() ) :
+            $args['theme_location'] = 'logged_out_navigation';
+            wp_nav_menu( $args );
+        endif;
+        ?>
+    </div>
+    <div class="sidebar-footer">
+        <ul class="menu">
+            <li>
+                <a href="/" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li><a href="#"><span class="flag-icon flag-icon-th flag-icon-squared"></span></a></li>
+        </ul>
+    </div>
+</aside>
