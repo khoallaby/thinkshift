@@ -28,18 +28,8 @@ use Roots\Sage\Wrapper;
             do_action( 'get_header' );
             if( is_user_logged_in() )
                 get_template_part( 'templates/header' );
+            get_template_part( 'templates/page', 'header' );
             ?>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body app-heading">
-                            <div class="app-title">
-                                <?php get_template_part( 'templates/page', 'header' ); ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-lg-12">
 
