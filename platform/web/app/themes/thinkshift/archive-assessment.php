@@ -8,7 +8,7 @@ vard($statuses);
 <div class="card">
   <div class="card-body">
         <div class="step">
-            <ul class="nav nav-justified">
+            <ul class="nav">
             <?php
             if ( have_posts() ) :
                 $i = 0;
@@ -16,10 +16,17 @@ vard($statuses);
                     $completed = $statuses[ $i ];
                     $i ++;
 
+                    if( $completed ) {
+                        $active = 'inactive';
+                        $link = '#';
+                    } else {
+                        $active = 'active';
+                        $link = get_the_permalink();
+                    }
                     # checks if User has the in/complete Tag for the following assessment
                     ?>
-                    <li class="<?php if ( ! $completed ) echo 'active'; ?>">
-                        <a href="<?php the_permalink(); ?>">
+                    <li class="<?php echo $active; ?>">
+                        <a href="<?php echo $link; ?>">
                             <div class="icon fa fa-shopping-cart"></div>
                             <div class="heading">
                                 <div class="title"><?php echo the_title(); ?></div>

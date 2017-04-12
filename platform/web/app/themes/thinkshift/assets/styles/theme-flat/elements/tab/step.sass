@@ -67,26 +67,29 @@
           cursor: pointer
 
         & ~ li
-          & > a, & > a:focus, & > a:hover, uib-tab-heading
-            color: $grey-darkest
-            .icon
-              background-color: $grey-darker
-              color: $white
-
-          & > a  , & > a:focus , & > a:hover, uib-tab-heading
-            color: $grey-darkest
-
           &:after
-            content: ''
-            z-index: 1
-            position: absolute
-            display: block
-            height: 4px
-            border-radius: 0px
-            top: 50%
-            transform: translate(0, -50%)
-            width: 100%
             background-color: $grey
+      &.inactive
+        & > a, & > a:focus, & > a:hover, uib-tab-heading
+          color: $grey-darkest
+          .icon
+            background-color: $grey-darker
+            color: $white
+
+        & > a  , & > a:focus , & > a:hover, uib-tab-heading
+          color: $grey-darkest
+
+        &:after
+          content: ''
+          z-index: 1
+          position: absolute
+          display: block
+          height: 4px
+          border-radius: 0px
+          top: 50%
+          transform: translate(0, -50%)
+          width: 100%
+          background-color: $grey
 
 
       &:last-child
