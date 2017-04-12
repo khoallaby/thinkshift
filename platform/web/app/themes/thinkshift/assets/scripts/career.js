@@ -342,16 +342,71 @@ var Grid = (function() {
 	Preview.prototype = {
 		create : function() {
 			// create Preview structure:
-			this.$title = $( '<h3></h3>' );
-			this.$description = $( '<p></p>' );
+			this.$title = $( '<p class="title"></p>' );
+			this.$description = $( '<p class="description"></p>' );
+			this.$valuetype1 = $( '<p class="valuetype1"></p>' );
 			this.$valuetype2 = $( '<p class="valuetype2"></p>' );
+			this.$valuetype3 = $( '<p class="valuetype3"></p>' );
+
+			this.$alt_title1 = $( '<p class="alt_title1"></p>' );
+			this.$alt_title2 = $( '<p class="alt_title2"></p>' );
+			this.$alt_title3 = $( '<p class="alt_title3"></p>' );
+			this.$alt_title4 = $( '<p class="alt_title4"></p>' );
+
+			this.$work_activity1 = $( '<p class="work_activity1"></p>' );
+			this.$work_activity2 = $( '<p class="work_activity2"></p>' );
+			this.$work_activity3 = $( '<p class="work_activity3"></p>' );
+			this.$work_activity4 = $( '<p class="work_activity4"></p>' );
+			this.$work_activity5 = $( '<p class="work_activity5"></p>' );
+			this.$work_activity6 = $( '<p class="work_activity6"></p>' );
+			this.$work_activity7 = $( '<p class="work_activity7"></p>' );
+
+			this.$education_norm = $( '<p class="education_norm"></p>' );
+			this.$education_min = $( '<p class="education_min"></p>' );
+
+			this.$tech_skill_kn1 = $( '<p class="tech_skill_kn1"></p>' );
+			this.$tech_skill_kn2 = $( '<p class="tech_skill_kn2"></p>' );
+			this.$tech_skill_kn3 = $( '<p class="tech_skill_kn3"></p>' );
+			this.$tech_skill_kn4 = $( '<p class="tech_skill_kn4"></p>' );
+
+			this.$med_wage = $( '<p class="med_wage"></p>' );
+
+			this.$openings_count = $( '<p class="openings_count"></p>' );
+			this.$openings_rate = $( '<p class="openings_rate"></p>' );
+			this.$openings_rate_cat = $( '<p class="openings_rate_cat"></p>' );
+
+			this.$pct_self_emp = $( '<p class="pct_self_emp"></p>' );
+			this.$pct_self_emp_cat = $( '<p class="pct_self_emp_cat"></p>' );
+
 			this.$href = $( '<a href="#">Visit website</a>' );
-			this.$details = $( '<div class="og-details"></div>' ).append( this.$title, this.$description, this.$href, this.$valuetype2 );
+			this.$details = $( '<div class="og-details"></div>' ).append(
+				this.$valuetype1, this.$valuetype2, this.$valuetype3,
+				this.$alt_title1, this.$alt_title2, this.$alt_title3, this.$alt_title4,
+				this.$work_activity1, this.$work_activity2, this.$work_activity3, this.$work_activity4, this.$work_activity5, this.$work_activity6, this.$work_activity7,
+				this.$education_norm, this.$education_min, this.$tech_skill_kn1, this.$tech_skill_kn2, this.$tech_skill_kn3, this.$tech_skill_kn4,
+				this.$med_wage, this.$openings_count, this.$openings_rate, this.$openings_rate_cat, this.$pct_self_emp, this.$pct_self_emp_cat
+			);
 			this.$loading = $( '<div class="og-loading"></div>' );
 			this.$fullimage = $( '<div class="og-fullimg"></div>' ).append( this.$loading );
 			this.$closePreview = $( '<span class="og-close"></span>' );
-			this.$previewInner = $( '<div class="og-expander-inner"></div>' ).append( this.$closePreview, this.$fullimage, this.$details );
+			this.$previewInner = $( '<div class="og-expander-inner"></div>' ).append( this.$closePreview, this.$details );
 			this.$previewEl = $( '<div class="og-expander"></div>' ).append( this.$previewInner );
+
+			// Good for people: ValueType1, ValueType2, ValueType3
+			// Major Activities Involved: WorkActivity1, WorkActivity2, WorkActivity3, WorkActivity4, WorkActivity5, WorkActivity6, WorkActivity7
+			// Major areas of specialized skills: techskillkn1, techskillkn2, techskillkn3, techskillkn4
+			// Rewards and Risks
+			// - Typical Education: EducationNorm
+			// - Minimum Education: EducationMin
+			// Median Pay: MedWage
+			// Total Expected: openingscount
+			// Expected rate: openingsrate
+			// job openeings expectations: openingsratecat
+			// Going it on your own
+			// who are self empl: pctselfemp
+			// self employ epectations: pctselfempcat
+			// Also know as: alttitle1, alttitle2, alttitle3, alttitle4
+
 			// append preview element to the item
 			this.$item.append( this.getEl() );
 			// set the transitions for the preview and the item
@@ -384,13 +439,71 @@ var Grid = (function() {
 					largesrc : $itemEl.data( 'largesrc' ),
 					title : $itemEl.data( 'title' ),
 					description : $itemEl.data( 'description' ),
-					valuetype2: $itemEl.data( 'valuetype2' )
+					valuetype1: $itemEl.data( 'valuetype1' ),
+					valuetype2: $itemEl.data( 'valuetype2' ),
+					valuetype3: $itemEl.data( 'valuetype3' ),
+					alt_title1: $itemEl.data( 'alt_title1' ),
+					alt_title2: $itemEl.data( 'alt_title2' ),
+					alt_title3: $itemEl.data( 'alt_title3' ),
+					alt_title4: $itemEl.data( 'alt_title4' ),
+					work_activity1: $itemEl.data( 'work_activity1' ),
+					work_activity2: $itemEl.data( 'work_activity2' ),
+					work_activity3: $itemEl.data( 'work_activity3' ),
+					work_activity4: $itemEl.data( 'work_activity4' ),
+					work_activity5: $itemEl.data( 'work_activity5' ),
+					work_activity6: $itemEl.data( 'work_activity6' ),
+					work_activity7: $itemEl.data( 'work_activity7' ),
+					education_norm: $itemEl.data( 'education_norm' ),
+					education_min: $itemEl.data( 'education_min' ),
+					tech_skill_kn1: $itemEl.data( 'tech_skill_kn1' ),
+					tech_skill_kn2: $itemEl.data( 'tech_skill_kn2' ),
+					tech_skill_kn3: $itemEl.data( 'tech_skill_kn3' ),
+					tech_skill_kn4: $itemEl.data( 'tech_skill_kn4' ),
+					med_wage: $itemEl.data( 'med_wage' ),
+					openings_count: $itemEl.data( 'openings_count' ),
+					openings_rate: $itemEl.data( 'openings_rate' ),
+					openings_rate_cat: $itemEl.data( 'openings_rate_cat' ),
+					pct_self_emp: $itemEl.data( 'pct_self_emp' ),
+					pct_self_emp_cat: $itemEl.data( 'pct_self_emp_cat' )
 				};
 
 			this.$title.html( eldata.title );
 			this.$description.html( eldata.description );
-			this.$valuetype2.html( eldata.valuetype2 );
 			this.$href.attr( 'href', eldata.href );
+
+			this.$valuetype1.html(eldata.valuetype1);
+			this.$valuetype2.html(eldata.valuetype2);
+			this.$valuetype3.html(eldata.valuetype3);
+
+			this.$alt_title1.html(eldata.alt_title1);
+			this.$alt_title2.html(eldata.alt_title2);
+			this.$alt_title3.html(eldata.alt_title3);
+			this.$alt_title4.html(eldata.alt_title4);
+
+			this.$work_activity1.html(eldata.work_activity1);
+			this.$work_activity2.html(eldata.work_activity2);
+			this.$work_activity3.html(eldata.work_activity3);
+			this.$work_activity4.html(eldata.work_activity4);
+			this.$work_activity5.html(eldata.work_activity5);
+			this.$work_activity6.html(eldata.work_activity6);
+			this.$work_activity7.html(eldata.work_activity7);
+
+			this.$education_norm.html(eldata.education_norm);
+			this.$education_min.html(eldata.education_min);
+
+			this.$tech_skill_kn1.html(eldata.tech_skill_kn1);
+			this.$tech_skill_kn2.html(eldata.tech_skill_kn2);
+			this.$tech_skill_kn3.html(eldata.tech_skill_kn3);
+			this.$tech_skill_kn4.html(eldata.tech_skill_kn4);
+
+			this.$med_wage.html(eldata.med_wage);
+
+			this.$openings_count.html(eldata.openings_count);
+			this.$openings_rate.html(eldata.openings_rate);
+			this.$openings_rate_cat.html(eldata.openings_rate_cat);
+
+			this.$pct_self_emp.html(eldata.pct_self_emp);
+			this.$pct_self_emp_cat.html(eldata.pct_self_emp_cat);
 
 			var self = this;
 

@@ -13,7 +13,7 @@ global $current_user;
 <nav class="navbar navbar-default" id="navbar">
     <div class="container-fluid">
         <div class="navbar-collapse collapse in">
-            <ul class="nav navbar-nav navbar-mobile">
+            <!-- <ul class="nav navbar-nav navbar-mobile">
                 <li>
                     <button type="button" class="sidebar-toggle">
                         <i class="fa fa-bars"></i>
@@ -27,13 +27,13 @@ global $current_user;
                         <img class="profile-img" src="../assets/images/profile.png">
                     </button>
                 </li>
-            </ul>
+            </ul> -->
             <ul class="nav navbar-nav navbar-left mr-auto">
-                <li class="navbar-title">Profile</li>
-                <li class="navbar-search hidden-sm">
+                <li class="navbar-title">Thinkshift's Marketplace</li>
+                <!-- <li class="navbar-search hidden-sm">
                     <input id="search" type="text" placeholder="Search..">
                     <button class="btn-search"><i class="fa fa-search"></i></button>
-                </li>
+                </li> -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
 

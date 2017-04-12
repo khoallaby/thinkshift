@@ -5,6 +5,7 @@
 	padding: 20px 0;
 	width: 100%;
 	clear: both;
+	position: relative;
 }
 
 .og-grid:after {
@@ -64,7 +65,7 @@
 
 .og-expander {
 	position: absolute;
-	background: #ddd;
+	background: #fff;
 	top: auto;
 	left: 0;
 	width: 100%;

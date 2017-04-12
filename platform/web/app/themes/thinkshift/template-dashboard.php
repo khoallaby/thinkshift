@@ -19,6 +19,7 @@ if ( is_user_logged_in() ) {
             <?php
             get_template_part( 'templates/dashboard/card', 'career' );
             get_template_part( 'templates/dashboard/card', 'congratulations' );
+            get_template_part( 'templates/forum', 'forum' );
             ?>
             <!--
             <div class="card mb-4 hidden-md-down">

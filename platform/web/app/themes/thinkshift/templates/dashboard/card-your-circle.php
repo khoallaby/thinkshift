@@ -1,9 +1,9 @@
 <div class="card mb-4 hidden-md-down">
     <div class="card-block">
         <h6 class="mb-3">Your Circle
-            <small>· <a href="#">View the Discussion Guide</a></small>
+            <!-- <small>· <a href="#">View the Discussion Guide</a></small> -->
         </h6>
-        <ul class="media-list media-list-stream">
+        <!-- <ul class="media-list media-list-stream">
             <li class="media mb-2">
                 <img
                         class="media-object d-flex align-self-start mr-3"
@@ -33,6 +33,6 @@
                     </div>
                 </div>
             </li>
-        </ul>
+        </ul> -->
     </div>
 </div>
