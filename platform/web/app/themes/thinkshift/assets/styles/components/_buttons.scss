@@ -6,8 +6,6 @@ $active-background: darken($btn-primary-bg, 20%);
 $active-border: darken($btn-primary-border, 22%);
 .btn-primary {
 
-  &:active,
-  &.active,
   .show > &.dropdown-toggle {
     //color: $btn-primary-color;
     background-color: $active-background;
@@ -17,9 +15,16 @@ $active-border: darken($btn-primary-border, 22%);
   }
 
 
-  @include hover {
+  &:active,
+  &.active {
     background-color: $btn-primary-bg !important;
     border-color: $btn-primary-border;
   }
+
+  @include hover {
+    background-color: $btn-primary-bg;
+    border-color: $btn-primary-border;
+  }
+
 
 }
