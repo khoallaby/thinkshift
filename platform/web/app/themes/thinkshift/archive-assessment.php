@@ -1,7 +1,6 @@
 <?php
 use ThinkShift\Plugin\Assessments;
 
-get_template_part( 'templates/page', 'header' );
 $statuses = Assessments::canAccess();
 
 

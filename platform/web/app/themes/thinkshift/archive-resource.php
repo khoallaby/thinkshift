@@ -1,7 +1,6 @@
 <?php
 global $wp_query;
 
-get_template_part( 'templates/page', 'header' );
 
 
 if ( have_posts() ) :

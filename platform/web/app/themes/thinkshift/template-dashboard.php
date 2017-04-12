@@ -1,7 +1,6 @@
 <?php
 /* Template Name: Dashboard */
 
-get_template_part( 'templates/page', 'header' );
 
 
 if ( is_user_logged_in() ) {

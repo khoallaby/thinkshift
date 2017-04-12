@@ -3,7 +3,6 @@ use ThinkShift\Plugin\Tags;
 use ThinkShift\Plugin\Videos;
 
 
-get_template_part( 'templates/page', 'header' );
 $strengths = Tags::getAllStrengths( false );
 get_template_part( 'templates/shared/header', 'strengths-filter' );
 ?>

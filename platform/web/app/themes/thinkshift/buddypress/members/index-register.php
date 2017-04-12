@@ -6,7 +6,6 @@
  * @subpackage bp-legacy
  */
 
-get_template_part( 'templates/page', 'header' );
 ?>
 
 <div id="buddypress">
