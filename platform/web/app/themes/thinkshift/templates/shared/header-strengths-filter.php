@@ -8,7 +8,7 @@ if( !isset($strengths) )
 
 <form id="post-filter">
     <div class="row">
-        <div class="col-12 text-xs-center" data-toggle="buttons">
+        <div class="col-12 text-center" data-toggle="buttons">
             <?php
 
             if( isset($_GET['strengths']) )
