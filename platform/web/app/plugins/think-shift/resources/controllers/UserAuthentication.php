@@ -94,7 +94,8 @@ class UserAuthentication extends Users {
      * @return bool
      */
     public function userRoutes() {
-        if( is_front_page() || is_home() || is_page( 'login' ) || is_page( 'register' ) ) :
+        # these pages are always visible
+        if( is_front_page() || is_home() || is_page( 'login' ) || is_page( 'register' ) || is_page_template( 'template-external.php')) :
             return true;
         elseif( is_user_logged_in()) :
             return true;
