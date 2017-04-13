@@ -26,9 +26,7 @@ use Roots\Sage\Wrapper;
         <div class="app-container">
             <?php
             do_action( 'get_header' );
-            if( is_page_template( 'template-external.php' ) )  {
-                get_template_part( 'templates/header', 'external' );
-            } elseif( is_user_logged_in() ) {
+            if( is_user_logged_in() ) {
                 get_template_part( 'templates/header' );
                 get_template_part( 'templates/page', 'header' );
             }
