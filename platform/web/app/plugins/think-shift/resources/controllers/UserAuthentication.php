@@ -11,8 +11,11 @@ class UserAuthentication extends Users {
         # After registration, we update the first/lastname fields
         add_action( 'user_register', [ $this, 'user_register' ], 9 );
 
-        # redirect normal users to homepage
+        # redirect normal users to homepage (on login)
         add_filter( 'login_redirect', [ $this, 'login_redirect' ], 10, 3 );
+
+        # checks for user role and redirects accordingly
+        add_action( 'wp', array( $this, 'userCanAccess' ) );
     }
 
 
@@ -77,6 +80,29 @@ class UserAuthentication extends Users {
     }
 
 
+    /**
+     * The action to check for user permissions and redirect to login if not.
+     */
+    public function userCanAccess() {
+        if( !$this->userRoutes() )
+            wp_redirect( '/login' );
+    }
+
+
+    /**
+     * Determines what the user can see depending on page and logged in status
+     * @return bool
+     */
+    public function userRoutes() {
+        if( is_front_page() || is_home() || is_page( 'login' ) || is_page( 'register' ) ) :
+            return true;
+        elseif( is_user_logged_in()) :
+            return true;
+        else :
+            return false;
+        endif;
+
+    }
 }
 
 add_action( 'init', array( \ThinkShift\Plugin\UserAuthentication::get_instance(), 'init' ));
