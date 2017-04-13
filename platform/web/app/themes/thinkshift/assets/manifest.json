@@ -12,6 +12,12 @@
       ],
       "main": true
     },
+    "main-external.css": {
+      "files": [
+        "styles/main-external.scss"
+      ],
+      "main": true
+    },
     "customizer.js": {
       "files": [
         "scripts/customizer.js"
