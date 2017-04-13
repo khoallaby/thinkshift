@@ -11,6 +11,8 @@ while ( have_posts() ) : the_post();
         <?php the_content(); ?>
         <?php # @marty: add core here to test with, but eventually move to WP's wysiwyg  ?>
 
+        This is a test datra
+
     </section>
 
 

@@ -1,0 +1,23 @@
+body.page-template-template-external {
+  background: #fff;
+}
+#loggedout {
+  $bg-light-darker: #bccbde;
+  $bg-light-secondary: #c2dde6;
+  $bg-light-primary: #e6e9f0;
+  $purple: #431c5d;
+  $orange: #e05915;
+  $yellow: #cdd422;
+
+  body & {
+    background: #fff;
+  }
+
+  header {
+    background: $bg-light-primary;
+
+    a {
+      color: $orange;
+    }
+  }
+}
