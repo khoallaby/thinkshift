@@ -43,6 +43,7 @@ if( !isset($strengths) )
     </div>
     <div class="row">
         <div class="col-12 text-xs-right">
+            <?php get_template_part( 'templates/shared/header', 'filter-order' ); ?>
             <input type="submit" class="btn btn-primary" value="Submit" />
         </div>
     </div>
