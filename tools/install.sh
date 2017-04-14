@@ -46,12 +46,6 @@ while true; do
 
     0   Quit
 
-
-
-    ------------------------------------------
-      Run 'crontab -e' to view all cron jobs
-    ------------------------------------------
-
     "
     read INPUT
 
