@@ -148,11 +148,12 @@ class UserAuthentication extends Users {
     # https://www.sitepoint.com/mastering-wordpress-roles-and-capabilities/
     public function addUserRoles() {
         $customCaps = [
+            'read' => true,
             self::$marketplaceAccess => true
         ];
 
         add_role( 'marketplace_user', __( 'Marketplace User', 'thinkshift'), $customCaps );
-        add_role( 'regular_user', __( 'Regular User', 'thinkshift'), [ self::$marketplaceAccess => false ] );
+        #add_role( 'regular_user', __( 'Regular User', 'thinkshift'), [ self::$marketplaceAccess => false ] );
 
         // Add custom capabilities to Admin and Editor Roles
         $roles = array( 'administrator', 'editor' );
@@ -181,7 +182,7 @@ class UserAuthentication extends Users {
 
     public function removeUserRoles() {
         remove_role( 'marketplace_user' );
-        remove_role( 'regular_user' );
+        #remove_role( 'regular_user' );
     }
 }
 
