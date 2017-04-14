@@ -6,18 +6,17 @@ get_template_part( 'templates/header', 'external' );
 
 while ( have_posts() ) : the_post();
 ?>
-    <section class="header-content"><?php echo get_post_meta( $post->ID, 'header_content', true ); ?></section>
-    <section class="content">
         <?php
 
 
-        the_content();
+        //the_content();
 
         $pages = [
             'benefits-of-membership',
             'join-a-circle',
             'pivot-power-assessment',
-            'partner-with-us'
+            'partner-with-us',
+            'home'
         ];
 
         if( in_array( $post->post_name, $pages ) )
@@ -28,7 +27,6 @@ while ( have_posts() ) : the_post();
 
         ?>
 
-    </section>
 
 
 <?php

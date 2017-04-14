@@ -1,18 +1,14 @@
-<header>
+<section id="download" class="download bg-primary text-center">
     <div class="container">
         <div class="row">
-            <div class="col-sm-7">
-                <div class="header-content">
-                    <div class="header-content-inner">
-                        <h1>Our platform helps you reach your dream of becoming an american hero.</h1>
-                        <a href="#download" class="btn btn-outline btn-xl page-scroll">Join a Chapter</a>
-                        <a href="#download" class="btn btn-outline btn-xl page-scroll">Participate</a>
-                    </div>
-                </div>
+            <div class="col-md-8 col-md-offset-2">
+                <h1 class="section-heading">We Believe:</h1>
+                <h2>Pellentesque aliquam tristique venenatis. Curabitur id arcu non velit maximus faucibus. Sed pharetra lacinia pharetra. Aliquam ac tellus sit amet elit imperdiet egestas. </h2>
             </div>
         </div>
     </div>
-</header>
+</section>
+
 <section id="features" class="features">
     <div class="container">
         <div class="row">
@@ -51,6 +47,39 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta bg-primary">
+    <div class="cta-content">
+        <div class="container">
+            <h2>What’s the ThinkShift Difference?</h2>
+            <p>Speaks to both primary and secondary audiences. Speak to learnings from our pivot power survey test results—keys to readiness, confidence, success. As human beings we are creatures of habit. We tend to do the same things over and over; we like to be in our comfort zones avoiding the uncertainty that comes with change. Studies show that it takes 21-40 days to</p>
+        </div>
+    </div>
+    <div class="overlay"></div>
+</section>
+
+<section id="contact" class="contact bg-primary">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h2>￼Benefits for individuals</h2>
+            <ul>
+              <li>A fresh purpose and career direction rutabaga</li>
+              <li>Skills that pay the bills [this experience gets you the preparation that employers</li>
+              <li>Open up new opportunities Create economic security</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h2>￼Benefits for individuals</h2>
+            <ul>
+              <li>A fresh purpose and career direction rutabaga</li>
+              <li>Skills that pay the bills [this experience gets you the preparation that employers</li>
+              <li>Open up new opportunities Create economic security</li>
+            </ul>
+          </div>
         </div>
     </div>
 </section>

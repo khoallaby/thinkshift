@@ -3,7 +3,6 @@ use ThinkShift\Theme\Menu;
 global $current_user;
 ?>
 
-
 <aside class="app-sidebar" id="sidebar">
     <!-- <div class="sidebar-header">
         <button type="button" class="sidebar-toggle">
@@ -11,7 +10,6 @@ global $current_user;
         </button>
     </div> -->
     <div class="sidebar-menu">
-
         <?php
         $args = [
             'menu_class'     => 'sidebar-nav',
