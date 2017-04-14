@@ -223,6 +223,16 @@ class CustomPostTypes extends Base {
 		return ucwords(str_replace( '-', ' ', $str ));
 	}
 
+	
+	
+	
+	
+	public static function isPostType( $postType ) {
+        if( is_post_type_archive( $postType ) || is_singular( $postType ) )
+            return true;
+        else
+            return false;
+    }
 }
 
 add_action( 'init', array( \ThinkShift\Plugin\CustomPostTypes::get_instance(), 'registerAll' ));
