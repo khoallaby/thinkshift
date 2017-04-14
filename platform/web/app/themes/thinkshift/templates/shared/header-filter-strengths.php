@@ -1,6 +1,7 @@
 <?php
-use ThinkShift\Plugin\Tags;
-use ThinkShift\Plugin\Users;
+use ThinkShift\Plugin\CustomPostTypes,
+    ThinkShift\Plugin\Tags,
+    ThinkShift\Plugin\Users;
 
 if( !isset($strengths) )
     $strengths = Tags::getAllStrengths( false );
@@ -43,7 +44,7 @@ if( !isset($strengths) )
     </div>
     <div class="row">
         <div class="col-12 text-xs-right">
-            <?php get_template_part( 'templates/shared/header', 'filter-order' ); ?>
+            <?php if( CustomPostTypes::isPostType( 'career' ) ) get_template_part( 'templates/shared/header', 'filter-order' ); ?>
             <input type="submit" class="btn btn-primary" value="Submit" />
         </div>
     </div>

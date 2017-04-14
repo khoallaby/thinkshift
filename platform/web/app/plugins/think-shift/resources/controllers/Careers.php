@@ -5,9 +5,11 @@ namespace ThinkShift\Plugin;
 
 
 class Careers extends CustomPostTypes {
+    public static $postType = 'career';
 
     public function init() {
         #add_action( 'wp_footer', array( $this, 'wpFooter' ) );
+        add_action( 'pre_get_posts', array( $this, 'alterPageQueries' ) );
     }
 
 
@@ -19,6 +21,16 @@ class Careers extends CustomPostTypes {
 
 
 
+    # Alters the main queries on selected pages
+    public static function alterPageQueries( $query ) {
+
+        if( $query->is_main_query()  && !is_admin() ) {
+            if( $query->is_post_type_archive( self::$postType ) )
+                $query = static::filterQueryOrder( $query );
+        }
+        return $query;
+
+    }
 
 
 

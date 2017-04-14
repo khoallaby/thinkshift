@@ -22,7 +22,7 @@ $order = [
 <select name="order">
     <?php foreach( $order as $k => $o ) {
         echo sprintf( '<option value="%s" %s>%s</option>',
-            $k, selected( $_GET['orderby'], $k, false ), $o
+            $k, selected( $_GET['order'], $k, false ), $o
         );
     }
     ?>
