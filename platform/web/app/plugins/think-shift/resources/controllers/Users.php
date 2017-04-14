@@ -13,8 +13,8 @@ namespace ThinkShift\Plugin;
 use ThinkShift\Plugin\Infusionsoft;
 
 class Users extends Base {
-    private static $infusionsoft, $user;
-    public static  $contactId, $userId;
+    private static $infusionsoft;
+    public static  $contactId, $userId, $user;
     public static $strengthMetaKey = 'MA Value Creation Strengths';
 
 

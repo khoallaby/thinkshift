@@ -13,8 +13,9 @@
  */
 
 
-define('thinkshift_plugin_url',plugin_dir_url(__FILE__ ));
-define('thinkshift_plugin_path',plugin_dir_path(__FILE__ ));
+define( 'thinkshift_plugin', __FILE__  );
+define( 'thinkshift_plugin_url',plugin_dir_url(__FILE__ ) );
+define( 'thinkshift_plugin_path',plugin_dir_path(__FILE__ ) );
 
 # todo: build importer/autoloader pls
 require_once( dirname(__FILE__) . '/resources/controllers/Base.php');

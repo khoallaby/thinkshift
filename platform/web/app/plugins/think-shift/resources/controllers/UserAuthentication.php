@@ -3,6 +3,9 @@ namespace ThinkShift\Plugin;
 
 
 class UserAuthentication extends Users {
+    # name of user capability that allows access to the marketplace
+    public static $marketplaceAccess = 'marketplace_access';
+
     public function init() {
 
         #add_action( 'wp_login', array( $this, 'wp_login' ), 20, 2 );
@@ -16,6 +19,17 @@ class UserAuthentication extends Users {
 
         # checks for user role and redirects accordingly
         add_action( 'wp', array( $this, 'userCanAccess' ) );
+
+
+
+        # blocks access to wp-admin
+        add_action( 'admin_init', [ $this, 'blockAdminAccess' ], 100 );
+
+
+        register_activation_hook( thinkshift_plugin, [ $this, 'addUserRoles' ] );
+        register_deactivation_hook( thinkshift_plugin, [ $this, 'removeUserRoles' ] );
+
+
     }
 
 
@@ -38,7 +52,6 @@ class UserAuthentication extends Users {
         //is there a user to check?
         if ( isset( $user->roles ) && is_array( $user->roles ) ) {
             //check for admins
-            #vard($user->roles); die();
             if ( in_array( 'administrator', $user->roles ) ) {
                 // redirect them to the default place
                 return admin_url();
@@ -69,6 +82,7 @@ class UserAuthentication extends Users {
                 'user_nicename' => $nickname,
                 'first_name' => $_POST['first_name'],
                 'last_name' => $_POST['last_name'],
+                'role' => 'regular_user'
                 #'user_login' => $user->user_email # updating user_login not allowed
             ] );
 
@@ -85,7 +99,21 @@ class UserAuthentication extends Users {
      */
     public function userCanAccess() {
         if( !$this->userRoutes() )
-            wp_redirect( '/login' );
+            wp_redirect( home_url( '/' ) );
+    }
+
+
+    /**
+     * Check if user has role, $role
+     * @param string $role  Name of the role
+     * @return bool
+     */
+    public static function userHasRole( $role = 'administrator' ) {
+        $user = Users::$user;
+        if ( isset( $user->roles ) && is_array( $user->roles ) )
+            return in_array( $role, $user->roles );
+        else
+            return false;
     }
 
 
@@ -95,14 +123,72 @@ class UserAuthentication extends Users {
      */
     public function userRoutes() {
         # these pages are always visible
-        if( is_front_page() || is_home() || is_page( 'login' ) || is_page( 'register' ) || is_page_template( 'template-external.php')) :
+        if( is_front_page() || is_home() || is_page( 'login' ) || is_page( 'register' ) || is_page_template( 'template-external.php')) {
             return true;
-        elseif( is_user_logged_in()) :
-            return true;
-        else :
+        } elseif( is_user_logged_in()) {
+            if( is_post_type_archive( 'assessment' ) || is_singular( 'assessment' ) )
+                return true;
+            else
+                return current_user_can( self::$marketplaceAccess );
+        } else {
             return false;
-        endif;
+        }
 
+    }
+
+
+
+    # blocks access to wp-admin
+    # https://wordpress.stackexchange.com/questions/66093/how-to-prevent-access-to-wp-admin-for-certain-user-roles
+    public function blockAdminAccess() {
+        $redirect = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : home_url( '/' );
+
+        if( !self::userHasRole( 'administrator' ) )
+            exit( wp_redirect( $redirect ) );
+
+    }
+
+
+
+
+
+    # https://www.sitepoint.com/mastering-wordpress-roles-and-capabilities/
+    public function addUserRoles() {
+        $customCaps = [
+            self::$marketplaceAccess => true
+        ];
+
+        add_role( 'marketplace_user', __( 'Marketplace User', 'thinkshift'), $customCaps );
+        add_role( 'regular_user', __( 'Regular User', 'thinkshift'), [ self::$marketplaceAccess => false ] );
+
+        // Add custom capabilities to Admin and Editor Roles
+        $roles = array( 'administrator', 'editor' );
+        foreach ( $roles as $roleName ) {
+            // Get role
+            $role = get_role( $roleName );
+
+            // Check role exists
+            if ( is_null( $role) )
+                continue;
+
+            // Iterate through our custom capabilities, adding them
+            // to this role if they are enabled
+            foreach ( $customCaps as $capability => $enabled ) {
+                if ( $enabled )
+                    $role->add_cap( $capability );
+            }
+        }
+
+
+        #$role = add_role('pre_marketplace', 'Pre Marketplace', array());
+        #$role->add_cap('install_plugins');
+    }
+
+
+
+    public function removeUserRoles() {
+        remove_role( 'marketplace_user' );
+        remove_role( 'regular_user' );
     }
 }
 
