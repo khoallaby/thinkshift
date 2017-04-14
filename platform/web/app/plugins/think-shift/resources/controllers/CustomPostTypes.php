@@ -4,6 +4,7 @@ namespace ThinkShift\Plugin;
 
 
 class CustomPostTypes extends Base {
+    public static $postType;
 
 	public function init() {
         add_action( 'pre_get_posts', array( $this, 'alterPageQueries' ) );
@@ -63,6 +64,36 @@ class CustomPostTypes extends Base {
     }
 
 
+
+
+    /**
+     * Orderby/Order metakeys
+     * @param $query
+     *
+     * @return mixed
+     */
+    public static function filterQueryOrder( $query ) {
+        $keys = [
+            'salary' => 'med_wage'
+        ];
+
+
+        if( !empty($_GET['orderby']) ) {
+            $query->set( 'orderby', 'meta_value_num' );
+            if( in_array($_GET['orderby'], array_keys($keys)) ) {
+                $query->set( 'meta_key', sanitize_key($keys[ $_GET['orderby'] ]) );
+            }
+
+
+            if( $_GET['order'] == 'desc' )
+                $query->set( 'order', 'desc' );
+            elseif( $_GET['order'] == 'asc' )
+                $query->set( 'order', 'asc' );
+
+        }
+
+        return $query;
+    }
 
 
 
