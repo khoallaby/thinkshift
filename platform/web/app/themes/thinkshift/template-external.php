@@ -8,10 +8,25 @@ while ( have_posts() ) : the_post();
 ?>
     <section class="header-content"><?php echo get_post_meta( $post->ID, 'header_content', true ); ?></section>
     <section class="content">
-        <?php the_content(); ?>
-        <?php # @marty: add core here to test with, but eventually move to WP's wysiwyg  ?>
+        <?php
 
-        This is a test datra
+
+        the_content();
+
+        $pages = [
+            'benefits-of-membership',
+            'join-a-circle',
+            'pivot-power-assessment',
+            'partner-with-us'
+        ];
+
+        if( in_array( $post->post_name, $pages ) )
+            get_template_part( 'templates/external/' . $post->post_name );
+
+        #@marty, look in the templates/external folder to place your html in
+
+
+        ?>
 
     </section>
 
