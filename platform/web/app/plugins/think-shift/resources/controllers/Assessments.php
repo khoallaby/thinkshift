@@ -56,8 +56,22 @@ class Assessments extends CustomPostTypes {
      * @return array
      */
     public static function getCompletedStatus() {
-        global $wp_query;
+        $tags = self::getAssessmentTags();
         $assesments = [];
+
+        foreach ( $tags as $tag )
+            $assesments[] = Users::userHasTag( $tag );
+
+        return $assesments;
+    }
+
+
+    /**
+     * Gets the key names (slug) of the Assessment Tags. Pulls from the Assessment's metadata
+     */
+    public static function getAssessmentTags() {
+        global $wp_query;
+        $tags = [];
 
         if( is_post_type_archive( 'assessment' ) ) {
             $posts = $wp_query->get_posts();
@@ -67,12 +81,32 @@ class Assessments extends CustomPostTypes {
                 'order' => 'ASC'
             ] );
         }
-        foreach ( $posts as $post ) {
-            $completeTag = get_post_meta( $post->ID, 'tag-complete', true );
-            $assesments[] = Users::userHasTag( $completeTag );
-        }
 
-        return $assesments;
+        foreach ( $posts as $post )
+            $tags[] = get_post_meta( $post->ID, 'tag-complete', true );
+        
+        return $tags;
+
+    }
+
+
+    /**
+     * Checks if User has completed the Assessment, $tag. Or all of them if $tag = null
+     * @param null $tag         Name of the Assessment
+     *
+     * @return bool|\WP_Error
+     */
+    public static function hasUserCompletedAssessments( $tag = null ) {
+        $tags = self::getAssessmentTags();
+        if( $tag ) {
+            return Users::userHasTag( $tag );
+        } else {
+            foreach( $tags as $tag ) {
+                if( !Users::userHasTag( $tag ) )
+                    return false;
+            }
+            return true;
+        }
     }
 
 
