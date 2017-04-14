@@ -49,5 +49,20 @@ chmod +x *.sh
 bash install.sh
 
 
+
+
+cd ../..
+
+
+git clone https://github.com/thinkshift/tsdevserver.com.git john-thinkshift
+git checkout dev
+
+cd john-thinkshift/tools
+chmod +x *.sh
+bash install.sh
+
+
+
+
 # @todo: modify .env file after each install
 
