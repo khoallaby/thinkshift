@@ -103,19 +103,6 @@ class UserAuthentication extends Users {
     }
 
 
-    /**
-     * Check if user has role, $role
-     * @param string $role  Name of the role
-     * @return bool
-     */
-    public static function userHasRole( $role = 'administrator' ) {
-        $user = Users::$user;
-        if ( isset( $user->roles ) && is_array( $user->roles ) )
-            return in_array( $role, $user->roles );
-        else
-            return false;
-    }
-
 
     /**
      * Determines what the user can see depending on page and logged in status
@@ -143,7 +130,7 @@ class UserAuthentication extends Users {
     public function blockAdminAccess() {
         $redirect = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : home_url( '/' );
 
-        if( !self::userHasRole( 'administrator' ) )
+        if( !static::userHasRole( 'administrator' ) )
             exit( wp_redirect( $redirect ) );
 
     }

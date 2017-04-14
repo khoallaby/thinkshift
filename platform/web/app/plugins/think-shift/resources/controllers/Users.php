@@ -10,7 +10,6 @@
 
 namespace ThinkShift\Plugin;
 
-use ThinkShift\Plugin\Infusionsoft;
 
 class Users extends Base {
     private static $infusionsoft;
@@ -167,6 +166,18 @@ class Users extends Base {
 
 
 
+    /**
+     * Check if user has role, $role
+     * @param string $role  Name of the role
+     * @return bool
+     */
+    public static function userHasRole( $role = 'administrator' ) {
+        $user = Users::$user;
+        if ( isset( $user->roles ) && is_array( $user->roles ) )
+            return in_array( $role, $user->roles );
+        else
+            return false;
+    }
 
 
 
@@ -355,7 +366,27 @@ class Users extends Base {
         // Save the data
         clean_object_term_cache( static::$userId, $taxonomy );
 
+        self::updateUserRole();
+
         return $objs;
+
+    }
+
+
+    /**
+     * Updates the user's role to marketplace_user, if they're still a regular user and completed all Assessments
+     */
+    public static function updateUserRole() {
+        # if they're a regular user, check to see if they completed all the assessments
+        if( static::userHasRole( 'regular_user') ) {
+            #upgrade their role if completed all Assessments
+            if( Assessments::hasUserCompletedAssessments() ) {
+                wp_update_user( [
+                    'ID' => self::$user->ID,
+                    'role' => 'marketplace_user'
+                ] );
+            }
+        }
 
     }
 
