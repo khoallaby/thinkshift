@@ -58,6 +58,45 @@ class Base {
 
 
     /**
+     * Returns an array to use for $wp_query[meta_query]
+     * @param $values
+     *
+     * @return array
+     */
+    public static function getMetaQuery( $values ) {
+        return self::getMetaQueryBy( 'id', $values );
+    }
+
+
+    /**
+     * Returns an array to use for $wp_query[meta_query]
+     * @param $values
+     *
+     * @return array
+     */
+    public static function getMetaQueryBy( $field = 'id', $values = '' ) {
+
+        if( is_array($values) ) {
+            $value = $values;
+            $compare = 'IN';
+        } else {
+            $value = $values;
+            $compare = '=';
+        }
+        
+        $metaQuery = [
+            [
+                'key'     => $field,
+                'terms'   => $value,
+                'compare' => $compare
+            ]
+        ];
+
+        return $metaQuery;
+    }
+
+
+    /**
      * Returns an array to use for $wp_query[tax_query]
      * @param $values
      *
@@ -87,6 +126,7 @@ class Base {
 
         return $taxQuery;
     }
+    
 
     #add_action( 'wp', array( $this, 'force_404' ) );
     public function force_404() {
