@@ -1,11 +1,11 @@
 
 /* darken/lightens the active/hover states of .btn-primary */
 
-$btn-success-bg: rgba(41, 199, 95, 0.2);
+$btn-success-bg: rgba(41, 199, 95, 1);
 $active-background: darken($btn-success-bg, 20%);
 $active-border: darken($btn-success-bg, 22%);
-$btn-success-color: #29c75f;
-.card-body .badge {
+//$btn-success-color: #29c75f;
+.card-header .btn-default {
 
   .show > &.dropdown-toggle {
     //color: $btn-success-color;
