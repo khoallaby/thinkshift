@@ -23,6 +23,8 @@ class BuddyPress extends Users {
         # do_action( 'bp_complete_signup' ); # after complete
 
 
+        # #47 - disable activation
+        #add_filter( 'bp_registration_needs_activation', '__return_false' );
     }
 
 
