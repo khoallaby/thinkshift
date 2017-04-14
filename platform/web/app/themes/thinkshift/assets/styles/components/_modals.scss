@@ -4,13 +4,22 @@
 
 
 /* give video modals no background */
-.modal-video .modal-dialog {
+.modal.modal-video .modal-dialog {
   max-width: 50%;
+
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto;
+  @media(max-width: 768px) {
+    min-height: calc(100vh - 20px);
+  }
 
   .modal-content {
     background-color: transparent;
     border: none;
-    padding: 0;
+    .modal-body { padding: 0; }
   }
   iframe {
     height: auto;
