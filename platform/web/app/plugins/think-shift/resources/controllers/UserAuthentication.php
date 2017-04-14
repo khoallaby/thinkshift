@@ -110,11 +110,17 @@ class UserAuthentication extends Users {
      */
     public function userRoutes() {
         # these pages are always visible
-        if( is_front_page() || is_home() || is_page( 'login' ) || is_page( 'register' ) || is_page_template( 'template-external.php')) {
+        if( is_front_page() || is_home() || is_page( 'login' ) || is_page( 'register' ) ||
+            is_page_template( 'template-external.php') ||
+            is_post_type_archive( 'video' ) || is_singular( 'video' ) ||
+            is_post_type_archive( 'resource' ) || is_singular( 'resource' )
+        ) {
             return true;
         } elseif( is_user_logged_in()) {
+            # assessments are always available to loggered in users
             if( is_post_type_archive( 'assessment' ) || is_singular( 'assessment' ) )
                 return true;
+            # everything else needs marketplace access
             else
                 return current_user_can( self::$marketplaceAccess );
         } else {
