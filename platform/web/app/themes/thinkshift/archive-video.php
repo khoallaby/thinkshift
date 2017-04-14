@@ -9,7 +9,7 @@ use ThinkShift\Plugin\Videos;
 
 
 $strengths = Tags::getAllStrengths( false );
-get_template_part( 'templates/shared/header', 'strengths-filter' );
+get_template_part( 'templates/shared/header', 'filter-strengths' );
 
 
 if ( have_posts() ) :
