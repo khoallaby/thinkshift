@@ -13,7 +13,9 @@ if ( is_user_logged_in() ) {
     wp_register('', ''); # Site Admin link
 } else {
     get_template_part( 'templates/form', 'login' );
-    the_content();
+    while ( have_posts() ) : the_post();
+        get_template_part( 'templates/content', 'page' );
+    endwhile;
 }
 ?>
 

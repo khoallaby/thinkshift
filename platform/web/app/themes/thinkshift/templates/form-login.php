@@ -10,6 +10,3 @@ $args = [
 ];
 wp_login_form( $args );
 
-while ( have_posts() ) : the_post();
-    get_template_part( 'templates/content', 'page' );
-endwhile;
