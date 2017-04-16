@@ -48,3 +48,70 @@ piklist( 'field', array(
     )
 ) );
 
+
+
+/* 3 columns */
+
+/*
+piklist( 'field', array(
+    'type'        => 'group',
+    'label'       => __( 'Todo\'s (Group)', 'thinkshift' ),
+    'description' => __( 'Saves data as individual meta keys.', 'thinkshift' ),
+    'add_more'    => true,
+    'fields'      => array(
+        array(
+            'type'     => 'file',
+            'field'    => 'image',
+            'label'    => __( 'Image', 'thinkshift' ),
+            'columns'  => 12,
+            'validate' => array(
+                array(
+                    'type'    => 'limit',
+                    'options' => array(
+                        'min' => 1,
+                        'max' => 1
+                    )
+                )
+            )
+        ),
+        array(
+            'type'    => 'editor',
+            'field'   => 'task',
+            'label'   => __( 'Task', 'thinkshift' ),
+            'columns' => 12,
+            'options' => array(
+                'drag_drop_upload' => true,
+                'editor_height'    => 100,
+                'media_buttons'    => false,
+                'teeny'            => true,
+                'quicktags'        => false,
+                'tinymce'          => array(
+                    'autoresize_min_height' => 100,
+                    'toolbar1'              => 'bold,italic,bullist,numlist,blockquote,link,unlink,undo,redo',
+                    'resize'                => false,
+                    'wp_autoresize_on'      => true
+                )
+            )
+        ),
+        array(
+            'type'    => 'select',
+            'field'   => 'demo_add_more_todo_user_id',
+            'label'   => __( 'Assigned to', 'thinkshift' ),
+            'columns' => 12,
+            'choices' => piklist(
+                get_users(
+                    array(
+                        'orderby' => 'display_name',
+                        'order'   => 'asc'
+                    ),
+                    'objects'
+                ),
+                array(
+                    'ID',
+                    'display_name'
+                )
+            )
+        )
+    )
+) );
+*/
