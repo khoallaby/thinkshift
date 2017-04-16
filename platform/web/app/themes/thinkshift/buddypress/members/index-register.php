@@ -8,7 +8,7 @@
 
 ?>
 
-<div id="buddypress">
+<div id="buddypress-container">
 
     <?php
 
@@ -64,7 +64,7 @@
 
                 </div>
 
-                <p><?php _e( 'Registering for this site is easy. Just fill in the fields below, and we\'ll get a new account set up for you in no time.', 'buddypress' ); ?></p>
+                <p><?php _e( 'Create an account for free.', 'thinkshift' ); ?></p>
 
 
                 <?php /***** Extra Profile Details ******/ ?>
@@ -182,6 +182,7 @@
                  *
                  * @since 1.1.0
                  */
+                #remove_action( 'bp_before_account_details_fields', 'wordpress_social_login' );
                 do_action( 'bp_before_account_details_fields' ); ?>
 
                 <div class="register-section" id="basic-details-section">
@@ -199,15 +200,28 @@
 
                     ?>
 
-                    <label for="first_name"><?php _e( 'First Name', 'buddypress' ); ?> <?php #_e( '(required)', 'buddypress' ); ?></label>
-                    <input type="text" name="first_name" id=first_name" value="<?php echo isset( $_POST['first_name'] ) ? $_POST['first_name'] : ''; ?>" />
+                    <!--<label for="first_name"><?php _e( 'First Name', 'buddypress' ); ?> <?php #_e( '(required)', 'buddypress' ); ?></label>-->
 
-                    <label for="last_name"><?php _e( 'Last Name', 'buddypress' ); ?> <?php #_e( '(required)', 'buddypress' ); ?></label>
-                    <input type="text" name="last_name" id=last_name" value="<?php echo isset( $_POST['last_name'] ) ? $_POST['last_name'] : ''; ?>" />
+                    <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="first_name" id=first_name" value="<?php echo isset( $_POST['first_name'] ) ? $_POST['first_name'] : ''; ?>" placeholder="<?php echo __( 'First Name', 'thinkshift' ); ?>" />
+                    </div>
+
+
+                    <!--<label for="last_name"><?php _e( 'Last Name', 'buddypress' ); ?> <?php #_e( '(required)', 'buddypress' ); ?></label>-->
+
+                    <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="last_name" id=last_name" value="<?php echo isset( $_POST['last_name'] ) ? $_POST['last_name'] : ''; ?>" placeholder="<?php echo __( 'Last Name', 'thinkshift' ); ?>" />
+                    </div>
 
 
 
-                    <label for="signup_email"><?php _e( 'Email Address', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
+
+
+                    <!--<label for="signup_email"><?php _e( 'Email Address', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>-->
                     <?php
 
                     /**
@@ -216,9 +230,14 @@
                      * @since 1.1.0
                      */
                     do_action( 'bp_signup_email_errors' ); ?>
-                    <input type="email" name="signup_email" id="signup_email" value="<?php bp_signup_email_value(); ?>" <?php bp_form_field_attributes( 'email' ); ?>/>
 
-                    <label for="signup_password"><?php _e( 'Choose a Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
+                    <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-user" aria-hidden="true"></i></span>
+                        <input type="email" class="form-control" name="signup_email" id="signup_email" value="<?php bp_signup_email_value(); ?>" <?php bp_form_field_attributes( 'email' ); ?> placeholder="<?php _e( 'Email Address', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?>"/>
+                    </div>
+
+                    <!--<label for="signup_password"><?php _e( 'Choose a Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>-->
                     <?php
 
                     /**
@@ -227,10 +246,15 @@
                      * @since 1.1.0
                      */
                     do_action( 'bp_signup_password_errors' ); ?>
-                    <input type="password" name="signup_password" id="signup_password" value="" class="password-entry" <?php bp_form_field_attributes( 'password' ); ?>/>
-                    <div id="pass-strength-result"></div>
 
-                    <label for="signup_password_confirm"><?php _e( 'Confirm Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
+                    <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-key" aria-hidden="true"></i></span>
+                        <input type="password" name="signup_password" id="signup_password" value="" class="form-control password-entry" <?php bp_form_field_attributes( 'password' ); ?> placeholder="<?php _e( 'Choose a Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?>"/>
+                        <div id="pass-strength-result"></div>
+                    </div>
+
+                    <!--<label for="signup_password_confirm"><?php _e( 'Confirm Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>-->
                     <?php
 
                     /**
@@ -239,7 +263,11 @@
                      * @since 1.1.0
                      */
                     do_action( 'bp_signup_password_confirm_errors' ); ?>
-                    <input type="password" name="signup_password_confirm" id="signup_password_confirm" value="" class="password-entry-confirm" <?php bp_form_field_attributes( 'password' ); ?>/>
+                    <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-check" aria-hidden="true"></i></span>
+                        <input type="password" name="signup_password_confirm" id="signup_password_confirm" value="" class="form-control password-entry-confirm" <?php bp_form_field_attributes( 'password' ); ?> placeholder="<?php _e( 'Confirm Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?>"/>
+                    </div>
 
                     <?php
 
@@ -356,9 +384,22 @@
                  * @since 1.1.0
                  */
                 do_action( 'bp_before_registration_submit_buttons' ); ?>
+                
+                <div class="text-center">
+                    <input class="btn btn-success btn-submit" type="submit" name="signup_submit" id="signup_submit" value="<?php esc_attr_e( 'Register', 'buddypress' ); ?>" />
+                </div>
 
-                <div class="submit">
-                    <input type="submit" name="signup_submit" id="signup_submit" value="<?php esc_attr_e( 'Complete Sign Up', 'buddypress' ); ?>" />
+                <div class="form-line">
+                    <div class="title">OR</div>
+                </div>
+                <div class="form-footer">
+                    <?php do_action( 'wordpress_social_login' ); ?>
+                    <button type="button" class="btn btn-default btn-sm btn-social __facebook">
+                        <div class="info">
+                            <i class="icon fa fa-facebook-official" aria-hidden="true"></i>
+                            <span class="title">Register w/ Facebook</span>
+                        </div>
+                    </button>
                 </div>
 
                 <?php
