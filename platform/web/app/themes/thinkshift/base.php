@@ -40,10 +40,9 @@ use Roots\Sage\Wrapper;
                         <div class="app-form">
                             <?php
                             if ( is_page( 'login' ) )
-                                get_template_part( 'templates/content-page', 'login' );
+                                get_template_part( 'templates/form', 'login' );
                             elseif ( is_page( 'register' ) )
                                 get_template_part( 'buddypress/members/index-register' );
-                            #get_template_part( 'templates/content-page', 'register' );
                             ?>
                         </div>
                     </div>
