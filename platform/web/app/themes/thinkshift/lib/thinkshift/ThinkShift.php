@@ -34,6 +34,8 @@ class Base {
 
 
         add_action( 'wp_footer', array( $this, 'wpFooter' ), 111 );
+
+        #add_filter('template_include', [ $this, 'templateInclude'], 200);
     }
 
 
@@ -92,6 +94,15 @@ class Base {
     }
 
 
+    # Override what base template to use
+    public function templateInclude( $template ) {
+        global $post;
+
+        if( is_page('login') || is_page('register') )
+            array_unshift( $template->templates, 'base-page-login.php' );
+        return $template;
+
+    }
 
 
     /******************************************************************************************
