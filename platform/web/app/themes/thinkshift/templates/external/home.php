@@ -118,7 +118,7 @@
                                 <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
                                 <p class="text-muted text-left"><small>Current Challenge</small></p>
                                 <h3 class="text-left">Water Resilience Challenge</h3>
-                                <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
+                                <a href="#download" class="">Read More</a>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -126,7 +126,7 @@
                               <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
-                              <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
+                              <a href="#download" class="">Read More</a>
                           </div>
                         </div>
                         <div class="col-md-4">
@@ -134,7 +134,7 @@
                               <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
-                              <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
+                              <a href="#download" class="">Read More</a>
                           </div>
                         </div>
                     </div>

@@ -16,7 +16,9 @@ while ( have_posts() ) : the_post();
             'join-a-circle',
             'pivot-power-assessment',
             'partner-with-us',
-            'home'
+            'home',
+            'how-to-get-started',
+            'stories'
         ];
 
         if( in_array( $post->post_name, $pages ) )

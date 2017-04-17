@@ -76,7 +76,7 @@
             <div class="col-md-12">
                 <div class="container-fluid">
                     <div class="row mb-5">
-                        <div class="col-md-4 bg-green">
+                        <div class="col-md-4 bg-green bg-primary">
                             <div class="feature-item pd-2">
                                 <i class="icon-screen-smartphone text-primary"></i>
                                 <h3>Step 1: How you Reposition</h3>
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <div class="row mb-5">
-                        <div class="col-md-4 bg-green">
+                        <div class="col-md-4 bg-green bg-primary">
                             <div class="feature-item pd-2">
                                 <i class="icon-screen-smartphone text-primary"></i>
                                 <h3>Step 1: How you Reposition</h3>
@@ -106,7 +106,7 @@
                         </div>
                     </div>
                     <div class="row mb-5">
-                        <div class="col-md-4 bg-green">
+                        <div class="col-md-4 bg-green bg-primary">
                             <div class="feature-item pd-2">
                                 <i class="icon-screen-smartphone text-primary"></i>
                                 <h3>Step 1: How you Reposition</h3>
