@@ -1,0 +1,85 @@
+-- 04/17/2017 04:14:52 am   ***********************************************************
+-- 04/17/2017 04:14:52 am   conEnqueue Process BEGIN :
+-- 04/17/2017 04:14:52 am   NON_CRITICAL flag submitted.  Writing request to queue database
+-- 04/17/2017 04:14:52 am   Query = INSERT INTO transfers (TName,JSON) VALUES ('Contact','{"FirstName":"TestFirst1","LastName":"TestLast1","Email":"TestEmail1@test.com"}')
+-- 04/17/2017 04:14:52 am   Enqueue INSERT INTO transfers result = 1
+-- 04/17/2017 04:14:52 am   Enqueue INSERT INTO transfers insert_id = 13
+-- 04/17/2017 04:14:52 am   CRITICAL flag submitted.  Directly writing to Infusionsoft
+-- 04/17/2017 04:14:52 am   addWithDupCheck return = 93079
+-- 04/17/2017 04:14:52 am   CRITICAL flag submitted.  Directly writing to Infusionsoft
+-- 04/17/2017 04:14:52 am   addWithDupCheck return = 93081
+-- 04/17/2017 04:14:52 am   NON_CRITICAL flag submitted.  Writing request to queue database
+-- 04/17/2017 04:14:52 am   Query = INSERT INTO transfers (TName,JSON) VALUES ('Contact','{"FirstName":"TestFirst4","LastName":"TestLast4","Email":"TestEmail4@test.com"}')
+-- 04/17/2017 04:14:52 am   Enqueue INSERT INTO transfers result = 1
+-- 04/17/2017 04:14:52 am   Enqueue INSERT INTO transfers insert_id = 14
+-- 04/17/2017 04:16:16 am   ***********************************************************
+-- 04/17/2017 04:16:16 am   conEnqueue Process BEGIN :
+-- 04/17/2017 04:16:16 am   NON_CRITICAL flag submitted.  Writing request to queue database
+-- 04/17/2017 04:16:16 am   Query = INSERT INTO transfers (TName,JSON) VALUES ('Contact','{"FirstName":"TestFirst1","LastName":"TestLast1","Email":"TestEmail1@test.com"}')
+-- 04/17/2017 04:16:16 am   Enqueue INSERT INTO transfers result = 1
+-- 04/17/2017 04:16:16 am   Enqueue INSERT INTO transfers insert_id = 15
+-- 04/17/2017 04:16:16 am   CRITICAL flag submitted.  Directly writing to Infusionsoft
+-- 04/17/2017 04:16:17 am   addWithDupCheck return = 93079
+-- 04/17/2017 04:16:17 am   CRITICAL flag submitted.  Directly writing to Infusionsoft
+-- 04/17/2017 04:16:17 am   addWithDupCheck return = 93081
+-- 04/17/2017 04:16:17 am   NON_CRITICAL flag submitted.  Writing request to queue database
+-- 04/17/2017 04:16:17 am   Query = INSERT INTO transfers (TName,JSON) VALUES ('Contact','{"FirstName":"TestFirst4","LastName":"TestLast4","Email":"TestEmail4@test.com"}')
+-- 04/17/2017 04:16:17 am   Enqueue INSERT INTO transfers result = 1
+-- 04/17/2017 04:16:17 am   Enqueue INSERT INTO transfers insert_id = 16
+-- 04/17/2017 04:25:36 am   ***********************************************************
+-- 04/17/2017 04:25:36 am   conEnqueue Process BEGIN :
+-- 04/17/2017 04:25:36 am   CRITICAL flag submitted.  Directly writing to Infusionsoft
+-- 04/17/2017 04:25:36 am   grpAssign return = 1
+-- 04/17/2017 04:25:36 am   NON_CRITICAL flag submitted.  Writing request to queue database
+-- 04/17/2017 04:25:36 am   Query = INSERT INTO transfers (TName,JSON) VALUES ('ContactGroupAssign','{"ContactId":93081,"GroupId":11109}')
+-- 04/17/2017 04:25:36 am   Enqueue INSERT INTO transfers result = 1
+-- 04/17/2017 04:25:36 am   Enqueue INSERT INTO transfers insert_id = 17
+-- 04/17/2017 04:25:36 am   NON_CRITICAL flag submitted.  Writing request to queue database
+-- 04/17/2017 04:25:36 am   Query = INSERT INTO transfers (TName,JSON) VALUES ('ContactGroupAssign','{"ContactId":93083,"GroupId":11109}')
+-- 04/17/2017 04:25:36 am   Enqueue INSERT INTO transfers result = 1
+-- 04/17/2017 04:25:36 am   Enqueue INSERT INTO transfers insert_id = 18
+-- 04/17/2017 04:25:36 am   CRITICAL flag submitted.  Directly writing to Infusionsoft
+-- 04/17/2017 04:25:36 am   grpAssign return = 1
+-- 04/17/2017 05:00:58 pm   ***********************************************************
+-- 04/17/2017 05:00:58 pm   conEnqueue Process BEGIN :
+-- 04/17/2017 05:01:56 pm   ***********************************************************
+-- 04/17/2017 05:01:56 pm   conEnqueue Process BEGIN :
+-- 04/17/2017 05:02:24 pm   ***********************************************************
+-- 04/17/2017 05:02:24 pm   conEnqueue Process BEGIN :
+-- 04/17/2017 05:03:26 pm   ***********************************************************
+-- 04/17/2017 05:03:26 pm   conEnqueue Process BEGIN :
+-- 04/17/2017 05:04:01 pm   ***********************************************************
+-- 04/17/2017 05:04:01 pm   conEnqueue Process BEGIN :
+-- 04/17/2017 05:04:39 pm   ***********************************************************
+-- 04/17/2017 05:04:39 pm   conEnqueue Process BEGIN :
+-- 04/17/2017 05:05:44 pm   ***********************************************************
+-- 04/17/2017 05:05:44 pm   conEnqueue Process BEGIN :
+-- 04/17/2017 05:05:44 pm   CRITICAL flag submitted.  Directly writing to Infusionsoft
+-- 04/17/2017 05:06:42 pm   ***********************************************************
+-- 04/17/2017 05:06:42 pm   conEnqueue Process BEGIN :
+-- 04/17/2017 05:06:42 pm   CRITICAL flag submitted.  Directly writing to Infusionsoft
+-- 04/17/2017 05:06:42 pm   grpAssign return = 
+-- 04/17/2017 05:06:42 pm   NON_CRITICAL flag submitted.  Writing request to queue database
+-- 04/17/2017 05:06:42 pm   Query = INSERT INTO transfers (TName,JSON) VALUES ('ContactGroupAssign','{"ContactId":93081,"GroupId":11109}')
+-- 04/17/2017 05:06:42 pm   Enqueue INSERT INTO transfers result = 1
+-- 04/17/2017 05:06:42 pm   Enqueue INSERT INTO transfers insert_id = 19
+-- 04/17/2017 05:06:42 pm   NON_CRITICAL flag submitted.  Writing request to queue database
+-- 04/17/2017 05:06:42 pm   Query = INSERT INTO transfers (TName,JSON) VALUES ('ContactGroupAssign','{"ContactId":93083,"GroupId":11109}')
+-- 04/17/2017 05:06:42 pm   Enqueue INSERT INTO transfers result = 1
+-- 04/17/2017 05:06:42 pm   Enqueue INSERT INTO transfers insert_id = 20
+-- 04/17/2017 05:06:42 pm   CRITICAL flag submitted.  Directly writing to Infusionsoft
+-- 04/17/2017 05:06:42 pm   grpAssign return = 
+-- 04/17/2017 05:14:05 pm   ***********************************************************
+-- 04/17/2017 05:14:05 pm   conEnqueue Process BEGIN :
+-- 04/17/2017 05:14:05 pm   CRITICAL flag submitted.  Directly writing to Infusionsoft
+-- 04/17/2017 05:14:05 pm   grpAssign return = 
+-- 04/17/2017 05:14:05 pm   NON_CRITICAL flag submitted.  Writing request to queue database
+-- 04/17/2017 05:14:05 pm   Query = INSERT INTO transfers (TName,JSON) VALUES ('ContactGroupAssign','{"ContactId":93081,"GroupId":11109}')
+-- 04/17/2017 05:14:05 pm   Enqueue INSERT INTO transfers result = 1
+-- 04/17/2017 05:14:05 pm   Enqueue INSERT INTO transfers insert_id = 21
+-- 04/17/2017 05:14:05 pm   NON_CRITICAL flag submitted.  Writing request to queue database
+-- 04/17/2017 05:14:05 pm   Query = INSERT INTO transfers (TName,JSON) VALUES ('ContactGroupAssign','{"ContactId":93083,"GroupId":11109}')
+-- 04/17/2017 05:14:05 pm   Enqueue INSERT INTO transfers result = 1
+-- 04/17/2017 05:14:05 pm   Enqueue INSERT INTO transfers insert_id = 22
+-- 04/17/2017 05:14:05 pm   CRITICAL flag submitted.  Directly writing to Infusionsoft
+-- 04/17/2017 05:14:05 pm   grpAssign return = 

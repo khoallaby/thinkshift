@@ -7,27 +7,33 @@ use iSDK;
 
 class Infusionsoft extends base {
 	public static $api;
-	private $clientId, $clientSecret, $token, $apiKey;
+	//private $clientId, $clientSecret, $token, $apiKey;
 
 
 	function __construct() {
+        require_once dirname(__FILE__) . '/../../PBClub/Enqueue.php';
 		require_once dirname(__FILE__) . '/../../vendor/jimitit/infusionsoft-php-isdk/src/isdk.php';
 
 		# todo: pull these from wp_options
-		$appName = 'fd341';
+		/**$appName = 'fd341';
 		$this->apiKey = '9122d201f6892d5b3397f675849baafa';
 
-		$this->connect( $appName, $this->apiKey );
+		$this->connect( $appName, $this->apiKey );*/
+
+        self::$api = new iSDK();
+		//$app=new iSDK();
+        self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
+        self::$api->setToken("taendzys9af5z3tzfwnxuxkc");
 
 	}
 
 
-	function connect( $url, $apiKey ) {
+	/**function connect( $url, $apiKey ) {
 		$this->apiKey = $apiKey;
 
 		self::$api = new iSDK();
 		self::$api->cfgCon( $url, $this->apiKey );
-	}
+	}*/
 
 
     /**
@@ -99,16 +105,29 @@ class Infusionsoft extends base {
 
 
 
-	public function addContact( $fields ) {
+	public function addContact( $fields , $priority = CRITICAL) {
 
-		$data = self::$api->addWithDupCheck( $fields, 'Email' );
-		if( $data ) {
-			/*
-			# opt in email
-			if ( isset( $fields['Email'] ) )
-				self::$api->optIn( $fields['Email'] );
-			*/
-		}
+	    if ($priority==CRITICAL)
+	    {
+
+            $data = self::$api->addWithDupCheck($fields, 'Email');
+
+            if ($data) {
+
+                # opt in email
+                if (isset($fields['Email']))
+                    self::$api->optIn($fields['Email']);
+
+            }
+
+        }
+        elseif ($priority==NON_CRITICAL)
+        {
+
+            $json = json_encode($fields);
+            sendTable($priority, 'Contact', $json);
+
+        }
 
 		return $data;
 	}
@@ -263,7 +282,30 @@ class Infusionsoft extends base {
         }
     }
 
+    /**
+     * @param $cid = Existing Infusionsoft contact Id
+     * @param $tid = Existing Infusionsoft tag Id
+     * @param $priority = Commit or queue (CRITICAL, NON_CRITICAL)
+     */
+    public function setTag($cid, $tid, $priority)
+    {
+        if ($priority==CRITICAL)
+        {
 
+            self::$api->grpAssign($cid, $tid);
+
+        }
+        elseif ($priority==NON_CRITICAL)
+        {
+
+            $arr=[];
+            $arr['ContactId']=$cid;
+            $arr['GroupId']=$tid;
+            $json=json_encode($arr);
+            sendTable($priority,'ContactGroupAssign',$json);
+
+        }
+    }
 
 }
 
