@@ -17,13 +17,14 @@ const CONTACT_GROUP_ASSIGN = 'ContactGroupAssign';
 
 require_once 'LogFileObj.php';
 
+
+
 $log=new LogFileObj('Enqueue.log');
 $log->lfWriteLn('***********************************************************');
 $log->lfWriteLn('conEnqueue Process BEGIN :');
 
 // back path to .env for db password
 //$file=fopen('../../../../../.env','r');
-$file=fopen('/home/bitnami/john-thinkshift/platform/.env','r');
 
 // read db pw to obfuscate
 /**
@@ -32,7 +33,7 @@ $file=fopen('/home/bitnami/john-thinkshift/platform/.env','r');
  */
 function mysqlPW() {
 
-	global $file;
+    $file=fopen( dirname(__FILE__) . '/../../../../../.env','r');
 
 	while (!feof($file)){
 
@@ -45,6 +46,7 @@ function mysqlPW() {
 		}
 
 	}
+    fclose($file);
 
 	return false;
 
