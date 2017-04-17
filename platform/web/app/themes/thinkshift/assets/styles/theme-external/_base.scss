@@ -34,19 +34,26 @@ body.page-template-template-external {
 .bg-green { background: #fd5252 !important; }
 .bg-green.bg-primary p { color: #fff !important; }
 .bg-primary { color: white; }
-#steps .row.mb-5 { margin-bottom: 50px; }
-#steps .pd-2 { padding-top: 30px; }
+
+#steps {
+  .row.mb-5 { margin-bottom: 50px; }
+  .pd-2 { padding-top: 30px; }
+}
 
 header {
   background-position: center center;
   background-size: cover;
+  .noimage {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    overflow-y: hidden;
+    background: url(../images/bg-pattern.png), linear-gradient(to left, #7b4397, #dc2430);
+    color: #fff
+  }
 }
 
-header.noimage { position: relative;
-  width: 100%;
-  min-height: auto;
-  overflow-y: hidden;
-  background: url(../images/bg-pattern.png), linear-gradient(to left, #7b4397, #dc2430);
-  color: #fff
+nav {
+  padding: 30px 0;
+  .navbar-header { align-self: flex-start; }
 }
-#mainNav { padding: 30px 0; }
