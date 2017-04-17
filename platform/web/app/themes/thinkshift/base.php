@@ -16,7 +16,9 @@ use Roots\Sage\Wrapper;
     <?php
     if( is_page_template( 'template-external.php' ) ) {
         get_template_part( 'templates/menu-external' );
-        get_template_part( 'base', 'external' );
+
+        include Wrapper\template_path();
+        //get_template_part( 'base', 'external' );
     } else {
     ?>
     <div class="wrap app app-default" role="document">
