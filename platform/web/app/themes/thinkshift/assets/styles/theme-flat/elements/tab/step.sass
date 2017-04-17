@@ -39,6 +39,7 @@
           border-radius: 50%
           background-color: $green
           color: $white
+          z-index: 10
         .heading
           flex: 1
           text-align: left
@@ -59,29 +60,29 @@
           background-color: transparent
 
       &.active
-        & > a, & > a:focus, & > a:hover, uib-tab-heading
+        & > a, & > a:focus, & > a:hover, .uib-tab-heading
           background-color: transparent
           border: 0
           color: $green-darker
         & > a:hover
           cursor: pointer
-
         & ~ li
           &:after
             background-color: $grey
+
       &.inactive
-        & > a, & > a:focus, & > a:hover, uib-tab-heading
+        & > a, & > a:focus, & > a:hover, .uib-tab-heading
           color: $grey-darkest
           .icon
             background-color: $grey-darker
             color: $white
 
-        & > a  , & > a:focus , & > a:hover, uib-tab-heading
+        & > a  , & > a:focus , & > a:hover, .uib-tab-heading
           color: $grey-darkest
 
         &:after
           content: ''
-          z-index: 1
+          z-index: -1
           position: absolute
           display: block
           height: 4px
@@ -96,8 +97,8 @@
         border-top-right-radius: 1px
         border-bottom-right-radius: 1px
 
-        &:before , &:after
-          display: none
+        //&:before , &:after
+          //display: none
     &:after
       content: ''
       z-index: 1
@@ -119,7 +120,7 @@
   .step
     .nav-tabs
       & > li
-        & > a , uib-tab-heading
+        & > a , .uib-tab-heading
           justify-content: center
           padding: 0
           .icon
