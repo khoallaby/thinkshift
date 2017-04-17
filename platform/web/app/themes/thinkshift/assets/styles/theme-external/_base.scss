@@ -21,3 +21,13 @@ body.page-template-template-external {
     }
   }
 }
+
+
+ /*Added by MM*/
+ .bg-blue {background: #52abfd !important;}
+ .bg-green {background: #fd5252 !important;}
+ .bg-green.bg-primary p {color: #fff !important;}
+ #steps .row.mb-5 {margin-bottom: 50px;}
+ #steps .pd-2 {padding-top: 30px;}
+header.noimage {position:relative;width:100%;min-height:auto;overflow-y:hidden; background: url(/app/themes/thinkshift/assets/images/bg-pattern.png),#7b4397; background: url(/app/themes/thinkshift/assets/images/bg-pattern.png),-webkit-linear-gradient(to left,#7b4397,#dc2430); background: url(/app/themes/thinkshift/assets/images/bg-pattern.png),linear-gradient(to left,#7b4397,#dc2430);color:#fff}
+ #mainNav {padding: 30px 0;}
