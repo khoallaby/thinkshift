@@ -28,9 +28,8 @@ if ( have_posts() ) :
             $tags = wp_get_object_terms( get_the_ID(), 'tag-category');
             $url = Videos::getVideoLink( $videoUrl, $videoSource );
             $link = Videos::getVideoThummbnailLink( $videoUrl, $videoSource, true );
-
             ?>
-            <div class="col-md-4">
+            <article class="col-md-4 video">
 
                 <a href="#modal-video-<?php the_ID(); ?>" data-toggle="modal"><?php echo $link; ?></a>
 
@@ -49,7 +48,7 @@ if ( have_posts() ) :
                     </div>
                 </div>
 
-            </div>
+            </article>
             <?php
         endwhile;
 
