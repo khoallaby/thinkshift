@@ -1,3 +1,6 @@
+<?php
+use Roots\Sage\Assets;
+?>
 <header class="noimage">
     <div class="container">
         <div class="row">
@@ -14,7 +17,7 @@
                     <div class="device-mockup">
                         <div class="screen">
                             <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                            <img src="/app/themes/thinkshift/assets/images/demo-screen-1.png" class="img-responsive" alt="">
+                            <img src="/app/themes/thinkshift/assets/images/demo-screen-1.png" class="img-fluid" alt="">
                         </div>
                     </div>
                 </div>

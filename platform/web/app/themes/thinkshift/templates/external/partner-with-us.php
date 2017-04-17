@@ -1,3 +1,6 @@
+<?php
+use Roots\Sage\Assets;
+?>
 <header>
     <div class="container">
         <div class="row">
@@ -37,8 +40,8 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="feature-item thumbnail text-left">
-                                <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
+                            <div class="feature-item img-thumbnail">
+                                <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" />
                                 <p class="text-muted text-left"><small>Current Challenge</small></p>
                                 <h3 class="text-left">Water Resilience Challenge</h3>
                                 <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
@@ -46,15 +49,15 @@
                         </div>
                         <div class="col-md-4">
                           <div class="feature-item thumbnail">
-                              <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
+                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
                               <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
                           </div>
                         </div>
                         <div class="col-md-4">
-                          <div class="feature-item thumbnail text-left">
-                              <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
+                          <div class="feature-item img-thumbnail">
+                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
                               <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>

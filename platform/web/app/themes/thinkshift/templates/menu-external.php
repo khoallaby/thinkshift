@@ -14,11 +14,12 @@ use ThinkShift\Theme\Menu;
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="navbarCollapse">
 
             <?php
             $args = [
                 'menu_class'     => 'nav navbar-nav navbar-right',
+                'container_class' => 'collapse navbar-collapse',
+                'container_id' => 'navbarCollapse'
                 //'walker'         => new Menu()
             ];
 
@@ -28,8 +29,6 @@ use ThinkShift\Theme\Menu;
             endif;
 
             ?>
-        </div>
-        <!-- /.navbar-collapse -->
     </div>
     <!-- /.container-fluid -->
 </nav>

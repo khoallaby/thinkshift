@@ -1,3 +1,6 @@
+<?php
+use Roots\Sage\Assets;
+?>
 <header class="noimage">
     <div class="container">
         <div class="row">
@@ -14,7 +17,7 @@
                     <div class="device-mockup">
                         <div class="screen">
                             <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                            <img src="/app/themes/thinkshift/assets/images/demo-screen-1.png" class="img-responsive" alt="">
+                            <img src="/app/themes/thinkshift/assets/images/demo-screen-1.png" class="img-fluid" alt="">
                         </div>
                     </div>
                 </div>
@@ -47,16 +50,16 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="feature-item thumbnail text-left">
-                                <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
+                            <div class="feature-item img-thumbnail">
+                                <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                                 <p class="text-muted text-left"><small>Current Challenge</small></p>
                                 <h3 class="text-left">Water Resilience Challenge</h3>
                                 <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
                             </div>
                         </div>
                         <div class="col-md-6">
-                          <div class="feature-item thumbnail text-left">
-                              <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
+                          <div class="feature-item img-thumbnail">
+                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
                               <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
@@ -83,8 +86,8 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="feature-item thumbnail text-left">
-                                <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
+                            <div class="feature-item img-thumbnail">
+                                <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                                 <p class="text-muted text-left"><small>Current Challenge</small></p>
                                 <h3 class="text-left">Water Resilience Challenge</h3>
                                 <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
@@ -92,23 +95,23 @@
                         </div>
                         <div class="col-md-3">
                           <div class="feature-item thumbnail">
-                              <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
+                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
                               <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
                           </div>
                         </div>
                         <div class="col-md-3">
-                          <div class="feature-item thumbnail text-left">
-                              <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
+                          <div class="feature-item img-thumbnail">
+                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
                               <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
                           </div>
                         </div>
                         <div class="col-md-3">
-                          <div class="feature-item thumbnail text-left">
-                              <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
+                          <div class="feature-item img-thumbnail">
+                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
                               <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
