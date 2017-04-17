@@ -3,24 +3,23 @@ use ThinkShift\Theme\Menu;
 ?>
 
 
-<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+<nav id="mainNav" class="navbar navbar-toggleable-md navbar-inverse fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand page-scroll" href="#page-top">Marketplace</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
 
             <?php
             $args = [
                 'menu_class'     => 'nav navbar-nav navbar-right',
-                'container'      => '',
-                'walker'         => new Menu()
+                //'walker'         => new Menu()
             ];
 
             if ( has_nav_menu( 'logged_out_navigation' ) ) :

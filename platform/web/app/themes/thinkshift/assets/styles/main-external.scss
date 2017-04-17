@@ -7,7 +7,6 @@
 // endbower
 
 
-/*
 @import "common/global";
 @import "components/buttons";
 @import "components/comments";
@@ -23,11 +22,11 @@
 @import "layouts/pages";
 @import "layouts/posts";
 @import "layouts/tinymce";
-*/
+
 
 
 // todo: pulling in bootstrap3 for now, use v4 later
-@import "theme-external/bootstrap3";
+//@import "theme-external/bootstrap3";
 @import "theme-external/new-age";
 @import "theme-external/base";
 @import "theme-external/simple-line-icons";

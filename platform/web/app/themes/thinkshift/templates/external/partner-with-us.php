@@ -15,7 +15,7 @@
 <section id="download" class="download bg-primary text-center">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8 offset-md-2">
                 <h1 class="section-heading">We Believe:</h1>
                 <h2>Pellentesque aliquam tristique venenatis. Curabitur id arcu non velit maximus faucibus. Sed pharetra lacinia pharetra. Aliquam ac tellus sit amet elit imperdiet egestas. </h2>
             </div>

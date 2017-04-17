@@ -1,3 +1,6 @@
+<?php
+use Roots\Sage\Assets;
+?>
 <header>
     <div class="container">
         <div class="row">
@@ -15,7 +18,7 @@
 <section id="download" class="download bg-primary text-center">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8 offset-md-2">
                 <h1 class="section-heading">We Believe:</h1>
                 <h2>Pellentesque aliquam tristique venenatis. Curabitur id arcu non velit maximus faucibus. Sed pharetra lacinia pharetra. Aliquam ac tellus sit amet elit imperdiet egestas. </h2>
             </div>
@@ -78,23 +81,25 @@
 <section id="contact" class="contact bg-primary">
     <div class="container">
         <div class="row">
-          <h2>Creating shared value</h2>
-          <div class="col-md-6">
-            <h4>￼Benefits for individuals</h4>
-            <ul>
-              <li>A fresh purpose and career direction rutabaga</li>
-              <li>Skills that pay the bills [this experience gets you the preparation that employers</li>
-              <li>Open up new opportunities Create economic security</li>
-            </ul>
-          </div>
-          <div class="col-md-6">
-            <h4>￼Benefits for individuals</h4>
-            <ul>
-              <li>A fresh purpose and career direction rutabaga</li>
-              <li>Skills that pay the bills [this experience gets you the preparation that employers</li>
-              <li>Open up new opportunities Create economic security</li>
-            </ul>
-          </div>
+            <div class="col-md-12">
+                <h2>Creating shared value</h2>
+            </div>
+            <div class="col-md-6">
+                <h4>￼Benefits for individuals</h4>
+                <ul>
+                    <li>A fresh purpose and career direction rutabaga</li>
+                    <li>Skills that pay the bills [this experience gets you the preparation that employers</li>
+                    <li>Open up new opportunities Create economic security</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h4>￼Benefits for individuals</h4>
+                <ul>
+                    <li>A fresh purpose and career direction rutabaga</li>
+                    <li>Skills that pay the bills [this experience gets you the preparation that employers</li>
+                    <li>Open up new opportunities Create economic security</li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
@@ -114,24 +119,24 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="feature-item thumbnail text-left">
-                                <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
+                            <div class="feature-item img-thumbnail">
+                                <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                                 <p class="text-muted text-left"><small>Current Challenge</small></p>
                                 <h3 class="text-left">Water Resilience Challenge</h3>
                                 <a href="#download" class="">Read More</a>
                             </div>
                         </div>
                         <div class="col-md-4">
-                          <div class="feature-item thumbnail">
-                              <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
+                          <div class="feature-item img-thumbnail">
+                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
                               <a href="#download" class="">Read More</a>
                           </div>
                         </div>
                         <div class="col-md-4">
-                          <div class="feature-item thumbnail text-left">
-                              <img src="/app/themes/thinkshift/assets/images/bg-cta.jpg" />
+                          <div class="feature-item img-thumbnail">
+                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
                               <a href="#download" class="">Read More</a>
@@ -148,13 +153,13 @@
     <div class="container">
         <p>&copy; 2016 Start Bootstrap. All Rights Reserved.</p>
         <ul class="list-inline">
-            <li>
+            <li class="list-inline-item">
                 <a href="#">Privacy</a>
             </li>
-            <li>
+            <li class="list-inline-item">
                 <a href="#">Terms</a>
             </li>
-            <li>
+            <li class="list-inline-item">
                 <a href="#">FAQ</a>
             </li>
         </ul>

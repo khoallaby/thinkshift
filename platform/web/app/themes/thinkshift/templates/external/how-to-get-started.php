@@ -25,7 +25,7 @@
 <section id="download" class="download bg-primary bg-blue text-center">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8 offset-md-2">
                 <h2>Benefits of Membership</h2>
                 <h3>Paragraph on the benefits of being a member. Paragraph on the benefits of being a member Paragraph on the benefits of being a member Paragraph on the benefits of being a member Paragraph on the benefits of being a member Paragraph on the benefits of being a member Paragraph on the benefits of be Paragraph on the benefits of being a member Paragraph on the benefits of b</h3>
             </div>
