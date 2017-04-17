@@ -3,7 +3,7 @@ use ThinkShift\Theme\Menu;
 ?>
 
 
-<nav id="mainNav" class="navbar navbar-toggleable-md navbar-inverse fixed-top">
+<nav id="mainNav" class="navbar navbar-toggleable-md fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">

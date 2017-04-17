@@ -54,6 +54,24 @@ header {
 }
 
 nav {
+  // todo: need to apply this when scrolling down
+  background-color: #fff;
+  border-color: rgba(34,34,34,.1);
+  a { color: #222; }
+  // -------------------------------------------- \\
+
   padding: 30px 0;
   .navbar-header { align-self: flex-start; }
+
+  ul.nav {
+    // primary menu
+    & > li {
+
+      // child menu
+      & > ul > li {
+        display: none;
+
+      }
+    }
+  }
 }
