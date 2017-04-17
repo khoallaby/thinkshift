@@ -48,7 +48,7 @@ use Roots\Sage\Assets;
                             </div>
                         </div>
                         <div class="col-md-4">
-                          <div class="feature-item thumbnail">
+                          <div class="feature-item img-thumbnail">
                               <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
