@@ -26,7 +26,7 @@ $statuses = Assessments::canAccess();
 
                         if ( $completed ) {
                             $active = 'inactive';
-                            $link   = '#';
+                            $link   = '';
                         } else {
                             $active = 'active';
                             $link   = get_the_permalink( $post->ID );
@@ -34,7 +34,7 @@ $statuses = Assessments::canAccess();
                         # checks if User has the in/complete Tag for the following assessment
                         ?>
                         <li class="<?php echo $active; ?>">
-                            <a href="<?php echo $link; ?>">
+                            <a<?php echo $link ? sprintf( ' href="%s"', $link ) : ''; ?>>
                                 <div class="icon fa fa-shopping-cart"></div>
                                 <div class="heading">
                                     <div class="title"><?php echo get_the_title( $post->ID ); ?></div>
