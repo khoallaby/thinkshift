@@ -19,20 +19,30 @@ class Menu extends Walker {
      * Note: Menu objects include url and title properties, so we will use those.
      */
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-        $icon = 'fa-tasks';
-        $output .= sprintf( '
-            <li%s>
-                <a href="%s">
+        if ( is_page_template( 'template-external.php' ) ) {
+            $icon = '';
+        } else {
+            $icon = 'fa-tasks';
+        }
+
+        if( $icon ) {
+            $iconHtml = sprintf( '
                     <div class="icon">
                         <i class="fa %s" aria-hidden="true"></i>
-                    </div> 
+                    </div> ', $icon );
+        } else {
+            $iconHtml = '';
+        }
+        $output .= sprintf( '
+            <li%s>
+                <a href="%s">%s
                     %s
                 </a>
             </li>
             ',
             ( $item->object_id === get_the_ID() ) ? ' class="active"' : '',
             $item->url,
-            $icon,
+            $iconHtml,
             $item->title
         );
     }
