@@ -23,7 +23,7 @@ use ThinkShift\Theme\Menu;
                 'walker'         => new Menu()
             ];
 
-            if ( has_nav_menu( 'logged_out_navigation' ) && !is_user_logged_in() ) :
+            if ( has_nav_menu( 'logged_out_navigation' ) ) :
                 $args['theme_location'] = 'logged_out_navigation';
                 wp_nav_menu( $args );
             endif;
