@@ -41,7 +41,7 @@ use Roots\Sage\Assets;
                     <div class="row">
                         <div class="col-md-4">
                             <div class="feature-item img-thumbnail">
-                                <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" />
+                                <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                                 <p class="text-muted text-left"><small>Current Challenge</small></p>
                                 <h3 class="text-left">Water Resilience Challenge</h3>
                                 <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
@@ -49,7 +49,7 @@ use Roots\Sage\Assets;
                         </div>
                         <div class="col-md-4">
                           <div class="feature-item thumbnail">
-                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" />
+                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
                               <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
@@ -57,7 +57,7 @@ use Roots\Sage\Assets;
                         </div>
                         <div class="col-md-4">
                           <div class="feature-item img-thumbnail">
-                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" />
+                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
                               <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
                               <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a>
