@@ -752,7 +752,7 @@ class xmlrpc_client
     var $key = '';
     var $keypass = '';
     var $verifypeer = true;
-    var $verifyhost = 1;
+    var $verifyhost = 2;
     var $no_multicall = false;
     var $proxy = '';
     var $proxyport = 0;
