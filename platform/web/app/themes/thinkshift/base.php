@@ -14,12 +14,12 @@ use Roots\Sage\Wrapper;
     </div>
     <![endif]-->
     <?php
-    if( is_page_template( 'template-external.php' ) ) {
+    if( is_page_template( 'template-external.php' ) ) :
         get_template_part( 'templates/menu-external' );
 
         include Wrapper\template_path();
         //get_template_part( 'base', 'external' );
-    } else {
+    else :
     ?>
     <div class="wrap app app-default" role="document">
         <?php if( is_page('login') || is_page('register') ) { ?>
@@ -72,10 +72,16 @@ use Roots\Sage\Wrapper;
         <?php } ?>
     </div><!-- /.wrap -->
     <?php
-    }
+    endif;
 
     do_action( 'get_footer' );
-    get_template_part( 'templates/footer' );
+
+    if( is_page_template( 'template-external.php' ) )
+        get_template_part( 'templates/external/footer' );
+    else
+        get_template_part( 'templates/footer' );
+
+
     wp_footer();
     ?>
 </body>
