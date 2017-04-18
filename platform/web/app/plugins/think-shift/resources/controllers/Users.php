@@ -217,23 +217,36 @@ class Users extends Base {
 
 
     /**
-     * General function for pulling an object's Tags
+     * General function for pulling an object's Tags - this does a lot of the magic
      * @param $category
      *
      * @return array|\WP_Error
      */
     public static function getObjTags( $objectId, $category = null, $limit = 0 ) {
+        $args = [
+            'order' => 'ASC',
+            'orderby' => 'name'
+        ];
+        # todo maybe add $args parameter
+        #$args = wp_parse_args( $args, $defaults );
+
+
         if( $category ) {
             if( is_int($category) ) {
-                $args = [ 'parent' => $category ];
+                $args['parent'] = $category;
             } else {
                 $cat = get_term_by( 'name', $category, 'tag-category' );
-                $args = [ 'parent' => $cat->term_id ];
+                $args['parent'] = $cat->term_id;
             }
-            return wp_get_object_terms( $objectId, 'tag-category', $args );
-        } else {
-            return wp_get_object_terms( $objectId, 'tag-category' );
         }
+
+        $terms = wp_get_object_terms( $objectId, 'tag-category', $args );
+
+
+        if( $terms && $limit )
+            return array_slice( $terms, 0, $limit );
+        else
+            return $terms;
 
     }
 
