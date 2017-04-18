@@ -221,17 +221,19 @@ class Users extends Base {
      * Sanitizes Tags before saving it
      * @param $objectId
      * @param array $tags
+     * @param bool $append      Append tags to existing ones useful for adding additional single tags.
+     *                          Vs replacing all of them, which is more useful for updating a bunch at a time.
      *
      * @return array|\WP_Error
      */
-    public static function addObjTags( $objectId, $tags = [] ) {
+    public static function addObjTags( $objectId, $tags = [], $append = false ) {
         if( !is_array($tags) )
             $tags = [ $tags ];
         $taxonomy = 'tag-category';
         # sanitize the tags before saving
         $sanitizedTags = array_map( 'sanitize_title', $tags );
 
-        $objs = wp_set_object_terms( $objectId, $sanitizedTags, $taxonomy, false );
+        $objs = wp_set_object_terms( $objectId, $sanitizedTags, $taxonomy, $append );
         // Save the data
         clean_object_term_cache( $objectId, $taxonomy );
 
@@ -245,8 +247,8 @@ class Users extends Base {
      *
      * @return array|\WP_Error
      */
-    public static function addUserTags( $tags = [] ) {
-        return static::addObjTags( static::$userId, $tags );
+    public static function addUserTags( $tags = [], $append = false ) {
+        return static::addObjTags( static::$userId, $tags, $append );
     }
 
 
