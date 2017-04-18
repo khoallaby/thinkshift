@@ -21,16 +21,18 @@ class Template {
 
 
     /**
-     * Checks for external page
+     * Checks to see if is external page, show external page theme/content/etc
      * @param bool $homePageCheck   Checks if a logged in user is attempting to view the home page, show them dashboard instead
      *
      * @return bool
      */
     public static function isExternalPage ( $homePageCheck = false ) {
-        if( $homePageCheck )
-            return is_page_template( 'template-external.php' ) && (!is_user_logged_in() && is_front_page());
-        else
-            return is_page_template( 'template-external.php' );
+        if( $homePageCheck ) {
+            # if logged in on front page, return false, so we can pull the real dashboard
+            if( is_front_page() )
+                return is_user_logged_in() ? false : true;
+        }
+        return is_page_template( 'template-external.php' );
     }
 
     public static function getResponsiveImage( $post_id, $size = 'medium', $attr ) {

@@ -67,10 +67,10 @@ use ThinkShift\Theme\Template;
             <div class="row">
                 <div class="col-lg-12">
                     <?php
-                    if( Template::isExternalPage(true) )
-                        include Wrapper\template_path();
-                    else
+                    if( is_front_page() )
                         get_template_part( 'template', 'dashboard' );
+                    else
+                        include Wrapper\template_path();
                     ?>
                 </div>
             </div>
