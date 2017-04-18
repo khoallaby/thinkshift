@@ -47,7 +47,9 @@ $statuses = Assessments::canAccess();
 
                     the_posts_navigation();
 
-                endif; ?>
+                endif;
+                wp_reset_postdata();
+                ?>
 
             </ul>
         </div>
