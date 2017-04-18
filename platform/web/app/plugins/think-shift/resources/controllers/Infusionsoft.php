@@ -3,8 +3,7 @@
 namespace ThinkShift\Plugin;
 
 use iSDK,
-    ThinkShift\Plugin\Enqueue as Enqueue;
-#use ThinkShift\Plugin\Enqueue;
+    ThinkShift\Plugin\Enqueue;
 
 // priority flags
 const NON_CRITICAL = 0;
@@ -24,10 +23,8 @@ class Infusionsoft extends Base {
 
 
 	function __construct() {
-        #require_once dirname(__FILE__) . '/../../PBClub/Enqueue.php';
         #require_once dirname(__FILE__) . '/../../vendor/jimitit/infusionsoft-php-isdk/src/isdk.php';
         require_once dirname(__FILE__) . '/../../vendor/infusionsoft-oauth-isdk/src/isdk.php';
-        require_once dirname(__FILE__) . '/../../PBClub/getToken.php';
 
 		# todo: pull these from wp_options
 		/**$appName = 'fd341';
@@ -38,7 +35,7 @@ class Infusionsoft extends Base {
         self::$api = new iSDK();
         #self::$api->cfgCon( 'fd341', '9122d201f6892d5b3397f675849baafa' );
         self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
-        self::$api->setToken(getToken());
+        self::$api->setToken($this->getToken());
 
 	}
 
@@ -317,6 +314,20 @@ class Infusionsoft extends Base {
         }
     }
 
+
+    /**
+     * Gets latest OAuth token from DB
+     * @todo: assign it to a variable for reuse, need to error check for expired token if looping.
+     * @return mixed    OAuth token code
+     */
+    public function getToken(){
+        global $wpdb;
+        $query = "SELECT Access FROM tokens LIMIT 1;";
+        $result = $wpdb->get_row( $query );
+        var_dump($result);
+        return $result->Access;
+
+    }
 }
 
 
