@@ -222,7 +222,7 @@ class Users extends Base {
      *
      * @return array|\WP_Error
      */
-    public static function getObjTags( $objectId, $category = null ) {
+    public static function getObjTags( $objectId, $category = null, $limit = 0 ) {
         if( $category ) {
             if( is_int($category) ) {
                 $args = [ 'parent' => $category ];
@@ -239,12 +239,12 @@ class Users extends Base {
 
 
     /**
-     * Returns the object's strengths (3) from Tags taxonomy
+     * Returns the object's (video/career/etc) strengths (3) from Tags taxonomy
      * @param bool $returnAsIds     Returns as an array of IDs, else associative array
      * @return array                Returns all the strength Tags
      */
-    public static function getObjStrengths( $objectId ) {
-        $strengths = self::getObjTags( $objectId, self::$strengthMetaKey );
+    public static function getObjStrengths( $objectId, $limit = 3 ) {
+        $strengths = self::getObjTags( $objectId, self::$strengthMetaKey, $limit );
         $return = [];
 
         foreach( $strengths as $strength )
@@ -261,8 +261,8 @@ class Users extends Base {
      *
      * @return array|\WP_Error
      */
-    public static function getUserTags( $category = null ) {
-        return self::getObjTags( self::$userId, $category );
+    public static function getUserTags( $category = null, $limit = 0  ) {
+        return self::getObjTags( self::$userId, $category, $limit );
     }
 
 
@@ -304,12 +304,13 @@ class Users extends Base {
 
 
     /**
-     * Returns the user's strengths (3) from Tags taxonomy
+     * Returns the user's strengths from Tags taxonomy
      * @param bool $returnAsIds     Returns as an array of IDs, else associative array
+     * @param string $limit         Number of strength Tags to return
      * @return array                Returns all the strength Tags
      */
-    public static function getUserStrengths() {
-        $strengths = self::getUserTags( self::$strengthMetaKey );
+    public static function getUserStrengths( $limit = 3 ) {
+        $strengths = self::getUserTags( self::$strengthMetaKey, $limit );
         $return = [];
 
         foreach( $strengths as $strength )
@@ -344,8 +345,12 @@ class Users extends Base {
 
 
 
+
+
+
+
     /**
-     * Grab all the User Tags from IS, and save to WP
+     * Grab all of a single User's Tags from IS, and save to WP
      * @return array|\WP_Error
      */
     public static function updateUserTags() {
