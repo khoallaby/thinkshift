@@ -324,7 +324,6 @@ class Infusionsoft extends Base {
         global $wpdb;
         $query = "SELECT Access FROM tokens LIMIT 1;";
         $result = $wpdb->get_row( $query );
-        var_dump($result);
         return $result->Access;
 
     }
