@@ -8,8 +8,7 @@ use ThinkShift\Plugin\Videos;
 #vard( wp_get_object_terms( 415, 'tag-category'));
 
 
-$strengths = Tags::getAllStrengths( false );
-get_template_part( 'templates/shared/header', 'filter-strengths' );
+include( locate_template( 'templates/shared/header-filter-strengths.php' ) );
 
 
 if ( have_posts() ) :
