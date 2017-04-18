@@ -18,8 +18,6 @@
     // All pages
     'common': {
       init: function() {
-
-        console.log('commooooooooon');
         // JavaScript to be fired on all pages
       },
       finalize: function() {
