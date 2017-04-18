@@ -27,6 +27,7 @@ class Infusionsoft extends Base {
         #require_once dirname(__FILE__) . '/../../PBClub/Enqueue.php';
         #require_once dirname(__FILE__) . '/../../vendor/jimitit/infusionsoft-php-isdk/src/isdk.php';
         require_once dirname(__FILE__) . '/../../vendor/infusionsoft-oauth-isdk/src/isdk.php';
+        require_once dirname(__FILE__) . '/../../PBClub/getToken.php';
 
 		# todo: pull these from wp_options
 		/**$appName = 'fd341';
@@ -37,7 +38,7 @@ class Infusionsoft extends Base {
         self::$api = new iSDK();
         #self::$api->cfgCon( 'fd341', '9122d201f6892d5b3397f675849baafa' );
         self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
-        self::$api->setToken("4b2e373vyddr4b6vcrju2a9x");
+        self::$api->setToken(getToken());
 
 	}
 
