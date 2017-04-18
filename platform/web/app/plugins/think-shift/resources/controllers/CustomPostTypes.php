@@ -55,9 +55,10 @@ class CustomPostTypes extends Base {
         $query->set( 'posts_per_page', intval($limit) );
 
 
-        $userStrengths = is_user_logged_in() ? array_keys( Users::getUserStrengths() ) : [];
-
-        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : $userStrengths ;
+        if( isset($_GET['strengths']) )
+            $strengths = array_map( 'int_val', $_GET['strengths'] );
+        else
+            $strengths = is_user_logged_in() ? array_keys( Users::getUserStrengths(2) ) : [];
 
         if( $query->is_post_type_archive( 'career' ) ||
             $query->is_post_type_archive( 'video' )  ||

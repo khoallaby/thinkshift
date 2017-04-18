@@ -242,8 +242,7 @@ class Users extends Base {
 
         $terms = wp_get_object_terms( $objectId, 'tag-category', $args );
 
-
-        if( $terms && $limit )
+        if( $terms && $limit > 0 )
             return array_slice( $terms, 0, $limit );
         else
             return $terms;

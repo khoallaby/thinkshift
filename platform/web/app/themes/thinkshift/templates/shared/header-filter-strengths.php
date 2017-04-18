@@ -18,7 +18,7 @@ if( !isset($strengths) )
                         if ( isset( $_GET['strengths'] ) )
                             $strengthArray = $_GET['strengths'];
                         else
-                            $strengthArray = is_user_logged_in() ? array_keys( Users::getUserStrengths() ) : [];
+                            $strengthArray = is_user_logged_in() ? array_keys( Users::getUserStrengths(2) ) : [];
 
                         if ( ! $strengthArray )
                             $strengthArray = [];
