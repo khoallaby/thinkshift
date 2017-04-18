@@ -217,6 +217,40 @@ class Users extends Base {
 
 
     /**
+     * Adds Tags to an object (like a user or custom post)
+     * Sanitizes Tags before saving it
+     * @param $objectId
+     * @param array $tags
+     *
+     * @return array|\WP_Error
+     */
+    public static function addObjTags( $objectId, $tags = [] ) {
+        if( !is_array($tags) )
+            $tags = [ $tags ];
+        $taxonomy = 'tag-category';
+        # sanitize the tags before saving
+        $sanitizedTags = array_map( 'sanitize_title', $tags );
+
+        $objs = wp_set_object_terms( $objectId, $sanitizedTags, $taxonomy, false );
+        // Save the data
+        clean_object_term_cache( $objectId, $taxonomy );
+
+        return $objs;
+    }
+
+
+    /**
+     * Add tags to a certain user
+     * @param array $tags
+     *
+     * @return array|\WP_Error
+     */
+    public static function addUserTags( $tags = [] ) {
+        return static::addObjTags( static::$userId, $tags );
+    }
+
+
+    /**
      * General function for pulling an object's Tags - this does a lot of the magic
      * @param $category
      *
