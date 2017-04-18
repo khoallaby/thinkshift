@@ -1,11 +1,12 @@
 <?php
-namespace ThinkShift\Theme;
+namespace ThinkShift\Theme\Menu;
 
+use ThinkShift\Theme\Template;
 use Walker;
 
 
 
-class Menu extends Walker {
+class menuLoggedIn extends Walker {
 
     // Tell Walker where to inherit it's parent and id values
     var $db_fields = array(
@@ -19,11 +20,10 @@ class Menu extends Walker {
      * Note: Menu objects include url and title properties, so we will use those.
      */
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-        if ( is_page_template( 'template-external.php' ) ) {
+        if( Template::isExternalPage(true) )
             $icon = '';
-        } else {
+        else
             $icon = 'fa-tasks';
-        }
 
         if( $icon ) {
             $iconHtml = sprintf( '
@@ -33,6 +33,10 @@ class Menu extends Walker {
         } else {
             $iconHtml = '';
         }
+
+        #die();
+        if( strtolower($item->title) == 'register' && is_user_logged_in() )
+            return;
         $output .= sprintf( '
             <li%s>
                 <a href="%s">%s
@@ -45,6 +49,27 @@ class Menu extends Walker {
             $iconHtml,
             $item->title
         );
+    }
+
+}
+
+
+class menuLoggedOut Extends \Walker_Nav_Menu {
+
+
+    # removes the 'register' page for loggeed in users
+    public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+        if( strtolower($item->title) == 'register' && is_user_logged_in() )
+            return;
+        else
+            parent::start_el( $output, $item, $depth, $args, $id );
+    }
+
+    public function end_el( &$output, $item, $depth = 0, $args = array() ) {
+        if( strtolower($item->title) == 'register' && is_user_logged_in() )
+            return;
+        else
+            parent::end_el( $output, $item, $depth, $args );
     }
 
 }

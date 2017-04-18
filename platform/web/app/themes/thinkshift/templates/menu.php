@@ -14,7 +14,7 @@ global $current_user;
         $args = [
             'menu_class'     => 'sidebar-nav',
             'container'      => '',
-            'walker'         => new Menu()
+            'walker'         => new Menu\menuLoggedIn()
         ];
         if ( has_nav_menu( 'primary_navigation' ) && is_user_logged_in() ) :
             $args['theme_location'] = 'primary_navigation';

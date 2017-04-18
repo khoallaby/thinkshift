@@ -19,8 +19,8 @@ use ThinkShift\Theme\Menu;
             $args = [
                 'menu_class'     => 'nav navbar-nav navbar-right',
                 'container_class' => 'collapse navbar-collapse',
-                'container_id' => 'navbarCollapse'
-                //'walker'         => new Menu()
+                'container_id' => 'navbarCollapse',
+                'walker'         => new Menu\menuLoggedOut()
             ];
 
             if ( has_nav_menu( 'logged_out_navigation' ) ) :
