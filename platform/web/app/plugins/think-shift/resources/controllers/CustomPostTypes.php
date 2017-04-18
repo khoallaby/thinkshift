@@ -26,7 +26,9 @@ class CustomPostTypes extends Base {
          */
 
         if( $query->is_main_query()  && !is_admin() ) {
-            if( $query->is_post_type_archive( 'career' ) || $query->is_post_type_archive( 'video' ) ) {
+            if( $query->is_post_type_archive( 'career' ) ||
+                $query->is_post_type_archive( 'video' ) ||
+                $query->is_post_type_archive( 'resource' ) ) {
 
                 $query = self::filterQuery( $query );
                 # do filtering
@@ -53,9 +55,14 @@ class CustomPostTypes extends Base {
         $query->set( 'posts_per_page', intval($limit) );
 
 
-        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : array_keys( Users::getUserStrengths() );
+        $userStrengths = is_user_logged_in() ? array_keys( Users::getUserStrengths() ) : [];
 
-        if( $query->is_post_type_archive( 'career' ) || $query->is_post_type_archive( 'video' ) ) {
+        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : $userStrengths ;
+
+        if( $query->is_post_type_archive( 'career' ) ||
+            $query->is_post_type_archive( 'video' )  ||
+            $query->is_post_type_archive( 'resource' ) ) {
+
             $taxQuery = static::getTaxQuery( $strengths );
             $query->set( 'tax_query', $taxQuery );
         }
@@ -135,7 +142,7 @@ class CustomPostTypes extends Base {
         ) );
 
 
-        $this->registerTaxonomy( 'tag-category', 'tag-categories', [ 'career', 'video', 'user'], [
+        $this->registerTaxonomy( 'tag-category', 'tag-categories', [ 'career', 'video', 'resource', 'user'], [
             /*
             'rewrite' => array(
                 'with_front' => false,
