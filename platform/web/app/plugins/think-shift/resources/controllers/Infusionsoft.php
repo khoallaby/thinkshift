@@ -244,7 +244,7 @@ class Infusionsoft extends Base {
             return [];
         } else {
             # queries the Groups with list of IDs (Contact.Groups)
-            $groups = self::apiQuery( 'ContactGroup', 10000, 0, [ "Id" => $groupIds ], [
+            $groups = self::apiQuery( 'ContactGroup', 1000, 0, [ "Id" => $groupIds ], [
                 "GroupName",
                 "GroupDescription",
                 "GroupCategoryId"
