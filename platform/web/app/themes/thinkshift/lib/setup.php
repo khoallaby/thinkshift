@@ -3,6 +3,7 @@
 namespace Roots\Sage\Setup;
 
 use Roots\Sage\Assets;
+use ThinkShift\Theme\Template;
 
 /**
  * Theme setup
@@ -99,7 +100,7 @@ function assets() {
     wp_register_script( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js', ['jquery'], '4.0.0-alpha.6', true );
 
 
-    if ( is_page_template( 'template-external.php' ) || (is_front_page() && !is_user_logged_in() )) {
+    if( Template::isExternalPage(true) ) {
         wp_enqueue_style( 'sage/css', Assets\asset_path( 'styles/main-external.css' ), false, null );
         wp_enqueue_style( 'font-lato', 'https://fonts.googleapis.com/css?family=Lato');
         wp_enqueue_style( 'font-catamaran', 'https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900');

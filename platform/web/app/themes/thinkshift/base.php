@@ -1,6 +1,7 @@
 <?php
 use Roots\Sage\Setup;
 use Roots\Sage\Wrapper;
+use ThinkShift\Theme\Template;
 ?>
 
 <!doctype html>
@@ -14,7 +15,7 @@ use Roots\Sage\Wrapper;
     </div>
     <![endif]-->
     <?php
-    if( is_page_template( 'template-external.php' ) ) :
+    if( Template::isExternalPage(true) ) :
         get_template_part( 'templates/menu-external' );
 
         include Wrapper\template_path();
@@ -65,7 +66,12 @@ use Roots\Sage\Wrapper;
             ?>
             <div class="row">
                 <div class="col-lg-12">
-                    <?php include Wrapper\template_path(); ?>
+                    <?php
+                    if( Template::isExternalPage(true) )
+                        include Wrapper\template_path();
+                    else
+                        get_template_part( 'template', 'dashboard' );
+                    ?>
                 </div>
             </div>
         </div>
