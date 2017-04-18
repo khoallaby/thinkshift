@@ -24,6 +24,7 @@ require_once( dirname(__FILE__) . '/resources/controllers/Assessments.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Careers.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Videos.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Infusionsoft.php');
+require_once( dirname(__FILE__) . '/resources/controllers/Enqueue.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Users.php');
 require_once( dirname(__FILE__) . '/resources/controllers/UserAuthentication.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Tags.php');

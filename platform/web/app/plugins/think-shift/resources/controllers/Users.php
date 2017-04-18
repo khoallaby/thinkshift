@@ -193,11 +193,11 @@ class Users extends Base {
      * Adds a contact to Infusionsoft
      * @param $fields Fields of user meta to change. In form of [infusionsoft-key] => [usermeta name]
      */
-    public function addInfusionsoftContact( $userId = null, $fields = array() ) {
+    public function addInfusionsoftContact( $userId = null, $fields = array(), $priority = true ) {
         if( !$userId )
             $userId = self::$userId;
 
-        $contactId = self::getInfusionsoft()->addContact( $fields );
+        $contactId = self::getInfusionsoft()->addContact( $fields, $priority );
 
         if( $contactId ) {
             update_user_meta( $userId, 'infusionsoft_id', $contactId );

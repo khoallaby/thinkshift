@@ -2,10 +2,23 @@
 
 namespace ThinkShift\Plugin;
 
-use iSDK;
+use iSDK,
+    ThinkShift\Plugin\Enqueue as Enqueue;
+#use ThinkShift\Plugin\Enqueue;
+
+// priority flags
+const NON_CRITICAL = 0;
+const CRITICAL = 1;
+
+// table flags
+const CONTACT = 'Contact';
+const CONTACT_GROUP = 'ContactGroup';
+const CONTACT_GROUP_ASSIGN = 'ContactGroupAssign';
 
 
-class Infusionsoft extends base {
+
+
+class Infusionsoft extends Base {
 	public static $api;
 	//private $clientId, $clientSecret, $token, $apiKey;
 
@@ -22,9 +35,9 @@ class Infusionsoft extends base {
 		$this->connect( $appName, $this->apiKey );*/
 
         self::$api = new iSDK();
-        #static::$api->cfgCon( 'fd341', '9122d201f6892d5b3397f675849baafa' );
-        self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
-        self::$api->setToken("taendzys9af5z3tzfwnxuxkc");
+        static::$api->cfgCon( 'fd341', '9122d201f6892d5b3397f675849baafa' );
+        #self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
+        #self::$api->setToken("taendzys9af5z3tzfwnxuxkc");
 
 	}
 
@@ -105,33 +118,31 @@ class Infusionsoft extends base {
 	}
 
 
+    /**
+     * Adds/updates an infusionsoft contact
+     * @param $fields
+     * @param int $priority     CRITICAL|NON_CRTICIAL priority
+     *
+     * @return int              The infusionsoft Contact ID
+     */
+    public function addContact( $fields, $priority = CRITICAL ) {
+        #vard($priority);
+        #die();
+        $priority = NON_CRITICAL;
 
-	public function addContact( $fields , $priority = CRITICAL) {
-
-	    if ($priority==CRITICAL)
-	    {
-
-            $data = self::$api->addWithDupCheck($fields, 'Email');
-
-            if ($data) {
-
+        if ( $priority == CRITICAL ) {
+            $contactId = self::$api->addWithDupCheck( $fields, 'Email' );
+            if ( $contactId ) {
                 # opt in email
-                if (isset($fields['Email']))
-                    self::$api->optIn($fields['Email']);
-
+                if ( isset( $fields['Email'] ) )
+                    self::$api->optIn( $fields['Email'] );
             }
-
+        } elseif ( $priority == NON_CRITICAL ) {
+            $json = json_encode( $fields );
+            return Enqueue::get_instance()->createInfusionsoftRecord( CONTACT, $json, $priority );
         }
-        elseif ($priority==NON_CRITICAL)
-        {
-
-            $json = json_encode($fields);
-            sendTable($priority, 'Contact', $json);
-
-        }
-
-		return $data;
-	}
+        return $contactId;
+    }
 
 
 
@@ -283,27 +294,27 @@ class Infusionsoft extends base {
         }
     }
 
+
+
+
     /**
-     * @param $cid = Existing Infusionsoft contact Id
-     * @param $tid = Existing Infusionsoft tag Id
+     * Sets a tag for the user with $contactId
+     * @param $contactId = Existing Infusionsoft contact Id
+     * @param $tagId = Existing Infusionsoft tag Id
      * @param $priority = Commit or queue (CRITICAL, NON_CRITICAL)
      */
-    public function setTag($cid, $tid, $priority)
-    {
-        if ($priority==CRITICAL)
-        {
+    public function setTag( $contactId, $tagId, $priority = NON_CRITICAL ) {
+        if ( $priority == CRITICAL ) {
 
-            self::$api->grpAssign($cid, $tid);
+            self::$api->grpAssign( $contactId, $tagId );
 
-        }
-        elseif ($priority==NON_CRITICAL)
-        {
+        } elseif ( $priority == NON_CRITICAL ) {
 
-            $arr=[];
-            $arr['ContactId']=$cid;
-            $arr['GroupId']=$tid;
-            $json=json_encode($arr);
-            sendTable($priority,'ContactGroupAssign',$json);
+            $arr = [];
+            $arr['ContactId'] = $contactId;
+            $arr['GroupId'] = $tagId;
+            $json = json_encode( $arr );
+            Enqueue::get_instance()->createInfusionsoftRecord( CONTACT_GROUP_ASSIGN, $json, $priority );
 
         }
     }
