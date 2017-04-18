@@ -35,9 +35,9 @@ class Infusionsoft extends Base {
 		$this->connect( $appName, $this->apiKey );*/
 
         self::$api = new iSDK();
-        static::$api->cfgCon( 'fd341', '9122d201f6892d5b3397f675849baafa' );
-        #self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
-        #self::$api->setToken("taendzys9af5z3tzfwnxuxkc");
+        #self::$api->cfgCon( 'fd341', '9122d201f6892d5b3397f675849baafa' );
+        self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
+        self::$api->setToken("4b2e373vyddr4b6vcrju2a9x");
 
 	}
 
@@ -126,9 +126,6 @@ class Infusionsoft extends Base {
      * @return int              The infusionsoft Contact ID
      */
     public function addContact( $fields, $priority = CRITICAL ) {
-        #vard($priority);
-        #die();
-        $priority = NON_CRITICAL;
 
         if ( $priority == CRITICAL ) {
             $contactId = self::$api->addWithDupCheck( $fields, 'Email' );
