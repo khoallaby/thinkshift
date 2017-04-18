@@ -17,7 +17,7 @@ if ( is_user_logged_in() ) {
 
         <div class="col-lg-6">
             <?php
-            get_template_part( 'templates/dashboard/card', 'career' );
+            //get_template_part( 'templates/dashboard/card', 'career' );
             get_template_part( 'templates/dashboard/card', 'congratulations' );
             get_template_part( 'templates/dashboard/forum');
             ?>
