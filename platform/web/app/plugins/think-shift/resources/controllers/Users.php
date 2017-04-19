@@ -14,7 +14,8 @@ namespace ThinkShift\Plugin;
 class Users extends Base {
     private static $infusionsoft;
     public static  $contactId, $userId, $user;
-    public static $strengthMetaKey = 'MA Value Creation Strengths';
+    public static  $strengthMetaKey = 'MA Value Creation Strengths';
+    public static  $userStrengths;
 
 
     public function init() {
@@ -358,13 +359,21 @@ class Users extends Base {
      * @return array                Returns all the strength Tags
      */
     public static function getUserStrengths( $limit = 3 ) {
-        $strengths = self::getUserTags( self::$strengthMetaKey, $limit );
-        $return = [];
+        if( isset(self::$userStrengths) ) {
+            return self::$userStrengths;
+        } else {
 
-        foreach( $strengths as $strength )
-            $return[ $strength->term_id ] = $strength->name;
+            $strengths = self::getUserTags( self::$strengthMetaKey, $limit );
+            $return = [];
 
-        return $return;
+            foreach( $strengths as $strength )
+                $return[ $strength->term_id ] = $strength->name;
+
+            if( !empty($return) )
+                self::$userStrengths = $return;
+
+            return $return;
+        }
     }
 
 
