@@ -7,18 +7,7 @@ use ThinkShift\Plugin\Users;
       <i class="icon fa fa-user-circle-o fa-1x"></i> <span><h6 class="mb-3">Pivot Stories</h6></span>
     </div>
     <div class="card-block">
-        <?php
-        $strengths = Users::get_instance()->getUserStrengths();
-        $query = Videos::getVideosByTags( $strengths, 1 );
-
-        if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();
-            get_template_part( 'templates/videos/single', 'video' );
-        endwhile; endif;
-
-        wp_reset_postdata();
-
-        ?>
-
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/OMngeDDpSqw?rel=0" frameborder="0" allowfullscreen></iframe>
         <button class="btn btn-outline-primary btn-sm">See more stories</button>
     </div>
 </div>

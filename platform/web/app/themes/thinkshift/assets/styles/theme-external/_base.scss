@@ -66,10 +66,27 @@ nav {
   ul.nav {
     // primary menu
     & > li {
+      position: relative;
 
+      ul.sub-menu {
+        display: none;
+      }
+
+      &:hover {
+        ul.sub-menu {
+          display: block;
+        }
+      }
+
+      ul.sub-menu {
+        position: absolute;
+        background: #fff;
+        width: 270px;
+      }
       // child menu
       & > ul > li {
-        display: none;
+        // display: none;
+
 
       }
     }
