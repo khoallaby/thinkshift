@@ -16,6 +16,12 @@
       position: relative
       overflow: hidden
 
+      .description
+        display: none
+
+      .description-completed
+        display: block
+
       &[class^="col-"]
         padding-left: 0
         padding-right: 0
@@ -69,6 +75,12 @@
         & ~ li
           &:after
             background-color: $grey
+
+        .description
+          display: block
+
+        .description-completed
+          display: none
 
       &.inactive
         & > a, & > a:focus, & > a:hover, .uib-tab-heading

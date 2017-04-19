@@ -1,5 +1,3 @@
-    <article <?php post_class(); ?>>
-        <div class="entry-content">
-            <?php the_content(); ?>
-        </div>
-    </article>
+<div class="col-lg-12">
+    <?php the_content(); ?>
+</div>

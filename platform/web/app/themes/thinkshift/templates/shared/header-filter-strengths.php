@@ -12,7 +12,7 @@ if( !isset($strengths) )
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-themec-yellow">
-                  Filter Career Cards
+                  <i class="icon fa fa-filter" aria-hidden="true"></i><h6>Filter Career Cards</h6>
                 </div>
                 <div class="card-body">
                   <div class="row">

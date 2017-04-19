@@ -1,7 +1,7 @@
 
 <div class="card mb-4 hidden-md-down">
     <div class="card-header bg-themec-yellow">
-      <h6 class="mb-3">Career Exploration Featured Video</h6>
+      <i class="icon fa fa-file-video-o fa-1x"></i> <span><h6 class="mb-3">Career Exploration Featured Video</h6></span>
     </div>
     <div class="card-block">
 

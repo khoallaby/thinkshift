@@ -1,7 +1,7 @@
 
 <div class="card mb-4" id="dashboard-career-card">
   <div class="card-header bg-themec-yellow">
-    <i class="icon fa fa-tasks fa-1x"></i> <span>Career Possibilities Based on your Strengths</span>
+    <i class="icon fa fa-id-card-o fa-1x"></i> <span><h6>Career Possibilities Based on your Strengths</h6></span>
   </div>
   <div class="card-body no-padding">
     <div class="table-responsive">
