@@ -1,9 +1,11 @@
 <?php
 use ThinkShift\Plugin\Assessments;
-global $wp_query;
 
-$statuses = Assessments::canAccess();
+global $wp_query, $statuses;
 
+
+if( is_null($statuses) )
+    $statuses = Assessments::canAccess();
 ?>
 <div class="card">
     <div class="card-body">
