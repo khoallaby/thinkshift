@@ -20,12 +20,26 @@ class menuLoggedIn extends Walker {
      * Note: Menu objects include url and title properties, so we will use those.
      */
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-        if( Template::isExternalPage(true) )
-            $icon = '';
-        else
-            $icon = 'fa-tasks';
+        $active = false;
+        $icon = '';
 
-        if( $icon ) {
+        if ( Template::isExternalPage( true ) )
+            $icon = '';
+        else {
+
+        }
+
+        $classes = $item->classes;
+        foreach( (array) $classes as $k => $class ) {
+            if( substr( $class, 0, 3) == 'fa-' ) {
+                $icon = array_slice( $classes, $k, 1 );
+                $icon = $icon[0];
+                unset( $classes[$k] );
+            }
+        }
+
+
+        if( !empty($icon) ) {
             $iconHtml = sprintf( '
                     <div class="icon">
                         <i class="fa %s" aria-hidden="true"></i>
@@ -34,17 +48,21 @@ class menuLoggedIn extends Walker {
             $iconHtml = '';
         }
 
+        if( in_array( 'current-menu-item', $classes ) ) {
+            $classes[] = 'active';
+        }
+
         #die();
         if( strtolower($item->title) == 'register' && is_user_logged_in() )
             return;
         $output .= sprintf( '
-            <li%s>
+            <li class="%s">
                 <a href="%s">%s
                     %s
                 </a>
             </li>
             ',
-            ( $item->object_id === get_the_ID() ) ? ' class="active"' : '',
+            implode(' ', $classes),
             $item->url,
             $iconHtml,
             $item->title
