@@ -4,35 +4,11 @@ global $current_user;
 ?>
 
 <aside class="app-sidebar bg-themec-blue" id="sidebar">
-  <ul class="nav navbar-nav navbar-right bg-themec-yellow profile-thumb">
-    <li class="dropdown profile">
-        <a href="<?php echo bp_loggedin_user_domain(); ?>l" class="dropdown-toggle"  data-toggle="dropdown">
-            <img class="profile-img" src="<?php echo get_avatar_url( $current_user->ID ); ?>">
-            <div class="title">Profile</div>
-        </a>
-        <div class="dropdown-menu">
-            <div class="profile-info">
-                <h4 class="username"><?php echo $current_user->first_name . ' ' . $current_user->last_name; ?></h4>
-            </div>
-            <ul class="action">
-                <!--
-                <li>
-                    <a href="#">
-                        <span class="badge badge-danger pull-right">5</span>
-                        My Inbox
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Setting
-                    </a>
-                </li>
-                -->
-                <li><a href="<?php echo wp_logout_url() ?>">Logout</a></li>
-            </ul>
-        </div>
-    </li>
-  </ul>
+  <div class="profile-thumb">
+    <div class="profile-info">
+        <span class="username">Welcome<br><?php echo $current_user->first_name . ' ' . $current_user->last_name; ?></span>
+    </div>
+  </div>
     <!-- <div class="sidebar-header">
         <button type="button" class="sidebar-toggle">
             <i class="fa fa-times"></i>
