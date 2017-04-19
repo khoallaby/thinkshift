@@ -3,7 +3,6 @@ use ThinkShift\Plugin\Careers;
 
 
 global $wpdb;
-echo '<pre>'.$wpdb->last_query.'</pre>';
 
 $orderby = [
     '' => '-- Order By --',
