@@ -5,7 +5,7 @@ require_once dirname(__FILE__) . '/../../platform/web/wp/wp-load.php';
 use ThinkShift\Plugin\Cron,
     ThinkShift\Plugin\Base,
     ThinkShift\Plugin\Users;
-update_user_meta( 2, 'update_priority', 'high' );
+#update_user_meta( 2, 'update_priority', 'high' );
 $args = [];
 
 # if argument set
@@ -38,9 +38,9 @@ foreach( $users as $user ) {
     Users::setUserId( $user->ID );
     Users::updateUserTags();
 
-    # reset their update priority
-    if( isset($argv[1]) )
-        update_user_meta( $user->ID, 'update_priority', '' );
+    # reset their update priority @todo: remove this because of new enqueuing
+    #if( isset($argv[1]) )
+    #update_user_meta( $user->ID, 'update_priority', '' );
 
     # @todo: update IS with WP's names/email/metadata
     # \iSDK::dsUpdate($tName, $id, $iMap)

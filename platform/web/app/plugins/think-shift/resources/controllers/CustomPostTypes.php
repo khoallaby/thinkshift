@@ -81,15 +81,45 @@ class CustomPostTypes extends Base {
      * @return mixed
      */
     public static function filterQueryOrder( $query ) {
+        global $wpdb;
         $keys = [
-            'salary' => 'med_wage'
+            'salary' => 'med_wage',
+            'education_no_degree' => 'education_min',
+            'education_high_school' => 'education_min',
+            'education_post_secondary' => 'education_min',
+            'education_masters_degree' => 'education_min',
+            'education_post_secondary_certificate' => 'education_min',
+            'education_2_year_college' => 'education_min',
+            'education_bachelors_degree' => 'education_min',
+            'education_masters_degree_or' => 'education_min'
         ];
+        #vard(sanitize_key($keys[ $_GET['orderby'] ]));
 
 
         if( !empty($_GET['orderby']) ) {
-            $query->set( 'orderby', 'meta_value_num' );
+
             if( in_array($_GET['orderby'], array_keys($keys)) ) {
-                $query->set( 'meta_key', sanitize_key($keys[ $_GET['orderby'] ]) );
+                $careerKeys = Careers::careerKeys();
+
+                $metaKey = sanitize_key($keys[ $_GET['orderby'] ]);
+                $metaValue = $careerKeys[ $_GET['orderby'] ];
+
+                $query->set( 'orderby', 'meta_value_num' );
+                $query->set( 'meta_key', $metaKey );
+                #var_dump($metaKey);
+                #var_dump($metaValue);
+
+                if( $metaKey == 'education_min' ) {
+                    $metaQuery = [
+                        [
+                            'key' => $metaKey,
+                            'value' => $metaValue,
+                            'compare' => '='
+                        ]
+                    ];
+                    $query->set( 'orderby', 'meta_value' );
+                    $query->set( 'meta_query', $metaQuery );
+                }
             }
 
 
@@ -99,6 +129,7 @@ class CustomPostTypes extends Base {
                 $query->set( 'order', 'asc' );
 
         }
+        #var_dump($query);
 
         return $query;
     }

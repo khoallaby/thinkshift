@@ -1,8 +1,17 @@
 <?php
+use ThinkShift\Plugin\Careers;
+
+
+global $wpdb;
+echo '<pre>'.$wpdb->last_query.'</pre>';
+
 $orderby = [
     '' => '-- Order By --',
-    'salary' => 'Average Salary'
 ];
+$orderby = array_merge( $orderby, $keys = Careers::careerKeys() );
+
+
+
 $order = [
     '' => '-- Sort --',
     'asc' => 'Lowest to Highest',

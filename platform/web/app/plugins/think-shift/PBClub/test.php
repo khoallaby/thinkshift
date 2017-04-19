@@ -21,7 +21,7 @@ $query=array('FirstName'=>'TestFirst4','LastName'=>'TestLast4','Email'=>'TestEma
 sendTable(NON_CRITICAL,CONTACT, $query);**/
 
 
-$query=array('ContactId'=>93079,'GroupId'=>11109);
+/**$query=array('ContactId'=>93079,'GroupId'=>11109);
 sendTable(CRITICAL,CONTACT_GROUP_ASSIGN, $query);
 
 $query=array('ContactId'=>93081,'GroupId'=>11109);
@@ -32,3 +32,8 @@ sendTable(NON_CRITICAL,CONTACT_GROUP_ASSIGN, $query);
 
 $query=array('ContactId'=>93085,'GroupId'=>11109);
 sendTable(CRITICAL,CONTACT_GROUP_ASSIGN, $query);
+ */
+
+require_once 'getToken.php';
+
+echo getToken();

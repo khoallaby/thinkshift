@@ -19,7 +19,6 @@ $image = 'images/1.jpg';
 
 
 
-
 # generate data attributes for strengths
 foreach( $strengths as $k => $strength ) {
     $i++;
@@ -40,7 +39,8 @@ echo sprintf('
       data-strengths="' . implode( ',', $strengthIds ) . '"
       data-title="' . esc_attr( get_the_title() ) .'"
       data-description="' . esc_attr( get_the_content() ) . '">
-      <h4>' . get_the_title() . '</h4>
+      <h4>' . get_post_meta( get_the_ID(), 'med_wage', true ) . '</h4>
+      <h4>' . get_post_meta( get_the_ID(), 'education_min', true ) . '</h4>
   </a>
 ');
 ?>
