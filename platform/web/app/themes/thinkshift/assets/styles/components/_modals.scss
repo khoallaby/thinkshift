@@ -4,7 +4,9 @@
 
 
 /* give video modals no background */
+
 .modal.modal-video .modal-dialog {
+  /*
   max-width: 50%;
 
   min-height: calc(100vh - 60px);
@@ -15,15 +17,19 @@
   @media(max-width: 768px) {
     min-height: calc(100vh - 20px);
   }
-
   .modal-content {
     background-color: transparent;
     border: none;
     .modal-body { padding: 0; }
   }
+  */
+
+
+  width: 600px;
+
   iframe {
     height: auto;
-    min-height: 500px;
+    min-height: 250px;
     width: 100%;
   }
 }

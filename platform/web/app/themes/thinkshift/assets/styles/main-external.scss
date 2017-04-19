@@ -13,6 +13,7 @@
 @import "components/forms";
 @import "components/grid";
 @import "components/wp-classes";
+@import "components/modals";
 
 
 @import "layouts/header";
@@ -25,7 +26,6 @@
 
 
 
-// todo: pulling in bootstrap3 for now, use v4 later
 //@import "theme-external/bootstrap3";
 @import "theme-external/new-age";
 @import "theme-external/base";
