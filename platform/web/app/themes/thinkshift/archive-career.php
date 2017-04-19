@@ -1,8 +1,6 @@
 <?php
 use ThinkShift\Plugin\Tags;
 use ThinkShift\Plugin\Videos;
-
-
 include( locate_template( 'templates/shared/header-filter-strengths.php' ) );
 ?>
 

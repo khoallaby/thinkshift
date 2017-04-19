@@ -14,7 +14,6 @@ if ( is_user_logged_in() ) {
             get_template_part( 'templates/dashboard/card', 'congratulations-alert' );
             get_template_part( 'templates/dashboard/card', 'video' );
             get_template_part( 'templates/dashboard/card', 'your-circle' );
-            get_template_part( 'templates/dashboard/card', 'links' );
             ?>
         </div>
 
