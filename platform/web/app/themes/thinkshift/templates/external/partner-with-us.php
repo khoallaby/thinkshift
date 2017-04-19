@@ -1,7 +1,7 @@
 <?php
 use Roots\Sage\Assets;
 ?>
-<header>
+<header id="partner">
     <div class="container">
         <div class="row">
             <div class="col-sm-7">
@@ -69,4 +69,3 @@ use Roots\Sage\Assets;
         </div>
     </div>
 </section>
-
