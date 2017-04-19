@@ -7,8 +7,8 @@ use Roots\Sage\Assets;
             <div class="col-sm-7">
                 <div class="header-content">
                     <div class="header-content-inner">
-                        <h1>Our platform helps you reach your dream of becoming an american hero.</h1>
-                        <a href="#download" class="btn btn-outline btn-xl page-scroll">Participate</a>
+                        <h1>Are you prepared for success in a rapidly-changing world?</h1>
+                        <a href="#download" class="btn btn-outline btn-xl page-scroll">Get Prepared</a>
                     </div>
                 </div>
             </div>
@@ -19,8 +19,12 @@ use Roots\Sage\Assets;
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <h1 class="section-heading">We Believe:</h1>
-                <h2>Pellentesque aliquam tristique venenatis. Curabitur id arcu non velit maximus faucibus. Sed pharetra lacinia pharetra. Aliquam ac tellus sit amet elit imperdiet egestas. </h2>
+                <h3>Our nation is in the midst of big economic changes that have left many feeling uncertain about a
+new path forward. It feels like the world has shifted right underneath our feet and though we felt
+we did what we were supposed to, the skills and rules that we know no longer seem to work.
+That is where the Pivot to Opportunity Marketplace comes in. We help you gain greater control
+over your future by providing you with the interactive tools, resources and direct connections to
+partners who can move you to your what’s next.</h3>
             </div>
         </div>
     </div>
@@ -31,7 +35,7 @@ use Roots\Sage\Assets;
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="section-heading">
-                    <h2>Killer headline about the process</h2>
+                    <h2>How It Works</h2>
                     <hr>
                 </div>
             </div>
@@ -42,25 +46,34 @@ use Roots\Sage\Assets;
                     <div class="row">
                         <div class="col-md-4">
                             <div class="feature-item">
-                                <i class="icon-screen-smartphone text-primary"></i>
-                                <h3>Reposition Yourself</h3>
-                                <p class="text-muted">Shift your story, and discover a happier ending. Explore career ideas through job videos and career cards.</p>
+                                <i class="fa icon fa-compass"></i>
+                                <h3>Position</h3>
+                                <p class="text-muted">Better understand your true north and assets. Set yourself up with direction and confidence to reimagine and create your future. </p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="feature-item">
-                                <i class="icon-camera text-primary"></i>
-                                <h3>Get Equipped</h3>
-                                <p class="text-muted">With a new sense of hope, it’s time to fly. Get the hottest skills in the marketplace today.</p>
+                                <i class="fa icon fa-key"></i>
+                                <h3>Equip</h3>
+                                <p class="text-muted">Build your ability to successfully pivot amidst whatever change. Get information and connect to others for actionable strategies to pursue a broader set of possibilities.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="feature-item">
-                                <i class="icon-present text-primary"></i>
-                                <h3>Accesslerate Success</h3>
-                                <p class="text-muted">Grow your pivot power by expanding your connections and impact to co-create the future through challenges and circles.</p>
+                                <i class="icon fa fa-paper-plane-o"></i>
+                                <h3>Accelerate</h3>
+                                <p class="text-muted">Now it’s time to fly. Connect directly to partners who can link you directly to opportunities.</p>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12 text-center">
+                        <h2>What's the ThinkShift Difference?</h2>
+                        <p>Our Marketplace helps you bridge the gap from where you are to where you are want to be by
+increasing your confidence and reducing your obstacles so that you’re ready to take action even in
+greater uncertainty. You will gain the flexibility to pivot to be able to grasp today’s opportunities as
+well as tomorrow’s possibilities.</p>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -68,7 +81,7 @@ use Roots\Sage\Assets;
     </div>
 </section>
 
-<section class="cta bg-primary">
+<!-- <section class="cta bg-primary">
     <div class="cta-content">
         <div class="container">
             <h2>What’s the ThinkShift Difference?</h2>
@@ -76,30 +89,32 @@ use Roots\Sage\Assets;
         </div>
     </div>
     <div class="overlay"></div>
-</section>
+</section> -->
 
 <section id="contact" class="contact bg-primary">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>Creating shared value</h2>
+                <!-- <h2>What’s the Value for You?</h2> -->
+                <h2>Why Take the Marketplace Journey?</h2>
             </div>
-            <div class="col-md-6">
-                <h4>￼Benefits for individuals</h4>
+            <div class="col-md-7 text-left" style="margin: 0 auto;">
+                <!-- <h4>Why Take the Marketplace Journey?</h4> -->
                 <ul>
-                    <li>A fresh purpose and career direction rutabaga</li>
-                    <li>Skills that pay the bills [this experience gets you the preparation that employers</li>
-                    <li>Open up new opportunities Create economic security</li>
+                  <li>Know your value creation strengths sought after in today’s economy</li>
+                  <li>Access expanded career options where you can apply your skills</li>
+                  <li>Access a platform of professional partners to help you grow your resources, knowledge and connections</li>
+                  <li>Receive personalized results and a dashboard for tracking your progress</li>
                 </ul>
             </div>
-            <div class="col-md-6">
-                <h4>￼Benefits for individuals</h4>
+            <!-- <div class="col-md-6 text-left">
+                <h4>￼What You Will Get</h4>
                 <ul>
-                    <li>A fresh purpose and career direction rutabaga</li>
-                    <li>Skills that pay the bills [this experience gets you the preparation that employers</li>
-                    <li>Open up new opportunities Create economic security</li>
+                    <li>Ability to position yourself for success
+                    <li>Regain control of your life</li>
+                    <li>New confidence for the future</li>
                 </ul>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
@@ -109,7 +124,7 @@ use Roots\Sage\Assets;
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="section-heading">
-                    <h2>Killer headline about the process</h2>
+                    <h2>Stories</h2>
                     <hr>
                 </div>
             </div>
@@ -121,25 +136,25 @@ use Roots\Sage\Assets;
                         <div class="col-md-4">
                             <div class="feature-item img-thumbnail">
                                 <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
-                                <p class="text-muted text-left"><small>Current Challenge</small></p>
+                                <!-- <p class="text-muted text-left"><small>Current Challenge</small></p>
                                 <h3 class="text-left">Water Resilience Challenge</h3>
-                                <a href="#download" class="">Read More</a>
+                                <a href="#download" class="">Read More</a> -->
                             </div>
                         </div>
                         <div class="col-md-4">
                           <div class="feature-item img-thumbnail">
                               <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
-                              <p class="text-muted text-left"><small>Current Challenge</small></p>
+                              <!-- <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
-                              <a href="#download" class="">Read More</a>
+                              <a href="#download" class="">Read More</a> -->
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="feature-item img-thumbnail">
                               <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
-                              <p class="text-muted text-left"><small>Current Challenge</small></p>
+                              <!-- <p class="text-muted text-left"><small>Current Challenge</small></p>
                               <h3 class="text-left">Water Resilience Challenge</h3>
-                              <a href="#download" class="">Read More</a>
+                              <a href="#download" class="">Read More</a> -->
                           </div>
                         </div>
                     </div>
