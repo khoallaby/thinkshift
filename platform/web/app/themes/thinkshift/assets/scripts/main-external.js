@@ -23,12 +23,31 @@
         $('.navbar-toggle:visible').click();
     });
 
+    /*
     // Offset for Main Navigation
+    // @todo: update with bootstrap 4 version
     $('#mainNav').affix({
         offset: {
             top: 50
         }
     });
+    */
+
+
+
+    // stops video from playing when modal closed
+    // @todo: move this to one shared place/file
+    $(".modal-video").on('hide.bs.modal', function(){
+        //$("#cartoonVideo").attr('src', '');
+        $(this).find('iframe').attr('src', '');
+    });
+
+    $(".modal-video").on('show.bs.modal', function(){
+        var iframe = $(this).find('iframe');
+        var url = iframe.attr('data-src');
+        iframe.attr('src', url);
+    });
+
 
 })(jQuery); // End of use strict
 
