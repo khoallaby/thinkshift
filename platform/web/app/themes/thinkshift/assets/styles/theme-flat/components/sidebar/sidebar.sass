@@ -57,18 +57,17 @@ aside.app-sidebar
           padding: 1rem 0
           display: block
           text-align: center
-          color: $black
+          color: #fff;
           text-decoration: none
 
           .icon
             @include flex($align: center, $justify: center)
             display: block
             margin: 0 auto
-            width: 60px
-            height: 60px
+            width: 30px
+            height: 30px
             border-radius: 50%
             color: $white
-            margin-bottom: 0.6em
 
             i.fa, i.ion
               width: 100%
@@ -246,7 +245,7 @@ aside.app-sidebar
       ul.sidebar-nav
         & > li
           &.dropdown
-            &:hover 
+            &:hover
               .dropdown-menu
                 display: block
                 visibility: visible
@@ -258,7 +257,7 @@ aside.app-sidebar
     transform: translate(-100%,0)
     box-shadow: none
     width: 100%
-    
+
     .sidebar-header, .sidebar-menu, .sidebar-footer
       width: 100%
     .sidebar-header

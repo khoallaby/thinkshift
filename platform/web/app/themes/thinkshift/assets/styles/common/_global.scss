@@ -1,0 +1,28 @@
+$themec-blue: #4ca8cf;
+$themec-yellow: #ffc637;
+$themec-orange: #f09d54;
+$themec-blue-dark: #173440;
+
+.bg-themec-blue {background-color: $themec-blue !important;}
+.bg-themec-yellow {background-color: $themec-yellow !important;}
+.bg-themec-orange {background-color: $themec-orange !important;}
+.bg-themec-blue-dark {background-color: $themec-blue-dark !important; color: #fff !important;}
+
+.card {
+  td a {
+    color: $themec-blue;
+  }
+  .card-header {
+    .icon {
+      top: 4px;
+      position: relative;
+      left: -9px;
+    }
+  }
+}
+
+#dashboard-career-card {
+  th {
+    width: 25%;
+  }
+}
