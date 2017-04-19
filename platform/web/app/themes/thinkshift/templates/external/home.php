@@ -1,5 +1,6 @@
 <?php
 use Roots\Sage\Assets;
+use ThinkShift\Plugin\Videos;
 ?>
 <header id="home">
     <div class="container">
@@ -133,30 +134,27 @@ well as tomorrow’s possibilities.</p>
             <div class="col-md-12">
                 <div class="container-fluid">
                     <div class="row">
+                        <?php
+                        $limit = 3;
+                        $args = [
+                            'orderby' => 'rand'
+                        ];
+                        $query = Videos::getVideos( $args, $limit );
+
+                        if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();
+                        ?>
                         <div class="col-md-4">
                             <div class="feature-item img-thumbnail">
-                                <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
+                                <?php get_template_part( 'templates/videos/single', 'video' ); ?>
                                 <!-- <p class="text-muted text-left"><small>Current Challenge</small></p>
                                 <h3 class="text-left">Water Resilience Challenge</h3>
                                 <a href="#download" class="">Read More</a> -->
                             </div>
                         </div>
-                        <div class="col-md-4">
-                          <div class="feature-item img-thumbnail">
-                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
-                              <!-- <p class="text-muted text-left"><small>Current Challenge</small></p>
-                              <h3 class="text-left">Water Resilience Challenge</h3>
-                              <a href="#download" class="">Read More</a> -->
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="feature-item img-thumbnail">
-                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
-                              <!-- <p class="text-muted text-left"><small>Current Challenge</small></p>
-                              <h3 class="text-left">Water Resilience Challenge</h3>
-                              <a href="#download" class="">Read More</a> -->
-                          </div>
-                        </div>
+                        <?php
+                        endwhile; endif;
+                        wp_reset_postdata();
+                        ?>
                     </div>
                 </div>
             </div>
