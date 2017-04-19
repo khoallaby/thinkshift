@@ -6,6 +6,7 @@ use ThinkShift\Plugin\Users;
 
 
 class Videos extends CustomPostTypes {
+    public static $postType = 'Video';
 
     public function init() {
     }
@@ -15,6 +16,20 @@ class Videos extends CustomPostTypes {
 
 
 
+    public static function getVideosByTags( $tags = [], $limit = 10, $args = [] ) {
+        $defaults = array (
+            'posts_per_page' => $limit
+        );
+        $args = wp_parse_args( $args, $defaults );
+
+        if( !empty($tags) ) {
+            $field = is_int(array_values($tags)[0]) ? 'id' : 'name';
+            $args['tax_query'] = static::getTaxQueryBy( $field, $tags );
+        }
+        $videos = static::getQuery( self::$postType, $args );
+
+        return $videos;
+    }
 
 
 

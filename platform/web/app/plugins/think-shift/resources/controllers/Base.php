@@ -115,11 +115,19 @@ class Base {
      */
     public static function getTaxQueryBy( $field = 'id', $values = [] ) {
 
+        if( $field == 'id' )
+            $terms = array_map( 'intval', $values );
+        # todo: untested
+        elseif( $field == 'slug' )
+            $terms = array_map( 'sanitize_title', $values );
+        else
+            $terms = $values;
+
         $taxQuery = [
             [
                 'taxonomy' => 'tag-category',
                 'field'    => $field,
-                'terms'    => array_map( 'intval', $values ),
+                'terms'    => $terms,
                 'operator' => 'AND'
             ]
         ];
