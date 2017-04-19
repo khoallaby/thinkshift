@@ -56,7 +56,7 @@ class CustomPostTypes extends Base {
 
 
         if( isset($_GET['strengths']) )
-            $strengths = array_map( 'int_val', $_GET['strengths'] );
+            $strengths = array_map( 'intval', $_GET['strengths'] );
         else
             $strengths = is_user_logged_in() ? array_keys( Users::getUserStrengths(2) ) : [];
 
