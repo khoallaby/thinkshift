@@ -12,10 +12,33 @@ class Videos extends CustomPostTypes {
     }
 
 
+    /**
+     * Generic function to get videos
+     * @param array $args
+     * @param int $limit
+     *
+     * @return \WP_Query|\WP_User_Query
+     */
+    public static function getVideos( $args = [], $limit = 10 ) {
+        $defaults = array (
+            'posts_per_page' => $limit
+        );
+
+        $args = wp_parse_args( $args, $defaults );
+        $videos = static::getQuery( self::$postType, $args );
+
+        return $videos;
+    }
 
 
-
-
+    /**
+     * Get Videos by their Tags, can search by tag id/slug/name
+     * @param array $tags
+     * @param int $limit
+     * @param array $args
+     *
+     * @return \WP_Query|\WP_User_Query
+     */
     public static function getVideosByTags( $tags = [], $limit = 10, $args = [] ) {
         $defaults = array (
             'posts_per_page' => $limit
@@ -26,7 +49,8 @@ class Videos extends CustomPostTypes {
             $field = is_int(array_values($tags)[0]) ? 'id' : 'name';
             $args['tax_query'] = static::getTaxQueryBy( $field, $tags );
         }
-        $videos = static::getQuery( self::$postType, $args );
+
+        $videos = self::getVideos( $args, $limit );
 
         return $videos;
     }
