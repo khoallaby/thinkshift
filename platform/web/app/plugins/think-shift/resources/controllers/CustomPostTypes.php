@@ -98,6 +98,7 @@ class CustomPostTypes extends Base {
 
         if( !empty($_GET['orderby']) ) {
 
+            /*
             if( in_array($_GET['orderby'], array_keys($keys)) ) {
                 $careerKeys = Careers::careerKeys();
 
@@ -121,6 +122,11 @@ class CustomPostTypes extends Base {
                     $query->set( 'meta_query', $metaQuery );
                 }
             }
+            */
+
+            $query->set( 'orderby', 'meta_value_num' );
+            if( in_array($_GET['orderby'], array_keys($keys)) )
+                $query->set( 'meta_key', sanitize_key($keys[ $_GET['orderby'] ]) );
 
 
             if( $_GET['order'] == 'desc' )
