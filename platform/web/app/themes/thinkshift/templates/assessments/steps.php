@@ -8,6 +8,9 @@ if( is_null($statuses) )
     $statuses = Assessments::canAccess();
 ?>
 <div class="card mb-4">
+    <div class="card-header bg-themec-yellow">
+      Assessment Completion Status
+    </div>
     <div class="card-body">
         <div class="step">
             <ul class="nav">

@@ -1,7 +1,7 @@
 
 <div class="card mb-4" id="dashboard-career-card">
   <div class="card-header bg-themec-yellow">
-    <i class="icon fa fa-tasks fa-1x"></i> <span>Career Card Suggestions</span>
+    <i class="icon fa fa-tasks fa-1x"></i> <span>Career Possibilities Based on your Strengths</span>
   </div>
   <div class="card-body no-padding">
     <div class="table-responsive">
@@ -17,7 +17,7 @@
         <tbody>
 
         <?php
-        if ( $careers = \ThinkShift\Plugin\Users::getUserMatchingCareers( 3 ) ) {
+        if ( $careers = \ThinkShift\Plugin\Users::getUserMatchingCareers( 20 ) ) {
             foreach ( $careers as $career ) {
 
                 ?>

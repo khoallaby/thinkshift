@@ -11,6 +11,7 @@ if ( is_user_logged_in() ) {
         <div class="col-lg-3">
             <?php
             get_template_part( 'templates/dashboard/card', 'profile' );
+            get_template_part( 'templates/dashboard/card', 'pivot-video' );
             get_template_part( 'templates/dashboard/card', 'congratulations-alert' );
             get_template_part( 'templates/dashboard/card', 'video' );
             get_template_part( 'templates/dashboard/card', 'your-circle' );
