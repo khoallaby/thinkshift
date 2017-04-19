@@ -7,7 +7,7 @@ global $wp_query, $statuses;
 if( is_null($statuses) )
     $statuses = Assessments::canAccess();
 ?>
-<div class="card">
+<div class="card mb-4">
     <div class="card-body">
         <div class="step">
             <ul class="nav">
