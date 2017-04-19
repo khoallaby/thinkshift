@@ -7,41 +7,30 @@ use Roots\Sage\Assets;
             <div class="col-sm-7">
                 <div class="header-content">
                     <div class="header-content-inner">
-                        <h1>Our platform helps you reach your dream of becoming an american hero.</h1>
-                        <a href="#download" class="btn btn-outline btn-xl page-scroll">Participate</a>
+                        <h1>Why Should You Join The Marketplace</h1>
+                        <a href="#download" class="btn btn-outline btn-xl page-scroll">Get Started</a>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-5">
+            <!-- <div class="col-sm-5">
                 <div class="device-container">
                     <div class="device-mockup">
                         <div class="screen">
-                            <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+
                             <img src="/app/themes/thinkshift/assets/images/demo-screen-1.png" class="img-fluid" alt="">
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </header>
-<section id="download" class="download bg-primary bg-blue text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <h2>Benefits of Membership</h2>
-                <h3>Paragraph on the benefits of being a member. Paragraph on the benefits of being a member Paragraph on the benefits of being a member Paragraph on the benefits of being a member Paragraph on the benefits of being a member Paragraph on the benefits of being a member Paragraph on the benefits of be Paragraph on the benefits of being a member Paragraph on the benefits of b</h3>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="steps" class="features">
+<section id="features" class="features">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="section-heading">
-                    <h2>Killer headline about the process</h2>
+                    <h2>What Membership Does for You</h2>
                     <hr>
                 </div>
             </div>
@@ -52,74 +41,23 @@ use Roots\Sage\Assets;
                     <div class="row">
                         <div class="col-md-4">
                             <div class="feature-item">
-                                <i class="icon-screen-smartphone text-primary"></i>
-                                <h3>Reposition Yourself</h3>
-                                <p class="text-muted">Shift your story, and discover a happier ending. Explore career ideas through job videos and career cards.</p>
+                                <i class="fa icon fa-compass"></i>
+                                <h3>Position</h3>
+                                <p class="text-muted">Better understand your true north and assets. Set yourself up with direction and confidence to reimagine and create your future. </p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="feature-item">
-                                <i class="icon-camera text-primary"></i>
-                                <h3>Get Equipped</h3>
-                                <p class="text-muted">With a new sense of hope, it’s time to fly. Get the hottest skills in the marketplace today.</p>
+                                <i class="fa icon fa-key"></i>
+                                <h3>Equip</h3>
+                                <p class="text-muted">Build your ability to successfully pivot amidst whatever change. Get information and connect to others for actionable strategies to pursue a broader set of possibilities.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="feature-item">
-                                <i class="icon-present text-primary"></i>
-                                <h3>Accesslerate Success</h3>
-                                <p class="text-muted">Grow your pivot power by expanding your connections and impact to co-create the future through challenges and circles.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="container-fluid">
-                    <div class="row mb-5">
-                        <div class="col-md-4 bg-green bg-primary">
-                            <div class="feature-item pd-2">
-                                <i class="icon-screen-smartphone text-primary"></i>
-                                <h3>Step 1: How you Reposition</h3>
-                                <p class="text-muted">Shift your story, and discover a happier ending. Explore career ideas through job videos and career cards.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="feature-item">
-                                <h3>Get Equipped</h3>
-                                <p class="text-muted">With a new sense of hope, it’s time to fly. Get the hottest skills in the marketplace today.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-5">
-                        <div class="col-md-4 bg-green bg-primary">
-                            <div class="feature-item pd-2">
-                                <i class="icon-screen-smartphone text-primary"></i>
-                                <h3>Step 1: How you Reposition</h3>
-                                <p class="text-muted">Shift your story, and discover a happier ending. Explore career ideas through job videos and career cards.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="feature-item">
-                                <h3>Get Equipped</h3>
-                                <p class="text-muted">With a new sense of hope, it’s time to fly. Get the hottest skills in the marketplace today.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-5">
-                        <div class="col-md-4 bg-green bg-primary">
-                            <div class="feature-item pd-2">
-                                <i class="icon-screen-smartphone text-primary"></i>
-                                <h3>Step 1: How you Reposition</h3>
-                                <p class="text-muted">Shift your story, and discover a happier ending. Explore career ideas through job videos and career cards.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="feature-item">
-                                <h3>Get Equipped</h3>
-                                <p class="text-muted">With a new sense of hope, it’s time to fly. Get the hottest skills in the marketplace today.</p>
+                                <i class="icon fa fa-paper-plane-o"></i>
+                                <h3>Accelerate</h3>
+                                <p class="text-muted">Now it’s time to fly. Connect directly to partners who can link you directly to opportunities.</p>
                             </div>
                         </div>
                     </div>
@@ -129,26 +67,59 @@ use Roots\Sage\Assets;
     </div>
 </section>
 
-<section id="contact" class="contact bg-primary">
+<section id="contact" class="features contact bg-blue bg-primary">
     <div class="container">
         <div class="row">
-          <div class="col-md-6">
-            <h2>￼Benefits for individuals</h2>
-            <ul>
-              <li>A fresh purpose and career direction rutabaga</li>
-              <li>Skills that pay the bills [this experience gets you the preparation that employers</li>
-              <li>Open up new opportunities Create economic security</li>
-            </ul>
+          <div class="col-md-7 mb-5" style="margin: 0 auto;">
+            <div class="feature-item">
+              <i class="fa icon fa-compass lg"></i>
+            </div>
+            <h2>￼Step 1: How You Position</h2>
+            <h4>Our suite of assessment tools, help better position you to successfully pursue your future</h4>
           </div>
-          <div class="col-md-6">
-            <h2>￼Benefits for individuals</h2>
-            <ul>
-              <li>A fresh purpose and career direction rutabaga</li>
-              <li>Skills that pay the bills [this experience gets you the preparation that employers</li>
-              <li>Open up new opportunities Create economic security</li>
+          <div class="col-lg-6" style="margin: 0 auto;">
+            <ul class="text-left">
+              <li><strong>Find Your True North</strong><br>Ground your action in a clear vision of what is most important to you, using our Dream Declaration tool. </li>
+              <li><strong>Header for Motivated Abilities Assessment</strong> <br>A key to successfully pivoting throughout our lives is learning how we want to be, not just what we want to be. Discovering what we are both motivated to do and able to do well gives you a clearer understanding of the ways you can create value. </li>
+              <li><strong>Header for Pivot Power Assessment</strong><br>Now, it’s also about your ability to reposition yourself and constantly make a number of plays, or pivots, across your lifetime. Measure your economic, connections, and mindset preparedness that positions you to better pivot.</li>
             </ul>
           </div>
         </div>
     </div>
 </section>
 
+<section id="step2" class="features contact bg-primary">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-7 mb-5" style="margin: 0 auto;">
+            <div class="feature-item">
+              <i class="fa icon fa-key lg"></i>
+            </div>
+            <h2>￼Step 1: How You Equip</h2>
+            <h4>Start building your ability to pivot to opportunity</h4>
+          </div>
+          <div class="col-lg-6" style="margin: 0 auto;">
+            <ul class="text-left">
+              <li><strong>Pivot Circles</strong><br>You’ve learned aspects where your Pivot Power is strong and where you can build it further. But how do you build it? Use these discussion guides on your own or with others to provide support, and feedback. </li>
+              <li><strong>Career Cards</strong> <br>Over time it can be easy to see what you do now as the only thing you can do. Break this limiting perception and discover possibilities you had never realized.</li>
+              <li><strong>Job Bank Videos</strong><br>Get inspiration for the future by exploring what professionals in different fields have to say about what’s great about their jobs.</li>
+              <li><strong>“Kitchen Table” Financial Guides</strong><br>Financial issues can be a major barrier to being able to pursue desired futures. Getting the right information can both get your economic feet under you and help you find the resources you need to invest in your future.</li>
+            </ul>
+          </div>
+        </div>
+    </div>
+</section>
+
+<section id="step3" class="features contact bg-blue bg-primary">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-7 mb-5" style="margin: 0 auto;">
+            <div class="feature-item">
+              <i class="fa icon fa-paper-plane-o lg"></i>
+            </div>
+            <h2>￼Step 1: How You Accelerate</h2>
+            <h4>People need not just information, but direct connections to facilitate their progress. We therefore connect people with our strategic partners to help them pivot to greater opportunity. </h4>
+          </div>
+        </div>
+    </div>
+</section>

@@ -138,8 +138,25 @@ header {
   //min-height: auto;
   overflow-y: hidden;
   //background: url("../images/bg-pattern.png"), $theme-secondary; /* fallback for old browsers */
-  //background: url("../images/bg-pattern.png"), -webkit-linear-gradient(to left, $theme-secondary , $theme-tertiary); /* Chrome 10-25, Safari 5.1-6 */
-  background: url("../images/home-header-banner.jpg"), linear-gradient(to left, $theme-secondary, $theme-tertiary); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: url("../images/bg-pattern.png"), -webkit-linear-gradient(to left, $theme-secondary , $theme-tertiary); /* Chrome 10-25, Safari 5.1-6 */
+
+  &#home {
+    background: url("../images/hero-home.jpg");
+  }
+  &#how-it-works {
+    background: url("../images/hero-how-it-works.jpg");
+  }
+  &#join-a-community {
+    background: url("../images/hero-community1.jpg");
+  }
+  &#pivot-power {
+    background: url("../images/hero-pivot-power.jpg");
+  }
+
+  &#partner {
+    background: url("../images/hero-partner.jpg");
+  }
+
   color: white;
   .header-content {
     text-align: center;
@@ -240,7 +257,33 @@ section.download {
   }
 }
 
+ol li {
+  margin-bottom: 10px;
+}
+
+.download li {
+  margin-bottom: 10px;
+}
+
+#contact li, #step2 li, #step3 li {
+  margin-bottom: 20px;
+}
+
 section.features {
+  &#stories {
+    .feature-item {
+      margin-bottom: 20px;
+      border: 0 none;
+    }
+    p {
+      font-size: 16px;
+    }
+    img {
+      border-radius: 100%;
+      height: 200px;
+      width: 200px;
+      }
+    }
   .section-heading {
     h2 {
       margin-top: 0;
