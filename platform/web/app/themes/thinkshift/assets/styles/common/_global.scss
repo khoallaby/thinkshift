@@ -1,6 +1,6 @@
 $themec-blue: #4ca8cf;
 $themec-yellow: #ffc637;
-$themec-orange: #f09d54;
+$themec-orange: #FF9137;
 $themec-blue-dark: #173440;
 
 .bg-themec-blue {background-color: $themec-blue !important;}
@@ -24,5 +24,20 @@ $themec-blue-dark: #173440;
 #dashboard-career-card {
   th {
     width: 25%;
+  }
+}
+
+#dashboard-dream-declaration {
+  h4 {
+    color: #fff;
+  }
+}
+
+#dashboard-strengths {
+  a {
+    color: #4ca8cf;
+  }
+  .tab-content {
+    padding: 20px 0;
   }
 }

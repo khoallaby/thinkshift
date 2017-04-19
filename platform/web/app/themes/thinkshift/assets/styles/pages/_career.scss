@@ -17,7 +17,7 @@
 .og-grid li {
 	display: inline-block;
 	vertical-align: top;
-	height: 250px;
+	height: 180px;
 	width: 23%;
 	background: #fff;
 	text-align: center;
@@ -33,9 +33,10 @@
 	max-height: 250px;
 	text-align: center;
 	width: 100%;
+	color: $themec-blue;
 }
 
-.og-grid li .job-title h1 {
+.og-grid li .job-title h4 {
 	display: table-cell;
 	vertical-align: middle;
 	height: 100%;

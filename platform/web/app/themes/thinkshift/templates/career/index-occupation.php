@@ -40,7 +40,7 @@ echo sprintf('
       data-strengths="' . implode( ',', $strengthIds ) . '"
       data-title="' . esc_attr( get_the_title() ) .'"
       data-description="' . esc_attr( get_the_content() ) . '">
-      <h1>' . get_the_title() . '</h1>
+      <h4>' . get_the_title() . '</h4>
   </a>
 ');
 ?>

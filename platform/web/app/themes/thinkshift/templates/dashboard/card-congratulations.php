@@ -1,6 +1,6 @@
 
 <div class="card mb-4" id="dashboard-career-card">
-  <div class="card-header bg-themec-blue-dark">
+  <div class="card-header bg-themec-yellow">
     <i class="icon fa fa-tasks fa-1x"></i> <span>Career Card Suggestions</span>
   </div>
   <div class="card-body no-padding">
@@ -37,7 +37,7 @@
 <?php } else { ?>
 
   <div class="card mb-4 hidden-md-down mb-4" id="dashboard-career-card1">
-    <div class="card-header bg-themec-blue-dark">
+    <div class="card-header bg-themec-yellow">
       Career Cards
     </div>
       <div class="card-block">
