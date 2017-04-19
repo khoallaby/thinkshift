@@ -20,16 +20,17 @@ class menuLoggedIn extends Walker {
      * Note: Menu objects include url and title properties, so we will use those.
      */
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-        $active = false;
+
+        #if( strtolower($item->title) == 'register' && is_user_logged_in() )
+        #    return;
+
         $icon = '';
 
-        if ( Template::isExternalPage( true ) )
-            $icon = '';
-        else {
 
-        }
 
         $classes = $item->classes;
+
+        # checks for font awesome icon, slices it out and applies that class to our <i>
         foreach( (array) $classes as $k => $class ) {
             if( substr( $class, 0, 3) == 'fa-' ) {
                 $icon = array_slice( $classes, $k, 1 );
@@ -38,23 +39,29 @@ class menuLoggedIn extends Walker {
             }
         }
 
+        if( in_array( strtolower($item->title), ['log in', 'register', 'log out']) )
+            $icon = 'fa-sign-out';
 
+
+        if ( Template::isExternalPage( true ) )
+            $icon = '';
+
+        # adds font awesome icon html if exists
         if( !empty($icon) ) {
             $iconHtml = sprintf( '
-                    <div class="icon">
-                        <i class="fa %s" aria-hidden="true"></i>
-                    </div> ', $icon );
+                <div class="icon">
+                    <i class="fa %s" aria-hidden="true"></i>
+                </div> ', $icon
+            );
         } else {
             $iconHtml = '';
         }
 
-        if( in_array( 'current-menu-item', $classes ) ) {
+        # adds active class
+        if( in_array( 'current-menu-item', $classes ) )
             $classes[] = 'active';
-        }
 
-        #die();
-        if( strtolower($item->title) == 'register' && is_user_logged_in() )
-            return;
+
         $output .= sprintf( '
             <li class="%s">
                 <a href="%s">%s
