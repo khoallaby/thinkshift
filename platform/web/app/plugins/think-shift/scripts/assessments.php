@@ -53,7 +53,7 @@ if( $user ) {
     Users::setUserId( $user->ID );
     Users::addUserTags( $tags, true );
 
-    if( $_POST['status'] == 'completed-pivot-power-tool' )
+    #if( $_POST['status'] == 'completed-pivot-power-tool' )
         Users::updateUserRole();
 
 
