@@ -30,7 +30,7 @@ use Roots\Sage\Assets;
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="section-heading text-center">
-                    <h2>Killer headline about the process</h2>
+                    <h2>Ways To Partner With Us</h2>
                     <hr>
                 </div>
             </div>
