@@ -55,6 +55,9 @@ class UserAuthentication extends Users {
             if ( in_array( 'administrator', $user->roles ) ) {
                 // redirect them to the default place
                 return admin_url();
+            } elseif ( in_array( 'subscriber', $user->roles ) ) {
+                // redirect them to assessments
+                return get_post_type_archive_link( 'assessment' );
             } else {
                 return $redirect_to;
                 #return home_url();
