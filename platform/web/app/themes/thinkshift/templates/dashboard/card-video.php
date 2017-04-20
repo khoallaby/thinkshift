@@ -8,7 +8,7 @@ use ThinkShift\Plugin\Users;
     </div>
     <div class="card-block">
       <?php
-      $strengths = Users::get_instance()->getUserStrengths();
+      $strengths = Users::get_instance()->getUserStrengths( 2 );
       $query = Videos::getVideosByTags( $strengths, 1 );
 
       if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();

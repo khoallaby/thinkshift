@@ -419,7 +419,7 @@ class Users extends Base {
      * @return array    Array of careers that match all 3 strengths
      */
     public static function getUserMatchingCareers( $limit = 5 ) {
-        $strengths = array_keys( self::getUserStrengths() );
+        $strengths = array_keys( self::getUserStrengths(2) );
 
         if( empty( $strengths ) )
             return null;
