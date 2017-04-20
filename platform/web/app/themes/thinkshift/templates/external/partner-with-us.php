@@ -19,7 +19,7 @@ use Roots\Sage\Assets;
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <h1 class="section-heading">Why Partner With Us</h1>
+                <h1 class="section-heading text-center">Why Partner With Us</h1>
                 <h4>ThinkShift is partnering with businesses, entrepreneurs, organizations, and educational institutions to transform our talent pipeline. Partners count on us for our unique insights and strategies regarding their potential employees. ThinkShift works closely with our partners to deliver first in class information and direct access to new opportunity.</h4>
             </div>
         </div>
@@ -29,7 +29,7 @@ use Roots\Sage\Assets;
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <div class="section-heading">
+                <div class="section-heading text-center">
                     <h2>Killer headline about the process</h2>
                     <hr>
                 </div>
@@ -40,7 +40,7 @@ use Roots\Sage\Assets;
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="feature-item img-thumbnail">
+                            <div class="feature-item img-thumbnail text-center">
                                 <!-- <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" /> -->
                                 <!-- <p class="text-muted text-left"><small>Current Challenge</small></p> -->
                                 <h3 class="text-left">Share Insights about Your Field    </h3>
