@@ -354,21 +354,55 @@ class Users extends Base {
 
     /**
      * Returns the user's strengths from Tags taxonomy
-     * @param bool $returnAsIds     Returns as an array of IDs, else associative array
-     * @param string $limit         Number of strength Tags to return
-     * @return array                Returns all the strength Tags
+     * @param int $limit        Number of strength Tags to return
+     * @param bool $priority    Whether to sort by the strength's score/priority
+     *
+     * @return array            Returns all the strength Tags
      */
-    public static function getUserStrengths( $limit = 3 ) {
+    public static function getUserStrengths( $limit = 3, $priority = true ) {
+
         if( isset(self::$userStrengths) ) {
+            # todo: bug with cached, needs to regenerate if $limit is different, if that scenario ever occurs
             return self::$userStrengths;
         } else {
 
-            $strengths = self::getUserTags( self::$strengthMetaKey, $limit );
+            # todo: make this more efficient possibly?
+
+            $strengths = self::getUserTags( self::$strengthMetaKey );
             $return = [];
 
-            foreach( $strengths as $strength )
-                $return[ $strength->term_id ] = $strength->name;
+            if( $priority ) {
+                $strengthsIds = [];
 
+                for( $i = 1; $i <= $limit; $i++ ) :
+                    $key = 'strength_' . $i;
+                    $strengthId = $strengthsIds[] = intval( get_user_meta( self::$userId, $key, true ) );
+
+                    if( $strengthId && !empty($strengthId ) ) {
+                        # create our $return array here
+                        foreach ( $strengths as $strength ) {
+                            # if the current strength matches the metakey's strength
+                            if( $strengthId == $strength->term_id ) {
+                                $return[ $strength->term_id ] = $strength->name;
+                                break;
+                            }
+                        }
+                    }
+                endfor;
+            }
+
+
+            if( !$priority || ( $priority && empty($return) ) ) {
+                $i = 0;
+                foreach ( $strengths as $strength ) {
+                    if( $i == $limit )
+                        break;
+                    $return[ $strength->term_id ] = $strength->name;
+                    $i++;
+                }
+            }
+
+            # cache it in a variable for multiple use on a page.
             if( !empty($return) )
                 self::$userStrengths = $return;
 
@@ -379,7 +413,7 @@ class Users extends Base {
 
 
     /**
-     * Function responsible for 3 career cards on dashboard
+     * Function responsible for career cards on dashboard
      * @param int $limit
      *
      * @return array    Array of careers that match all 3 strengths
