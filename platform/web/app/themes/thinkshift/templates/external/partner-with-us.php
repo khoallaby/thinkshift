@@ -20,7 +20,7 @@ use Roots\Sage\Assets;
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <h1 class="section-heading">Why Partner With Us</h1>
-                <h2>ThinkShift is partnering with businesses, entrepreneurs, organizations, and educational institutions to transform our talent pipeline. Partners count on us for our unique insights and strategies regarding their potential employees. ThinkShift works closely with our partners to deliver first in class information and direct access to new opportunity.</h2>
+                <h4>ThinkShift is partnering with businesses, entrepreneurs, organizations, and educational institutions to transform our talent pipeline. Partners count on us for our unique insights and strategies regarding their potential employees. ThinkShift works closely with our partners to deliver first in class information and direct access to new opportunity.</h4>
             </div>
         </div>
     </div>
