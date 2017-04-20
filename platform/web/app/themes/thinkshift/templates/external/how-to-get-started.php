@@ -84,7 +84,7 @@ people must reimagine success in the 21st century.</h3>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="feature-item img-thumbnail">
-                                <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
+                                <img src="https://s3.us-east-2.amazonaws.com/thinkshiftwebsiteassets/p2o/Portrait-of-a-warehouse-worker_iStock-533910907.jpg" class="img-fluid" />
                             </div>
                             <div>
                               <h4 class="text-left"><strong>Just getting off the starting blocks</strong></h4>
@@ -93,7 +93,7 @@ people must reimagine success in the 21st century.</h3>
                         </div>
                         <div class="col-md-3">
                           <div class="feature-item img-thumbnail">
-                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
+                              <img src="https://s3.us-east-2.amazonaws.com/thinkshiftwebsiteassets/p2o/man-portrait-isolated-on-gray_iStock-504645692.jpg" class="img-fluid" />
                           </div>
                           <div>
                             <h4 class="text-left"><strong>Uncertain about the future</strong></h4>
@@ -102,7 +102,7 @@ people must reimagine success in the 21st century.</h3>
                         </div>
                         <div class="col-md-3">
                           <div class="feature-item img-thumbnail">
-                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
+                              <img src="https://s3.us-east-2.amazonaws.com/thinkshiftwebsiteassets/p2o/young-man_iStock-515320884.jpg" class="img-fluid" />
                         </div>
                         <div>
                           <h4 class="text-left"><strong>Not what I Expected</strong></h4>
@@ -111,7 +111,7 @@ people must reimagine success in the 21st century.</h3>
                         </div>
                         <div class="col-md-3">
                           <div class="feature-item img-thumbnail">
-                              <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" />
+                              <img src="https://s3.us-east-2.amazonaws.com/thinkshiftwebsiteassets/p2o/Portrait-of-a-warehouse-worker_iStock-533910907111.jpg" class="img-fluid" />
                           </div>
                           <div>
                             <h4 class="text-left"><strong>Looking for growth</strong></h4>
