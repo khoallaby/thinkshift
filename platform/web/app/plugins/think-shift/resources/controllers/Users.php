@@ -15,7 +15,7 @@ class Users extends Base {
     private static $infusionsoft;
     public static  $contactId, $userId, $user;
     public static  $strengthMetaKey = 'MA Value Creation Strengths';
-    public static  $userStrengths;
+    public static  $userStrengths, $userStrengthsLimit;
 
 
     public function init() {
@@ -361,12 +361,12 @@ class Users extends Base {
      */
     public static function getUserStrengths( $limit = 3, $priority = true ) {
 
-        if( isset(self::$userStrengths) ) {
-            # todo: bug with cached, needs to regenerate if $limit is different, if that scenario ever occurs
+        # todo: make this more efficient possibly?
+
+        if( isset(self::$userStrengths) && $limit == self::$userStrengthsLimit ) {
             return self::$userStrengths;
         } else {
 
-            # todo: make this more efficient possibly?
 
             $strengths = self::getUserTags( self::$strengthMetaKey );
             $return = [];
