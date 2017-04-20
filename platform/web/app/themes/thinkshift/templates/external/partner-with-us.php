@@ -43,7 +43,7 @@ use Roots\Sage\Assets;
                             <div class="feature-item img-thumbnail text-center">
                                 <!-- <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" /> -->
                                 <!-- <p class="text-muted text-left"><small>Current Challenge</small></p> -->
-                                <h3 class="text-left">Share Insights about Your Field    </h3>
+                                <h3 class="text-center">Share Insights about Your Field    </h3>
                                 <p>Create a 60-second video that will inspire others and broaden their possibilities of future careers to light the path for others. Do you have what you think is a career that lets you exercise skills in things you love doing? Share your enthusiasm and insights about what’s great about the career with others.</p>
                                 <!-- <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a> -->
                             </div>
@@ -52,7 +52,7 @@ use Roots\Sage\Assets;
                           <div class="feature-item img-thumbnail">
                               <!-- <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" /> -->
                               <!-- <p class="text-muted text-left"><small>Current Challenge</small></p> -->
-                              <h3 class="text-left">Create Informational Content</h3>
+                              <h3 class="text-center">Create Informational Content</h3>
                               <p>Partner with us as a professional organization or business to provide educational materials and share advice for our members. Help others pivot, while gaining exposure to an audience of motivated change-makers.
 </p>
                               <!-- <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a> -->
@@ -62,7 +62,7 @@ use Roots\Sage\Assets;
                           <div class="feature-item img-thumbnail">
                               <!-- <img src="<?php echo Assets\asset_path( '/images/bg-cta.jpg' ); ?>" class="img-fluid" /> -->
                               <!-- <p class="text-muted text-left"><small>Current Challenge</small></p> -->
-                              <h3 class="text-left">Create Discussion Content  </h3>
+                              <h3 class="text-center">Create Discussion Content  </h3>
                               <p>Help us create our online and in person groups of individuals taking the pivot challenge.
 Does your organization help build financial, social networks, or mental strengths that better position people to anticipate, adjust, and create in the face of change? Partner with us to provide support to communities that will provide support, feedback, encouragement, and information to help people successfully prepare for and make positive pivots in their lives. </p>
                               <!-- <a href="#download" class="btn btn-outline btn-xl page-scroll">Read More</a> -->
