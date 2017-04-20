@@ -29,6 +29,7 @@ function setup() {
   // http://codex.wordpress.org/Function_Reference/register_nav_menus
   register_nav_menus([
       'primary_navigation' => __('Primary Navigation', 'sage'),
+      'subscriber_navigation' => __('Subscriber Navigation', 'sage'),
       'logged_out_navigation' => __('Logged Out Navigation', 'sage'),
   ]);
 

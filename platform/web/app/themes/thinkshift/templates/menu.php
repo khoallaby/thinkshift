@@ -1,5 +1,7 @@
 <?php
 use ThinkShift\Theme\Menu;
+use ThinkShift\Plugin\UserAuthentication;
+
 global $current_user;
 ?>
 
@@ -22,7 +24,10 @@ global $current_user;
             'walker'         => new Menu\menuLoggedIn()
         ];
         if ( has_nav_menu( 'primary_navigation' ) && is_user_logged_in() ) :
-            $args['theme_location'] = 'primary_navigation';
+            if( current_user_can( UserAuthentication::$marketplaceAccess ) )
+                $args['theme_location'] = 'primary_navigation';
+            else
+                $args['theme_location'] = 'subscriber_navigation';
             wp_nav_menu( $args );
         endif;
 
