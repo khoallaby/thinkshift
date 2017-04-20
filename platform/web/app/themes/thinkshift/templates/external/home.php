@@ -9,7 +9,7 @@ use ThinkShift\Plugin\Videos;
                 <div class="header-content">
                     <div class="header-content-inner">
                         <h1>Are you prepared for success in a rapidly-changing world?</h1>
-                        <a href="#download" class="btn btn-outline btn-xl page-scroll">Get Prepared</a>
+                        <a href="/register" class="btn btn-outline btn-xl page-scroll">Get Prepared</a>
                     </div>
                 </div>
             </div>
@@ -19,10 +19,15 @@ use ThinkShift\Plugin\Videos;
 <section id="download" class="download bg-primary text-center">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 offset-md-2">
+            <div class="col-md-12" style="margin: 0 auto;">
+                <div class="section-heading mb-5">
+                    <h2>Why the Marketplace?</h2>
+                    <hr>
+                </div>
                 <h3>Our nation is in the midst of big economic changes that have left many feeling uncertain about a
 new path forward. It feels like the world has shifted right underneath our feet and though we felt
 we did what we were supposed to, the skills and rules that we know no longer seem to work.
+<br><br>
 That is where the Pivot to Opportunity Marketplace comes in. We help you gain greater control
 over your future by providing you with the interactive tools, resources and direct connections to
 partners who can move you to your what’s next.</h3>
@@ -44,7 +49,7 @@ partners who can move you to your what’s next.</h3>
         <div class="row">
             <div class="col-md-12">
                 <div class="container-fluid">
-                    <div class="row">
+                    <div class="row mb-5">
                         <div class="col-md-4">
                             <div class="feature-item">
                                 <i class="fa icon fa-compass"></i>
@@ -92,20 +97,20 @@ well as tomorrow’s possibilities.</p>
     <div class="overlay"></div>
 </section> -->
 
-<section id="contact" class="contact bg-primary">
+<section id="contact" class="contact bg-primary bg-blue no-mg">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <!-- <h2>What’s the Value for You?</h2> -->
                 <h2>Why Take the Marketplace Journey?</h2>
             </div>
-            <div class="col-md-7 text-left" style="margin: 0 auto;">
+            <div class="col-md-8 text-left" style="margin: 0 auto;">
                 <!-- <h4>Why Take the Marketplace Journey?</h4> -->
                 <ul>
-                  <li>Know your value creation strengths sought after in today’s economy</li>
-                  <li>Access expanded career options where you can apply your skills</li>
-                  <li>Access a platform of professional partners to help you grow your resources, knowledge and connections</li>
-                  <li>Receive personalized results and a dashboard for tracking your progress</li>
+                  <li><i class="fa fa-check" aria-hidden="true"></i> Know your value creation strengths sought after in today’s economy</li>
+                  <li><i class="fa fa-check" aria-hidden="true"></i> Access expanded career options where you can apply your skills</li>
+                  <li><i class="fa fa-check" aria-hidden="true"></i> Access a platform of professional partners to help you grow your resources, knowledge and connections</li>
+                  <li><i class="fa fa-check" aria-hidden="true"></i> Receive personalized results and a dashboard for tracking your progress</li>
                 </ul>
             </div>
             <!-- <div class="col-md-6 text-left">

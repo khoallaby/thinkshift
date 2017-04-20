@@ -10,7 +10,7 @@ use ThinkShift\Theme\Menu;
             <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="#page-top">Marketplace</a>
+            <a class="navbar-brand page-scroll" href="/">PIVOT TO OPPORTUNITY</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

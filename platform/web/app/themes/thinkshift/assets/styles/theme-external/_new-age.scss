@@ -21,6 +21,15 @@ a {
   }
 }
 
+.navbar-nav .nav-link {
+  font-size: 14px;
+  margin-right: 12px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
 hr {
   max-width: 100px;
   margin: 25px auto 0;
@@ -157,6 +166,10 @@ header {
     background: url("../images/hero-partner.jpg");
   }
 
+  &#benefits {
+    background: url("../images/hero-benefits.jpg");
+  }
+
   color: white;
   .header-content {
     text-align: center;
@@ -261,12 +274,47 @@ ol li {
   margin-bottom: 10px;
 }
 
+ul {
+  padding-left: 20px;
+
+   li {list-style: none;}
+}
+
 .download li {
   margin-bottom: 10px;
 }
 
 #contact li, #step2 li, #step3 li {
-  margin-bottom: 20px;
+  margin-bottom: 70px;
+  font-size: 21px;
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+nav ul.nav>li {
+  margin-right: 20px;
+}
+
+.no-mg li {margin-bottom: 10px !important;}
+
+#stories img {
+  width: 100% !important;
+  border-radius: 0% !important;
+}
+
+#contact li {
+  list-style: none;
+  position: relative;
+  margin-bottom: 70px;
+
+  .fa {
+    position: absolute;
+    left: -36px;
+    top: -3px;
+    font-size: 27px;
+  }
 }
 
 section.features {

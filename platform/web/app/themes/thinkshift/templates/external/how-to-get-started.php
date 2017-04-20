@@ -7,15 +7,15 @@ use Roots\Sage\Assets;
             <div class="col-sm-7">
                 <div class="header-content">
                     <div class="header-content-inner">
-                        <h1>How to Get Started</h1>
-                        <a href="#download" class="btn btn-outline btn-xl page-scroll">Sign Up</a>
+                        <h1>Your Future is Closer Than You Think</h1>
+                        <a href="/register" class="btn btn-outline btn-xl page-scroll">Sign Up</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </header>
-<section id="download" class="download bg-primary text-center">
+<!-- <section id="download" class="download bg-primary text-center">
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -32,24 +32,30 @@ people must reimagine success in the 21st century.</h3>
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <section id="start" class="download bg-primary bg-blue">
     <div class="container">
         <div class="row">
+          <div class="col-lg-12">
+            <div class="section-heading mb-5 text-center">
+                <h2>Start Wherever You Are</h2>
+                <hr>
+            </div>
+          </div>
             <div class="col-lg-6">
               <div class="section-heading mb-4 text-left">
                   <h3><strong>Ready to Get Started Now?</strong></h3>
               </div>
-                <ol>
+                <ul>
                   <li>Set your direction and gauge your assets, using our assessments.</li>
-                  <li>2. Broaden your understanding of what opportunities are available to you and how you can access them, using our career inspiration videos, career exploration digital cards, online community circle groups, and informational resources.</li>
+                  <li>Broaden your understanding of what opportunities are available to you and how you can access them, using our career inspiration videos, career exploration digital cards, online community circle groups, and informational resources.</li>
                   <li>Connect with our strategic partners to help you pivot to greater opportunity.</li>
-                </ol>
+                </ul>
             </div>
             <div class="col-lg-6">
               <div class="section-heading mb-4 text-left">
-                  <h3><strong>Why the Marketplace?</strong></h3>
+                  <h3><strong>Prefer to Browse a Bit?</strong></h3>
               </div>
               <ul>
                 <li>Sign up for our weekly emails,

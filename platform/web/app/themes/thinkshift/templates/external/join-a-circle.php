@@ -5,19 +5,30 @@
                 <div class="header-content">
                     <div class="header-content-inner">
                         <h1>Tap into the Power of Peer Feedback and Support.</h1>
-                        <a href="#download" class="btn btn-outline btn-xl page-scroll">Join a Chapter</a>
+                        <a href="/register" class="btn btn-outline btn-xl page-scroll">Join a Chapter</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </header>
-<section id="features" class="features">
+<section id="download" class="download bg-primary text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="section-heading mb-5">Harness the Power of Connections</h2>
+                <h1>Get to your future faster by connecting with others who are making their own pivots to
+opportunity.</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="steps" class="features">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="section-heading">
-                    <h2>How It Works</h2>
+                    <h2>Why Join?</h2>
                     <hr>
                 </div>
             </div>
@@ -28,23 +39,23 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="feature-item">
-                                <i class="fa icon fa-compass"></i>
-                                <h3>It Starts with you</h3>
-                                <p class="text-muted">While we can't guarantee you'll achieve your wildest dream.</p>
+                                <i class="icon fa fa-life-ring text-primary"></i>
+                                <h3>More Support</h3>
+                                <p class="text-muted">Joining a Pivot Community will give you the support to help you take on new challenges and opportunities</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="feature-item">
-                                <i class="fa icon fa-key"></i>
-                                <h3>Equip</h3>
-                                <p class="text-muted">Build your ability to successfully pivot amidst whatever change. Get information and connect to others for actionable strategies to pursue a broader set of possibilities.</p>
+                                <i class="icon fa fa-star text-primary"></i>
+                                <h3>Greater Confidence</h3>
+                                <p class="text-muted">Receive feedback and information to help you successfully prepare for and make positive pivots in your life. </p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="feature-item">
-                                <i class="icon fa fa-paper-plane-o"></i>
-                                <h3>Accelerate</h3>
-                                <p class="text-muted">Now it’s time to fly. Connect directly to partners who can link you directly to opportunities.</p>
+                                <i class="icon fa fa-share-alt text-primary"></i>
+                                <h3>More Ways to Connect</h3>
+                                <p class="text-muted">Join our regular web chats, or join on one our online community circles to learn interactively and form new connections. </p>
                             </div>
                         </div>
                     </div>
