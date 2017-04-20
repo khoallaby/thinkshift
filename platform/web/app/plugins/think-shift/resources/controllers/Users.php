@@ -474,7 +474,7 @@ class Users extends Base {
      */
     public static function updateUserRole() {
         # if they're a regular user, check to see if they completed all the assessments
-        if( static::userHasRole( 'regular_user') ) {
+        if( static::userHasRole( 'subscriber') ) {
             #upgrade their role if completed all Assessments
             if( Assessments::hasUserCompletedAssessments() ) {
                 wp_update_user( [
