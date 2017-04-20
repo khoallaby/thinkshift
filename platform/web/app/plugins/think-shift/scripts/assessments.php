@@ -53,6 +53,10 @@ if( $user ) {
     Users::setUserId( $user->ID );
     Users::addUserTags( $tags, true );
 
+    if( $_POST['status'] == 'completed-pivot-power-tool' )
+        Users::updateUserRole();
+
+
 } else {
     $txt .= 'User not found: ' . $_POST['user_email'] . "\n";
 }
