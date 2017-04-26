@@ -56,7 +56,13 @@ sudo apt-get update && sudo apt-get -y install yarn
 
 
 
-cp conf/bitnami-apps-vhosts.conf "$lamp_dir"/apache2/conf/bitnami/
+if [ $WP_ENV = "production" ] ; then
+    vhost_file = "conf/bitnami-apps-vhosts-prod.conf"
+else
+    vhost_file = "conf/bitnami-apps-vhosts.conf"
+fi
+
+cp $vhost_file "$lamp_dir"/apache2/conf/bitnami/
 cp conf/php.ini "$lamp_dir"/php/etc/
 
 
@@ -73,6 +79,7 @@ cd ../platform
 composer install
 #ignore our .env file, even if changed.
 git update-index --assume-unchanged .env
+cp .env.copy .env
 
 # permissions - allow write access to uploads/plugins
 sudo chown -v -R bitnami:daemon web/app/uploads
@@ -97,7 +104,12 @@ cd ../..
 cd web/app/themes/thinkshift
 composer install
 yarn
-yarn run build
+
+if [ $WP_ENV = "production" ] ; then
+    yarn run build:production
+else
+    yarn run build
+fi
 
 
 

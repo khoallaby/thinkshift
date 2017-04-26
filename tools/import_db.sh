@@ -3,8 +3,16 @@
 sql_file="$1"
 
 if [ -z "$1" ]; then
+    if [ $WP_ENV = "development" ] ; then
+        sql_file="dev.sql"
+    else
+        sql_file="prod.sql"
+    fi
+else
     sql_file="dev.sql"
 fi
+
+
 
 read -p "(i)mport or (e)xport $sql_file? (i/e) " RESP
 
