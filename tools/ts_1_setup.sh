@@ -57,7 +57,7 @@ sudo apt-get update && sudo apt-get -y install yarn
 
 
 if [ $WP_ENV = "production" ] ; then
-    vhost_file = "conf/bitnami-apps-vhosts-production.conf"
+    vhost_file = "conf/bitnami-apps-vhosts-prod.conf"
 else
     vhost_file = "conf/bitnami-apps-vhosts.conf"
 fi
