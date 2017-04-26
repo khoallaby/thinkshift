@@ -56,7 +56,13 @@ sudo apt-get update && sudo apt-get -y install yarn
 
 
 
-cp conf/bitnami-apps-vhosts.conf "$lamp_dir"/apache2/conf/bitnami/
+if [ $WP_ENV = "production" ] ; then
+    vhost_file = "conf/bitnami-apps-vhosts-production.conf"
+else
+    vhost_file = "conf/bitnami-apps-vhosts.conf"
+fi
+
+cp $vhost_file "$lamp_dir"/apache2/conf/bitnami/
 cp conf/php.ini "$lamp_dir"/php/etc/
 
 
