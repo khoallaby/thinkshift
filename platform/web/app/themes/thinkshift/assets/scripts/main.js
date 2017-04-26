@@ -19,6 +19,24 @@
     'common': {
       init: function() {
         // JavaScript to be fired on all pages
+
+
+        // stops videos from playing after closing modal window
+        // todo: require this snippet
+        // http://www.tutorialrepublic.com/codelab.php?topic=faq&file=play-youtube-video-in-bootstrap-modal
+
+        $(".modal-video").on('hide.bs.modal', function(){
+            //$("#cartoonVideo").attr('src', '');
+            $(this).find('iframe').attr('src', '');
+        });
+
+        $(".modal-video").on('show.bs.modal', function(){
+            var iframe = $(this).find('iframe');
+            var url = iframe.attr('data-src');
+            iframe.attr('src', url);
+        });
+
+
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired
@@ -37,6 +55,11 @@
     'about_us': {
       init: function() {
         // JavaScript to be fired on the about us page
+      }
+    },
+    'post_type_archive_video': {
+      init: function() {
+
       }
     }
   };

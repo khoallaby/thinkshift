@@ -6,11 +6,21 @@
       ],
       "main": true
     },
+    "main-external.js": {
+      "files": [
+        "scripts/main-external.js"
+      ]
+    },
     "main.css": {
       "files": [
         "styles/main.scss"
       ],
       "main": true
+    },
+    "main-external.css": {
+      "files": [
+        "styles/main-external.scss"
+      ]
     },
     "customizer.js": {
       "files": [
@@ -22,6 +32,6 @@
     }
   },
   "config": {
-    "devUrl": "http://tsdevserver.com"
+    "devUrl": "http://andy.tsdevserver.com"
   }
 }

@@ -1,0 +1,94 @@
+body.page-template-template-external {
+  background: #fff;
+}
+#loggedout {
+  $bg-light-darker: #bccbde;
+  $bg-light-secondary: #c2dde6;
+  $bg-light-primary: #e6e9f0;
+  $purple: #431c5d;
+  $orange: #e05915;
+  $yellow: #cdd422;
+
+  body & {
+    background: #fff;
+  }
+
+  header {
+    background: $bg-light-primary;
+
+    a {
+      color: $orange;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+/*Added by MM*/
+.bg-blue { background: #52abfd !important; }
+.bg-green { background: #fd5252 !important; }
+.bg-green.bg-primary p { color: #fff !important; }
+.bg-primary { color: white; }
+
+#steps {
+  .row.mb-5 { margin-bottom: 50px; }
+  .pd-2 { padding-top: 30px; }
+}
+
+header {
+  background-position: center center;
+  background-size: cover;
+  .noimage {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    overflow-y: hidden;
+    background: url(../images/bg-pattern.png), linear-gradient(to left, #7b4397, #dc2430);
+    color: #fff
+  }
+}
+
+nav {
+  // todo: need to apply this when scrolling down
+  background-color: #fff;
+  border-color: rgba(34,34,34,.1);
+  a { color: #222; }
+  // -------------------------------------------- \\
+
+  padding: 30px 0;
+  .navbar-header { align-self: flex-start; }
+
+  ul.nav {
+    // primary menu
+    & > li {
+      position: relative;
+
+      ul.sub-menu {
+        display: none;
+      }
+
+      &:hover {
+        ul.sub-menu {
+          display: block;
+        }
+      }
+
+      ul.sub-menu {
+        position: absolute;
+        background: #fff;
+        width: 270px;
+      }
+      // child menu
+      & > ul > li {
+        // display: none;
+
+
+      }
+    }
+  }
+}

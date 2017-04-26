@@ -10,7 +10,10 @@
  * @link https://github.com/roots/sage/pull/1042
  */
 $sage_includes = [
-  'lib/thinkshift/ThinkShift.php',
+  'lib/thinkshift/ThinkShift.php', 
+  'lib/thinkshift/Menu.php',
+  'lib/thinkshift/Template.php',
+  'lib/thinkshift/Users.php',
   'lib/assets.php',    // Scripts and stylesheets
   'lib/extras.php',    // Custom functions
   'lib/setup.php',     // Theme setup

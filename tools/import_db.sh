@@ -2,14 +2,30 @@
 
 sql_file="$1"
 
-if [ "$#" -ne 1 ]; then
-    sql_file="dev"
+if [ -z "$1" ]; then
+    sql_file="dev.sql"
 fi
 
-# drop / recreate db / import
-mysql -uroot -p"$ts_DB_password" -e "DROP DATABASE $ts_DB;"
-mysql -uroot -p"$ts_DB_password" -e "CREATE DATABASE $ts_DB;"
-mysql -uroot -p"$ts_DB_password" "$ts_DB" < "$sql_file".sql
+read -p "(i)mport or (e)xport $sql_file? (i/e) " RESP
+
+if [ "$RESP" = "i" ]; then
+    # drop / recreate db / import
+    mysql -uroot -p"$ts_DB_password" -e "DROP DATABASE $ts_DB;"
+    mysql -uroot -p"$ts_DB_password" -e "CREATE DATABASE $ts_DB;"
+    mysql -uroot -p"$ts_DB_password" "$ts_DB" < "$sql_file"
+
+    echo -e "\n#########################################################################################################"
+    echo "Imported  $sql_file"
+    echo -e "#########################################################################################################"
+    read
 
 
-echo imported "$sql_file".sql
+elif [ "$RESP" = "e" ]; then
+    mysqldump -u root -p"$ts_DB_password" "$ts_DB" > "$sql_file"
+
+    echo -e "\n#########################################################################################################"
+    echo "Exported  $sql_file"
+    echo -e "#########################################################################################################"
+    read
+
+fi

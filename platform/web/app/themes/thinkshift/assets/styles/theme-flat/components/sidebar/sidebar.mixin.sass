@@ -1,0 +1,55 @@
+@mixin sidebar-theme($color, $bg, $extend: '')
+  aside.app-sidebar#{$extend}
+    background-color: $bg
+    .sidebar-header
+      .sidebar-brand
+        .highlight
+          background-color: $color
+    .sidebar-menu
+      ul.sidebar-nav
+        & > li
+          & > a
+            .icon
+                border: 0px solid $white
+                color: #fff
+                margin-bottom: 8px
+
+            .title
+              @if $extend == ".__inverse"
+                color: $color
+              @else
+                color: $grey-darkest
+          &.active
+            & > a
+              .icon
+                @if $extend == ".__inverse"
+                  background-color: #ffc637
+                  border: 0px solid $white
+                  color: #ffc637
+                @else
+                  background-color: rgba(#ffc637, 0.25)
+                  color: #ffc637
+
+              .title
+                @if $extend == ".__inverse"
+                  color: $color
+                @else
+                  color: $color
+          &.dropdown
+            & > .dropdown-menu
+              & > ul
+                & > li
+                  &.section
+                    color: $color
+            &.open
+              & > a
+                &:after
+                  border-right-color: $white
+    .sidebar-footer
+      border-top-color: rgba(0,0,0,0.1)
+      background-color: $bg
+      ul.menu
+        & > li
+          &.dropdown
+            .dropdown-menu
+              border-bottom-color: $color

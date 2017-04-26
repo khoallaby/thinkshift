@@ -1,0 +1,31 @@
+#menu-main-menu {
+  li:nth-child(odd) {
+    background: rgba(255, 255, 255, 0.2) !important;
+  }
+
+  li.current_page_item, li.active {
+    background: $themec-blue-dark !important;
+  }
+}
+
+.profile-thumb {
+  width: 100%;
+  height: 118px;
+  color: #fff;
+  display: table;
+}
+
+.profile-info {
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  width: 100%;
+}
+
+.username {
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  display: block;
+}

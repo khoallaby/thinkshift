@@ -8,7 +8,7 @@ web/app/uploads/*
 
 # WordPress
 web/wp
-web/.htaccess
+# web/.htaccess
 
 # Dotenv
 # use 'git update-index --assume-unchanged .env' to ignore our .env file after modifying locally
@@ -22,5 +22,4 @@ vendor/*
 
 
 # Plugin exceptions (premium plugins)
-!web/app/plugins/users-ultra/
 !web/app/plugins/think-shift

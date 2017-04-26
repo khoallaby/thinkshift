@@ -2,34 +2,85 @@
 
 namespace ThinkShift\Plugin;
 
-use iSDK;
+use iSDK,
+    ThinkShift\Plugin\Enqueue;
+
+// priority flags
+const NON_CRITICAL = 0;
+const CRITICAL = 1;
+
+// table flags
+const CONTACT = 'Contact';
+const CONTACT_GROUP = 'ContactGroup';
+const CONTACT_GROUP_ASSIGN = 'ContactGroupAssign';
 
 
-class Infusionsoft extends base {
+
+
+class Infusionsoft extends Base {
 	public static $api;
-	private $clientId, $clientSecret, $token, $apiKey;
+	//private $clientId, $clientSecret, $token, $apiKey;
 
 
 	function __construct() {
-		require_once dirname(__FILE__) . '/../../vendor/jimitit/infusionsoft-php-isdk/src/isdk.php';
+        #require_once dirname(__FILE__) . '/../../vendor/jimitit/infusionsoft-php-isdk/src/isdk.php';
+        require_once dirname(__FILE__) . '/../../vendor/infusionsoft-oauth-isdk/src/isdk.php';
 
 		# todo: pull these from wp_options
-		$appName = 'fd341';
+		/**$appName = 'fd341';
 		$this->apiKey = '9122d201f6892d5b3397f675849baafa';
 
-		$this->connect( $appName, $this->apiKey );
+		$this->connect( $appName, $this->apiKey );*/
+
+        self::$api = new iSDK();
+        #self::$api->cfgCon( 'fd341', '9122d201f6892d5b3397f675849baafa' );
+        self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
+        self::$api->setToken($this->getToken());
 
 	}
 
 
-	function connect( $url, $apiKey ) {
+	/**function connect( $url, $apiKey ) {
 		$this->apiKey = $apiKey;
 
 		self::$api = new iSDK();
 		self::$api->cfgCon( $url, $this->apiKey );
-	}
+	}*/
 
 
+    /**
+     * General function to use for querying the api, in case SDK changes
+     * https://developer.infusionsoft.com/docs/xml-rpc/#data-query-a-data-table
+     *
+     * @param $table                The name of the $table
+     * @param $limit                Limit on rows returned
+     * @param $page                 Starts on page
+     * @param $query                The query, defaults to pulling all records (where ID != 0)
+     * @param $fields               Array of field names to retrieve
+     * @param string $orderByField  Orders by this field name
+     * @param bool $ascending       Orders by ascending (true), or descending (false)
+     *
+     * @return mixed
+     */
+    public static function apiQuery( $table, $limit = 100, $page = 0, $query = [], $fields = [], $orderByField = '', $ascending = TRUE ) {
+
+        if( empty( $query ) )
+            $query = ['Id' =>  '~<>~0']; # this lets us grab ALL the fields (translates to WHERE Id != 0)
+
+	    if( empty( $orderByField ) )
+            return self::$api->dsQuery( $table, $limit, $page, $query, $fields );
+	    else
+            return self::$api->dsQueryOrderBy( $table, $limit, $page, $query, $fields, $orderByField, $ascending );
+
+
+    }
+
+
+
+
+    /******************************************************************************************
+     * Contact/users related
+     ******************************************************************************************/
 
 	public function getUserFields() {
 		return array( 'Id', 'Email', 'FirstName', 'LastName', 'City', 'State' );
@@ -42,7 +93,7 @@ class Infusionsoft extends base {
 		$query = array('Email' => $email );
 		$fields = self::getUserFields();
 
-		$data = self::$api->dsQuery( $table, 1 ,0 , $query, $fields);
+		$data = self::apiQuery( $table, 1 ,0 , $query, $fields );
 
 		if (is_array($data))
 			return $data;
@@ -56,7 +107,7 @@ class Infusionsoft extends base {
 		$query = array('Id' => $id );
 		$fields = array( 'Id', 'Email', 'FirstName', 'LastName', 'City', 'State' );
 
-		$data = self::$api->dsQuery( $table, 1 ,0 , $query, $fields);
+		$data = self::apiQuery( $table, 1 ,0 , $query, $fields);
 
 		if (is_array($data))
 			return $data;
@@ -65,27 +116,101 @@ class Infusionsoft extends base {
 	}
 
 
+    /**
+     * Adds/updates an infusionsoft contact
+     * @param $fields
+     * @param int $priority     CRITICAL|NON_CRTICIAL priority
+     *
+     * @return int              The infusionsoft Contact ID
+     */
+    public function addContact( $fields, $priority = CRITICAL ) {
 
-	public function addContact( $fields ) {
+        if ( $priority == CRITICAL ) {
+            $contactId = self::$api->addWithDupCheck( $fields, 'Email' );
+            if ( $contactId ) {
+                # opt in email
+                if ( isset( $fields['Email'] ) )
+                    self::$api->optIn( $fields['Email'] );
+            }
+        } elseif ( $priority == NON_CRITICAL ) {
+            $json = json_encode( $fields );
+            return Enqueue::get_instance()->createInfusionsoftRecord( CONTACT, $json, $priority );
+        }
+        return $contactId;
+    }
 
-		$data = self::$api->addWithDupCheck( $fields, 'Email' );
-		if( $data ) {
-			/*
-			# opt in email
-			if ( isset( $fields['Email'] ) )
-				self::$api->optIn( $fields['Email'] );
-			*/
-		}
-
-		return $data;
-	}
 
 
 
-	public function getTagsByContactId( $contactId ) {
+
+
+    /******************************************************************************************
+     * Tags
+     ******************************************************************************************/
+
+
+    /**
+     * Gets all the Tag categories
+     * @return array
+     */
+    public function getAllTagCategories() {
+
+        $table      = 'ContactGroupCategory';
+        $where      = [ 'Id' => '~<>~0' ];
+        $fields     = [ 'Id', 'CategoryName', 'CategoryDescription' ];
+        $categories = self::apiQuery( $table, 1000, 0, $where, $fields, 'Id' );
+
+        return $categories;
+
+    }
+
+
+    /**
+     * Gets all the Tags
+     * @return array
+     */
+    public function getAllTags() {
+
+        $table  = 'ContactGroup';
+        $where  = [ 'Id' => '~<>~0' ];
+        $fields = [ 'Id', 'GroupName', 'GroupCategoryId', 'GroupDescription' ];
+        $tags   = self::apiQuery( $table, 1000, 0, $where, $fields, 'Id' );
+
+        return $tags;
+
+    }
+
+
+    /**
+     * Gets all the Tags for all Users
+     * @return array
+     */
+    public function getAllUserTags() {
+
+        $table  = 'ContactGroupAssign';
+        $where  = [ 'Contact.Id' => '~<>~0' ];
+        $fields = [ 'Contact.Id', 'Contact.Email', 'Contact.Groups' ];
+        $tags   = self::apiQuery( $table, 1000, 0, $where, $fields, 'Contact.Id' );
+
+        return $tags;
+
+    }
+
+
+    /**
+     * Gets a user's Tags by their Contact ID
+     * @param $contactId
+     * @return array|false
+     */
+    public function getTagsByContactId( $contactId ) {
 		return $this->getUserTags( array( 'Contact.Id' => $contactId ) );
 	}
 
+    /**
+     * Gets a user's Tags by their Email
+     * @param $contactId
+     * @return array|false
+     */
 	public function getTagsByContactEmail( $contactEmail ) {
 		return $this->getUserTags( array( 'Contact.Email' => $contactEmail ) );
 	}
@@ -102,8 +227,8 @@ class Infusionsoft extends base {
 
 		# get Contact groupIDs. -- "Groups" is a prebuilt array, GroupId is a row per group
 
-        #$data = self::$api->dsQuery( 'ContactGroupAssign', 1000, 0, $where, [ /*'Contact.Email', 'Contact.FirstName', 'ContactGroup',*/ 'GroupId' ] );
-		$data = self::$api->dsQuery( 'ContactGroupAssign', 1, 0, $where, [ 'Contact.Groups' ] );
+        #$data = self::apiQuery( 'ContactGroupAssign', 1000, 0, $where, [ /*'Contact.Email', 'Contact.FirstName', 'ContactGroup',*/ 'GroupId' ] );
+		$data = self::apiQuery( 'ContactGroupAssign', 1, 0, $where, [ 'Contact.Groups' ] );
 
 
         # builds our groupIds
@@ -119,7 +244,7 @@ class Infusionsoft extends base {
             return [];
         } else {
             # queries the Groups with list of IDs (Contact.Groups)
-            $groups = self::$api->dsQuery( 'ContactGroup', 10000, 0, [ "Id" => $groupIds ], [
+            $groups = self::apiQuery( 'ContactGroup', 1000, 0, [ "Id" => $groupIds ], [
                 "GroupName",
                 "GroupDescription",
                 "GroupCategoryId"
@@ -166,6 +291,42 @@ class Infusionsoft extends base {
 
 
 
+
+    /**
+     * Sets a tag for the user with $contactId
+     * @param $contactId = Existing Infusionsoft contact Id
+     * @param $tagId = Existing Infusionsoft tag Id
+     * @param $priority = Commit or queue (CRITICAL, NON_CRITICAL)
+     */
+    public function setTag( $contactId, $tagId, $priority = NON_CRITICAL ) {
+        if ( $priority == CRITICAL ) {
+
+            self::$api->grpAssign( $contactId, $tagId );
+
+        } elseif ( $priority == NON_CRITICAL ) {
+
+            $arr = [];
+            $arr['ContactId'] = $contactId;
+            $arr['GroupId'] = $tagId;
+            $json = json_encode( $arr );
+            Enqueue::get_instance()->createInfusionsoftRecord( CONTACT_GROUP_ASSIGN, $json, $priority );
+
+        }
+    }
+
+
+    /**
+     * Gets latest OAuth token from DB
+     * @todo: assign it to a variable for reuse, need to error check for expired token if looping.
+     * @return mixed    OAuth token code
+     */
+    public function getToken(){
+        global $wpdb;
+        $query = "SELECT Access FROM tokens LIMIT 1;";
+        $result = $wpdb->get_row( $query );
+        return $result->Access;
+
+    }
 }
 
 

@@ -1,1 +1,86 @@
+$themec-blue: #4ca8cf;
+$themec-yellow: #ffc637;
+$themec-orange: #FF9137;
+$themec-blue-dark: #173440;
 
+.bg-themec-blue {background-color: $themec-blue !important;}
+.bg-themec-yellow {background-color: $themec-yellow !important;}
+.bg-themec-orange {background-color: $themec-orange !important;}
+.bg-themec-blue-dark {background-color: $themec-blue-dark !important; color: #fff !important;}
+
+.sg-title {
+  padding: 0 !important;
+  font-size: 1em !important;
+  font-weight: 700 !important;
+  color: #b68200 !important;
+}
+
+.card {
+
+  .fa.lg {
+    font-size: 100px;
+    margin-bottom: 20px;
+  }
+
+  .hero-img {
+    min-height: 250px;
+
+    h2 {
+      color: #fff;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 1.5em ;
+      color: #fff;
+      line-height: 1.3em;
+    }
+  }
+
+  td a {
+    color: $themec-blue;
+  }
+  .card-header {
+    .icon {
+      position: relative;
+      left: -9px;
+      color:#b68200;
+    }
+  }
+
+  h6 {
+    color: #b68200;
+    font-weight: bold;
+    margin-bottom: 0 !important;
+  }
+}
+
+#dashboard-career-card {
+  th {
+    width: 25%;
+  }
+}
+
+#dashboard-dream-declaration {
+  h4 {
+    color: #fff;
+  }
+}
+
+#assessment-position {
+  .card-body {
+    text-align: center;
+  }
+  .card {
+    height: 100%;
+  }
+}
+
+#dashboard-strengths {
+  a {
+    color: #4ca8cf;
+  }
+  .tab-content {
+    padding: 20px 0;
+  }
+}

@@ -2,7 +2,7 @@
 
 namespace ThinkShift\Plugin;
 
-use WP_Query;
+use WP_Query, WP_User_Query;
 
 
 class Base {
@@ -57,6 +57,95 @@ class Base {
     }
 
 
+    /**
+     * Returns an array to use for $wp_query[meta_query]
+     * @param $values
+     *
+     * @return array
+     */
+    public static function getMetaQuery( $values ) {
+        return self::getMetaQueryBy( 'id', $values );
+    }
+
+
+    /**
+     * Returns an array to use for $wp_query[meta_query]
+     * @param $values
+     *
+     * @return array
+     */
+    public static function getMetaQueryBy( $field = 'id', $values = '' ) {
+
+        if( is_array($values) ) {
+            $value = $values;
+            $compare = 'IN';
+        } else {
+            $value = $values;
+            $compare = '=';
+        }
+        
+        $metaQuery = [
+            [
+                'key'     => $field,
+                'terms'   => $value,
+                'compare' => $compare
+            ]
+        ];
+
+        return $metaQuery;
+    }
+
+
+    /**
+     * Returns an array to use for $wp_query[tax_query]
+     * @param $values
+     *
+     * @return array
+     */
+    public static function getTaxQuery( $values ) {
+        return self::getTaxQueryBy( 'id', $values );
+    }
+
+
+    /**
+     * Returns an array to use for $wp_query[tax_query]
+     * @param $values
+     *
+     * @return array
+     */
+    public static function getTaxQueryBy( $field = 'id', $values = [] ) {
+
+        if( $field == 'id' )
+            $terms = array_map( 'intval', $values );
+        # todo: untested
+        elseif( $field == 'slug' )
+            $terms = array_map( 'sanitize_title', $values );
+        else
+            $terms = $values;
+
+        $taxQuery = [
+            [
+                'taxonomy' => 'tag-category',
+                'field'    => $field,
+                'terms'    => $terms,
+                'operator' => 'AND'
+            ]
+        ];
+
+        return $taxQuery;
+    }
+    
+
+    #add_action( 'wp', array( $this, 'force_404' ) );
+    public function force_404() {
+        #global $wp_query; //$posts (if required)
+        #if(is_page()){ // your condition
+        status_header( 404 );
+        nocache_headers();
+        include( get_query_template( '404' ) );
+        die();
+        #}
+    }
 
 
 
@@ -65,24 +154,60 @@ class Base {
      ******************************************************************************************/
 
 	public static function getQuery( $post_type = 'post', $args = array() ) {
-		$defaults = array (
-			'post_type'      => array( $post_type ),
-			'post_status'    => array( 'publish' ),
-			'posts_per_page' => - 1,
-			'order'          => 'DESC',
-			'orderby'        => 'post_date'
-		);
+	    if( $post_type == 'user' ) {
 
-		$args = wp_parse_args( $args, $defaults );
-		$query = new WP_Query( $args );
+            $defaults = array (
+                'order'          => 'DESC',
+                'orderby'        => 'display_name',
+                #'role'           => '',
+                #'search'         => '*'.esc_attr( $search_term ).'*',
+                #'count_total'    => true
+            );
+
+            $args = wp_parse_args( $args, $defaults );
+            $query = new WP_User_Query( $args );
+
+        } else {
+
+            $defaults = array(
+                'post_type'      => array( $post_type ),
+                'post_status'    => array( 'publish' ),
+                'posts_per_page' => -1,
+                'order'          => 'DESC',
+                'orderby'        => 'post_date'
+            );
+
+            $args  = wp_parse_args( $args, $defaults );
+            $query = new WP_Query( $args );
+        }
 
 		return $query;
 	}
 
 
+    public static function getOne( $post_type = 'post', $args = array() ) {
+	    $args['posts_per_page'] = 1;
+
+        $query = self::getQuery( $post_type, $args );
+        if( $query->have_posts() ) {
+            if( $post_type == 'user' )
+                $posts = $query->get_results();
+            else
+                $posts = $query->get_posts();
+            return $posts[0];
+
+        } else {
+            return false;
+        }
+    }
+
+
 	public static function getPosts( $post_type = 'post', $args = array() ) {
 		$query = self::getQuery( $post_type, $args );
-		return $query->get_posts();
+		if( $post_type == 'user' )
+		    return $query->get_results();
+		else
+		    return $query->get_posts();
 	}
 
 
