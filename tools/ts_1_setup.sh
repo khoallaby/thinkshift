@@ -73,6 +73,7 @@ cd ../platform
 composer install
 #ignore our .env file, even if changed.
 git update-index --assume-unchanged .env
+cp .env.copy .env
 
 # permissions - allow write access to uploads/plugins
 sudo chown -v -R bitnami:daemon web/app/uploads
