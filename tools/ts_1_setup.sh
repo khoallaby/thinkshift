@@ -104,7 +104,12 @@ cd ../..
 cd web/app/themes/thinkshift
 composer install
 yarn
-yarn run build
+
+if [ $WP_ENV = "production" ] ; then
+    yarn run build:production
+else
+    yarn run build
+fi
 
 
 
