@@ -25,4 +25,9 @@ All output is saved to -- /home/bitnami/thinkshift/tools/cron-jobs/cron.log
 
 # High priority - Update users with 'update_priority' = 'high' (every minute)
 * * * * * /opt/bitnami/php/bin/php /home/bitnami/thinkshift/tools/cron-jobs/update-users.php "high" >> /home/bitnami/thinkshift/tools/cron-jobs/cron.log 
+
+
+# AWS CloudWatch monitoring scripts (every 5 min)
+*/5 * * * * ~/aws-scripts-mon/mon-put-instance-data.pl --mem-util --disk-space-util --disk-path=/ --from-cron
+
 ```
