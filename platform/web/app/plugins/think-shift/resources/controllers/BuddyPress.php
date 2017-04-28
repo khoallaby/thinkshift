@@ -11,7 +11,11 @@ class BuddyPress extends Users {
 
 
         # registration hooks
+
+        # adds random hash to user_name
         add_action( 'bp_signup_pre_validate', [ $this, 'bp_signup_pre_validate' ] );
+        # after validateion complete
+        add_action( 'bp_signup_validate', [ $this, 'bp_signup_validate' ] );
         add_filter( 'bp_core_validate_user_signup', [ $this, 'bp_core_validate_user_signup' ] );
         add_action( 'bp_core_activated_user', [ $this, 'bp_core_activated_user' ], 20, 3 );
 
@@ -19,7 +23,6 @@ class BuddyPress extends Users {
         # remove buddypress admin bar
         add_action( 'wp', [ $this, 'removeBpAdminBar' ] );
 
-        # do_action( 'bp_signup_validate' ); # after validateion complete
         # do_action( 'bp_complete_signup' ); # after complete
 
 
@@ -36,6 +39,15 @@ class BuddyPress extends Users {
      ******************************************************************************************/
 
 
+    # Runs after all the default BP validation is done. Validates first/last name
+    public function bp_signup_validate() {
+        global $bp;
+        if( !isset($_POST['first_name']) || empty($_POST['first_name']) )
+            $bp->signup->errors['signup_first_name'] = __( 'Please enter a first name', 'buddypress' );
+        if( !isset($_POST['last_name']) || empty($_POST['last_name']) )
+            $bp->signup->errors['signup_last_name'] = __( 'Please enter a last name', 'buddypress' );
+    }
+
 
     # adds something to the $_POST[user_name] so we can bypass the BP validation methods
     public function bp_signup_pre_validate() {
@@ -43,7 +55,6 @@ class BuddyPress extends Users {
     }
 
 
-    #
     # Sets the username as the email, after BP validation methods have ran
     public function bp_core_validate_user_signup( $results ) {
         $results['user_name'] = $results['user_email'];

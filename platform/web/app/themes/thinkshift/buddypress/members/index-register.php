@@ -198,9 +198,10 @@
                      */
                     #do_action( 'bp_signup_username_errors' );
 
+                    do_action( 'bp_signup_first_name_errors' );
+
                     ?>
 
-                    <!--<label for="first_name"><?php _e( 'First Name', 'buddypress' ); ?> <?php #_e( '(required)', 'buddypress' ); ?></label>-->
 
                     <div class="input-group">
                     <span class="input-group-addon">
@@ -209,7 +210,8 @@
                     </div>
 
 
-                    <!--<label for="last_name"><?php _e( 'Last Name', 'buddypress' ); ?> <?php #_e( '(required)', 'buddypress' ); ?></label>-->
+                    <?php do_action( 'bp_signup_last_name_errors' ); ?>
+
 
                     <div class="input-group">
                     <span class="input-group-addon">
