@@ -3,14 +3,15 @@
 sql_file="$1"
 
 if [ -z "$1" ]; then
+    sql_file="dev.sql"
+else
     if [ $WP_ENV = "development" ] ; then
         sql_file="dev.sql"
     else
         sql_file="prod.sql"
     fi
-else
-    sql_file="dev.sql"
 fi
+
 
 
 
