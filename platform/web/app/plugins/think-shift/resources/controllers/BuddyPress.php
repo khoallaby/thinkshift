@@ -39,8 +39,7 @@ class BuddyPress extends Users {
 
     # adds something to the $_POST[user_name] so we can bypass the BP validation methods
     public function bp_signup_pre_validate() {
-        if( $_POST['signup_email'] )
-            $_POST['signup_username'] = md5($_POST['signup_email']);
+        $_POST['signup_username'] = isset($_POST['signup_email']) ? md5($_POST['signup_email']) : '';
     }
 
 
