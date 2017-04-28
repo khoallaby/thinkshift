@@ -1,4 +1,4 @@
-<div class="card mb-4 hidden-md-down">
+<div class="card mb-4">
     <div class="card-header bg-themec-yellow">
       <i class="icon fa fa-users fa-1x"></i> <span><h6 class="mb-3">Your Circle Community</h6></span>
 
