@@ -2,7 +2,7 @@
 use ThinkShift\Plugin\Videos;
 use ThinkShift\Plugin\Users;
 ?>
-<div class="card mb-4 hidden-md-down">
+<div class="card mb-4">
     <div class="card-header bg-themec-yellow">
       <i class="icon fa fa-user-circle-o fa-1x"></i> <span><h6 class="mb-3">Pivot Stories</h6></span>
     </div>

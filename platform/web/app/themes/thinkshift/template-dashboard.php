@@ -24,7 +24,7 @@ if ( is_user_logged_in() ) {
             get_template_part( 'templates/dashboard/card', 'congratulations' );
             ?>
             <!--
-            <div class="card mb-4 hidden-md-down">
+            <div class="card mb-4">
                 <?php/*
                 while ( have_posts() ) : the_post();
                     get_template_part( 'templates/content', 'page' );

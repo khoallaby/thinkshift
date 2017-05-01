@@ -98,7 +98,10 @@ function display_sidebar() {
  * Theme assets
  */
 function assets() {
-    wp_register_script( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js', ['jquery'], '4.0.0-alpha.6', true );
+    if( WP_ENV == 'development' )
+        wp_register_script( 'bootstrap', get_stylesheet_directory_uri() . '/bower_components/bootstrap/dist/js/bootstrap.min.js', ['jquery'], '4.0.0-alpha.6', true );
+    else
+        wp_register_script( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js', ['jquery'], '4.0.0-alpha.6', true );
 
 
     if( Template::isExternalPage(true) ) {

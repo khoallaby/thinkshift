@@ -6,16 +6,15 @@ global $current_user;
 ?>
 
 <aside class="app-sidebar bg-themec-blue" id="sidebar">
-  <div class="profile-thumb">
-    <div class="profile-info">
-        <span class="username">Welcome<br><?php echo $current_user->first_name . ' ' . $current_user->last_name; ?></span>
-    </div>
-  </div>
-    <!-- <div class="sidebar-header">
-        <button type="button" class="sidebar-toggle">
+    <div class="profile-thumb">
+        <div class="profile-info">
+            <span class="username">Welcome<br><?php echo $current_user->first_name . ' ' . $current_user->last_name; ?></span>
+        </div>
+
+        <button type="button" class="sidebar-toggle hidden-md-up">
             <i class="fa fa-times"></i>
         </button>
-    </div> -->
+    </div>
     <div class="sidebar-menu">
         <?php
         $args = [

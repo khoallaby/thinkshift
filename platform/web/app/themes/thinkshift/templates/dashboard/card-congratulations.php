@@ -36,7 +36,7 @@
 </div>
 <?php } else { ?>
 
-  <div class="card mb-4 hidden-md-down mb-4" id="dashboard-career-card1">
+  <div class="card mb-4 mb-4" id="dashboard-career-card1">
     <div class="card-header bg-themec-yellow">
       Career Cards
     </div>
