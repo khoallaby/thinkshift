@@ -3,6 +3,22 @@
  * pulled from wp_login_form()
  */
 
+use \ThinkShift\Plugin\UserAuthentication;
+
+
+
+// Error messages
+$errors = array();
+if ( isset( $_REQUEST['login'] ) ) {
+    $error_codes = explode( ',', $_REQUEST['login'] );
+
+    foreach ( $error_codes as $code ) {
+        $errors []= UserAuthentication::get_instance()->get_error_message( $code );
+    }
+}
+$attributes['errors'] = $errors;
+
+
 
 $args = [
     'redirect'       => get_bloginfo( 'url' ),
@@ -46,6 +62,19 @@ $login_form_bottom = apply_filters( 'login_form_bottom', '', $args );
     <div class="app-brand"><span class="highlight"><?php bloginfo( 'title' ); ?></span>
     </div>
 </div>
+
+<?php
+if ( count( $attributes['errors'] ) > 0 ) :
+    foreach ( $attributes['errors'] as $error ) :
+        ?>
+        <p class="login-error">
+            <?php echo $error; ?>
+        </p>
+        <?php
+    endforeach;
+endif;
+?>
+
 <form name="<?php echo $args['form_id']; ?>" id="<?php echo $args['form_id']; ?>" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" method="post">
     <?php echo $login_form_top; ?>
     <div class="input-group">
@@ -74,11 +103,12 @@ $login_form_bottom = apply_filters( 'login_form_bottom', '', $args );
     <?php echo $login_form_bottom; ?>
 </form>
 
+<!--
 <div class="form-line">
     <div class="title">OR</div>
 </div>
 <div class="form-footer">
-    <?php do_action( 'wordpress_social_login' ); ?>
+    <?php #do_action( 'wordpress_social_login' ); ?>
     <button type="button" class="btn btn-default btn-sm btn-social __facebook">
         <div class="info">
             <i class="icon fa fa-facebook-official" aria-hidden="true"></i>
@@ -86,3 +116,4 @@ $login_form_bottom = apply_filters( 'login_form_bottom', '', $args );
         </div>
     </button>
 </div>
+-->

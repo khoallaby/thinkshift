@@ -22,6 +22,11 @@ class UserAuthentication extends Users {
 
 
 
+        # user login form actions
+        add_action( 'login_form_login', [ $this, 'redirect_to_custom_login' ] );
+        add_filter( 'authenticate', [ $this, 'maybe_redirect_at_authenticate' ], 101, 3 );
+
+
         # blocks access to wp-admin
         add_action( 'admin_init', [ $this, 'blockAdminAccess' ], 100 );
 
@@ -143,6 +148,132 @@ class UserAuthentication extends Users {
             exit( wp_redirect( $redirect ) );
 
     }
+
+
+
+
+
+
+    /******************************************************************************************
+     * Login form actions
+     * https://code.tutsplus.com/tutorials/build-a-custom-wordpress-user-flow-part-1-replace-the-login-page--cms-23627
+     ******************************************************************************************/
+
+    /**
+     * Redirect the user to the custom login page instead of wp-login.php.
+     */
+    function redirect_to_custom_login() {
+        if ( $_SERVER['REQUEST_METHOD'] == 'GET' ) {
+            $redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : null;
+
+            if ( is_user_logged_in() ) {
+                $this->redirect_logged_in_user( $redirect_to );
+                exit;
+            }
+
+            // The rest are redirected to the login page
+            $login_url = home_url( 'login' );
+            if ( ! empty( $redirect_to ) ) {
+                $login_url = add_query_arg( 'redirect_to', $redirect_to, $login_url );
+            }
+
+            wp_redirect( $login_url );
+            exit;
+        }
+    }
+
+    /**
+     * Redirects the user to the correct page depending on whether he / she
+     * is an admin or not.
+     *
+     * @param string $redirect_to   An optional redirect_to URL for admin users
+     */
+    private function redirect_logged_in_user( $redirect_to = null ) {
+        $user = wp_get_current_user();
+        if ( user_can( $user, 'manage_options' ) ) {
+            if ( $redirect_to ) {
+                wp_safe_redirect( $redirect_to );
+            } else {
+                wp_redirect( admin_url() );
+            }
+        } else {
+            wp_redirect( home_url( 'login' ) );
+        }
+    }
+
+
+
+    /**
+     * Redirect the user after authentication if there were any errors.
+     *
+     * @param Wp_User|Wp_Error  $user       The signed in user, or the errors that have occurred during login.
+     * @param string            $username   The user name used to log in.
+     * @param string            $password   The password used to log in.
+     *
+     * @return Wp_User|Wp_Error The logged in user, or error information if there were errors.
+     */
+    function maybe_redirect_at_authenticate( $user, $username, $password ) {
+        // Check if the earlier authenticate filter (most likely,
+        // the default WordPress authentication) functions have found errors
+        if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+            if ( is_wp_error( $user ) ) {
+                $error_codes = join( ',', $user->get_error_codes() );
+
+                $login_url = home_url( 'login' );
+                $login_url = add_query_arg( 'login', $error_codes, $login_url );
+
+                wp_redirect( $login_url );
+                exit;
+            }
+        }
+
+        return $user;
+    }
+
+    /**
+     * Finds and returns a matching error message for the given error code.
+     *
+     * @param string $error_code    The error code to look up.
+     *
+     * @return string               An error message.
+     */
+    public function get_error_message( $error_code ) {
+        switch ( $error_code ) {
+            case 'empty_username':
+                return __( 'Email address required', 'thinkshift' );
+
+            case 'empty_password':
+                return __( 'Password required', 'thinkshift' );
+
+            case 'invalid_username':
+                return __(
+                    "Invalid email address entered",
+                    'thinkshift'
+                );
+
+            case 'incorrect_password':
+                $err = __(
+                    "Invalid assword entered",
+                    'thinkshift'
+                );
+                return $err;
+                #return sprintf( $err, wp_lostpassword_url() );
+
+            default:
+                break;
+        }
+
+        return __( 'An unknown error occurred. Please try again later.', 'thinkshift' );
+    }
+
+
+
+
+
+
+
+
+
 
 
 
