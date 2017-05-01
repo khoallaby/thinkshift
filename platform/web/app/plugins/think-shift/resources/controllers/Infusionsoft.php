@@ -23,29 +23,28 @@ class Infusionsoft extends Base {
 
 
 	function __construct() {
-        #require_once dirname(__FILE__) . '/../../vendor/jimitit/infusionsoft-php-isdk/src/isdk.php';
-        require_once dirname(__FILE__) . '/../../vendor/infusionsoft-oauth-isdk/src/isdk.php';
+        require_once dirname(__FILE__) . '/../../vendor/jimitit/infusionsoft-php-isdk/src/isdk.php';
+        #require_once dirname(__FILE__) . '/../../vendor/infusionsoft-oauth-isdk/src/isdk.php';
 
 		# todo: pull these from wp_options
-		/**$appName = 'fd341';
+		$appName = 'fd341';
 		$this->apiKey = '9122d201f6892d5b3397f675849baafa';
 
-		$this->connect( $appName, $this->apiKey );*/
+		$this->connect( $appName, $this->apiKey );
 
-        self::$api = new iSDK();
-        #self::$api->cfgCon( 'fd341', '9122d201f6892d5b3397f675849baafa' );
-        self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
-        self::$api->setToken($this->getToken());
+        #self::$api = new iSDK();
+        #self::$api->cfgCon( 'fd341', '9122d201f6892d5b3397f675849baafa' ); # dont need
+        #self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
+        #self::$api->setToken($this->getToken());
 
 	}
 
 
-	/**function connect( $url, $apiKey ) {
+	function connect( $url, $apiKey ) {
 		$this->apiKey = $apiKey;
-
 		self::$api = new iSDK();
 		self::$api->cfgCon( $url, $this->apiKey );
-	}*/
+	}
 
 
     /**
