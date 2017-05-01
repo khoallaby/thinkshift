@@ -84,6 +84,7 @@ class CustomPostTypes extends Base {
         global $wpdb;
         $keys = [
             'salary' => 'med_wage',
+            /*
             'education_no_degree' => 'education_min',
             'education_high_school' => 'education_min',
             'education_post_secondary' => 'education_min',
@@ -92,6 +93,7 @@ class CustomPostTypes extends Base {
             'education_2_year_college' => 'education_min',
             'education_bachelors_degree' => 'education_min',
             'education_masters_degree_or' => 'education_min'
+            */
         ];
         #vard(sanitize_key($keys[ $_GET['orderby'] ]));
 
@@ -135,7 +137,25 @@ class CustomPostTypes extends Base {
                 $query->set( 'order', 'asc' );
 
         }
-        #var_dump($query);
+
+
+        $metaQuery = [];
+
+        // education_min
+        if( isset($_GET['education_min']) ) {
+            $educationValues = Careers::getEducationKeys( $_GET['education_min'] );
+            $metaQuery[] = [
+                'key' => 'education_min',
+                'value' => array_values($educationValues),
+                'compare' => 'IN'
+            ];
+        }
+
+        if( !empty( $metaQuery ) )
+            $query->set( 'meta_query', $metaQuery );
+
+
+        #vard($query);
 
         return $query;
     }
