@@ -1,12 +1,15 @@
 @import 'card.mixin'
 
-.card
+.card, .sg-wrapper
   width: 100%
   background-color: $white
   border-radius: 3px
   box-shadow: 0 1px 2px $grey-darker
 
-  .card-header
+  .sg-header
+    background-color: $themec-yellow
+
+  .card-header, .sg-header
     padding: 30px
     font-size: 1.1em
     font-weight: 400
@@ -16,8 +19,12 @@
     position: relative
     @include flex
 
+    .sg-header-image
+      display: none
+
     .card-title
       flex: 1
+      margin-bottom: 0 !important
     .card-action
       list-style: none
       margin: 0
@@ -32,7 +39,7 @@
 
   .card-body
     padding: 30px
-  
+
   &.card-mini
     .card-header
       padding: 20px 30px
@@ -171,12 +178,12 @@
             margin-right: 5px
             opacity: 0.75
 
-        .title 
+        .title
           font-size: 1em
           font-weight: 400
           color: $grey-darkest
           text-transform: uppercase
-    
+
       &::after
         content: ''
         position: relative
@@ -237,5 +244,5 @@
           .value
             font-size: 3em
             padding-top: 1rem
-          .title 
+          .title
             font-size: 0.9em

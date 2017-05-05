@@ -1,8 +1,22 @@
 <?php
+use ThinkShift\Plugin\Careers;
+
+
+global $wpdb;
+
+$educationMin = [
+    '' => '-- Minimum Education --',
+];
+$educationMin = array_merge( $educationMin, $keys = Careers::getEducationKeys() );
+
+
 $orderby = [
     '' => '-- Order By --',
-    'salary' => 'Average Salary'
 ];
+$orderby = array_merge( $orderby, $keys = Careers::careerKeys() );
+
+
+
 $order = [
     '' => '-- Sort --',
     'asc' => 'Lowest to Highest',
@@ -10,6 +24,19 @@ $order = [
 ];
 
 ?>
+
+<select name="education_min">
+    <?php foreach( $educationMin as $k => $ob ) {
+        echo sprintf( '<option value="%s" %s>%s</option>',
+            $k,
+            isset($_GET['education_min']) ? selected( $_GET['education_min'], $k, false ) : '',
+            $ob
+        );
+    }
+    ?>
+</select>
+<br />
+
 <select name="orderby">
     <?php foreach( $orderby as $k => $ob ) {
         echo sprintf( '<option value="%s" %s>%s</option>',
@@ -32,4 +59,7 @@ $order = [
     }
     ?>
 </select>
+<br />
+<br />
 
+<?php #global $wpdb; print($wpdb->last_query); vard($wpdb); ?>

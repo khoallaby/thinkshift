@@ -2,13 +2,12 @@
   "name": "think-shift",
   "homepage": "https://wethinkshift.org",
   "authors": [
-    "Andy Nguyen <email>"
+    "ThinkShift"
   ],
   "license": "MIT",
   "private": true,
   "dependencies": {
     "bootstrap": "git://github.com/twbs/bootstrap.git#v4.0.0-alpha.6",
-    "bootstrap3": "git://github.com/twbs/bootstrap.git#v3.3.7",
     "font-awesome": "fontawesome#^4.7.0"
   },
   "overrides": {

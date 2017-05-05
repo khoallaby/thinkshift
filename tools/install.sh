@@ -51,8 +51,7 @@ while true; do
 
     case $INPUT in
         1)
-
-            bash ts_1_setup.sh
+            sh -ac ' . ../platform/.env; bash ts_1_setup.sh'
             #./ts_4_finalize.sh
 
             echo -e "\n#########################################################################################################"
@@ -83,8 +82,8 @@ while true; do
             ;;
         5)
 
-            read -p "File name to use? (defaults to dev.sql)" RESP
-            bash import_db.sh "$RESP"
+            read -p "File name to use? (defaults to {dev/prod}.sql)" RESP
+            sh -ac ' . ../platform/.env; bash import_db.sh "$RESP"'
             ;;
         6)
             mysql -u root -p"$ts_DB_password" "$ts_DB"

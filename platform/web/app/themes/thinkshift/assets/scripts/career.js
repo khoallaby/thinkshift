@@ -36,7 +36,7 @@ $special = $event.special.debouncedresize = {
 			dispatch() :
 			resizeTimeout = setTimeout( dispatch, $special.threshold );
 	},
-	threshold: 250
+	threshold: 180
 };
 
 // ======================= imagesLoaded Plugin ===============================
@@ -343,81 +343,71 @@ var Grid = (function() {
 		create : function() {
 			// create Preview structure:
 			this.$title = $( '<p class="title"></p>' );
-			this.$description = $( '<p class="description"></p>' );
-			this.$valuetype1 = $( '<p class="valuetype1"></p>' );
-			this.$valuetype2 = $( '<p class="valuetype2"></p>' );
-			this.$valuetype3 = $( '<p class="valuetype3"></p>' );
+			this.$description = $( '<li class="description"></li>' );
+			this.$valuetype1 = $( '<li class="valuetype1"></li>' );
+			this.$valuetype2 = $( '<li class="valuetype2"></li>' );
+			this.$valuetype3 = $( '<li class="valuetype3"></li>' );
 
-			this.$alt_title1 = $( '<p class="alt_title1"></p>' );
-			this.$alt_title2 = $( '<p class="alt_title2"></p>' );
-			this.$alt_title3 = $( '<p class="alt_title3"></p>' );
-			this.$alt_title4 = $( '<p class="alt_title4"></p>' );
+			this.$alt_title1 = $( '<li class="alt_title1"></li>' );
+			this.$alt_title2 = $( '<li class="alt_title2"></li>' );
+			this.$alt_title3 = $( '<li class="alt_title3"></li>' );
+			this.$alt_title4 = $( '<li class="alt_title4"></li>' );
+			this.$alt_title = $( '<h4>Alternate Title</h4>' );
+			this.$alt_div = $( '<ul class="alternates mb-4"></ul>' ).append(this.$alt_title,this.$alt_title1,this.$alt_title2,this.$alt_title3,this.$alt_title4);
 
-			this.$work_activity1 = $( '<p class="work_activity1"></p>' );
-			this.$work_activity2 = $( '<p class="work_activity2"></p>' );
-			this.$work_activity3 = $( '<p class="work_activity3"></p>' );
-			this.$work_activity4 = $( '<p class="work_activity4"></p>' );
-			this.$work_activity5 = $( '<p class="work_activity5"></p>' );
-			this.$work_activity6 = $( '<p class="work_activity6"></p>' );
-			this.$work_activity7 = $( '<p class="work_activity7"></p>' );
+			this.$work_activity1 = $( '<li class="work_activity1"></li>' );
+			this.$work_activity2 = $( '<li class="work_activity2"></li>' );
+			this.$work_activity3 = $( '<li class="work_activity3"></li>' );
+			this.$work_activity4 = $( '<li class="work_activity4"></li>' );
+			this.$work_activity5 = $( '<li class="work_activity5"></li>' );
+			this.$work_activity6 = $( '<li class="work_activity6"></li>' );
+			this.$work_activity7 = $( '<li class="work_activity7"></li>' );
 
-			this.$education_norm = $( '<p class="education_norm"></p>' );
-			this.$education_min = $( '<p class="education_min"></p>' );
+			this.$education_norm = $('<p></p>' );
+			this.$education_min = $( '<p></p>' );
+			this.$education_min_title = $( '<h4>Rewards and Risks</h4>' );
+			this.$rewards_risks = $('<div class="rewards-risks mb-4"></div>').append(this.$education_min_title,this.$education_norm, this.$education_min);
 
-			this.$tech_skill_kn1 = $( '<p class="tech_skill_kn1"></p>' );
-			this.$tech_skill_kn2 = $( '<p class="tech_skill_kn2"></p>' );
-			this.$tech_skill_kn3 = $( '<p class="tech_skill_kn3"></p>' );
-			this.$tech_skill_kn4 = $( '<p class="tech_skill_kn4"></p>' );
+			this.$tech_skill_kn1 = $( '<li class="tech_skill_kn1"></li>' );
+			this.$tech_skill_kn2 = $( '<li class="tech_skill_kn2"></li>' );
+			this.$tech_skill_kn3 = $( '<li class="tech_skill_kn3"></li>' );
+			this.$tech_skill_kn4 = $( '<li class="tech_skill_kn4"></li>' );
 
-			this.$med_wage = $( '<p class="med_wage"></p>' );
+			this.$med_wage_title = $( '<h4>Average Wage</h4>' );
+			this.$med_wage = $( '<p></p>' );
+			this.$med_wage_div = $( '<div class="med_wage"></div>' ).append(this.$med_wage_title,this.$med_wage);
 
-			this.$openings_count = $( '<p class="openings_count"></p>' );
-			this.$openings_rate = $( '<p class="openings_rate"></p>' );
-			this.$openings_rate_cat = $( '<p class="openings_rate_cat"></p>' );
+			this.$openings_count = $( '<li class="openings_count"></li>' );
+			this.$openings_rate = $( '<li class="openings_rate"></li>' );
+			this.$openings_rate_cat = $( '<li class="openings_rate_cat"></li>' );
+			this.$openings_title = $( '<h4>Total Openings</h4>' );
+			this.$openings_div = $( '<ul class="openings mb-4"></ul>' ).append(this.$openings_title,this.$openings_rate_cat,this.$openings_rate,this.$openings_count);
 
 			this.$pct_self_emp = $( '<p class="pct_self_emp"></p>' );
 			this.$pct_self_emp_cat = $( '<p class="pct_self_emp_cat"></p>' );
+			this.$pct_self_emp_title = $( '<h4>Going out on your own</h4>' );
+			this.$pct_self_div = $( '<div class="self_emp mb-4"></div>' ).append(this.$pct_self_emp_title,this.$pct_self_emp_cat,this.$pct_self_emp);
 
 			this.$href = $( '<a href="#">Visit website</a>' );
 			this.$row111 = $( '<a href="#">Visit website</a>' );
-			this.$details = $( '<div class="og-details"></div>' ).append(
-				this.$valuetype1, this.$valuetype2, this.$valuetype3,
-				this.$alt_title1, this.$alt_title2, this.$alt_title3, this.$alt_title4,
-				this.$work_activity1, this.$work_activity2, this.$work_activity3, this.$work_activity4, this.$work_activity5, this.$work_activity6, this.$work_activity7,
-				this.$education_norm, this.$education_min, this.$tech_skill_kn1, this.$tech_skill_kn2, this.$tech_skill_kn3, this.$tech_skill_kn4,
-				this.$med_wage, this.$openings_count, this.$openings_rate, this.$openings_rate_cat, this.$pct_self_emp, this.$pct_self_emp_cat
-			);
 
-			this.$goodForPeople = $('<div class="good-for-people"></div>').append(this.$valuetype1, this.$valuetype2, this.$valuetype3);
-			this.$majorActivities = $('<li></li>').append(this.$work_activity1, this.$work_activity2, this.$work_activity3, this.$work_activity4, this.$work_activity5, this.$work_activity6, this.$work_activity7);
-			this.$majorActivitiesUL = $('<ul class="major-activities"></ul>').append(this.$majorActivities);
+			this.goodForPeopletitle = $('<h4>Good For People Who Are Good At:</h4>');
+			this.$goodForPeople = $('<ul class="good-for-people mb-4"></ul>').append(this.goodForPeopletitle,this.$valuetype1, this.$valuetype2, this.$valuetype3);
+			this.$majorActivitiesTitle = $('<h4>Major Activities:</h4>');
+			this.$majorActivitiesUL = $('<ul class="major-activities mb-4"></ul>').append(this.$majorActivitiesTitle,this.$work_activity1, this.$work_activity2, this.$work_activity3, this.$work_activity4, this.$work_activity5, this.$work_activity6, this.$work_activity7);
 
-			this.$majorSpecialties = $('<li></li>').append(this.$tech_skill_kn1, this.$tech_skill_kn2, this.$tech_skill_kn3, this.$tech_skill_kn4);
-			this.$majorSpecialtiesUL = $('<ul class="major-specialties"></ul>').append(this.$majorSpecialties);
+			this.$majorSpecialtiesTitle = $('<h4>Major Specialities:</h4>');
+			this.$majorSpecialtiesUL = $('<ul class="major-specialties mb-4"></ul>').append(this.$majorSpecialtiesTitle,this.$tech_skill_kn1, this.$tech_skill_kn2, this.$tech_skill_kn3, this.$tech_skill_kn4);
 
 			this.$loading = $( '<div class="og-loading"></div>' );
 			this.$fullimage = $( '<div class="og-fullimg"></div>' ).append( this.$loading );
 			this.$closePreview = $( '<span class="og-close"></span>' );
 			this.$columnLeft = $('<div class="col-lg-6"></div>').append(this.$goodForPeople, this.$majorActivitiesUL);
-			this.$columnReft = $('<div class="col-lg-6"></div>').append(this.$majorSpecialtiesUL);
-			this.$previewInner = $( '<div class="og-expander-inner row"></div>' ).append( this.$closePreview, this.$columnLeft, this.$columnReft);
+			this.$columnReft = $('<div class="col-lg-3"></div>').append(this.$majorSpecialtiesUL, this.$med_wage_div, this.$openings_div,this.$alt_div, this.$rewards_risks );
+			this.$columnReft2 = $('<div class="col-lg-3"></div>').append(this.$openings_div,this.$alt_div,this.$pct_self_div );
+			this.$previewInner = $( '<div class="og-expander-inner row"></div>' ).append( this.$closePreview, this.$columnLeft, this.$columnReft,this.$columnReft2);
 
 			this.$previewEl = $( '<div class="og-expander"></div>' ).append( this.$previewInner );
-
-			// Good for people: ValueType1, ValueType2, ValueType3
-			// Major Activities Involved: WorkActivity1, WorkActivity2, WorkActivity3, WorkActivity4, WorkActivity5, WorkActivity6, WorkActivity7
-			// Major areas of specialized skills: techskillkn1, techskillkn2, techskillkn3, techskillkn4
-			// Rewards and Risks
-			// - Typical Education: EducationNorm
-			// - Minimum Education: EducationMin
-			// Median Pay: MedWage
-			// Total Expected: openingscount
-			// Expected rate: openingsrate
-			// job openeings expectations: openingsratecat
-			// Going it on your own
-			// who are self empl: pctselfemp
-			// self employ epectations: pctselfempcat
-			// Also know as: alttitle1, alttitle2, alttitle3, alttitle4
 
 			// append preview element to the item
 			this.$item.append( this.getEl() );

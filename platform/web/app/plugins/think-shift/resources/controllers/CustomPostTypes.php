@@ -26,7 +26,9 @@ class CustomPostTypes extends Base {
          */
 
         if( $query->is_main_query()  && !is_admin() ) {
-            if( $query->is_post_type_archive( 'career' ) || $query->is_post_type_archive( 'video' ) ) {
+            if( $query->is_post_type_archive( 'career' ) ||
+                $query->is_post_type_archive( 'video' ) ||
+                $query->is_post_type_archive( 'resource' ) ) {
 
                 $query = self::filterQuery( $query );
                 # do filtering
@@ -53,9 +55,15 @@ class CustomPostTypes extends Base {
         $query->set( 'posts_per_page', intval($limit) );
 
 
-        $strengths = isset($_GET['strengths']) ? $_GET['strengths'] : array_keys( Users::getUserStrengths() );
+        if( isset($_GET['strengths']) )
+            $strengths = array_map( 'intval', $_GET['strengths'] );
+        else
+            $strengths = is_user_logged_in() ? array_keys( Users::getUserStrengths(2) ) : [];
 
-        if( $query->is_post_type_archive( 'career' ) || $query->is_post_type_archive( 'video' ) ) {
+        if( $query->is_post_type_archive( 'career' ) ||
+            $query->is_post_type_archive( 'video' )  ||
+            $query->is_post_type_archive( 'resource' ) ) {
+
             $taxQuery = static::getTaxQuery( $strengths );
             $query->set( 'tax_query', $taxQuery );
         }
@@ -73,16 +81,54 @@ class CustomPostTypes extends Base {
      * @return mixed
      */
     public static function filterQueryOrder( $query ) {
+        global $wpdb;
         $keys = [
-            'salary' => 'med_wage'
+            'salary' => 'med_wage',
+            /*
+            'education_no_degree' => 'education_min',
+            'education_high_school' => 'education_min',
+            'education_post_secondary' => 'education_min',
+            'education_masters_degree' => 'education_min',
+            'education_post_secondary_certificate' => 'education_min',
+            'education_2_year_college' => 'education_min',
+            'education_bachelors_degree' => 'education_min',
+            'education_masters_degree_or' => 'education_min'
+            */
         ];
+        #vard(sanitize_key($keys[ $_GET['orderby'] ]));
 
 
         if( !empty($_GET['orderby']) ) {
-            $query->set( 'orderby', 'meta_value_num' );
+
+            /*
             if( in_array($_GET['orderby'], array_keys($keys)) ) {
-                $query->set( 'meta_key', sanitize_key($keys[ $_GET['orderby'] ]) );
+                $careerKeys = Careers::careerKeys();
+
+                $metaKey = sanitize_key($keys[ $_GET['orderby'] ]);
+                $metaValue = $careerKeys[ $_GET['orderby'] ];
+
+                $query->set( 'orderby', 'meta_value_num' );
+                $query->set( 'meta_key', $metaKey );
+                #var_dump($metaKey);
+                #var_dump($metaValue);
+
+                if( $metaKey == 'education_min' ) {
+                    $metaQuery = [
+                        [
+                            'key' => $metaKey,
+                            'value' => $metaValue,
+                            'compare' => '='
+                        ]
+                    ];
+                    $query->set( 'orderby', 'meta_value' );
+                    $query->set( 'meta_query', $metaQuery );
+                }
             }
+            */
+
+            $query->set( 'orderby', 'meta_value_num' );
+            if( in_array($_GET['orderby'], array_keys($keys)) )
+                $query->set( 'meta_key', sanitize_key($keys[ $_GET['orderby'] ]) );
 
 
             if( $_GET['order'] == 'desc' )
@@ -91,6 +137,25 @@ class CustomPostTypes extends Base {
                 $query->set( 'order', 'asc' );
 
         }
+
+
+        $metaQuery = [];
+
+        // education_min
+        if( isset($_GET['education_min']) ) {
+            $educationValues = Careers::getEducationKeys( $_GET['education_min'] );
+            $metaQuery[] = [
+                'key' => 'education_min',
+                'value' => array_values($educationValues),
+                'compare' => 'IN'
+            ];
+        }
+
+        if( !empty( $metaQuery ) )
+            $query->set( 'meta_query', $metaQuery );
+
+
+        #vard($query);
 
         return $query;
     }
@@ -135,7 +200,7 @@ class CustomPostTypes extends Base {
         ) );
 
 
-        $this->registerTaxonomy( 'tag-category', 'tag-categories', [ 'career', 'video', 'user'], [
+        $this->registerTaxonomy( 'tag-category', 'tag-categories', [ 'career', 'video', 'resource', 'user'], [
             /*
             'rewrite' => array(
                 'with_front' => false,

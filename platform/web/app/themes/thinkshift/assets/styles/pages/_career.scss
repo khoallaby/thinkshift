@@ -17,7 +17,7 @@
 .og-grid li {
 	display: inline-block;
 	vertical-align: top;
-	height: 250px;
+	height: 180px;
 	width: 23%;
 	background: #fff;
 	text-align: center;
@@ -30,12 +30,13 @@
 	height: 100%;
 	display: table;
 	padding: 20px;
-	max-height: 250px;
+	max-height: 180px;
 	text-align: center;
 	width: 100%;
+	color: $themec-blue;
 }
 
-.og-grid li .job-title h1 {
+.og-grid li .job-title h4 {
 	display: table-cell;
 	vertical-align: middle;
 	height: 100%;
@@ -78,6 +79,17 @@
 .og-expander-inner {
 	padding: 50px 30px;
 	height: 100%;
+
+	ul {
+		padding: 0;
+
+		li {
+			height: auto;
+			width:: 100%;
+			text-align:left;
+			margin:0;
+		}
+	}
 }
 
 .og-close {

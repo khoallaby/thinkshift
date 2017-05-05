@@ -3,6 +3,8 @@ global $wp_query;
 
 
 
+include( locate_template( 'templates/shared/header-filter-strengths.php' ) );
+
 if ( have_posts() ) :
 ?>
     <section class="container-fluid pt-4">

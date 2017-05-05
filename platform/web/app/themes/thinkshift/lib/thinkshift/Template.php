@@ -2,7 +2,7 @@
 
 namespace ThinkShift\Theme;
 
-
+use \ThinkShift\Plugin\UserAuthentication;
 
 class Template {
 
@@ -19,6 +19,21 @@ class Template {
      * Tools
      ******************************************************************************************/
 
+
+    /**
+     * Checks to see if is external page, show external page theme/content/etc
+     * @param bool $homePageCheck   Checks if a logged in user is attempting to view the home page, show them dashboard instead
+     *
+     * @return bool
+     */
+    public static function isExternalPage ( $homePageCheck = false ) {
+        if( $homePageCheck ) {
+            # if logged in on front page, return false, so we can pull the real dashboard. unless role = subscriber
+            if( is_front_page() )
+                return is_user_logged_in() && current_user_can( UserAuthentication::$marketplaceAccess ) ? false : true;
+        }
+        return is_page_template( 'template-external.php' );
+    }
 
     public static function getResponsiveImage( $post_id, $size = 'medium', $attr ) {
         $defaults = array (

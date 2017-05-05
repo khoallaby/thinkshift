@@ -3,8 +3,7 @@
 namespace ThinkShift\Plugin;
 
 use iSDK,
-    ThinkShift\Plugin\Enqueue as Enqueue;
-#use ThinkShift\Plugin\Enqueue;
+    ThinkShift\Plugin\Enqueue;
 
 // priority flags
 const NON_CRITICAL = 0;
@@ -24,31 +23,28 @@ class Infusionsoft extends Base {
 
 
 	function __construct() {
-        #require_once dirname(__FILE__) . '/../../PBClub/Enqueue.php';
-        #require_once dirname(__FILE__) . '/../../vendor/jimitit/infusionsoft-php-isdk/src/isdk.php';
-        require_once dirname(__FILE__) . '/../../vendor/infusionsoft-oauth-isdk/src/isdk.php';
-        require_once dirname(__FILE__) . '/../../PBClub/getToken.php';
+        require_once dirname(__FILE__) . '/../../vendor/jimitit/infusionsoft-php-isdk/src/isdk.php';
+        #require_once dirname(__FILE__) . '/../../vendor/infusionsoft-oauth-isdk/src/isdk.php';
 
 		# todo: pull these from wp_options
-		/**$appName = 'fd341';
+		$appName = 'fd341';
 		$this->apiKey = '9122d201f6892d5b3397f675849baafa';
 
-		$this->connect( $appName, $this->apiKey );*/
+		$this->connect( $appName, $this->apiKey );
 
-        self::$api = new iSDK();
-        #self::$api->cfgCon( 'fd341', '9122d201f6892d5b3397f675849baafa' );
-        self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
-        self::$api->setToken(getToken());
+        #self::$api = new iSDK();
+        #self::$api->cfgCon( 'fd341', '9122d201f6892d5b3397f675849baafa' ); # dont need
+        #self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
+        #self::$api->setToken($this->getToken());
 
 	}
 
 
-	/**function connect( $url, $apiKey ) {
+	function connect( $url, $apiKey ) {
 		$this->apiKey = $apiKey;
-
 		self::$api = new iSDK();
 		self::$api->cfgCon( $url, $this->apiKey );
-	}*/
+	}
 
 
     /**
@@ -247,7 +243,7 @@ class Infusionsoft extends Base {
             return [];
         } else {
             # queries the Groups with list of IDs (Contact.Groups)
-            $groups = self::apiQuery( 'ContactGroup', 10000, 0, [ "Id" => $groupIds ], [
+            $groups = self::apiQuery( 'ContactGroup', 1000, 0, [ "Id" => $groupIds ], [
                 "GroupName",
                 "GroupDescription",
                 "GroupCategoryId"
@@ -317,6 +313,19 @@ class Infusionsoft extends Base {
         }
     }
 
+
+    /**
+     * Gets latest OAuth token from DB
+     * @todo: assign it to a variable for reuse, need to error check for expired token if looping.
+     * @return mixed    OAuth token code
+     */
+    public function getToken(){
+        global $wpdb;
+        $query = "SELECT Access FROM tokens LIMIT 1;";
+        $result = $wpdb->get_row( $query );
+        return $result->Access;
+
+    }
 }
 
 

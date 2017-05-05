@@ -10,13 +10,9 @@
         & > li
           & > a
             .icon
-              @if $extend == ".__inverse"
-                background-color: $bg
                 border: 0px solid $white
-                color: $color
-              @else
-                background-color: rgba($grey-darkest, 0.15)
-                color: rgba($grey-darkest, 0.45)
+                color: #fff
+                margin-bottom: 8px
 
             .title
               @if $extend == ".__inverse"
@@ -27,12 +23,12 @@
             & > a
               .icon
                 @if $extend == ".__inverse"
-                  background-color: $bg
+                  background-color: #ffc637
                   border: 0px solid $white
-                  color: $color
+                  color: #ffc637
                 @else
-                  background-color: rgba($color, 0.25)
-                  color: rgba($color, 0.75)
+                  background-color: rgba(#ffc637, 0.25)
+                  color: #ffc637
 
               .title
                 @if $extend == ".__inverse"

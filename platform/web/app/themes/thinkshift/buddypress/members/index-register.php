@@ -198,9 +198,10 @@
                      */
                     #do_action( 'bp_signup_username_errors' );
 
+                    do_action( 'bp_signup_first_name_errors' );
+
                     ?>
 
-                    <!--<label for="first_name"><?php _e( 'First Name', 'buddypress' ); ?> <?php #_e( '(required)', 'buddypress' ); ?></label>-->
 
                     <div class="input-group">
                     <span class="input-group-addon">
@@ -209,7 +210,8 @@
                     </div>
 
 
-                    <!--<label for="last_name"><?php _e( 'Last Name', 'buddypress' ); ?> <?php #_e( '(required)', 'buddypress' ); ?></label>-->
+                    <?php do_action( 'bp_signup_last_name_errors' ); ?>
+
 
                     <div class="input-group">
                     <span class="input-group-addon">
@@ -221,7 +223,7 @@
 
 
 
-                    <!--<label for="signup_email"><?php _e( 'Email Address', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>-->
+                    <!--<label for="signup_email"><?php _e( 'Email Address', 'buddypress' ); ?></label>-->
                     <?php
 
                     /**
@@ -234,10 +236,10 @@
                     <div class="input-group">
                     <span class="input-group-addon">
                         <i class="fa fa-user" aria-hidden="true"></i></span>
-                        <input type="email" class="form-control" name="signup_email" id="signup_email" value="<?php bp_signup_email_value(); ?>" <?php bp_form_field_attributes( 'email' ); ?> placeholder="<?php _e( 'Email Address', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?>"/>
+                        <input type="email" class="form-control" name="signup_email" id="signup_email" value="<?php bp_signup_email_value(); ?>" <?php bp_form_field_attributes( 'email' ); ?> placeholder="<?php _e( 'Email Address', 'buddypress' ); ?>"/>
                     </div>
 
-                    <!--<label for="signup_password"><?php _e( 'Choose a Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>-->
+                    <!--<label for="signup_password"><?php _e( 'Choose a Password', 'buddypress' ); ?></label>-->
                     <?php
 
                     /**
@@ -250,11 +252,11 @@
                     <div class="input-group">
                     <span class="input-group-addon">
                         <i class="fa fa-key" aria-hidden="true"></i></span>
-                        <input type="password" name="signup_password" id="signup_password" value="" class="form-control password-entry" <?php bp_form_field_attributes( 'password' ); ?> placeholder="<?php _e( 'Choose a Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?>"/>
+                        <input type="password" name="signup_password" id="signup_password" value="" class="form-control password-entry" <?php bp_form_field_attributes( 'password' ); ?> placeholder="<?php _e( 'Choose a Password', 'buddypress' ); ?>"/>
                         <div id="pass-strength-result"></div>
                     </div>
 
-                    <!--<label for="signup_password_confirm"><?php _e( 'Confirm Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>-->
+                    <!--<label for="signup_password_confirm"><?php _e( 'Confirm Password', 'buddypress' ); ?></label>-->
                     <?php
 
                     /**
@@ -266,7 +268,7 @@
                     <div class="input-group">
                     <span class="input-group-addon">
                         <i class="fa fa-check" aria-hidden="true"></i></span>
-                        <input type="password" name="signup_password_confirm" id="signup_password_confirm" value="" class="form-control password-entry-confirm" <?php bp_form_field_attributes( 'password' ); ?> placeholder="<?php _e( 'Confirm Password', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?>"/>
+                        <input type="password" name="signup_password_confirm" id="signup_password_confirm" value="" class="form-control password-entry-confirm" <?php bp_form_field_attributes( 'password' ); ?> placeholder="<?php _e( 'Confirm Password', 'buddypress' ); ?>"/>
                     </div>
 
                     <?php
@@ -310,7 +312,7 @@
 
                         <div id="blog-details"<?php if ( (int) bp_get_signup_with_blog_value() ) : ?>class="show"<?php endif; ?>>
 
-                            <label for="signup_blog_url"><?php _e( 'Blog URL', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
+                            <label for="signup_blog_url"><?php _e( 'Blog URL', 'buddypress' ); ?></label>
                             <?php
 
                             /**
@@ -326,7 +328,7 @@
                                 <?php echo home_url( '/' ); ?> <input type="text" name="signup_blog_url" id="signup_blog_url" value="<?php bp_signup_blog_url_value(); ?>" />
                             <?php endif; ?>
 
-                            <label for="signup_blog_title"><?php _e( 'Site Title', 'buddypress' ); ?> <?php _e( '(required)', 'buddypress' ); ?></label>
+                            <label for="signup_blog_title"><?php _e( 'Site Title', 'buddypress' ); ?></label>
                             <?php
 
                             /**

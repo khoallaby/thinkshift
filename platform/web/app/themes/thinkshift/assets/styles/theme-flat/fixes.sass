@@ -21,3 +21,17 @@ aside.app-sidebar,
 
 .navbar-right .dropdown-menu
   left: auto
+
+
+
+
+@include breakpoint($sm)
+  html
+    margin-top: 0 !important
+  body .app-container
+    padding-top: 0
+  .sidebar-toggle
+    background-color: transparent
+    border: 0
+  #sidebar .sidebar-toggle
+    color: white

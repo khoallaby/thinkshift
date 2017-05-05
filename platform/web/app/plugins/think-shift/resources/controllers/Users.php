@@ -14,7 +14,8 @@ namespace ThinkShift\Plugin;
 class Users extends Base {
     private static $infusionsoft;
     public static  $contactId, $userId, $user;
-    public static $strengthMetaKey = 'MA Value Creation Strengths';
+    public static  $strengthMetaKey = 'MA Value Creation Strengths';
+    public static  $userStrengths, $userStrengthsLimit;
 
 
     public function init() {
@@ -217,34 +218,82 @@ class Users extends Base {
 
 
     /**
-     * General function for pulling an object's Tags
+     * Adds Tags to an object (like a user or custom post)
+     * Sanitizes Tags before saving it
+     * @param $objectId
+     * @param array $tags
+     * @param bool $append      Append tags to existing ones useful for adding additional single tags.
+     *                          Vs replacing all of them, which is more useful for updating a bunch at a time.
+     *
+     * @return array|\WP_Error
+     */
+    public static function addObjTags( $objectId, $tags = [], $append = false ) {
+        if( !is_array($tags) )
+            $tags = [ $tags ];
+        $taxonomy = 'tag-category';
+        # sanitize the tags before saving
+        $sanitizedTags = array_map( 'sanitize_title', $tags );
+
+        $objs = wp_set_object_terms( $objectId, $sanitizedTags, $taxonomy, $append );
+        // Save the data
+        clean_object_term_cache( $objectId, $taxonomy );
+
+        return $objs;
+    }
+
+
+    /**
+     * Add tags to a certain user
+     * @param array $tags
+     *
+     * @return array|\WP_Error
+     */
+    public static function addUserTags( $tags = [], $append = false ) {
+        return static::addObjTags( static::$userId, $tags, $append );
+    }
+
+
+    /**
+     * General function for pulling an object's Tags - this does a lot of the magic
      * @param $category
      *
      * @return array|\WP_Error
      */
-    public static function getObjTags( $objectId, $category = null ) {
+    public static function getObjTags( $objectId, $category = null, $limit = 0 ) {
+        $args = [
+            'order' => 'ASC',
+            'orderby' => 'name'
+        ];
+        # todo maybe add $args parameter
+        #$args = wp_parse_args( $args, $defaults );
+
+
         if( $category ) {
             if( is_int($category) ) {
-                $args = [ 'parent' => $category ];
+                $args['parent'] = $category;
             } else {
                 $cat = get_term_by( 'name', $category, 'tag-category' );
-                $args = [ 'parent' => $cat->term_id ];
+                $args['parent'] = $cat->term_id;
             }
-            return wp_get_object_terms( $objectId, 'tag-category', $args );
-        } else {
-            return wp_get_object_terms( $objectId, 'tag-category' );
         }
+
+        $terms = wp_get_object_terms( $objectId, 'tag-category', $args );
+
+        if( $terms && $limit > 0 )
+            return array_slice( $terms, 0, $limit );
+        else
+            return $terms;
 
     }
 
 
     /**
-     * Returns the object's strengths (3) from Tags taxonomy
+     * Returns the object's (video/career/etc) strengths (3) from Tags taxonomy
      * @param bool $returnAsIds     Returns as an array of IDs, else associative array
      * @return array                Returns all the strength Tags
      */
-    public static function getObjStrengths( $objectId ) {
-        $strengths = self::getObjTags( $objectId, self::$strengthMetaKey );
+    public static function getObjStrengths( $objectId, $limit = 3 ) {
+        $strengths = self::getObjTags( $objectId, self::$strengthMetaKey, $limit );
         $return = [];
 
         foreach( $strengths as $strength )
@@ -261,8 +310,8 @@ class Users extends Base {
      *
      * @return array|\WP_Error
      */
-    public static function getUserTags( $category = null ) {
-        return self::getObjTags( self::$userId, $category );
+    public static function getUserTags( $category = null, $limit = 0  ) {
+        return self::getObjTags( self::$userId, $category, $limit );
     }
 
 
@@ -304,30 +353,73 @@ class Users extends Base {
 
 
     /**
-     * Returns the user's strengths (3) from Tags taxonomy
-     * @param bool $returnAsIds     Returns as an array of IDs, else associative array
-     * @return array                Returns all the strength Tags
+     * Returns the user's strengths from Tags taxonomy
+     * @param int $limit        Number of strength Tags to return
+     * @param bool $priority    Whether to sort by the strength's score/priority
+     *
+     * @return array            Returns all the strength Tags
      */
-    public static function getUserStrengths() {
-        $strengths = self::getUserTags( self::$strengthMetaKey );
-        $return = [];
+    public static function getUserStrengths( $limit = 3, $priority = true ) {
 
-        foreach( $strengths as $strength )
-            $return[ $strength->term_id ] = $strength->name;
+        # todo: make this more efficient possibly?
 
-        return $return;
+        if( isset(self::$userStrengths) && $limit == self::$userStrengthsLimit ) {
+            return self::$userStrengths;
+        } else {
+
+
+            $strengths = self::getUserTags( self::$strengthMetaKey );
+            $return = [];
+
+            if( $priority ) {
+                $strengthsIds = [];
+
+                for( $i = 1; $i <= $limit; $i++ ) :
+                    $key = 'strength_' . $i;
+                    $strengthId = $strengthsIds[] = intval( get_user_meta( self::$userId, $key, true ) );
+
+                    if( $strengthId && !empty($strengthId ) ) {
+                        # create our $return array here
+                        foreach ( $strengths as $strength ) {
+                            # if the current strength matches the metakey's strength
+                            if( $strengthId == $strength->term_id ) {
+                                $return[ $strength->term_id ] = $strength->name;
+                                break;
+                            }
+                        }
+                    }
+                endfor;
+            }
+
+
+            if( !$priority || ( $priority && empty($return) ) ) {
+                $i = 0;
+                foreach ( $strengths as $strength ) {
+                    if( $i == $limit )
+                        break;
+                    $return[ $strength->term_id ] = $strength->name;
+                    $i++;
+                }
+            }
+
+            # cache it in a variable for multiple use on a page.
+            if( !empty($return) )
+                self::$userStrengths = $return;
+
+            return $return;
+        }
     }
 
 
 
     /**
-     * Function responsible for 3 career cards on dashboard
+     * Function responsible for career cards on dashboard
      * @param int $limit
      *
      * @return array    Array of careers that match all 3 strengths
      */
     public static function getUserMatchingCareers( $limit = 5 ) {
-        $strengths = array_keys( self::getUserStrengths() );
+        $strengths = array_keys( self::getUserStrengths(2) );
 
         if( empty( $strengths ) )
             return null;
@@ -344,8 +436,12 @@ class Users extends Base {
 
 
 
+
+
+
+
     /**
-     * Grab all the User Tags from IS, and save to WP
+     * Grab all of a single User's Tags from IS, and save to WP
      * @return array|\WP_Error
      */
     public static function updateUserTags() {
@@ -378,7 +474,7 @@ class Users extends Base {
      */
     public static function updateUserRole() {
         # if they're a regular user, check to see if they completed all the assessments
-        if( static::userHasRole( 'regular_user') ) {
+        if( static::userHasRole( 'subscriber') ) {
             #upgrade their role if completed all Assessments
             if( Assessments::hasUserCompletedAssessments() ) {
                 wp_update_user( [

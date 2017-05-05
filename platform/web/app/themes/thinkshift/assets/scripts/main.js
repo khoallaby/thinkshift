@@ -18,9 +18,39 @@
     // All pages
     'common': {
       init: function() {
-
-        console.log('commooooooooon');
         // JavaScript to be fired on all pages
+
+
+        // stops videos from playing after closing modal window
+        // todo: require this snippet
+        // http://www.tutorialrepublic.com/codelab.php?topic=faq&file=play-youtube-video-in-bootstrap-modal
+
+        $(".modal-video").on('hide.bs.modal', function(){
+            //$("#cartoonVideo").attr('src', '');
+            $(this).find('iframe').attr('src', '');
+        });
+
+        $(".modal-video").on('show.bs.modal', function(){
+            var iframe = $(this).find('iframe');
+            var url = iframe.attr('data-src');
+            iframe.attr('src', url);
+        });
+
+
+        // sidebar toggle
+
+        $(".sidebar-toggle").bind("click", function(e) {
+            $("#sidebar").toggleClass("active");
+            $(".app-container").toggleClass("__sidebar");
+        });
+
+        $(".navbar-toggle").bind("click", function(e) {
+            $("#navbar").toggleClass("active");
+            $(".app-container").toggleClass("__navbar");
+        });
+
+
+
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired
@@ -43,18 +73,6 @@
     },
     'post_type_archive_video': {
       init: function() {
-        // http://www.tutorialrepublic.com/codelab.php?topic=faq&file=play-youtube-video-in-bootstrap-modal
-
-        $(".modal-video").on('hide.bs.modal', function(){
-            //$("#cartoonVideo").attr('src', '');
-            $(this).find('iframe').attr('src', '');
-        });
-
-        $(".modal-video").on('show.bs.modal', function(){
-            var iframe = $(this).find('iframe');
-            var url = iframe.attr('data-src');
-            iframe.attr('src', url);
-        });
 
       }
     }
