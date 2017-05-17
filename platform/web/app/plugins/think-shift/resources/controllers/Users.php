@@ -68,6 +68,12 @@ class Users extends Base {
     public function user_register( $userId ) {
         $fields = $this->parseFields( $userId );
         $this->addInfusionsoftContact( $userId, $fields );
+
+        # log in, redirect to homepage after registration
+        #do_action( 'wp_login', $user_login );
+        #wp_set_current_user( $user->ID, $user_login );
+        wp_set_auth_cookie( $userId, true, is_ssl() );
+        wp_safe_redirect( home_url() );
     }
 
 

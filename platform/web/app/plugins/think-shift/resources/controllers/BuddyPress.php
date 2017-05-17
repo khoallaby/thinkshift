@@ -8,10 +8,16 @@ class BuddyPress extends Users {
         #add_action( 'wp_login', array( $this, 'wp_login' ), 20, 2 );
 
 
+        # remove buddypress admin bar
+        add_action( 'wp', [ $this, 'removeBpAdminBar' ] );
 
 
-        # registration hooks
+        /**
+         * registration hooks
+         */
 
+
+        # On successful signup
         # adds random hash to user_name
         add_action( 'bp_signup_pre_validate', [ $this, 'bp_signup_pre_validate' ] );
         # after validateion complete
@@ -20,8 +26,6 @@ class BuddyPress extends Users {
         add_action( 'bp_core_activated_user', [ $this, 'bp_core_activated_user' ], 20, 3 );
 
 
-        # remove buddypress admin bar
-        add_action( 'wp', [ $this, 'removeBpAdminBar' ] );
 
         # do_action( 'bp_complete_signup' ); # after complete
 
