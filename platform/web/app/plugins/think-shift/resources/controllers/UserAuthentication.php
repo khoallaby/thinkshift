@@ -246,16 +246,10 @@ class UserAuthentication extends Users {
                 return __( 'Password required', 'thinkshift' );
 
             case 'invalid_username':
-                return __(
-                    "Invalid email address entered",
-                    'thinkshift'
-                );
+                return __( 'Invalid email address entered', 'thinkshift' );
 
             case 'incorrect_password':
-                $err = __(
-                    "Invalid assword entered",
-                    'thinkshift'
-                );
+                $err = __( 'Invalid password entered', 'thinkshift' );
                 return $err;
                 #return sprintf( $err, wp_lostpassword_url() );
 
