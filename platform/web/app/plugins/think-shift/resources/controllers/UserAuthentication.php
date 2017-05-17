@@ -98,6 +98,7 @@ class UserAuthentication extends Users {
             #self::updateUserLogin( $userId, $user->user_email );
 
 
+            return $updateUserId;
         }
     }
 
@@ -125,7 +126,7 @@ class UserAuthentication extends Users {
         ) {
             return true;
         } elseif( is_user_logged_in()) {
-            # assessments are always available to loggered in users
+            # assessments are always available to logged in users
             if( is_post_type_archive( 'assessment' ) || is_singular( 'assessment' ) )
                 return true;
             # everything else needs marketplace access
