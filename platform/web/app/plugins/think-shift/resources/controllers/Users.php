@@ -11,7 +11,7 @@
 namespace ThinkShift\Plugin;
 
 # todo: @tsdb include class
-require_once '../../PBClub/TSDBObj.php';
+require_once dirname(__FILE__) . '/../../PBClub/TSDBObj.php';
 
 class Users extends Base {
     # todo: @tsdb instantiate tsdb object from class
@@ -188,7 +188,7 @@ class Users extends Base {
 
         $contactId = self::getInfusionsoft()->addContact( $fields, $priority );
         # todo: @tsdb added ts_contact_create
-        \TSDBObj::class->ts_contact_create($fields['FirstName'], $fields['LastName'],$fields['Email']);
+        #\TSDBObj::class->ts_contact_create($fields['FirstName'], $fields['LastName'],$fields['Email']);
         if( $contactId ) {
             update_user_meta( $userId, 'infusionsoft_id', $contactId );
             self::$contactId = $contactId;
