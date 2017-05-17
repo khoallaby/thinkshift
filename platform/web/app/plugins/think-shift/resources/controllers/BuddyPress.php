@@ -27,7 +27,14 @@ class BuddyPress extends Users {
 
 
         # #47 - disable activation
+        add_filter( 'authenticate', [ $this, 'authenticateLogin' ], 100, 3 );
         #add_filter( 'bp_registration_needs_activation', '__return_false' );
+        #add_filter( 'bp_registration_needs_activation', [$this, 'false'], 20 );
+
+    }
+    
+    public function false() {
+        return false;
     }
 
 
@@ -38,6 +45,16 @@ class BuddyPress extends Users {
      * Actions/filters, i.e. for user log in/registration
      ******************************************************************************************/
 
+
+    # Authenticates a user on login. Tries logging in unactivated users
+    public function authenticateLogin( $user, $username, $password ) {
+        # try logging in an unactivated account
+        if( is_wp_error($user) && $user->get_error_code() == 'bp_account_not_activated' ) {
+            $user = wp_authenticate_email_password(null, $username, $password);
+        }
+
+        return $user;
+    }
 
     # Runs after all the default BP validation is done. Validates first/last name
     public function bp_signup_validate() {
