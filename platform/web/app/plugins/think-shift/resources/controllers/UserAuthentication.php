@@ -258,7 +258,7 @@ class UserAuthentication extends Users {
                 break;
         }
 
-        return __( 'An unknown error occurred. Please try again later.', 'thinkshift' );
+        return __( 'Sorry, incorrect username or password', 'thinkshift' );
     }
 
 
