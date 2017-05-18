@@ -66,7 +66,7 @@ global $app, $log, $host, $awsuser, $password, $database, $port;
 
             $dat = json_decode($new);
 
-            $now = gmdate("Y-m-d H:i:s", time());
+            $now = date("Y-m-d H:i:s", time());
             $log->lfWriteLn('     New AccessToken = ' . $dat->access_token);
             $log->lfWriteLn('     New RefreshToken = ' . $dat->refresh_token);
             $query = "UPDATE OAuth2 SET AccessToken='$dat->access_token', RefreshToken='$dat->refresh_token', GeneratedDate='$now' WHERE AppName='$AppName';";
