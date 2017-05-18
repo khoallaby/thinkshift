@@ -1,10 +1,13 @@
 <?php
 use ThinkShift\Plugin\Assessments;
 
-global $wp_query, $statuses;
+global $wp_query, $assesments, $statuses;
 
 
-if( is_null($statuses) )
+if( !isset($assesments) )
+    $assesments = Assessments::getCompletedStatus();
+
+if( !isset($statuses) )
     $statuses = Assessments::canAccess();
 ?>
   <div class="col-lg-12">
@@ -27,10 +30,11 @@ if( is_null($statuses) )
                     if ( !empty($posts) ) :
                         $i = 0;
                         foreach( $posts as $post ) {
-                            $completed = $statuses[ $i ];
+                            $status = $statuses[ $i ];
+                            $completed = $assesments[ $i ];
                             $i ++;
 
-                            if ( $completed ) {
+                            if ( $status ) {
                                 $active = 'inactive';
                                 $link   = '';
                             } else {
@@ -44,8 +48,15 @@ if( is_null($statuses) )
                                     <div class="icon fa fa-suitcase"></div>
                                     <div class="heading">
                                         <div class="title"><?php echo get_the_title( $post->ID ); ?></div>
-                                        <div class="description">Start your assessment</div>
-                                        <div class="description description-completed">Assessment Completed</div>
+                                        <?php
+                                        $description = $completed ? 'Assessment Completed' : 'Start your assessment';
+                                        $descriptionCss = $status ? 'description description-completed' : 'description';
+                                        if( $status && !$completed )
+                                            $description = '&nbsp;';
+                                        echo sprintf( '<div class="%s">%s</div>', $descriptionCss, $description );
+                                        ?>
+
+                                        <!--<div class="description description-completed">Assessment Completed</div>-->
                                         <!-- <div class="description"><?php get_template_part( 'templates/' . get_post_type() . '/index', 'occupation' ); ?></div> -->
                                     </div>
                                 </a>
