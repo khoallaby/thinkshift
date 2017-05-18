@@ -17,10 +17,13 @@ class BuddyPress extends Users {
          */
 
 
-        # On successful signup
+        # On successful registration
         # adds random hash to user_name
         add_action( 'bp_signup_pre_validate', [ $this, 'bp_signup_pre_validate' ] );
-        # after validateion complete
+        # redirects to home
+        add_filter( 'bp_core_signup_user', [ $this, 'bp_core_signup_user' ], 100, 5 );
+
+        # after user activation
         add_action( 'bp_signup_validate', [ $this, 'bp_signup_validate' ] );
         add_filter( 'bp_core_validate_user_signup', [ $this, 'bp_core_validate_user_signup' ] );
         add_action( 'bp_core_activated_user', [ $this, 'bp_core_activated_user' ], 20, 3 );
@@ -49,6 +52,11 @@ class BuddyPress extends Users {
      * Actions/filters, i.e. for user log in/registration
      ******************************************************************************************/
 
+
+    function bp_core_signup_user( $user_id, $user_login, $user_password, $user_email, $usermeta ) {
+        bp_core_redirect(home_url() );
+        #wp_redirect( home_url() );
+    }
 
     # Authenticates a user on login. Tries logging in unactivated users
     public function authenticateLogin( $user, $username, $password ) {
