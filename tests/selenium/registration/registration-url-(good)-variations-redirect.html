@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://tsdevserver.com/" />
+<link rel="selenium.base" href="http://www.tsdevserver.com/" />
 <title>bad registration page variation</title>
 </head>
 <body>
@@ -13,7 +13,37 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/register</td>
+	<td>http://www.tsdevserver.com/register</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=signup_submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>http://www.tsdevserver.com/register/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=signup_submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>http://tsdevserver.com/register/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=signup_submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>http://tsdevserver.com/register</td>
 	<td></td>
 </tr>
 <tr>
