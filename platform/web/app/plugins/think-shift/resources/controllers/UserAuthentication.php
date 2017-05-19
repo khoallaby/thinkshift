@@ -18,7 +18,7 @@ class UserAuthentication extends Users {
         add_filter( 'login_redirect', [ $this, 'login_redirect' ], 10, 3 );
 
         # checks for user role and redirects accordingly
-        add_action( 'wp', array( $this, 'userCanAccess' ) );
+        add_action( 'plugins_loaded', [ $this, 'userCanAccess' ] );
 
 
 
@@ -94,6 +94,7 @@ class UserAuthentication extends Users {
                 #'user_login' => $user->user_email # updating user_login not allowed
             ] );
 
+            # @todo: try querying
             # can't save email as user_login before activating
             #self::updateUserLogin( $userId, $user->user_email );
 
@@ -107,6 +108,10 @@ class UserAuthentication extends Users {
      * The action to check for user permissions and redirect to login if not.
      */
     public function userCanAccess() {
+        # redirect overrides for certain pages
+        $this->userRouteHome();
+        $this->userRouteRegister();
+
         if( !$this->userRoutes() )
             wp_redirect( home_url( '/' ) );
     }
@@ -138,6 +143,37 @@ class UserAuthentication extends Users {
 
     }
 
+
+
+    /******************************************************************************************
+     * Routing/redirects for certain pages
+     ******************************************************************************************/
+
+
+    /**
+     * Determines what should happen on the home page, '/'
+     * If not marketplace user, will be redirected to assessments
+     */
+    public function userRouteHome() {
+        if( is_front_page() && is_user_logged_in() ) {
+            if( !current_user_can( self::$marketplaceAccess ) )
+                wp_redirect( home_url('/assessments/') );
+        }
+    }
+
+
+    /**
+     * Fixes #108 - redirects register page to itself with trailing slash
+     */
+    public function userRouteRegister() {
+        if( $_SERVER['REQUEST_URI'] == '/register' ) {
+            if( function_exists( 'bp_core_redirect' ) )
+                bp_core_redirect( home_url( '/register/' ) );
+            else
+                # wp_redirect backup as this issue is prob due to BP anyways
+                wp_redirect( home_url( '/register/' ) );
+        }
+    }
 
 
     # blocks access to wp-admin
