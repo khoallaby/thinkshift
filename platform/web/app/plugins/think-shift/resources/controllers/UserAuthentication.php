@@ -17,8 +17,13 @@ class UserAuthentication extends Users {
         # redirect normal users to homepage (on login)
         add_filter( 'login_redirect', [ $this, 'login_redirect' ], 10, 3 );
 
+
+        # redirect overrides on certain pages
+        add_action( 'wp', [ $this, 'userRouteHome' ], 50 );
+        add_action( 'wp', [ $this, 'userRouteRegister' ], 60 );
+
         # checks for user role and redirects accordingly
-        add_action( 'plugins_loaded', [ $this, 'userCanAccess' ] );
+        add_action( 'wp', [ $this, 'userCanAccess' ], 70 );
 
 
 
@@ -108,10 +113,6 @@ class UserAuthentication extends Users {
      * The action to check for user permissions and redirect to login if not.
      */
     public function userCanAccess() {
-        # redirect overrides for certain pages
-        $this->userRouteHome();
-        $this->userRouteRegister();
-
         if( !$this->userRoutes() )
             wp_redirect( home_url( '/' ) );
     }
@@ -155,9 +156,12 @@ class UserAuthentication extends Users {
      * If not marketplace user, will be redirected to assessments
      */
     public function userRouteHome() {
-        if( is_front_page() && is_user_logged_in() ) {
-            if( !current_user_can( self::$marketplaceAccess ) )
-                wp_redirect( home_url('/assessments/') );
+        if( is_user_logged_in() ) {
+            if( is_front_page() || is_page( 'register' ) || is_page( 'login' )) {
+                # redirect regular users to /assessments
+                if ( ! current_user_can( self::$marketplaceAccess ) )
+                    wp_redirect( home_url( '/assessments/' ) );
+            }
         }
     }
 
