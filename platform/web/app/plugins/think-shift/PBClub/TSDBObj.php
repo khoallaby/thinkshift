@@ -6,41 +6,22 @@
 class TSDBObj
 {
 
-    public $access, $refresh, $con;
+    public $access, $refresh;
     public static $api;
+    private $con;
 
-    function __construct($host, $awsuser, $password, $database='mysql', $port='3306')
-    {
-        global $con;
-        require_once 'src/isdk.php';
-
-        // Check connection
-        $con=mysqli_connect($host, $awsuser, $password, $database, $port);
-
-        self::$api = new iSDK();
-        self::$api->setSecret('St9WnkKkk8');
-        self::$api->setClientId('9sbtkn2vfjrr7cp93yaswgpq');
-        self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
-        self::$api->setToken($this->ts_get_token('gv368'));
-        self::$api->setRefreshToken($this->refresh);
-
+    public function sql_open(){
+        $this->con=mysqli_connect("thinkshiftdataserver.czlkyoy9ghkh.us-east-1.rds.amazonaws.com",
+            "awsthinkshift", "?Th1nksh1ft?", "thinkshiftdb", "3306");
         if (mysqli_connect_errno()) {
             return mysqli_connect_errno();
         } else {
-            return true;
+            return 0;
         }
-
     }
 
-    function __destruct()
-    {
-        global $con;
-        mysqli_close($con);
-    }
-
-    function close() {
-        global $con;
-        mysqli_close($con);
+    function sql_close(){
+        mysqli_close($this->con);
     }
 
     /*******************************************************************************
@@ -74,62 +55,67 @@ class TSDBObj
      *
      **/
     public function ts_tag_id_by_name($name){ ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_tag_id_by_name('$name');";
-        $return=mysqli_query($con,$query);
-
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
-
+        self::sql_close();
         return $rows[0];
-
     }
 
     // set the email status value by the email address
     public function ts_set_email_status($email, $status){ // Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_set_email_status('$email', $status);";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
+        self::sql_close();
         return $return;
     }
 
     public function ts_set_wp_id($cid,$wpid){ // Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_set_wp_id('$cid', '$wpid');";
-        mysqli_query($con,$query);
+        mysqli_query($this->con,$query);
+        self::sql_close();
     }
 
     public function ts_apply_tag($cid, $tid){ ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_apply_tag('$cid', '$tid');";
-        mysqli_query($con,$query);
+        mysqli_query($this->con,$query);
+        self::sql_close();
     }
 
     public function ts_apply_tags($cid, $tags=[]){ ## Tested
-        global $con;
+        self::sql_open();
         foreach ($tags as $tag){
             self::ts_apply_tag($cid,$tag);
         }
+        self::sql_close();
     }
 
     public function ts_send_token($appName, $access, $refresh){ ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_send_tokens('$appName', '$access', '$refresh');";
-        mysqli_query($con,$query);
+        mysqli_query($this->con,$query);
+        self::sql_close();
     }
 
     public function ts_get_access_token($appName){ ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_get_access_token('$appName');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows[0];
     }
 
     public function ts_get_refresh_token($appName){ ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_get_refresh_token('$appName');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows[0];
     }
 
@@ -141,28 +127,31 @@ class TSDBObj
 
     // does email exist in the db?
     public function ts_email_exists($email) { ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_email_exists('$email');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows[0];
     }
 
     // does the contact by email address exist?
     public function ts_contact_exists($email){ ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_contact_exists('$email');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows[0];
     }
 
     // does a specific tag by the name exist
     public function ts_tag_exists($name){ ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_tag_exists('$name');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows[0];
     }
 
@@ -174,26 +163,29 @@ class TSDBObj
 
     // find the db id for the contact by the email address
     public function ts_contact_db_id_by_email($email) { ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_contact_db_id_by_email('$email');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows[0];
     }
 
     public function ts_contact_db_id_by_wp_id($wpid){ ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_contact_db_id_by_wp_id('$wpid');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows[0];
     }
 
     public function ts_tags_by_category($cid, $catId){
-        global $con;
+        self::sql_open();
         $query="CALL ts_tags_by_category('$cid', '$catId');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows;
     }
 
@@ -209,10 +201,11 @@ class TSDBObj
 
     // create a row on the email table with dup check
     public function ts_email_create($address, $status){ // Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_email_create('$address', '$status');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows[0];
     }
 
@@ -226,27 +219,30 @@ class TSDBObj
 
     // create a row on the ContactGroup table with dup check
     public function ts_tag_create($name, $desc, $tcid){ ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_tag_create('$name', '$desc', '$tcid');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows[0];
     }
 
     // create a row on the ContactGroupCategory table with dup check
     public function ts_tag_category_create($name, $desc){ ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_tag_category_create('$name', '$desc');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows[0];
     }
 
     public function ts_tag_read($tid){ ## Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_tag_read($tid);";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows;
     }
 
@@ -256,10 +252,11 @@ class TSDBObj
 
     // create a row on the DataFormField table with dup check
     public function ts_custom_field_create($label, $dataType){
-        global $con;
+        self::sql_open();
         $query="CALL ts_custom_field_create('$label', '$dataType');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows[0];
     }
 
@@ -269,29 +266,31 @@ class TSDBObj
 
     // create a row on the Contact table with dup check by email address
     public function ts_contact_create($first, $last, $email){ // Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_contact_create('$first', '$last', '$email');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows[0];
     }
 
     public function ts_contact_read($dbid){ // Tested
-        global $con;
+        self::sql_open();
         $query="CALL ts_contact_read('$dbid');";
-        $return=mysqli_query($con,$query);
+        $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
+        self::sql_close();
         return $rows;
     }
 
     public function ts_get_token($name){ ## Tested
-        global $con;
+        self::sql_open();
         $query = "SELECT AccessToken, RefreshToken FROM OAuth2 WHERE AppName='$name';";
-        $token=mysqli_query($con,$query);
-
+        $token=mysqli_query($this->con,$query);
         $dat=$token->fetch_array();
         $this->refresh=$dat['RefreshToken'];
         $this->access=$dat['AccessToken'];
+        self::sql_close();
         return $this->access;
     }
 
