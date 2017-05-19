@@ -1,5 +1,5 @@
 <?php
-namespace ThinkShift\Plugin;
+namespace Reignite\Plugin;
 
 use PHPExcel_IOFactory;
 
@@ -25,7 +25,7 @@ class Importer extends Base {
      * Sets the keys array. Which converts the meta_key names used between the file and the data in the DB
      * @param $keys
      */
-	public static function setKeys( $keys ) {
+    public static function setKeys( $keys ) {
         if( file_exists($keys) ) {
             $file = file_get_contents( $keys );
             $keys = json_decode( $file, true );
@@ -40,7 +40,7 @@ class Importer extends Base {
 
 
     # echos out an array to use
-	public static function getHeaders( $file, $string = false ) {
+    public static function getHeaders( $file, $string = false ) {
 
         $phpExcel = PHPExcel_IOFactory::load( $file );
         $worksheet = $phpExcel->getActiveSheet();
@@ -91,6 +91,18 @@ class Importer extends Base {
 
         return $dataArray;
 
+    }
+
+    public static function parseCsv( $file ) {
+        $arrResult  = array();
+        $handle     = fopen($file, "r");
+        if(empty($handle) === false) {
+            while(($data = fgetcsv($handle, 1000, ",")) !== FALSE){
+                $arrResult[] = $data;
+            }
+            fclose($handle);
+        }
+        return $arrResult;
     }
 
 
