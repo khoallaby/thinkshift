@@ -17,7 +17,7 @@ if( !isset($strengths) )
                 <div class="card-body">
                   <div class="row">
                     <div class="col-lg-12">
-                      <div id="filters-strength-labels" data-toggle="buttons" class="text-center">
+                      <div id="filters-strength-labels" class="text-center">
                         <h5>Filter By Strengths</h5>
                           <?php
 
