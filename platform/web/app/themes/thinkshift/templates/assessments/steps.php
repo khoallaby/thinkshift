@@ -29,7 +29,6 @@ if ( ! isset( $statuses ) ) {
         foreach ( $posts as $post ) {
             $status    = $statuses[ $i ];
             $completed = $assesments[ $i ];
-            $i ++;
 
             if ( $status ) {
                 $active = 'inactive';
@@ -51,15 +50,27 @@ if ( ! isset( $statuses ) ) {
                         <?php } ?>
                         <h5><?php echo get_the_title( $post->ID ); ?></h5>
                         <?php
-                        $description    = $completed ? 'You Have Completed!' : 'Not Yet Started';
-                        $descriptionCss = $status ? 'description description-completed' : 'description';
-                        if ( $status && ! $completed ) {
-                            $description = '&nbsp;';
+                        $descriptionCss = 'description ';
+
+                        if ( $completed ) {
+                            $description = 'You Have Completed!';
+                            $descriptionCss .= 'completed';
+                        } else {
+                            # if this is the current one
+                            if( $status ) {
+                                $description = 'Not Yet Started';
+                                $descriptionCss .= 'incomplete';
+                            } else {
+                                $description = 'Next up';
+                                $descriptionCss .= 'current';
+                            }
+
                         }
+
                         echo sprintf( '<div class="%s">%s</div>', $descriptionCss, $description );
                         ?>
 
-                        <?php if ( ! $completed ) : ?>
+                        <?php if ( !$completed && !$status ) : ?>
                             <a<?php echo $link ? sprintf( ' href="%s"', $link ) : ''; ?>>Take The Assessment</a>
                         <?php endif; ?>
                     </div>
@@ -67,6 +78,8 @@ if ( ! isset( $statuses ) ) {
             </div>
 
             <?php
+            $i ++;
+
         }
 
         the_posts_navigation();
