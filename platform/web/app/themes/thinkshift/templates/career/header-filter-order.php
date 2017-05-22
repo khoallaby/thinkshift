@@ -4,27 +4,17 @@ use ThinkShift\Plugin\Careers;
 
 global $wpdb;
 
-$educationMin = [
-    '' => '-- Minimum Education --',
-];
-$educationMin = array_merge( $educationMin, $keys = Careers::getEducationKeys() );
-
-
-$orderby = [
-    '' => '-- Order By --',
-];
-$orderby = array_merge( $orderby, $keys = Careers::careerKeys() );
-
-
+$educationMin = Careers::getEducationKeys();
+$orderby = Careers::careerKeys();
 
 $order = [
-    '' => '-- Sort --',
     'asc' => 'Lowest to Highest',
     'desc' => 'Highest to Lowest'
 ];
 
 ?>
 
+    <h5>Filter By Education</h5>
     <?php foreach( $educationMin as $k => $ob ) {
         echo sprintf( '<label><input type="checkbox" %s class="" autocomplete="off" value="%s"/> %s</label>',
             $k,
@@ -34,7 +24,6 @@ $order = [
     }
     ?>
 
-    <h5>Filter By Salary</h5>
     <!-- <?php foreach( $orderby as $k => $ob ) {
         echo sprintf( '<label><input type="checkbox" %s class="" autocomplete="off" value="%s"/> %s</label>',
             $k,
@@ -45,6 +34,7 @@ $order = [
     ?> -->
 
 
+    <h5>Order By</h5>
     <?php foreach( $order as $k => $o ) {
         echo sprintf( '<label><input type="checkbox" %s class="" autocomplete="off" value="%s"/> %s</label>',
             $k,
