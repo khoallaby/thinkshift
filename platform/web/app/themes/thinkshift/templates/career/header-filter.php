@@ -49,7 +49,8 @@ if( !isset($strengths) )
                             <?php get_template_part( 'templates/career/header', 'filter-order' ); ?>
                         </div>
                         <div class="col-lg-12" id="filters-submit">
-                            <input type="submit" class="btn btn-primary" value="Submit"/>
+                            <br />
+                            <input type="submit" class="btn btn-primary" value="Submit" />
                         </div>
                     </div>
                 </div>
