@@ -10,68 +10,66 @@ if( !isset($assesments) )
 if( !isset($statuses) )
     $statuses = Assessments::canAccess();
 ?>
-  <div class="col-lg-12">
-    <div class="card">
-        <div class="card-header bg-themec-yellow">
-          <h6>Positioning Journey Tracker</h6>
-        </div>
-        <div class="card-body">
-            <div class="step">
-                <ul class="nav">
-                    <?php
-                    if( is_post_type_archive( 'assessment' ) ) {
-                        $posts = $wp_query->get_posts();
-                    } else {
-                        $posts = \ThinkShift\Plugin\Base::getPosts( 'assessment', [
-                            'orderby' => 'menu_order',
-                            'order' => 'ASC'
-                        ] );
-                    }
-                    if ( !empty($posts) ) :
-                        $i = 0;
-                        foreach( $posts as $post ) {
-                            $status = $statuses[ $i ];
-                            $completed = $assesments[ $i ];
-                            $i ++;
 
-                            if ( $status ) {
-                                $active = 'inactive';
-                                $link   = '';
-                            } else {
-                                $active = 'active';
-                                $link   = get_the_permalink( $post->ID );
-                            }
-                            # checks if User has the in/complete Tag for the following assessment
-                            ?>
-                            <li class="<?php echo $active; ?>">
-                                <a<?php echo $link ? sprintf( ' href="%s"', $link ) : ''; ?>>
-                                    <div class="icon fa fa-suitcase"></div>
-                                    <div class="heading">
-                                        <div class="title"><?php echo get_the_title( $post->ID ); ?></div>
-                                        <?php
-                                        $description = $completed ? 'Assessment Completed' : 'Start your assessment';
-                                        $descriptionCss = $status ? 'description description-completed' : 'description';
-                                        if( $status && !$completed )
-                                            $description = '&nbsp;';
-                                        echo sprintf( '<div class="%s">%s</div>', $descriptionCss, $description );
-                                        ?>
+<div class="row mt-4 mb-4" id="assessment-position">
 
-                                        <!--<div class="description description-completed">Assessment Completed</div>-->
-                                        <!-- <div class="description"><?php get_template_part( 'templates/' . get_post_type() . '/index', 'occupation' ); ?></div> -->
-                                    </div>
-                                </a>
-                            </li>
-                            <?php
-                        }
+    <?php
+    if( is_post_type_archive( 'assessment' ) ) {
+        $posts = $wp_query->get_posts();
+    } else {
+        $posts = \ThinkShift\Plugin\Base::getPosts( 'assessment', [
+            'orderby' => 'menu_order',
+            'order' => 'ASC'
+        ] );
+    }
+    if ( !empty($posts) ) :
+        $i = 0;
+        foreach( $posts as $post ) {
+            $status = $statuses[ $i ];
+            $completed = $assesments[ $i ];
+            $i ++;
 
-                        the_posts_navigation();
+            if ( $status ) {
+                $active = 'inactive';
+                $link   = '';
+            } else {
+                $active = 'bg-themec-yellow';
+                $link   = get_the_permalink( $post->ID );
+            }
+            # checks if User has the in/complete Tag for the following assessment
+            ?>
 
-                    endif;
-                    wp_reset_postdata();
-                    ?>
+            <div class="col-lg-4">
+              <div class="card mb-4 <?php echo $active; ?>">
+                <div class="card-body">
+                  <?php if(!$completed) { ?>
+                    <i class="fa fa-paper-plane-o lg" aria-hidden="true"></i>
+                  <?php } else { ?>
+                    <i class="fa fa-check lg" aria-hidden="true"></i>
+                  <?php } ?>
+                  <h5><?php echo get_the_title( $post->ID ); ?></h5>
+                  <?php
+                    $description = $completed ? 'You Have Completed!' : 'Not Yet Started';
+                    $descriptionCss = $status ? 'description description-completed' : 'description';
+                    if( $status && !$completed )
+                        $description = '&nbsp;';
+                    echo sprintf( '<div class="%s">%s</div>', $descriptionCss, $description );
+                  ?>
 
-                </ul>
+                  <?php if(!$completed) : ?>
+                  <a<?php echo $link ? sprintf( ' href="%s"', $link ) : ''; ?>>Take The Assessment</a>
+                <?php endif; ?>
+                </div>
+              </div>
             </div>
-        </div>
-    </div>
-  </div>
+
+            <?php
+        }
+
+        the_posts_navigation();
+
+    endif;
+    wp_reset_postdata();
+    ?>
+
+</div>
