@@ -10,7 +10,7 @@ use ThinkShift\Plugin\Users;
 
 // $i = 0;
 // $strengthString = $dataString = '';
-// $strengths = Users::getObjStrengths( get_the_ID() );
+$strengths = Users::getObjStrengths( get_the_ID() );
 // $strengthIds = array_keys($strengths);
 // $image = 'images/1.jpg';
 
@@ -34,12 +34,14 @@ use ThinkShift\Plugin\Users;
 
           <div class="wrap">
             <h5>Good For People With Strengths In:</h5>
-            <p>Collaborating, Generating Insight, Manipulating Objects</p>
+
+            <p><?php echo implode( ', ', $strengths ); ?></p>
           </div>
 
           <div class="wrap">
             <h5>Major Activities:</h5>
             <p>
+            <?php # @todo: this would probably be better as a list, for readability ?>
               <?php echo get_post_meta( get_the_ID(), 'work_activity1', true); ?>,
               <?php echo get_post_meta( get_the_ID(), 'work_activity2', true); ?>,
               <?php echo get_post_meta( get_the_ID(), 'work_activity3', true); ?>,
