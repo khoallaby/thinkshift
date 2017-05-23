@@ -23,3 +23,4 @@ if [ $WP_ENV = "production" ] ; then
 
 cd ../../plugins/think-shift
 composer update
+
