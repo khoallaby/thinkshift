@@ -40,6 +40,8 @@ class Careers extends CustomPostTypes {
         if( !empty($_GET['orderby']) ) {
 
             /*
+            # order by a metakey logic
+
             if( in_array($_GET['orderby'], array_keys($keys)) ) {
                 $careerKeys = Careers::careerKeys();
 
@@ -76,29 +78,38 @@ class Careers extends CustomPostTypes {
 
         // education_min
         if( isset($_GET['education']) && !empty($_GET['education']) ) {
-            $educationKeys = Careers::getEducationKeys();
+            $educationKeys = static::getEducationKeys();
             $educationValues = array_intersect_key( $educationKeys, array_flip($_GET['education']) );
             $metaQuery[] = [
                 'key' => 'education_min',
-                'value' => array_values($educationValues),
+                'value' => $educationValues,
                 'compare' => 'IN'
             ];
         }
 
         // career fields
         if( isset($_GET['field']) && !empty($_GET['field']) ) {
-            $careerKeys = Careers::getCareerFieldKeys();
+            $careerKeys = static::getCareerFieldKeys();
             $careerValues = array_intersect_key( $careerKeys, array_flip($_GET['field']) );
             $metaQuery[] = [
                 'key' => 'high_opp_job_family',
-                'value' => array_values($careerValues),
+                'value' => $careerValues,
+                'compare' => 'IN'
+            ];
+        }
+
+        // self employment
+        if( isset($_GET['self']) && !empty($_GET['self']) ) {
+            $selfKeys = static::getSelfEmploymentKeys();
+            $selfValues = array_intersect_key( $selfKeys, array_flip($_GET['self']) );
+            $metaQuery[] = [
+                'key' => 'pct_self_emp_cat',
+                'value' => $selfValues,
                 'compare' => 'IN'
             ];
         }
 
 
-
-        #vard($metaQuery);
         if( !empty( $metaQuery ) ) {
             $query->set( 'meta_query', [$metaQuery] );
         }
@@ -163,11 +174,11 @@ class Careers extends CustomPostTypes {
     public static function getCareerFieldKeys() {
         # use metakey - high_opp_job_family
         $keys = [
-            1 => 'No',
-            2 => 'Yes-Computer and Mathematical',
-            3 => 'Yes-Business and Financial Operations',
-            4 => 'Yes-Engineering and Architecture',
-            5 => 'Yes-Healthcare Practitioners & Technical'
+            'No',
+            'Yes-Computer and Mathematical',
+            'Yes-Business and Financial Operations',
+            'Yes-Engineering and Architecture',
+            'Yes-Healthcare Practitioners & Technical'
         ];
 
         return $keys;
@@ -221,7 +232,7 @@ class Careers extends CustomPostTypes {
         $keys = [
             'Average or Below',
             'Higher than Average',
-            'Much Higher than Ave'
+            'Much Higher than Average'
         ];
 
         return $keys;
