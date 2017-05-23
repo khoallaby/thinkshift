@@ -46,22 +46,18 @@ $order = [
 
 
                             foreach ( $strengths as $strengthId => $strength ) {
-                                $checked = in_array( $strengthId, $strengthArray );
-                                ?>
-                                <label class="<?php echo $checked ? 'active' : ''; ?>">
-                                    <?php
-                                    echo sprintf( '<input type="checkbox" %s name="strengths[]" value="%s"/> %s',
-                                        $checked ? 'checked' : '',
-                                        $strengthId,
-                                        $strength
-                                    );
-                                    ?>
-                                </label>
-                            <?php } ?>
+                                echo sprintf( '<label><input type="checkbox" %s name="strengths[]" value="%s"/> %s</label>',
+                                    checked( in_array($strengthId, $strengthArray), true, false ),
+                                    $strengthId,
+                                    $strength
+                                );
+                            }
+                            ?>
                         </div>
                         <div class="col-lg-12 filter" id="filters-education">
                             <h5>Minimum Education Required</h5>
-                            <?php foreach( $educationMin as $k => $name ) {
+                            <?php
+                            foreach( $educationMin as $k => $name ) {
                                 echo sprintf( '<label><input type="checkbox" %s value="%s" name="education[]" /> %s</label>',
                                     isset($_GET['education']) ? checked( in_array($k, $_GET['education']), true, false ) : '',
                                     $k,
@@ -72,9 +68,10 @@ $order = [
                         </div>
                         <div class="col-lg-12 filter" id="filters-career-fields">
                             <h5>Career Field</h5>
-                            <?php foreach( $careerFields as $k => $name ) {
+                            <?php
+                            foreach( $careerFields as $k => $name ) {
                                 echo sprintf( '<label><input type="checkbox" %s value="%s" name="career[]" /> %s</label>',
-                                    isset($_GET['career']) ? checked( $_GET['career'], $k, false ) : '',
+                                    isset($_GET['career']) ? checked( in_array($k, $_GET['career']), true, false ) : '',
                                     $k,
                                     $name
                                 );
@@ -83,9 +80,10 @@ $order = [
                         </div>
                         <div class="col-lg-12 filter" id="filters-self-employment">
                             <h5>Self-Employment Prospects</h5>
-                            <?php foreach( $selfEmployment as $k => $name ) {
+                            <?php
+                            foreach( $selfEmployment as $k => $name ) {
                                 echo sprintf( '<label><input type="checkbox" %s value="%s" name="self[]" /> %s</label>',
-                                    isset($_GET['self']) ? checked( $_GET['self'], $k, false ) : '',
+                                    isset($_GET['self']) ? checked( in_array($k, $_GET['self']), true, false ) : '',
                                     $k,
                                     $name
                                 );
@@ -95,7 +93,8 @@ $order = [
                         <div class="col-lg-12 filter" id="filters-orderby">
                             <h5>Order By</h5>
                             <select name="order">
-                                <?php foreach( $order as $k => $o ) {
+                                <?php
+                                foreach( $order as $k => $o ) {
                                     echo sprintf( '<option value="%s" %s>%s</option>',
                                         $k,
                                         isset($_GET['order']) ? selected( $_GET['order'], $k, false ) : '',
