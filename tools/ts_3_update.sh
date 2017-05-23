@@ -15,11 +15,12 @@ composer update
 cd web/app/themes/thinkshift
 composer update
 yarn run build
+# @todo: pull in $WP_ENV
 if [ $WP_ENV = "production" ] ; then
     gulp --production
 #else
 #    yarn run build
-#fi
+fi
 
 cd ../../plugins/think-shift
 composer update
