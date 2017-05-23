@@ -1,13 +1,21 @@
-#filters-strengths label, #filters-education label {
-	width: 100%;
-	text-align: left;
-	margin-bottom: 2px;
+/*
+Archive - Career page
+ */
+.post-type-archive-career {
+	.filter {
+		label {
+			width: 100%;
+			text-align: left;
+			margin-bottom: 2px;
+		}
+		h5 {
+			text-align: left;
+			margin: 10px 0;
+		}
+	}
+
 }
 
-#filters-strengths h5, #filters-education h5 {
-	text-align: left;
-	margin: 10px 0;
-}
 
 .career-card-job-desc .card-header{
 	font-weight: bold !important;

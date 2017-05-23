@@ -30,7 +30,7 @@ $order = [
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-12" id="filters-strengths">
+                        <div class="col-lg-12 filter" id="filters-strengths">
                             <h5>Strengths</h5>
                             <?php
 
@@ -59,7 +59,7 @@ $order = [
                                 </label>
                             <?php } ?>
                         </div>
-                        <div class="col-lg-12" id="filters-education">
+                        <div class="col-lg-12 filter" id="filters-education">
                             <h5>Minimum Education Required</h5>
                             <?php foreach( $educationMin as $k => $name ) {
                                 echo sprintf( '<label><input type="checkbox" %s value="%s" name="education[]" /> %s</label>',
@@ -70,7 +70,7 @@ $order = [
                             }
                             ?>
                         </div>
-                        <div class="col-lg-12" id="filters-career-fields">
+                        <div class="col-lg-12 filter" id="filters-career-fields">
                             <h5>Career Field</h5>
                             <?php foreach( $careerFields as $k => $name ) {
                                 echo sprintf( '<label><input type="checkbox" %s value="%s" name="career[]" /> %s</label>',
@@ -81,7 +81,7 @@ $order = [
                             }
                             ?>
                         </div>
-                        <div class="col-lg-12" id="filters-self-employment">
+                        <div class="col-lg-12 filter" id="filters-self-employment">
                             <h5>Self-Employment Prospects</h5>
                             <?php foreach( $selfEmployment as $k => $name ) {
                                 echo sprintf( '<label><input type="checkbox" %s value="%s" name="self[]" /> %s</label>',
@@ -92,7 +92,7 @@ $order = [
                             }
                             ?>
                         </div>
-                        <div class="col-lg-12" id="filters-orderby">
+                        <div class="col-lg-12 filter" id="filters-orderby">
                             <h5>Order By</h5>
                             <select name="order">
                                 <?php foreach( $order as $k => $o ) {
