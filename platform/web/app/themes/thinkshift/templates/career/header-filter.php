@@ -73,8 +73,8 @@ $order = [
                             <h5>Career Field</h5>
                             <?php
                             foreach( $careerFields as $k => $name ) {
-                                echo sprintf( '<label><input type="checkbox" %s value="%s" name="career[]" /> %s</label>',
-                                    isset($_GET['career']) ? checked( in_array($k, $_GET['career']), true, false ) : '',
+                                echo sprintf( '<label><input type="checkbox" %s value="%s" name="field[]" /> %s</label>',
+                                    isset($_GET['field']) ? checked( in_array($k, $_GET['field']), true, false ) : '',
                                     $k,
                                     $name
                                 );

@@ -85,6 +85,19 @@ class Careers extends CustomPostTypes {
             ];
         }
 
+        // career fields
+        if( isset($_GET['field']) && !empty($_GET['field']) ) {
+            $careerKeys = Careers::getCareerFieldKeys();
+            $careerValues = array_intersect_key( $careerKeys, array_flip($_GET['field']) );
+            $metaQuery[] = [
+                'key' => 'high_opp_job_family',
+                'value' => array_values($careerValues),
+                'compare' => 'IN'
+            ];
+        }
+
+
+
         #vard($metaQuery);
         if( !empty( $metaQuery ) ) {
             $query->set( 'meta_query', [$metaQuery] );
@@ -150,11 +163,11 @@ class Careers extends CustomPostTypes {
     public static function getCareerFieldKeys() {
         # use metakey - high_opp_job_family
         $keys = [
-            'No',
-            'Yes-Computer and Mathematical',
-            'Yes-Business and Financial Operations',
-            'Yes-Engineering and Architecture',
-            'Yes-Healthcare Practitioners & Technical'
+            1 => 'No',
+            2 => 'Yes-Computer and Mathematical',
+            3 => 'Yes-Business and Financial Operations',
+            4 => 'Yes-Engineering and Architecture',
+            5 => 'Yes-Healthcare Practitioners & Technical'
         ];
 
         return $keys;
