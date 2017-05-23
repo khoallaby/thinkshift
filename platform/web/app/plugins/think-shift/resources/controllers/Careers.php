@@ -29,12 +29,18 @@ class Careers extends CustomPostTypes {
     public static function filterQueryOrder( $query ) {
         global $wpdb;
 
+
+
+        # order by the metakey, not regular post title
+        #$query->set( 'orderby', 'post_title' );
+        $query->set( 'orderby', 'meta_value' );
+        $query->set( 'meta_key', 'alt_title1' );
+        
         if( isset($_GET['order']) && $_GET['order'] == 'desc' )
             $query->set( 'order', 'DESC' );
         else
             $query->set( 'order', 'ASC' );
 
-        $query->set( 'orderby', 'title' );
 
 
         if( !empty($_GET['orderby']) ) {

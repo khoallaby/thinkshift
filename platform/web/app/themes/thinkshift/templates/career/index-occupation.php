@@ -34,7 +34,6 @@ $strengths = Users::getObjStrengths( get_the_ID() );
 
           <div class="wrap">
             <h5>Good For People With Strengths In:</h5>
-
             <p><?php echo implode( ', ', $strengths ); ?></p>
           </div>
 
