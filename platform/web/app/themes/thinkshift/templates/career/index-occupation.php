@@ -60,8 +60,8 @@ $strengths = Users::getObjStrengths( get_the_ID() );
           </div>
           <div class="wrap">
             <h5>Education Levels:</h5>
-            <p><strong>Minimum: </strong><?php echo get_post_meta( get_the_ID(), 'education_norm', true); ?><br>
-               <strong>Typical: </strong><?php echo get_post_meta( get_the_ID(), 'education_min', true); ?>
+            <p><strong>Minimum: </strong><?php echo get_post_meta( get_the_ID(), 'education_min', true); ?><br>
+               <strong>Typical: </strong><?php echo get_post_meta( get_the_ID(), 'education_norm', true); ?>
             </p>
           </div>
           <div class="wrap">
