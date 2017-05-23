@@ -9,7 +9,7 @@ class Careers extends CustomPostTypes {
 
     public function init() {
         #add_action( 'wp_footer', array( $this, 'wpFooter' ) );
-        add_action( 'pre_get_posts', array( $this, 'alterPageQueries' ) );
+        add_action( 'pre_get_posts', array( $this, 'alterPageQueries' ), 100 );
     }
 
 
@@ -18,6 +18,82 @@ class Careers extends CustomPostTypes {
     /******************************************************************************************
      * Actions/filters, i.e. for user log in/registration
      ******************************************************************************************/
+
+
+    /**
+     * Orderby/Order metakeys
+     * @param $query
+     *
+     * @return mixed
+     */
+    public static function filterQueryOrder( $query ) {
+        global $wpdb;
+
+        if( isset($_GET['order']) && $_GET['order'] == 'desc' )
+            $query->set( 'order', 'DESC' );
+        else
+            $query->set( 'order', 'ASC' );
+
+        $query->set( 'orderby', 'title' );
+
+
+        if( !empty($_GET['orderby']) ) {
+
+            /*
+            if( in_array($_GET['orderby'], array_keys($keys)) ) {
+                $careerKeys = Careers::careerKeys();
+
+                $metaKey = sanitize_key($keys[ $_GET['orderby'] ]);
+                $metaValue = $careerKeys[ $_GET['orderby'] ];
+
+                $query->set( 'orderby', 'meta_value_num' );
+                $query->set( 'meta_key', $metaKey );
+
+                if( $metaKey == 'education_min' ) {
+                    $metaQuery = [
+                        [
+                            'key' => $metaKey,
+                            'value' => $metaValue,
+                            'compare' => '='
+                        ]
+                    ];
+                    $query->set( 'orderby', 'meta_value' );
+                    $query->set( 'meta_query', $metaQuery );
+                }
+            }
+            */
+
+            /*
+            $query->set( 'orderby', 'meta_value_num' );
+            if( in_array($_GET['orderby'], array_keys($keys)) )
+                $query->set( 'meta_key', sanitize_key($keys[ $_GET['orderby'] ]) );
+            */
+
+        }
+
+
+        $metaQuery = [];
+
+        // education_min
+        if( isset($_GET['education']) && !empty($_GET['education']) ) {
+            $educationKeys = Careers::getEducationKeys();
+            $educationValues = array_intersect_key( $educationKeys, array_flip($_GET['education']) );
+            $metaQuery[] = [
+                'key' => 'education_min',
+                'value' => array_values($educationValues),
+                'compare' => 'IN'
+            ];
+        }
+
+        #vard($metaQuery);
+        if( !empty( $metaQuery ) ) {
+            $query->set( 'meta_query', [$metaQuery] );
+        }
+
+
+
+        return $query;
+    }
 
 
 
@@ -85,18 +161,29 @@ class Careers extends CustomPostTypes {
     }
 
 
+    /**
+     * Returns keys used for education_min. min and max can be set to return a slice of the education keys. 
+     * Useful for returning all the elements that match $min and higher
+     * @param int|string $min   Min education level to return
+     * @param int|string $max   Max education level to return
+     *
+     * @return array
+     */
     public static function getEducationKeys( $min = 0, $max = 7 ) {
         $keys = [
             0 => 'No Degree',
-            1 => 'High school Graduate',
-            2 => 'Post Secondary',
-            3 => 'Masters Degree',
+            1 => 'High School Graduate',
+            #2 => 'Post Secondary',
+            #3 => 'Masters Degree',
             4 => 'Certification or Some College',
             5 => '2-year College Degree',
             6 => 'Bachelors Degree',
-            7 => 'Masters Degree or other Post-graduate study'
+            7 => 'Masters Degree or other Post-graduate study',
         ];
 
+
+        
+        # this logic returns the min/max keys to use to slice the array. Uses int or string of the education_min value
         if( is_numeric($min) )
             $min = (int) $min;
         else
