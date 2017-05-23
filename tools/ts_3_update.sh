@@ -24,3 +24,4 @@ fi
 
 cd ../../plugins/think-shift
 composer update
+
