@@ -42,8 +42,8 @@
     "wpackagist-plugin/buddypress": "2.8.2",
     "wpackagist-plugin/bbpress": "2.5.12",
     "wpackagist-plugin/wordpress-social-login": "2.3.3",
-    "wpackagist-plugin/lh-user-taxonomies": "1.52",
-    "wpackagist-plugin/piklist": "0.9.9.11",
+    "wpackagist-plugin/lh-user-taxonomies": "1.55",
+    "wpackagist-plugin/piklist": "0.9.9.12",
     "wpackagist-plugin/gmail-smtp": "1.1.1",
     "wpackagist-plugin/wp-smtp": "1.1.9",
     "wpackagist-plugin/wp-mail-smtp": "0.10.1"
