@@ -33,6 +33,25 @@ class Careers extends CustomPostTypes {
     }
 
 
+
+    public static function getMetaKeys( $key = null ) {
+        global $wpdb;
+        if( $key ) {
+            $sql = 'SELECT DISTINCT meta_value FROM $wpdb->postmeta WHERE meta_key = %s';
+            $query = $wpdb->get_results( $wpdb->prepare( $sql, $key ) );
+            return $query;
+        } else {
+            # return all;
+        }
+
+        return false;
+    }
+
+
+
+    /**
+     * @todo: deprecate prob
+     */
     public static function careerKeys() {
 
         $array = [
@@ -49,6 +68,20 @@ class Careers extends CustomPostTypes {
             */
         ];
         return $array;
+    }
+
+
+    public static function getCareerFieldKeys() {
+        # use metakey - high_opp_job_family
+        $keys = [
+            'No',
+            'Yes-Computer and Mathematical',
+            'Yes-Business and Financial Operations',
+            'Yes-Engineering and Architecture',
+            'Yes-Healthcare Practitioners & Technical'
+        ];
+
+        return $keys;
     }
 
 
@@ -80,6 +113,20 @@ class Careers extends CustomPostTypes {
         return $array;
     }
 
+
+
+
+    public static function getSelfEmploymentKeys() {
+        # use metakey - pct_self_emp_cat
+        $keys = [
+            'Average or Below',
+            'Higher than Average',
+            'Much Higher than Ave'
+        ];
+
+        return $keys;
+
+    }
 
 
 }
