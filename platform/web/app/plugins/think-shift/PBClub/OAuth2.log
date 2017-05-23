@@ -1,0 +1,195 @@
+-- 05/18/2017 03:55:42 pm   *************************************************************************************
+-- 05/18/2017 03:55:42 pm   Result of MySQL query = 1 entries :
+-- 05/18/2017 03:55:42 pm        Id = 1
+-- 05/18/2017 03:55:42 pm        GeneratedDate = 2017-05-18 22:18:45
+-- 05/18/2017 03:55:42 pm        AppName = gv368
+-- 05/18/2017 03:55:42 pm        AccessToken = 7w43xqb2fvyty583zhbt8dpt
+-- 05/18/2017 03:55:42 pm        RefreshToken = 9sc2uvw3fukgw5wwd5cqy5yv
+-- 05/18/2017 03:55:42 pm   Calculating date/time differential :
+-- 05/18/2017 03:55:42 pm        Tokens creation date = 1495160325
+-- 05/18/2017 03:55:42 pm        Date/Time now = 1495137342
+-- 05/18/2017 03:55:42 pm        Differential = 109383
+-- 05/18/2017 03:55:42 pm   Token refresh not attempted.
+-- 05/18/2017 03:57:05 pm   *************************************************************************************
+-- 05/18/2017 03:57:05 pm   Result of MySQL query = 1 entries :
+-- 05/18/2017 03:57:05 pm        Id = 1
+-- 05/18/2017 03:57:05 pm        GeneratedDate = 2017-05-17 22:18:45
+-- 05/18/2017 03:57:05 pm        AppName = gv368
+-- 05/18/2017 03:57:05 pm        AccessToken = 7w43xqb2fvyty583zhbt8dpt
+-- 05/18/2017 03:57:05 pm        RefreshToken = 9sc2uvw3fukgw5wwd5cqy5yv
+-- 05/18/2017 03:57:05 pm   Calculating date/time differential :
+-- 05/18/2017 03:57:05 pm        Tokens creation date = 1495073925
+-- 05/18/2017 03:57:05 pm        Date/Time now = 1495137425
+-- 05/18/2017 03:57:05 pm        Differential = 22900
+-- 05/18/2017 03:57:05 pm   Token refresh not attempted.
+-- 05/18/2017 03:57:46 pm   *************************************************************************************
+-- 05/18/2017 03:57:46 pm   Result of MySQL query = 1 entries :
+-- 05/18/2017 03:57:46 pm        Id = 1
+-- 05/18/2017 03:57:46 pm        GeneratedDate = 2017-05-17 15:18:45
+-- 05/18/2017 03:57:46 pm        AppName = gv368
+-- 05/18/2017 03:57:46 pm        AccessToken = 7w43xqb2fvyty583zhbt8dpt
+-- 05/18/2017 03:57:46 pm        RefreshToken = 9sc2uvw3fukgw5wwd5cqy5yv
+-- 05/18/2017 03:57:46 pm   Calculating date/time differential :
+-- 05/18/2017 03:57:46 pm        Tokens creation date = 1495048725
+-- 05/18/2017 03:57:46 pm        Date/Time now = 1495137466
+-- 05/18/2017 03:57:46 pm        Differential = -2341
+-- 05/18/2017 03:57:46 pm   Refreshing tokens :
+-- 05/18/2017 03:57:46 pm        New AccessToken = 659wy23hbgfxbt9u43cwtem4
+-- 05/18/2017 03:57:46 pm        New RefreshToken = f63mnjk4cjju4z5642que2mb
+-- 05/18/2017 03:57:46 pm   MySQL Query :
+-- 05/18/2017 03:57:46 pm        UPDATE OAuth2 SET AccessToken='659wy23hbgfxbt9u43cwtem4', RefreshToken='f63mnjk4cjju4z5642que2mb', GeneratedDate='2017-05-18 15:57:46' WHERE AppName='gv368';
+-- 05/18/2017 03:57:46 pm   MySQL DB update results = 1
+-- 05/19/2017 02:34:18 am   *************************************************************************************
+-- 05/19/2017 02:34:18 am   Result of MySQL query = 1 entries :
+-- 05/19/2017 02:34:18 am        Id = 1
+-- 05/19/2017 02:34:18 am        GeneratedDate = 2017-05-18 15:57:46
+-- 05/19/2017 02:34:18 am        AppName = gv368
+-- 05/19/2017 02:34:18 am        AccessToken = 659wy23hbgfxbt9u43cwtem4
+-- 05/19/2017 02:34:18 am        RefreshToken = f63mnjk4cjju4z5642que2mb
+-- 05/19/2017 02:34:18 am   Calculating date/time differential :
+-- 05/19/2017 02:34:18 am        Tokens creation date = 1495137466
+-- 05/19/2017 02:34:18 am        Date/Time now = 1495175658
+-- 05/19/2017 02:34:18 am        Differential = 48208
+-- 05/19/2017 02:34:18 am   Token refresh not attempted.
+-- 05/19/2017 02:41:22 am   *************************************************************************************
+-- 05/19/2017 02:41:22 am   Result of MySQL query = 1 entries :
+-- 05/19/2017 02:41:22 am        Id = 1
+-- 05/19/2017 02:41:22 am        GeneratedDate = 2017-05-18 15:57:46
+-- 05/19/2017 02:41:22 am        AppName = gv368
+-- 05/19/2017 02:41:22 am        AccessToken = 659wy23hbgfxbt9u43cwtem4
+-- 05/19/2017 02:41:22 am        RefreshToken = f63mnjk4cjju4z5642que2mb
+-- 05/19/2017 02:41:22 am   Calculating date/time differential :
+-- 05/19/2017 02:41:22 am        Tokens creation date = 1495137466
+-- 05/19/2017 02:41:22 am        Date/Time now = 1495176082
+-- 05/19/2017 02:41:22 am        Differential = 47784
+-- 05/19/2017 02:41:22 am   Token refresh not attempted.
+-- 05/19/2017 02:41:39 am   *************************************************************************************
+-- 05/19/2017 02:41:39 am   Result of MySQL query = 1 entries :
+-- 05/19/2017 02:41:39 am        Id = 1
+-- 05/19/2017 02:41:39 am        GeneratedDate = 2017-05-18 15:57:46
+-- 05/19/2017 02:41:39 am        AppName = gv368
+-- 05/19/2017 02:41:39 am        AccessToken = 659wy23hbgfxbt9u43cwtem4
+-- 05/19/2017 02:41:39 am        RefreshToken = f63mnjk4cjju4z5642que2mb
+-- 05/19/2017 02:41:39 am   Calculating date/time differential :
+-- 05/19/2017 02:41:39 am        Tokens creation date = 1495137466
+-- 05/19/2017 02:41:39 am        Date/Time now = 1495176099
+-- 05/19/2017 02:41:39 am        Differential = 47767
+-- 05/19/2017 02:41:39 am   Token refresh not attempted.
+-- 05/20/2017 03:38:17 am   *************************************************************************************
+-- 05/20/2017 03:38:17 am   Result of MySQL query = 1 entries :
+-- 05/20/2017 03:38:17 am        Id = 1
+-- 05/20/2017 03:38:17 am        GeneratedDate = 2017-05-18 15:57:46
+-- 05/20/2017 03:38:17 am        AppName = gv368
+-- 05/20/2017 03:38:17 am        AccessToken = 659wy23hbgfxbt9u43cwtem4
+-- 05/20/2017 03:38:17 am        RefreshToken = f63mnjk4cjju4z5642que2mb
+-- 05/20/2017 03:38:17 am   Calculating date/time differential :
+-- 05/20/2017 03:38:17 am        Tokens creation date = 1495137466
+-- 05/20/2017 03:38:17 am        Date/Time now = 1495265897
+-- 05/20/2017 03:38:17 am        Differential = -42031
+-- 05/20/2017 03:38:17 am   Refreshing tokens :
+-- 05/20/2017 03:38:17 am        New AccessToken = vyvgtkhvua8tamxwc7t3r9vj
+-- 05/20/2017 03:38:17 am        New RefreshToken = c69qb9tvqq6ezjqd9bz2utpg
+-- 05/20/2017 03:38:17 am   MySQL Query :
+-- 05/20/2017 03:38:17 am        UPDATE OAuth2 SET AccessToken='vyvgtkhvua8tamxwc7t3r9vj', RefreshToken='c69qb9tvqq6ezjqd9bz2utpg', GeneratedDate='2017-05-20 03:38:17' WHERE AppName='gv368';
+-- 05/20/2017 03:38:17 am   MySQL DB update results = 1
+-- 05/21/2017 09:15:09 am   *************************************************************************************
+-- 05/21/2017 09:15:09 am   Result of MySQL query = 1 entries :
+-- 05/21/2017 09:15:09 am        Id = 1
+-- 05/21/2017 09:15:09 am        GeneratedDate = 2017-05-20 03:38:17
+-- 05/21/2017 09:15:09 am        AppName = gv368
+-- 05/21/2017 09:15:09 am        AccessToken = vyvgtkhvua8tamxwc7t3r9vj
+-- 05/21/2017 09:15:09 am        RefreshToken = c69qb9tvqq6ezjqd9bz2utpg
+-- 05/21/2017 09:15:09 am   Calculating date/time differential :
+-- 05/21/2017 09:15:09 am        Tokens creation date = 1495265897
+-- 05/21/2017 09:15:09 am        Date/Time now = 1495372509
+-- 05/21/2017 09:15:09 am        Differential = -20212
+-- 05/21/2017 09:15:09 am   Refreshing tokens :
+-- 05/21/2017 09:15:10 am        New AccessToken = x5xuay2xsdfe3eh83hnydjrq
+-- 05/21/2017 09:15:10 am        New RefreshToken = twmmg6ezy9y4s3wcgwyxg2js
+-- 05/21/2017 09:15:10 am   MySQL Query :
+-- 05/21/2017 09:15:10 am        UPDATE OAuth2 SET AccessToken='x5xuay2xsdfe3eh83hnydjrq', RefreshToken='twmmg6ezy9y4s3wcgwyxg2js', GeneratedDate='2017-05-21 09:15:10' WHERE AppName='gv368';
+-- 05/21/2017 09:15:10 am   MySQL DB update results = 1
+-- 05/22/2017 08:53:29 am   *************************************************************************************
+-- 05/22/2017 08:53:29 am   Result of MySQL query = 4 entries :
+-- 05/22/2017 08:53:29 am        Id = 1
+-- 05/22/2017 08:53:29 am        GeneratedDate = 2017-05-21 09:15:10
+-- 05/22/2017 08:53:29 am        AppName = gv368
+-- 05/22/2017 08:53:29 am        AccessToken = x5xuay2xsdfe3eh83hnydjrq
+-- 05/22/2017 08:53:29 am        RefreshToken = twmmg6ezy9y4s3wcgwyxg2js
+-- 05/22/2017 08:53:29 am   Calculating date/time differential :
+-- 05/22/2017 08:53:29 am        Tokens creation date = 1495372510
+-- 05/22/2017 08:53:29 am        Date/Time now = 1495457609
+-- 05/22/2017 08:53:29 am        Differential = 1301
+-- 05/22/2017 08:53:29 am   Refreshing tokens :
+-- 05/22/2017 08:53:29 am        New AccessToken = a5nkkgbw22p3w7eyfr7npfp5
+-- 05/22/2017 08:53:29 am        New RefreshToken = kq4d4g5aje72232ccrgbtyna
+-- 05/22/2017 08:53:29 am   MySQL Query :
+-- 05/22/2017 08:53:29 am        UPDATE OAuth2 SET AccessToken='a5nkkgbw22p3w7eyfr7npfp5', RefreshToken='kq4d4g5aje72232ccrgbtyna', GeneratedDate='2017-05-22 08:53:29' WHERE AppName='gv368';
+-- 05/22/2017 08:53:29 am   MySQL DB update results = 1
+-- 05/22/2017 08:53:29 am        Id = 5
+-- 05/22/2017 08:53:29 am        GeneratedDate = 2017-05-21 10:00:00
+-- 05/22/2017 08:53:29 am        AppName = fd341
+-- 05/22/2017 08:53:29 am        AccessToken = uc4r9cm5sg8bvsadn4k73uzu
+-- 05/22/2017 08:53:29 am        RefreshToken = bctxf5xzq9hwa6bhq3pz38na
+-- 05/22/2017 08:53:29 am   Calculating date/time differential :
+-- 05/22/2017 08:53:29 am        Tokens creation date = 1495375200
+-- 05/22/2017 08:53:29 am        Date/Time now = 1495457609
+-- 05/22/2017 08:53:29 am        Differential = 3991
+-- 05/22/2017 08:53:29 am   Refreshing tokens :
+-- 05/22/2017 08:53:30 am        New AccessToken = x3xnqhhspq3rpcwu8avvdt3x
+-- 05/22/2017 08:53:30 am        New RefreshToken = rjr34q8ntgb7rzxx5wyabt3r
+-- 05/22/2017 08:53:30 am   MySQL Query :
+-- 05/22/2017 08:53:30 am        UPDATE OAuth2 SET AccessToken='x3xnqhhspq3rpcwu8avvdt3x', RefreshToken='rjr34q8ntgb7rzxx5wyabt3r', GeneratedDate='2017-05-22 08:53:30' WHERE AppName='fd341';
+-- 05/22/2017 08:53:30 am   MySQL DB update results = 1
+-- 05/22/2017 08:53:30 am        Id = 6
+-- 05/22/2017 08:53:30 am        GeneratedDate = 2017-05-21 16:00:00
+-- 05/22/2017 08:53:30 am        AppName = yo243
+-- 05/22/2017 08:53:30 am        AccessToken = fgd4bgw837au85ddbmj85neu
+-- 05/22/2017 08:53:30 am        RefreshToken = gbv7h9vhvbu72b7krn2rypcj
+-- 05/22/2017 08:53:30 am   Calculating date/time differential :
+-- 05/22/2017 08:53:30 am        Tokens creation date = 1495396800
+-- 05/22/2017 08:53:30 am        Date/Time now = 1495457610
+-- 05/22/2017 08:53:30 am        Differential = 25590
+-- 05/22/2017 08:53:30 am   Token refresh not attempted.
+-- 05/22/2017 08:53:30 am        Id = 7
+-- 05/22/2017 08:53:30 am        GeneratedDate = 2017-05-21 22:00:00
+-- 05/22/2017 08:53:30 am        AppName = bc234
+-- 05/22/2017 08:53:30 am        AccessToken = 7t2z5k7xze3vj47hyvan2b29
+-- 05/22/2017 08:53:30 am        RefreshToken = gj9uhymhpd5t8pqkfbtb83r3
+-- 05/22/2017 08:53:30 am   Calculating date/time differential :
+-- 05/22/2017 08:53:30 am        Tokens creation date = 1495418400
+-- 05/22/2017 08:53:30 am        Date/Time now = 1495457610
+-- 05/22/2017 08:53:30 am        Differential = 47190
+-- 05/22/2017 08:53:30 am   Token refresh not attempted.
+-- 05/23/2017 09:44:08 am   *************************************************************************************
+-- 05/23/2017 09:44:08 am   Result of MySQL query = 2 entries :
+-- 05/23/2017 09:44:08 am        Id = 1
+-- 05/23/2017 09:44:08 am        GeneratedDate = 2017-05-22 08:53:29
+-- 05/23/2017 09:44:08 am        AppName = gv368
+-- 05/23/2017 09:44:08 am        AccessToken = a5nkkgbw22p3w7eyfr7npfp5
+-- 05/23/2017 09:44:08 am        RefreshToken = kq4d4g5aje72232ccrgbtyna
+-- 05/23/2017 09:44:08 am   Calculating date/time differential :
+-- 05/23/2017 09:44:08 am        Tokens creation date = 1495457609
+-- 05/23/2017 09:44:08 am        Date/Time now = 1495547048
+-- 05/23/2017 09:44:08 am        Differential = -3039
+-- 05/23/2017 09:44:08 am   Refreshing tokens :
+-- 05/23/2017 09:44:09 am        New AccessToken = ztg56w9p6qhxrkwcqq2vvv8j
+-- 05/23/2017 09:44:09 am        New RefreshToken = wp7mf8mcy34w28xxg962mvz7
+-- 05/23/2017 09:44:09 am   MySQL Query :
+-- 05/23/2017 09:44:09 am        UPDATE OAuth2 SET AccessToken='ztg56w9p6qhxrkwcqq2vvv8j', RefreshToken='wp7mf8mcy34w28xxg962mvz7', GeneratedDate='2017-05-23 09:44:09' WHERE AppName='gv368';
+-- 05/23/2017 09:44:09 am   MySQL DB update results = 1
+-- 05/23/2017 09:44:09 am        Id = 5
+-- 05/23/2017 09:44:09 am        GeneratedDate = 2017-05-22 08:53:30
+-- 05/23/2017 09:44:09 am        AppName = fd341
+-- 05/23/2017 09:44:09 am        AccessToken = x3xnqhhspq3rpcwu8avvdt3x
+-- 05/23/2017 09:44:09 am        RefreshToken = rjr34q8ntgb7rzxx5wyabt3r
+-- 05/23/2017 09:44:09 am   Calculating date/time differential :
+-- 05/23/2017 09:44:09 am        Tokens creation date = 1495457610
+-- 05/23/2017 09:44:09 am        Date/Time now = 1495547049
+-- 05/23/2017 09:44:09 am        Differential = -3039
+-- 05/23/2017 09:44:09 am   Refreshing tokens :
+-- 05/23/2017 09:44:09 am        New AccessToken = yb9ndng3cf45a7aa2pdvaqyh
+-- 05/23/2017 09:44:09 am        New RefreshToken = tz5knwdjt2zme6exs8p86b45
+-- 05/23/2017 09:44:09 am   MySQL Query :
+-- 05/23/2017 09:44:09 am        UPDATE OAuth2 SET AccessToken='yb9ndng3cf45a7aa2pdvaqyh', RefreshToken='tz5knwdjt2zme6exs8p86b45', GeneratedDate='2017-05-23 09:44:09' WHERE AppName='fd341';
+-- 05/23/2017 09:44:09 am   MySQL DB update results = 1

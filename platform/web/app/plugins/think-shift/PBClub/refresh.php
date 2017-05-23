@@ -74,9 +74,12 @@ global $app, $log, $host, $awsuser, $password, $database, $port;
             $log->lfWriteLn('     ' . $query);
             $result = mysqli_query($con, $query);
             $log->lfWriteLn('MySQL DB update results = ' . $result);
-
+            echo date('m-d-Y H:i:s    Tokens renewed.');
         } else {
             $log->lfWriteLn('Token refresh not attempted.');
+            echo date('m-d-Y H:i:s    Checked but not processed.');
         }
     }
 }
+
+doRefresh();
