@@ -6,6 +6,10 @@
  * Time: 6:50 AM
  */
 
+/**
+ * Paremeter check
+ */
+
 echo 'Infusionsoft webhook verifier.'.chr(10);
 if ($argc!=2){
     echo '     Wrong number of parameters.'.chr(10);
@@ -13,19 +17,25 @@ if ($argc!=2){
     die('Terminating process.  Endpoint NOT verified.'.chr(10));
 }
 
+// straight passthrough so just open connection
 $con = mysqli_connect("thinkshiftdataserver.czlkyoy9ghkh.us-east-1.rds.amazonaws.com",
     "awsthinkshift", "?Th1nksh1ft?", "thinkshiftdb", "3306");
 
+// Get access token for the app specified by param 1
 $query="SELECT AccessToken FROM OAuth2 WHERE AppName='$argv[1]';";
 $return=mysqli_query($con,$query);
 $rows=mysqli_fetch_array($return);
 $dir='https://api.infusionsoft.com/crm/rest/v1/hooks/?access_token='.$rows['AccessToken'];
-
 $con->close();
 $curl = curl_init();
 
+/**
+ * Currently code the endpoint
+ */
+// TODO: add the endpoint url as an optional parameter
 $endpoint="http://john.tsdevserver.com/Hooks/";
 
+// Send cURL validation request
 function validate($name)
 {
     global $endpoint, $curl, $dir;
@@ -54,6 +64,7 @@ function validate($name)
     }
 }
 
+// Display endpoint url
 echo 'Requesting to validate '.$endpoint.chr(10);
 
 // contact add

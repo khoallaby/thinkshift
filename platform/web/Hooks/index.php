@@ -6,8 +6,12 @@
  * Time: 6:19 AM
  */
 
-require_once 'src/isdk.php';
-require_once 'LogFileObj.php';
+/**
+ * IMPORTANT!  The following code MUST be at the top and at code root level
+ * before namespacing or any other code.  While it is not necessary to keep
+ * this code it is necessary that it is present whenever endpoint validation
+ * is registered as this is how Infusionsoft confirms the endpoint as valid.
+ */
 
 $headers = array();
 foreach ($_SERVER as $key => $value) {
@@ -20,14 +24,26 @@ foreach ($_SERVER as $key => $value) {
 $notification = json_decode(file_get_contents('php://input'));
 header('X-Hook-Secret: ' . $headers['X-Hook-Secret'] . '');
 
+/**
+ * End required code root
+ */
+
+error_reporting(E_ALL);
+
+require_once 'src/isdk.php';
+require_once 'LogFileObj.php';
+
 $con=null;
 $log=new LogFileObj('hooks.log');
 $app=new iSDK();
-$app->cfgCon('gv368','52eab26f63005bf9d631eef5d18687cf');
+/**
+ * We are using api key here since this basically replaces the enqueueing process and will
+ * split the load between the two api pools
+ */
+// $app->cfgCon('gv368','52eab26f63005bf9d631eef5d18687cf'); // Thinkshift sandbox
+$app->cfgCon('fd341','9122d201f6892d5b3397f675849baafa'); // Thinkshift live
 
-$in=file_get_contents('PHP://input');
-$json=json_decode($in);
-
+// open connection to RDS server
 function dbconnect(){
     global $con;
     $con = mysqli_connect("thinkshiftdataserver.czlkyoy9ghkh.us-east-1.rds.amazonaws.com",
@@ -39,11 +55,14 @@ function dbconnect(){
     };
 }
 
+// Close RDS server connectoin
 function dbclose(){
     global $con;
     $con->close();
 }
 
+// Output post data to a file (debug)
+// TODO: Not necessary to use when everything is up and running
 function foutput($fname){
     $fn=$fname.'.payload.log';
     $st=file_get_contents('PHP://input').chr(10);
@@ -53,6 +72,7 @@ function foutput($fname){
     //file_put_contents($fn, file_get_contents('PHP://input'));
 }
 
+// Get the database email id
 function getEmailId($email){
     global $con;
     $id=0;
@@ -64,6 +84,7 @@ function getEmailId($email){
     if ($query==null){return 0;} else {return $data['Id'];}
 }
 
+// Get the database contact id
 function getContactId($email){
     global $con;
     $eid=getEmailId($email);
@@ -83,6 +104,7 @@ function getContactId($email){
     }
 }
 
+// Create a row in the Email table
 function createEmail($Address, $status=0){
     global $con;
     $query="INSERT INTO Email (Status, Address) VALUES (".$status.", '".$Address."');";
@@ -92,7 +114,7 @@ function createEmail($Address, $status=0){
     return getEmailId($Address);
 }
 
-// add contact (working)
+// Add a row to the contact table
 function conAdd($j)
 {
     global $con, $app;
@@ -110,7 +132,7 @@ function conAdd($j)
     return $data['@cId'];
 }
 
-// delete contact
+// Delete a row from the contact table
 function conDelete($j)
 {
     global $con, $app;
@@ -127,7 +149,7 @@ function conDelete($j)
     foutput('contact.delete');
 }
 
-// add group
+// Add a row to the ContactGroup table
 function groupAdd($j)
 {
     global $con, $app;
@@ -145,7 +167,7 @@ function groupAdd($j)
     return $return;
 }
 
-// edit group
+// Edit an existing row in the ContactGroup table
 function groupEdit($j)
 {
     global $con, $app;
@@ -162,7 +184,7 @@ function groupEdit($j)
     return $return;
 }
 
-// delete group
+// Delete a row from the ContactGroup table
 function groupDelete($j)
 {
     global $con, $app;
@@ -177,7 +199,7 @@ function groupDelete($j)
     foutput('contactGroup.delete');
 }
 
-// applied group
+// Add a row to the ContactGroupAssign table
 function groupApplied($j)
 {
     global $con, $app;
@@ -196,7 +218,7 @@ function groupApplied($j)
     foutput('contactGroup.applied');
 }
 
-// removed group
+// Delete a row from the ContactGroupAssign table
 function groupRemoved($j)
 {
     global $con, $app;
@@ -215,7 +237,7 @@ function groupRemoved($j)
     foutput('contactGroup.removed');
 }
 
-// doHook
+// Process the incoming webhook and use the appropriate function
 function doHook($j=''){
     global $log;
     if ($j=='') {
@@ -253,3 +275,8 @@ function doHook($j=''){
     }
     $log->lfWriteLn('End *********************************************************');
 }
+
+// Get data block sent from IS and convert to JSON object then call doHook($json)
+$in=file_get_contents('PHP://input');
+$json=json_decode($in);
+doHook($json);
