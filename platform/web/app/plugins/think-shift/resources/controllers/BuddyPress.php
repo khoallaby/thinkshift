@@ -1,6 +1,8 @@
 <?php
 namespace ThinkShift\Plugin;
 
+use BP_Signup,
+    WP_User;
 
 class BuddyPress extends Users {
     public function init() {
@@ -24,12 +26,12 @@ class BuddyPress extends Users {
         # adds random hash to user_name
         add_action( 'bp_signup_pre_validate', [ $this, 'bp_signup_pre_validate' ] );
         # redirects to home
-        add_filter( 'bp_core_signup_user', [ $this, 'bp_core_signup_user' ], 100, 5 );
+        add_filter( 'bp_core_signup_user', [ $this, 'bp_core_signup_user' ], 1000, 5 );
 
         # after user activation
-        add_action( 'bp_signup_validate', [ $this, 'bp_signup_validate' ] );
+        #add_action( 'bp_signup_validate', [ $this, 'bp_signup_validate' ] );
         add_filter( 'bp_core_validate_user_signup', [ $this, 'bp_core_validate_user_signup' ] );
-        add_action( 'bp_core_activated_user', [ $this, 'bp_core_activated_user' ], 20, 3 );
+        #add_action( 'bp_core_activated_user', [ $this, 'bp_core_activated_user' ], 20, 3 );
 
 
 
@@ -37,13 +39,16 @@ class BuddyPress extends Users {
 
 
         # #47 - disable activation
-        add_filter( 'authenticate', [ $this, 'authenticateLogin' ], 100, 3 );
+        #add_filter( 'authenticate', [ $this, 'authenticateLogin' ], 100, 3 );
         #add_filter( 'bp_registration_needs_activation', '__return_false' );
-        #add_filter( 'bp_registration_needs_activation', [$this, 'false'], 20 );
+        add_filter( 'bp_registration_needs_activation', [$this, 'false'], 20 );
+        add_filter( 'bp_core_signup_send_activation_key', '__return_false', 20 );
+
 
     }
     
-    public function false() {
+    public function false( $status ) {
+        #die($status);
         return false;
     }
 
@@ -57,9 +62,23 @@ class BuddyPress extends Users {
 
 
     function bp_core_signup_user( $user_id, $user_login, $user_password, $user_email, $usermeta ) {
+        global $wpdb;
+        #$sql = "SELECT activation_key, user_login FROM {$wpdb->prefix}signups WHERE active = '0' and user_login = %s";
+        #$signup = $wpdb->get_row( $wpdb->prepare( $sql, $user_email ) );
+
+        # actual activation
+        #bp_core_activate_signup($signup->activation_key);
+        #BP_Signup::validate($signup->activation_key);
+
+
+        #wp_set_current_user( $user_id, $user->user_login );
+        #wp_set_auth_cookie( $user_id, true, is_ssl() );
+
+
         bp_core_redirect(home_url() );
         #wp_redirect( home_url() );
     }
+
 
     # Authenticates a user on login. Tries logging in unactivated users
     public function authenticateLogin( $user, $username, $password ) {
@@ -97,8 +116,8 @@ class BuddyPress extends Users {
     # sets username after activation
      public function bp_core_activated_user(  $userId, $key, $user ) {
          global $wpdb;
-         $user = get_user_by( 'ID', $userId );
 
+         $user = get_user_by( 'id', $userId );
          $update = $wpdb->update( $wpdb->users,
              [ 'user_login' => $user->user_email ],
              [ 'ID' => $userId],
@@ -106,6 +125,10 @@ class BuddyPress extends Users {
              [ '%d' ]
          );
 
+         #echo $userId;
+
+         #vard($update);
+         #die($update);
          return $update;
      }
 
