@@ -228,15 +228,15 @@ class TSDBObj
     }
 
     // create a row on the ContactGroupCategory table with dup check
-    public function ts_tag_category_create($name, $desc){ ## Tested
+    public function ts_tag_category_create($wpid, $name, $desc){ ## Tested
         self::sql_open();
-        $query="CALL ts_tag_category_create('$name', '$desc');";
+        $query="CALL ts_tag_category_create($wpid, '$name', '$desc');";
         $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
         self::sql_close();
         return $rows[0];
     }
-
+// TODO: ts_tag_read_by_name($tName)
     public function ts_tag_read($tid){ ## Tested
         self::sql_open();
         $query="CALL ts_tag_read($tid);";
