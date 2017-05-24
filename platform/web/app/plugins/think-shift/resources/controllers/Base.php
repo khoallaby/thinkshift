@@ -225,7 +225,7 @@ class Base {
 
 
 
-    public function getView( $file, $return = false ) {
+    public static function getView( $file, $return = false ) {
         # todo: pull from get_template_part()
         $dir = dirname(__FILE__) . '/../../views/';
         if( $return )

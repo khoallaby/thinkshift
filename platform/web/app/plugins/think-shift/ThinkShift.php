@@ -19,6 +19,7 @@ define( 'thinkshift_plugin_path',plugin_dir_path(__FILE__ ) );
 
 # todo: build importer/autoloader pls
 require_once( dirname(__FILE__) . '/resources/controllers/Base.php');
+require_once( dirname(__FILE__) . '/PBClub/TSDBObj.php');
 require_once( dirname(__FILE__) . '/resources/controllers/CustomPostTypes.php');
 require_once( dirname(__FILE__) . '/resources/controllers/CustomTables.php');
 require_once( dirname(__FILE__) . '/resources/controllers/CustomTables/Contacts.php');
@@ -35,6 +36,7 @@ require_once( dirname(__FILE__) . '/resources/controllers/Tags.php');
 require_once( dirname(__FILE__) . '/resources/controllers/BuddyPress.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Shortcodes.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Cron.php');
+
 
 
 function vard($s) {

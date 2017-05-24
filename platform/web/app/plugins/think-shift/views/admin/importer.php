@@ -7,8 +7,8 @@ use \ThinkShift\Plugin\Contacts;
     <h1><?php echo get_admin_page_title(); ?></h1>
 
     <form method="post" action="<?php echo admin_url( 'admin.php' ); ?>" enctype="multipart/form-data">
-        <input type="hidden" name="action" value="reignite-importer" />
-        <input type="hidden" name="page" value="reignite-importer" />
+        <input type="hidden" name="action" value="thinkshift-importer" />
+        <input type="hidden" name="page" value="thinkshift-importer" />
 
         <h2 class="title">Contacts</h2>
         <table class="form-table">

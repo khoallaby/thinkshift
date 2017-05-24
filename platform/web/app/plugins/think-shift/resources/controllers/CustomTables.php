@@ -1,7 +1,7 @@
 <?php
 namespace ThinkShift\Plugin;
 
-use TSDBObj;
+use \TSDBObj;
 
 
 
@@ -17,7 +17,7 @@ class CustomTables extends Base {
     static $primary_key = 'id';
     static $table = '';
     static $prefix = '';
-    static $db;
+    static $db, $tsdb, $tsdbcon;
     static $output = OBJECT;
 
     protected function __construct() {
@@ -25,10 +25,14 @@ class CustomTables extends Base {
 
         # set up our instance of $db, so this can easily be linked to something else
         if( !isset(self::$db) ) {
-            require_once dirname(__FILE__) . '/../../PBClub/TSDBObj.php';
-            self::$db = new TSDBObj();
-            #if( WP_DEBUG )
-                #$wpdb->show_errors = true;
+            global $wpdb;
+            if( WP_DEBUG )
+                $wpdb->show_errors = true;
+            self::$db = $wpdb;
+        }
+        if( !isset(self::$tsdb) ) {
+            self::$tsdb = new \TSDBObj();
+            self::$tsdbcon = self::$tsdb->get_connection();
         }
 
         if( static::$table == null )
@@ -42,11 +46,19 @@ class CustomTables extends Base {
      * @return string
      */
     public static function _table() {
-        return self::$db->prefix . static::$prefix . static::$table;
+        if( isset(self::$tsdb) )
+            return static::$prefix . static::$table;
+        elseif( isset(self::$db->prefix) )
+            return self::$db->prefix . static::$prefix . static::$table;
+        else
+            return static::$prefix . static::$table;
     }
     
     public static function _db() {
-        return self::$db;
+        if( isset(self::$tsdb) )
+            return self::$tsdb;
+        else
+            return self::$db;
     }
 
     public static function _output( $type ) {
