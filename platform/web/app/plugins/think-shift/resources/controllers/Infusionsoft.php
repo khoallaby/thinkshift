@@ -63,7 +63,7 @@ class Infusionsoft extends Base {
      * @param $token
      */
     function connectOauth( $token ) {
-        vard($token);
+        #vard($token);
         self::$api = new iSDK();
         self::$api->setClientId('9sbtkn2vfjrr7cp93yaswgpq');
         self::$api->setSecret('St9WnkKkk8');
