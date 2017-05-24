@@ -46,7 +46,9 @@
     "wpackagist-plugin/piklist": "0.9.9.12",
     "wpackagist-plugin/gmail-smtp": "1.1.1",
     "wpackagist-plugin/wp-smtp": "1.1.9",
-    "wpackagist-plugin/wp-mail-smtp": "0.10.1"
+    "wpackagist-plugin/wp-mail-smtp": "0.10.1",
+    "wpackagist-plugin/bp-disable-activation-reloaded": "1.2.1"
+
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.5.1"
