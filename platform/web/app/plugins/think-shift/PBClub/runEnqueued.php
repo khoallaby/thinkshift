@@ -65,6 +65,7 @@ if (mysqli_connect_errno())
 // Infusionsoft dependencies
 require_once 'src/isdk.php';
 $app=new iSDK();
+
 if ($debug){
 	$app->cfgCon( 'yo243', 'c959c2b28a10eb74a2d5af154ba1986d' );
 } else {

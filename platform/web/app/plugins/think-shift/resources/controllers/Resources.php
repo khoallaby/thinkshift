@@ -25,8 +25,8 @@ class Resources extends CustomPostTypes {
     public static function alterPageQueries( $query ) {
 
         if( $query->is_main_query()  && !is_admin() ) {
-            if( $query->is_post_type_archive( self::$postType ) )
-                $query = static::filterQueryOrder( $query );
+            #if( $query->is_post_type_archive( self::$postType ) )
+                #$query = static::filterQueryOrder( $query );
         }
         return $query;
 

@@ -1,64 +1,67 @@
+DROP SCHEMA IF EXISTS thinkshiftdb;
+
+CREATE DATABASE thinkshiftdb;
+
 USE thinkshiftdb;
 
 CREATE TABLE IF NOT EXISTS OAuth2 (
-    Id            INTEGER       NOT NULL        PRIMARY KEY ,
-    AppName       VARCHAR(5)    NOT NULL ,
-    AccessToken   VARCHAR(100)  NOT NULL ,
-    RefreshToken  VARCHAR(100)  NOT NULL ,
-    GeneratedDate DATETIME      NOT NULL
+    Id            INTEGER       NOT NULL        AUTO_INCREMENT		PRIMARY KEY ,
+    AppName       VARCHAR(5)    NOT NULL 		DEFAULT '',
+    AccessToken   VARCHAR(100)  NOT NULL 		DEFAULT '',
+    RefreshToken  VARCHAR(100)  NOT NULL 		DEFAULT '',
+    GeneratedDate DATETIME      NOT NULL		DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS Transactions (
-    Id            INTEGER       NOT NULL        PRIMARY KEY ,
-    JSON          TEXT          NOT NULL
+    Id            INTEGER       NOT NULL        AUTO_INCREMENT		PRIMARY KEY ,
+    JSON          TEXT
 );
 
 CREATE TABLE IF NOT EXISTS DataFormField (
-    Id            INTEGER       NOT NULL        PRIMARY KEY ,
-    Wp_id         INTEGER       NOT NULL ,
-    Is_id         INTEGER       NOT NULL ,
-    DataType      INTEGER       NOT NULL ,
-    DefaultValue  VARCHAR(256)  NOT NULL ,
-    FormId        INTEGER       NOT NULL ,
-    GroupId       INTEGER       NOT NULL ,
-    Label         VARCHAR(256)  NOT NULL ,
-    ListRows      INTEGER       NOT NULL ,
-    Name          VARCHAR(256)  NOT NULL ,
-    FieldValues   VARCHAR(256)  NOT NULL
+    Id            INTEGER       NOT NULL        AUTO_INCREMENT		PRIMARY KEY ,
+    Wp_id         INTEGER       NOT NULL 		DEFAULT 0,
+    Is_id         INTEGER       NOT NULL 		DEFAULT 0,
+    DataType      INTEGER       NOT NULL 		DEFAULT 15,
+    DefaultValue  VARCHAR(256)  NOT NULL 		DEFAULT '',
+    FormId        INTEGER       NOT NULL 		DEFAULT -1,
+    GroupId       INTEGER       NOT NULL 		DEFAULT 0,
+    Label         VARCHAR(256)  NOT NULL 		DEFAULT '',
+    ListRows      INTEGER       NOT NULL 		DEFAULT 0,
+    Name          VARCHAR(256)  NOT NULL 		DEFAULT '',
+    FieldValues   VARCHAR(256)  NOT NULL		DEFAULT ''
 );
 
 CREATE TABLE IF NOT EXISTS ContactGroupCategory (
-    Id            INTEGER       NOT NULL        PRIMARY KEY ,
-    Wp_id         INTEGER       NOT NULL ,
-    Is_id         INTEGER       NOT NULL ,
-    CategoryName  VARCHAR(256)  NOT NULL ,
-    CategoryDesc  TEXT          NOT NULL
+    Id            INTEGER       NOT NULL        AUTO_INCREMENT		PRIMARY KEY ,
+    Wp_id         INTEGER       NOT NULL 		DEFAULT 0,
+    Is_id         INTEGER       NOT NULL 		DEFAULT 0,
+    CategoryName  VARCHAR(256)  NOT NULL 		DEFAULT '',
+    CategoryDesc  TEXT
 );
 
+DROP TABLE IF EXISTS ContactGroup;
 CREATE TABLE IF NOT EXISTS ContactGroup (
-    Id            INTEGER       NOT NULL        PRIMARY KEY ,
-    Wp_id         INTEGER       NOT NULL ,
-    Is_id         INTEGER       NOT NULL ,
-    GroupName     VARCHAR(256)  NOT NULL ,
-    GroupDesc     TEXT          NOT NULL ,
-    GroupCatId    INTEGER       NOT NULL ,
-    CONSTRAINT ContactGroup_fk_ContactGroupCategory FOREIGN KEY (GroupCatId)
-      REFERENCES ContactGroupCategory (Id)
+    Id            INTEGER       NOT NULL        AUTO_INCREMENT		PRIMARY KEY ,
+    Wp_id         INTEGER       NOT NULL 		DEFAULT 0,
+    Is_id         INTEGER       NOT NULL 		DEFAULT 0,
+    GroupName     VARCHAR(256)  NOT NULL 		DEFAULT '',
+    GroupDesc     TEXT,
+    GroupCatId    INTEGER       DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS Address (
-    Id            INTEGER       NOT NULL        PRIMARY KEY ,
-    Wp_id         INTEGER       NOT NULL ,
-    Is_id         INTEGER       NOT NULL ,
-    AddressType   INTEGER       NOT NULL ,  ## Other=0, Mailing=1, Billing=2, Shipping=3
-    Street1       VARCHAR(100)  NOT NULL ,
-    Street2       VARCHAR(100)  NOT NULL ,
-    City          VARCHAR(25)   NOT NULL ,
-    State         VARCHAR(20)   NOT NULL ,
-    County        VARCHAR(30)   NOT NULL ,
-    Country       VARCHAR(50)   NOT NULL ,
-    PostalCode    VARCHAR(12)   NOT NULL ,
-    Zip4          VARCHAR(4)    NOT NULL
+    Id            INTEGER       NOT NULL        AUTO_INCREMENT		PRIMARY KEY ,
+    Wp_id         INTEGER       NOT NULL 		DEFAULT 0,
+    Is_id         INTEGER       NOT NULL 		DEFAULT 0,
+    AddressType   INTEGER       NOT NULL 		DEFAULT 1,  ## Other=0, Mailing=1, Billing=2, Shipping=3
+    Street1       VARCHAR(100)  NOT NULL 		DEFAULT '',
+    Street2       VARCHAR(100)  NOT NULL 		DEFAULT '',
+    City          VARCHAR(25)   NOT NULL 		DEFAULT '',
+    State         VARCHAR(20)   NOT NULL 		DEFAULT '',
+    County        VARCHAR(30)   NOT NULL 		DEFAULT '',
+    Country       VARCHAR(50)   NOT NULL 		DEFAULT '',
+    PostalCode    VARCHAR(12)   NOT NULL 		DEFAULT '',
+    Zip4          VARCHAR(4)    NOT NULL		DEFAULT ''
 );
 
 /**
@@ -81,27 +84,27 @@ Status (for email table 'Status')
 
  */
 CREATE TABLE IF NOT EXISTS Email (
-    Id            INTEGER       NOT NULL        PRIMARY KEY ,
-    Wp_id         INTEGER       NOT NULL ,
-    Is_id         INTEGER       NOT NULL ,
-    Status        INTEGER       NOT NULL , ## see address status notes above
-    Address       VARCHAR(256)
+    Id            INTEGER       NOT NULL        AUTO_INCREMENT		PRIMARY KEY ,
+    Wp_id         INTEGER       NOT NULL 		DEFAULT 0,
+    Is_id         INTEGER       NOT NULL 		DEFAULT 0,
+    Status        INTEGER       NOT NULL 		DEFAULT 0, ## see address status notes above
+    Address       VARCHAR(256)	UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Phone (
-    Id            INTEGER       NOT NULL        PRIMARY KEY ,
-    Wp_id         INTEGER       NOT NULL ,
-    Is_id         INTEGER       NOT NULL ,
-    PhoneType     VARCHAR(30)   NOT NULL , ## Home, Cell, Business, Fax1, Fax2
-    PhoneNumber   VARCHAR(30)   NOT NULL ,
-    PhoneExt      VARCHAR(5)    NOT NULL
+    Id            INTEGER       NOT NULL        AUTO_INCREMENT		PRIMARY KEY ,
+    Wp_id         INTEGER       NOT NULL 		DEFAULT 0,
+    Is_id         INTEGER       NOT NULL 		DEFAULT 0,
+    PhoneType     VARCHAR(30)   NOT NULL 		DEFAULT '', ## Home, Cell, Business, Fax1, Fax2
+    PhoneNumber   VARCHAR(30)   NOT NULL 		DEFAULT '',
+    PhoneExt      VARCHAR(5)    NOT NULL		DEFAULT ''
 );
 
 CREATE TABLE IF NOT EXISTS Contact (
-    Id            INTEGER       NOT NULL        PRIMARY KEY ,
-    Wp_id         INTEGER       NOT NULL ,
-    Is_id         INTEGER       NOT NULL ,
-    AccountId     INTEGER       NOT NULL ,
+    Id            INTEGER       NOT NULL        AUTO_INCREMENT		PRIMARY KEY ,
+    Wp_id         INTEGER       NOT NULL 		DEFAULT 0,
+    Is_id         INTEGER       NOT NULL 		DEFAULT 0,
+    AccountId     INTEGER       NOT NULL 		DEFAULT 0,
     Address1      INTEGER ,
     Address2      INTEGER ,
     Address3      INTEGER ,
@@ -113,24 +116,24 @@ CREATE TABLE IF NOT EXISTS Contact (
     CompanyName   VARCHAR(100) ,
     CompanyId     INTEGER ,
     ContactNotes  TEXT ,
-    ContactType   VARCHAR(30)   NOT NULL ,
+    ContactType   VARCHAR(30)   NOT NULL 		DEFAULT '',
     CreatedBy     INTEGER ,
-    DateCreated   DATETIME      NOT NULL ,
-    Email1        INTEGER ,
+    DateCreated   DATETIME      NOT NULL 		DEFAULT NOW(),
+    Email1        INTEGER 		NOT NULL		DEFAULT 0,
     Email2        INTEGER ,
     Email3        INTEGER ,
-    FirstName     VARCHAR(100)  NOT NULL ,
+    FirstName     VARCHAR(100)  NOT NULL 		DEFAULT '',
     Tags          TEXT , ## comma separated list of IS tag ids
     JobTitle      VARCHAR(100) ,
     Language      VARCHAR(50) ,
     LastName      VARCHAR(100) ,
-    LastUpdated   DATETIME      NOT NULL ,
-    LastUpdatedBy INTEGER       NOT NULL ,
+    LastUpdated   DATETIME      NOT NULL 		DEFAULT NOW(),
+    LastUpdatedBy INTEGER       NOT NULL 		DEFAULT 0,
     LeadSourceId  INTEGER ,
     LeadSource    VARCHAR(256) ,
     MiddleName    VARCHAR(100) ,
     Nickname      VARCHAR(100) ,
-    OwnerId       INTEGER       NOT NULL ,
+    OwnerId       INTEGER       NOT NULL 		DEFAULT 0,
     Password      VARCHAR(100) ,
     Phone1        INTEGER ,
     Phone2        INTEGER ,
@@ -167,4 +170,11 @@ CREATE TABLE IF NOT EXISTS Contact (
         REFERENCES Phone (Id) ,
     CONSTRAINT Contact_fk_Phone5 FOREIGN KEY (Phone5)
         REFERENCES Phone (Id)
+);
+
+CREATE TABLE IF NOT EXISTS ContactGroupAssign (
+	Id			INTEGER       NOT NULL        AUTO_INCREMENT		PRIMARY KEY ,
+    ContactId	INTEGER		  NOT NULL ,
+    DateCreated DATETIME	  NOT NULL 		  DEFAULT NOW() ,
+    GroupId		INTEGER		  NOT NULL
 );

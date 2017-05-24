@@ -46,7 +46,7 @@ if( !isset($strengths) )
                       </div>
                     </div>
                     <div class="col-lg-6">
-                      <?php if( CustomPostTypes::isPostType( 'career' ) ) get_template_part( 'templates/shared/header', 'filter-order' ); ?>
+                      <?php #if( CustomPostTypes::isPostType( 'career' ) ) get_template_part( 'templates/shared/header', 'filter-order' ); ?>
                       <input type="submit" class="btn btn-primary" value="Submit" />
                     </div>
                   </div>

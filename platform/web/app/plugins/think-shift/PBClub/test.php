@@ -6,34 +6,17 @@
  * Time: 9:55 AM
  */
 
-require_once 'Enqueue.php';
-
-/**$query=array('FirstName'=>'TestFirst1','LastName'=>'TestLast1','Email'=>'TestEmail1@test.com');
-sendTable(NON_CRITICAL,CONTACT, $query);
-
-$query=array('FirstName'=>'TestFirst2','LastName'=>'TestLast2','Email'=>'TestEmail2@test.com');
-sendTable(CRITICAL,CONTACT, $query);
-
-$query=array('FirstName'=>'TestFirst3','LastName'=>'TestLast3','Email'=>'TestEmail3@test.com');
-sendTable(CRITICAL,CONTACT, $query);
-
-$query=array('FirstName'=>'TestFirst4','LastName'=>'TestLast4','Email'=>'TestEmail4@test.com');
-sendTable(NON_CRITICAL,CONTACT, $query);**/
-
-
-/**$query=array('ContactId'=>93079,'GroupId'=>11109);
-sendTable(CRITICAL,CONTACT_GROUP_ASSIGN, $query);
-
-$query=array('ContactId'=>93081,'GroupId'=>11109);
-sendTable(NON_CRITICAL,CONTACT_GROUP_ASSIGN, $query);
-
-$query=array('ContactId'=>93083,'GroupId'=>11109);
-sendTable(NON_CRITICAL,CONTACT_GROUP_ASSIGN, $query);
-
-$query=array('ContactId'=>93085,'GroupId'=>11109);
-sendTable(CRITICAL,CONTACT_GROUP_ASSIGN, $query);
- */
-
-require_once 'getToken.php';
-
-echo getToken();
+$now = time();
+echo 'Timestamp now = '.$now.chr(10);
+$dtz=new DateTime('America/Los_Angeles');
+$dtzstr=$dtz->format('Y-m-d H:i:s');
+echo 'Date String = '.$dtzstr.chr(10);
+echo 'Timezone = '.$dtz->getTimezone()->getName().chr(10);
+$d = new DateTime('2017-05-14T10:40:12');
+$dstr=$d->format('Y-m-d H:i:s');
+$then = $d->getTimestamp();
+echo 'Timestamp then = '.$then.chr(10);
+echo 'Date String = '.$dstr.chr(10);
+echo 'Timezone = '.$d->getTimezone()->getName().chr(10);
+$diff=$now-$then;
+echo 'Differential = '.$diff.chr(10);

@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
   <div class="col-lg-12">
     <div class="card mb-4">
       <div class="card-body hero-img" style="background: url('/app/themes/thinkshift/assets/images/assessment-hero.jpg'); background-size: cover">
@@ -8,9 +8,9 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
-<div class="row" id="assessment-position">
+<!-- <div class="row" id="assessment-position">
   <div class="col-lg-4">
     <div class="card mb-4">
       <div class="card-body">
@@ -36,16 +36,15 @@
         <h5>Accelerate</h5>
         <p>Now it’s time to fly. Connect directly to partners who can link you directly to opportunities.</p>
       </div>
-      </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <?php
 get_template_part( 'templates/assessments/steps' );
 ?>
 
-  <div class="col-lg-6">
+  <!-- <div class="col-lg-6">
     <div class="card mb-4">
       <div class="card-header bg-themec-yellow">
         <div class="card-title"><h6>About Positioning Steps</h6></div>
@@ -78,4 +77,4 @@ get_template_part( 'templates/assessments/steps' );
         <p>Financial issues can be a major barrier to both having a future focus and being able to pursue desired futures. Getting the right information can both get your economic feed under you to be ready to make a move, and help you find the resources you need to invest in your future.</p>
       </div>
     </div>
-  </div>
+  </div> -->
