@@ -33,7 +33,20 @@ $curl = curl_init();
  * Currently code the endpoint
  */
 // TODO: add the endpoint url as an optional parameter
-$endpoint="http://john.tsdevserver.com/Hooks/";
+function getHooksUrl()
+{
+    $file = fopen('../../.env', 'r');
+
+    while (!feof($file)) {
+        $line = fgets($file);
+        $p = strpos($line, 'WP_HOME');
+        if ((is_int($p)) && ($p == 0)) break;
+    }
+    $url = substr($line, 8, -1).'/Hooks/';
+    return $url;
+}
+
+$endpoint=getHooksUrl();
 
 // Send cURL validation request
 function validate($name)
