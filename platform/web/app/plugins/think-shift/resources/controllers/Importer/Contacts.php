@@ -1,7 +1,7 @@
 <?php
 namespace ThinkShift\Plugin;
 
-
+use \TSDBObj;
 
 class ImportContacts extends Importer {
 
@@ -30,9 +30,14 @@ class ImportContacts extends Importer {
             foreach( $rows as $row ) {
 
 
+                if( $user = get_user_by( 'email', $row['Email1'] ) )
+                    $wpId = $user->ID;
+                else
+                    $wpId = null;
+
                 $insertData = [
                     'Is_id'       => $row['Is_id'],
-                    'Wp_id'       => $row['Wp_id'],
+                    'Wp_id'       => $wpId,
                     'FirstName'   => $row['FirstName'],
                     'LastName'    => $row['LastName'],
                     'Email1'      => $row['Email1'],
@@ -46,15 +51,17 @@ class ImportContacts extends Importer {
                 ];
 
 
+                #$insert = Contacts::insert( $insertData );
                 $insert = Contacts::insert( $insertData );
 
             }
         }
+
     }
 
 
     public static function parseUpload() {
-        if( $file = $_FILES['contact-import-file']['tmp_name'] ) {
+        if( $file = $_FILES['contacts-import-file']['tmp_name'] ) {
             self::setTableKeys();
             $data = static::parseFile( $file );
             self::importData( $data );

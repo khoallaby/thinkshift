@@ -3,9 +3,10 @@ namespace ThinkShift\Plugin;
 
 
 
+
 class Contacts extends CustomTables {
 
-    static $table = 'Contacts';
+    static $table = 'Contact';
 
 
     public function init() {
@@ -35,6 +36,12 @@ class Contacts extends CustomTables {
     }
 
 
+
+    public static function insert( array $data, $format = null ) {
+        return self::$tsdb->ts_contact_create( $data['FirstName'], $data['LastName'], $data['Email1']);
+    }
+    
+    
     public static function getContacts() {
         return self::get();
     }
