@@ -7,7 +7,7 @@ use ThinkShift\Theme\Menu;
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand page-scroll" href="/">PIVOT TO OPPORTUNITY</a>
+            <a class="navbar-brand page-scroll" href="/">THINKSHIFT OPPORTUNITY</a>
             <button class="navbar-toggle navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="sr-only ">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
