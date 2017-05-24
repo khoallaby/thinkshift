@@ -107,7 +107,7 @@ yarn
 yarn run build
 if [ $WP_ENV = "production" ] ; then
     gulp -production
-
+fi
 
 
 
