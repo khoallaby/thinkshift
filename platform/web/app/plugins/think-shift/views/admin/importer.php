@@ -18,15 +18,15 @@ use \ThinkShift\Plugin\Contacts;
                 </tr>
                 <tr>
                     <th scope="row"><label for="tag-categories-import-file">Import Tag Categories</label></th>
-                    <td><input type="file" name="contacts-import-file" id="contacts-import-file"></td>
+                    <td><input type="file" name="tag-categories-import-file" id="tag-categories-import-file"></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="tags-import-file">Import Tags</label></th>
-                    <td><input type="file" name="contacts-import-file" id="contacts-import-file"></td>
+                    <td><input type="file" name="tags-import-file" id="tags-import-file"></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="tag-assign-import-file">Import Tag Assignments</label></th>
-                    <td><input type="file" name="contacts-import-file" id="contacts-import-file"></td>
+                    <td><input type="file" name="tag-assign-import-file" id="tag-assign-import-file"></td>
                 </tr>
             </tbody>
         </table>
