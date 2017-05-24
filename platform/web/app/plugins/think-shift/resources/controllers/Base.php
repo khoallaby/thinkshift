@@ -24,6 +24,7 @@ class Base {
 	public function init() {
 		require_once dirname(__FILE__) . '/../../vendor/autoload.php';
         #add_filter( 'posts_where', array( $this, 'posts_where' ), 10, 2 );
+        add_action( '_admin_menu', [ $this, 'admin_init' ], 2 );
 
 	}
 
@@ -36,8 +37,19 @@ class Base {
 
 
     /******************************************************************************************
-     * Actions/filters, i.e. for user log in/registration
+     * Actions/filters
      ******************************************************************************************/
+
+    // do stuff on admin
+    public function admin_init() {
+        require_once( dirname(__FILE__) . '/AdminUi.php');
+        require_once( dirname(__FILE__) . '/Importer.php');
+        require_once( dirname(__FILE__) . '/Importer/Contacts.php');
+        require_once( dirname(__FILE__) . '/Importer/Tagz.php');
+        require_once( dirname(__FILE__) . '/Importer/TagCategories.php');
+        require_once( dirname(__FILE__) . '/Importer/TagAssign.php');
+    }
+
 
     /**
      * Ability to use post_title__in, in WP_Query. Search for post titles from an array
@@ -213,6 +225,103 @@ class Base {
 
 
 
+
+
+    public static function getView( $file, $return = false ) {
+        # todo: pull from get_template_part()
+        $dir = dirname(__FILE__) . '/../../views/';
+        if( $return )
+            ob_start();
+        include $dir . $file . '.php';
+
+        if( $return )
+            return ob_get_clean();
+        else
+            return null;
+
+    }
+
+
+
+
+
+    /******************************************************************************************
+     * Random helper functions
+     ******************************************************************************************/
+
+
+
+    /**
+     * Searches inside an array of $objects for $object->key = $value
+     * @param array $objects    An array of objects
+     * @param string $key       The key to search for in each object
+     * @param string $value     The value of the $key to search for
+     * @param integer $limit    Limit to return
+     *
+     * @return array
+     */
+    public static function searchObjectsFor( $objects, $key, $value, $limit = null ) {
+        $matches = array_filter(
+            $objects,
+            function ( $e ) use($key, $value) {
+                return $e->{$key} == $value;
+            }
+        );
+
+        if( is_int( $limit ) )
+            $matches = array_slice( $matches, 0, $limit );
+
+        if( count( $matches ) == 1 && $limit == 1 )
+            return $matches[0];
+        else
+            return $matches;
+    }
+
+
+
+
+
+    /**
+     * Figure out what page you're on
+     * @return string
+     */
+    function getPageType() {
+        global $wp_query;
+        $page = 'notfound';
+
+        if ( $wp_query->is_page ) {
+            $page = is_front_page() ? 'front' : 'page';
+        } elseif ( $wp_query->is_home ) {
+            $page = 'home';
+        } elseif ( $wp_query->is_single ) {
+            $page = ( $wp_query->is_attachment ) ? 'attachment' : 'single';
+        } elseif ( $wp_query->is_category ) {
+            $page = 'category';
+        } elseif ( $wp_query->is_tag ) {
+            $page = 'tag';
+        } elseif ( $wp_query->is_tax ) {
+            $page = 'tax';
+        } elseif ( $wp_query->is_archive ) {
+
+            if ( $wp_query->is_day )
+                $page = 'day';
+            elseif ( $wp_query->is_month )
+                $page = 'month';
+            elseif ( $wp_query->is_year )
+                $page = 'year';
+            elseif ( $wp_query->is_author )
+                $page = 'author';
+            else
+                $page = 'archive';
+            
+        } elseif ( $wp_query->is_search ) {
+            $page = 'search';
+        } elseif ( $wp_query->is_404 ) {
+            $page = 'notfound';
+        }
+
+        return $page;
+    }
 }
 
 

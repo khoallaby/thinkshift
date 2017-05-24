@@ -8,9 +8,9 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="assessments-dream_declaration.html">assessments-dream_declaration</a></td></tr>
-<tr><td><a href="assessments-motivated_abilities.html">assessments-motivated_abilities</a></td></tr>
-<tr><td><a href="assessments-pivot_power.html">assessments-pivot_power</a></td></tr>
+<tr><td><a href="assessment-dream_declaration.html">assessment-dream_declaration</a></td></tr>
+<tr><td><a href="assessment-motivated_abilities.html">assessment-motivated_abilities</a></td></tr>
+<tr><td><a href="assessment-pivot_power.html">assessment-pivot_power</a></td></tr>
 </tbody></table>
 </body>
 </html>

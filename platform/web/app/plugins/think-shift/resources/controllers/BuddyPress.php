@@ -8,26 +8,43 @@ class BuddyPress extends Users {
         #add_action( 'wp_login', array( $this, 'wp_login' ), 20, 2 );
 
 
+        # remove buddypress admin bar
+        add_action( 'wp', [ $this, 'removeBpAdminBar' ] );
 
 
-        # registration hooks
+        /**
+         * registration hooks
+         */
 
+
+        # removes the WP social login plugin before the fields show
+        remove_action( 'bp_before_account_details_fields', 'wsl_render_auth_widget_in_wp_login_form' );
+
+        # On successful registration
         # adds random hash to user_name
         add_action( 'bp_signup_pre_validate', [ $this, 'bp_signup_pre_validate' ] );
-        # after validateion complete
+        # redirects to home
+        add_filter( 'bp_core_signup_user', [ $this, 'bp_core_signup_user' ], 100, 5 );
+
+        # after user activation
         add_action( 'bp_signup_validate', [ $this, 'bp_signup_validate' ] );
         add_filter( 'bp_core_validate_user_signup', [ $this, 'bp_core_validate_user_signup' ] );
         add_action( 'bp_core_activated_user', [ $this, 'bp_core_activated_user' ], 20, 3 );
 
 
-        # remove buddypress admin bar
-        add_action( 'wp', [ $this, 'removeBpAdminBar' ] );
 
         # do_action( 'bp_complete_signup' ); # after complete
 
 
         # #47 - disable activation
+        add_filter( 'authenticate', [ $this, 'authenticateLogin' ], 100, 3 );
         #add_filter( 'bp_registration_needs_activation', '__return_false' );
+        #add_filter( 'bp_registration_needs_activation', [$this, 'false'], 20 );
+
+    }
+    
+    public function false() {
+        return false;
     }
 
 
@@ -38,6 +55,21 @@ class BuddyPress extends Users {
      * Actions/filters, i.e. for user log in/registration
      ******************************************************************************************/
 
+
+    function bp_core_signup_user( $user_id, $user_login, $user_password, $user_email, $usermeta ) {
+        bp_core_redirect(home_url() );
+        #wp_redirect( home_url() );
+    }
+
+    # Authenticates a user on login. Tries logging in unactivated users
+    public function authenticateLogin( $user, $username, $password ) {
+        # try logging in an unactivated account
+        if( is_wp_error($user) && $user->get_error_code() == 'bp_account_not_activated' ) {
+            $user = wp_authenticate_email_password(null, $username, $password);
+        }
+
+        return $user;
+    }
 
     # Runs after all the default BP validation is done. Validates first/last name
     public function bp_signup_validate() {

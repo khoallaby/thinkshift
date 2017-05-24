@@ -1,66 +1,91 @@
 <?php
 use ThinkShift\Plugin\Assessments;
 
-global $wp_query, $statuses;
+global $wp_query, $assesments, $statuses;
 
 
-if( is_null($statuses) )
+if ( ! isset( $assesments ) ) {
+    $assesments = Assessments::getCompletedStatus();
+}
+
+if ( ! isset( $statuses ) ) {
     $statuses = Assessments::canAccess();
+}
 ?>
-  <div class="col-lg-12">
-    <div class="card">
-        <div class="card-header bg-themec-yellow">
-          <h6>Positioning Journey Tracker</h6>
-        </div>
-        <div class="card-body">
-            <div class="step">
-                <ul class="nav">
-                    <?php
-                    if( is_post_type_archive( 'assessment' ) ) {
-                        $posts = $wp_query->get_posts();
-                    } else {
-                        $posts = \ThinkShift\Plugin\Base::getPosts( 'assessment', [
-                            'orderby' => 'menu_order',
-                            'order' => 'ASC'
-                        ] );
-                    }
-                    if ( !empty($posts) ) :
-                        $i = 0;
-                        foreach( $posts as $post ) {
-                            $completed = $statuses[ $i ];
-                            $i ++;
 
-                            if ( $completed ) {
-                                $active = 'inactive';
-                                $link   = '';
+<div class="row mt-4 mb-4" id="assessment-position">
+
+    <?php
+    if ( is_post_type_archive( 'assessment' ) ) {
+        $posts = $wp_query->get_posts();
+    } else {
+        $posts = \ThinkShift\Plugin\Base::getPosts( 'assessment', [
+            'orderby' => 'menu_order',
+            'order'   => 'ASC'
+        ] );
+    }
+    if ( ! empty( $posts ) ) :
+        $i = 0;
+        foreach ( $posts as $post ) {
+            $status    = $statuses[ $i ];
+            $completed = $assesments[ $i ];
+
+            if ( $status ) {
+                $active = 'inactive';
+                $link   = '';
+            } else {
+                $active = 'bg-themec-yellow';
+                $link   = get_the_permalink( $post->ID );
+            }
+            # checks if User has the in/complete Tag for the following assessment
+            ?>
+
+            <div class="col-lg-4">
+                <div class="card mb-4 <?php echo $active; ?>">
+                    <div class="card-body">
+                        <?php if ( ! $completed ) { ?>
+                            <i class="fa fa-paper-plane-o lg" aria-hidden="true"></i>
+                        <?php } else { ?>
+                            <i class="fa fa-check lg" aria-hidden="true"></i>
+                        <?php } ?>
+                        <h5><?php echo get_the_title( $post->ID ); ?></h5>
+                        <?php
+                        $descriptionCss = 'description ';
+
+                        if ( $completed ) {
+                            $description = 'You Have Completed!';
+                            $descriptionCss .= 'completed';
+                        } else {
+                            # if this is the current one
+                            if( $status ) {
+                                $description = 'Not Yet Started';
+                                $descriptionCss .= 'incomplete';
                             } else {
-                                $active = 'active';
-                                $link   = get_the_permalink( $post->ID );
+                                $description = 'Next up';
+                                $descriptionCss .= 'current';
                             }
-                            # checks if User has the in/complete Tag for the following assessment
-                            ?>
-                            <li class="<?php echo $active; ?>">
-                                <a<?php echo $link ? sprintf( ' href="%s"', $link ) : ''; ?>>
-                                    <div class="icon fa fa-suitcase"></div>
-                                    <div class="heading">
-                                        <div class="title"><?php echo get_the_title( $post->ID ); ?></div>
-                                        <div class="description">Start your assessment</div>
-                                        <div class="description description-completed">Assessment Completed</div>
-                                        <!-- <div class="description"><?php get_template_part( 'templates/' . get_post_type() . '/index', 'occupation' ); ?></div> -->
-                                    </div>
-                                </a>
-                            </li>
-                            <?php
+
                         }
 
-                        the_posts_navigation();
+                        echo sprintf( '<div class="%s">%s</div>', $descriptionCss, $description );
+                        ?>
 
-                    endif;
-                    wp_reset_postdata();
-                    ?>
-
-                </ul>
+                        <?php if ( !$completed && !$status ) : ?>
+                            <a<?php echo $link ? sprintf( ' href="%s"', $link ) : ''; ?>>Take The Assessment</a>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-  </div>
+
+            <?php
+            $i ++;
+
+        }
+
+        the_posts_navigation();
+
+    endif;
+    wp_reset_postdata();
+    ?>
+
+</div>

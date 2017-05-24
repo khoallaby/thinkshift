@@ -10,8 +10,12 @@
 
 namespace ThinkShift\Plugin;
 
+# todo: @tsdb include class
+require_once dirname(__FILE__) . '/../../PBClub/TSDBObj.php';
 
 class Users extends Base {
+    # todo: @tsdb instantiate tsdb object from class
+    private static $tsdb;
     private static $infusionsoft;
     public static  $contactId, $userId, $user;
     public static  $strengthMetaKey = 'MA Value Creation Strengths';
@@ -19,6 +23,10 @@ class Users extends Base {
 
 
     public function init() {
+        // require_once '../../PBClub/awsconfig.php';
+        # todo: @tsdb init tsdb __construct contstructor
+        self::$tsdb=new \TSDBObj('thinkshiftdataserver.czlkyoy9ghkh.us-east-1.rds.amazonaws.com',
+                                'awsthinkshift', '?Th1nksh1ft?', 'thinkshiftdb');
         parent::init();
 
         self::$contactId = self::getContactId();
@@ -29,13 +37,6 @@ class Users extends Base {
 
 
     }
-
-
-
-
-
-
-
 
 
     /******************************************************************************************
@@ -67,19 +68,18 @@ class Users extends Base {
     public function user_register( $userId ) {
         $fields = $this->parseFields( $userId );
         $this->addInfusionsoftContact( $userId, $fields );
+
+        # log in, redirect to homepage after registration
+        #do_action( 'wp_login', $user_login );
+        #wp_set_current_user( $user->ID, $user_login );
+        wp_set_auth_cookie( $userId, true, is_ssl() );
+        wp_safe_redirect( home_url() );
     }
-
-
-
-
-
-
 
 
     /******************************************************************************************
      * Misc helper functions
      ******************************************************************************************/
-
 
 
     public static function getStrengthMetaId() {
@@ -106,7 +106,7 @@ class Users extends Base {
         } else {
             self::$user = self::$userId = null;
         }
-
+        # @todo: tsdb: set wp user id value by email in db
         self::$contactId = get_user_meta( self::$userId, 'infusionsoft_id', true );
     }
 
@@ -153,8 +153,7 @@ class Users extends Base {
         return $is;
     }
 
-
-
+    # todo: tsdb update information in db
     public static function updateUserLogin( $userId, $userLogin ) {
         global $wpdb;
         return $wpdb->update( $wpdb->users,
@@ -164,7 +163,6 @@ class Users extends Base {
             [ '%d' ]
         );
     }
-
 
 
     /**
@@ -181,13 +179,9 @@ class Users extends Base {
     }
 
 
-
-
     /******************************************************************************************
      * Functions for handling Contacts
      ******************************************************************************************/
-
-
 
 
     /**
@@ -199,17 +193,13 @@ class Users extends Base {
             $userId = self::$userId;
 
         $contactId = self::getInfusionsoft()->addContact( $fields, $priority );
-
+        # todo: @tsdb added ts_contact_create
+        #\TSDBObj::class->ts_contact_create($fields['FirstName'], $fields['LastName'],$fields['Email']);
         if( $contactId ) {
             update_user_meta( $userId, 'infusionsoft_id', $contactId );
             self::$contactId = $contactId;
         }
-
     }
-
-
-
-
 
 
     /******************************************************************************************
@@ -248,8 +238,10 @@ class Users extends Base {
      *
      * @return array|\WP_Error
      */
+
     public static function addUserTags( $tags = [], $append = false ) {
         return static::addObjTags( static::$userId, $tags, $append );
+        # todo: @tsdb
     }
 
 
@@ -278,7 +270,7 @@ class Users extends Base {
         }
 
         $terms = wp_get_object_terms( $objectId, 'tag-category', $args );
-
+        # todo: @tsdb
         if( $terms && $limit > 0 )
             return array_slice( $terms, 0, $limit );
         else
@@ -303,7 +295,6 @@ class Users extends Base {
     }
 
 
-
     /**
      * General function for pulling User Tags from WP
      * @param $category
@@ -313,8 +304,6 @@ class Users extends Base {
     public static function getUserTags( $category = null, $limit = 0  ) {
         return self::getObjTags( self::$userId, $category, $limit );
     }
-
-
 
 
     /**
@@ -328,11 +317,10 @@ class Users extends Base {
     public static function getUserTagsByCategory( $category = null, $contactId = null ) {
         if( !$contactId )
             $contactId = self::getContactId();
-
+        # todo: @tsdb
         return self::getInfusionsoft()->getUserTagsByCategory( $category, $contactId );
 
     }
-
 
 
     /**
@@ -349,7 +337,6 @@ class Users extends Base {
 
         return is_object_in_term( static::$userId, 'tag-category', $terms );
     }
-
 
 
     /**
@@ -411,7 +398,6 @@ class Users extends Base {
     }
 
 
-
     /**
      * Function responsible for career cards on dashboard
      * @param int $limit
@@ -434,12 +420,6 @@ class Users extends Base {
     }
 
 
-
-
-
-
-
-
     /**
      * Grab all of a single User's Tags from IS, and save to WP
      * @return array|\WP_Error
@@ -450,6 +430,7 @@ class Users extends Base {
 
         # @todo: replace this with self::updateAllUserTags()
         $tags = Infusionsoft::get_instance()->getTagsByContactId( static::$contactId );
+        # todo: @tsdb
         $tags2 = [];
 
         foreach( $tags as $tag )
@@ -485,10 +466,6 @@ class Users extends Base {
         }
 
     }
-
-
-
-
 }
 
 add_action( 'init', array( \ThinkShift\Plugin\Users::get_instance(), 'init' ));
