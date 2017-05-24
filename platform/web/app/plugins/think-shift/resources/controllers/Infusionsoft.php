@@ -3,8 +3,9 @@
 namespace ThinkShift\Plugin;
 
 use iSDK,
-    ThinkShift\Plugin\Enqueue;
+    TSDBObj;
 
+# todo: remove these constants
 // priority flags
 const NON_CRITICAL = 0;
 const CRITICAL = 1;
@@ -19,32 +20,67 @@ const CONTACT_GROUP_ASSIGN = 'ContactGroupAssign';
 
 class Infusionsoft extends Base {
 	public static $api;
+    public $tsDbObj;
 	//private $clientId, $clientSecret, $token, $apiKey;
 
 
 	function __construct() {
-        require_once dirname(__FILE__) . '/../../vendor/jimitit/infusionsoft-php-isdk/src/isdk.php';
-        #require_once dirname(__FILE__) . '/../../vendor/infusionsoft-oauth-isdk/src/isdk.php';
+        #require_once dirname(__FILE__) . '/../../vendor/jimitit/infusionsoft-php-isdk/src/isdk.php';
+        require_once dirname(__FILE__) . '/../../vendor/infusionsoft-oauth-isdk/src/isdk.php';
 
-		# todo: pull these from wp_options
-		$appName = 'fd341';
-		$this->apiKey = '9122d201f6892d5b3397f675849baafa';
 
-		$this->connect( $appName, $this->apiKey );
+        # @todo: live vs dev
+        $appName = 'fd341';
 
-        #self::$api = new iSDK();
-        #self::$api->cfgCon( 'fd341', '9122d201f6892d5b3397f675849baafa' ); # dont need
-        #self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
-        #self::$api->setToken($this->getToken());
+
+        # old api
+		#$this->apiKey = '9122d201f6892d5b3397f675849baafa';
+		#$this->connect( $appName, $this->apiKey );
+
+
+        if( !$this->tsDbObj )
+            $this->tsDbObj = new TSDBObj();
+        $this->connectOauth( $this->getToken( $appName ) );
 
 	}
 
 
-	function connect( $url, $apiKey ) {
+    /**
+     * Connect the old api way
+     * @param $appName
+     * @param $apiKey
+     */
+	function connect( $appName, $apiKey ) {
 		$this->apiKey = $apiKey;
 		self::$api = new iSDK();
-		self::$api->cfgCon( $url, $this->apiKey );
+        #self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
+		self::$api->cfgCon( $appName, $this->apiKey );
 	}
+
+
+    /**
+     * Connect via the new OAuth api
+     * @param $token
+     */
+    function connectOauth( $token ) {
+        vard($token);
+        self::$api = new iSDK();
+        self::$api->setClientId('9sbtkn2vfjrr7cp93yaswgpq');
+        self::$api->setSecret('St9WnkKkk8');
+        #self::$api->setTokenEndpoint('https://api.infusionsoft.com/token');
+        #self::$api->setPostURL("https://api.infusionsoft.com/crm/xmlrpc/v1");
+        self::$api->setToken( $token );
+    }
+
+    /**
+     * Gets latest OAuth token from DB
+     * @return mixed    OAuth token code
+     */
+    public function getToken( $appName = '' ){
+        return $this->tsDbObj->ts_get_token( $appName );
+    }
+
+
 
 
     /**
@@ -314,18 +350,6 @@ class Infusionsoft extends Base {
     }
 
 
-    /**
-     * Gets latest OAuth token from DB
-     * @todo: assign it to a variable for reuse, need to error check for expired token if looping.
-     * @return mixed    OAuth token code
-     */
-    public function getToken(){
-        global $wpdb;
-        $query = "SELECT Access FROM tokens LIMIT 1;";
-        $result = $wpdb->get_row( $query );
-        return $result->Access;
-
-    }
 }
 
 
