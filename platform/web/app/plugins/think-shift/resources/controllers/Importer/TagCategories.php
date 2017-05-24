@@ -25,14 +25,14 @@ class ImportTagCategories extends Importer {
 	public static function importData( $rows = [] ) {
         if( $rows ) {
             foreach( $rows as $row ) :
-                if( $tag = Tags::getTagBy( 'name', $row['CategoryName'] ) )
+                if( $tag = Tags::getTagBy( 'slug', $row['CategoryName'] ) )
                     $wpId = $tag->term_id;
                 else
-                    $wpId = null;
+                    $wpId = 0;
 
                 $insertData = [
                     'Is_id'        => $row['Is_id'],
-                    'Wp_id'        => null,
+                    'Wp_id'        => $wpId,
                     'CategoryName' => $row['CategoryName'],
                     'CategoryDesc' => $row['CategoryDesc'],
                 ];
@@ -46,7 +46,6 @@ class ImportTagCategories extends Importer {
 
     public static function parseUpload() {
         if( $file = $_FILES['tag-categories-import-file']['tmp_name'] ) {
-        #if( $file = dirname(__FILE__) . '/files/fd341_ContactGroupCategory.csv' ) {
             self::setTableKeys();
             $data = static::parseFile( $file );
             self::importData( $data );
