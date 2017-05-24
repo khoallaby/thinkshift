@@ -2,10 +2,8 @@
 error_reporting(-1);
 require_once dirname(__FILE__) . '/../../platform/web/wp/wp-load.php';
 
-use ThinkShift\Plugin\Cron,
-    ThinkShift\Plugin\Base,
+use ThinkShift\Plugin\Base,
     ThinkShift\Plugin\Users;
-#update_user_meta( 2, 'update_priority', 'high' );
 $args = [];
 
 # if argument set
@@ -22,7 +20,7 @@ $users = Base::getPosts( 'user', $args );
 $priority = isset($argv[1]) ? '[ ' . $argv[1] . ' priority ]' : '';
 
 
-echo '[' . DateTime::ATOM . '] Running... ' . $priority . ' update users... on ' . count($users) . " users... \n\n\n";
+echo '[' . date('m/d/Y h:i:s a', time()) . '] Running... ' . $priority . ' update users... on ' . count($users) . " users... \n\n\n";
 
 
 # todo:
