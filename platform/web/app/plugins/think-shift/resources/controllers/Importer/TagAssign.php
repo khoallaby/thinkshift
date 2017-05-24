@@ -26,9 +26,9 @@ class ImportTagAssign extends Importer {
         if( $rows ) {
             foreach( $rows as $row ) :
                 $insertData = [
-                    'Is_id'        => $row['Is_id'],
-                    'CategoryName' => $row['CategoryName'],
-                    'CategoryDesc' => $row['CategoryDesc'],
+                    'ContactId'   => $row['ContactId'],
+                    'DateCreated' => $row['DateCreated'],
+                    'GroupId'     => $row['GroupId'],
                 ];
 
                 $insert = TagAssign::insert( $insertData );
@@ -38,7 +38,7 @@ class ImportTagAssign extends Importer {
 
 
     public static function parseUpload() {
-        if( $file = $_FILES['tag--categories-import-file']['tmp_name'] ) {
+        if( $file = $_FILES['tag-assign-import-file']['tmp_name'] ) {
             self::setTableKeys();
             $data = static::parseFile( $file );
             self::importData( $data );

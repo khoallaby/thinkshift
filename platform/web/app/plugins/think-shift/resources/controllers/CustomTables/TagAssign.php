@@ -2,8 +2,6 @@
 namespace ThinkShift\Plugin;
 
 
-
-
 class TagAssign extends CustomTables {
 
     static $table = 'ContactGroupAssign';
@@ -17,7 +15,7 @@ class TagAssign extends CustomTables {
     public static function getTableColumns() {
 
         $columns = [
-            'Contact_id'  => 'Infusionsoft User ID',
+            'ContactId'  => 'Infusionsoft User ID',
             'DateCreated' => 'Date Created',
             'GroupId'     => 'Tag ID',
         ];
@@ -29,7 +27,8 @@ class TagAssign extends CustomTables {
 
 
     public static function insert( array $data, $format = null ) {
-        #return self::$tsdb->ts_tag_category_create( $data['GroupName'], $data['GroupDesc'], $data['GroupCatId'] );
+        # @todo: john needs to make ts_tag_assign_create()
+        return self::$tsdb->ts_tag_assign_create( $data['ContactId'], $data['DateCreated'], $data['GroupId'] );
     }
     
 
