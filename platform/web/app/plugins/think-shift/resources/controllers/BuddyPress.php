@@ -17,6 +17,9 @@ class BuddyPress extends Users {
          */
 
 
+        # removes the WP social login plugin before the fields show
+        remove_action( 'bp_before_account_details_fields', 'wsl_render_auth_widget_in_wp_login_form' );
+
         # On successful registration
         # adds random hash to user_name
         add_action( 'bp_signup_pre_validate', [ $this, 'bp_signup_pre_validate' ] );

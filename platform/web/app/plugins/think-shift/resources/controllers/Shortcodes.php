@@ -23,16 +23,6 @@ class Shortcodes extends Base {
 
 
 
-	public function getView( $file ) {
-	    # todo: pull from get_template_part()
-		$dir = dirname(__FILE__) . '/../views/';
-		ob_start();
-		include $dir . $file . '.php';
-		return ob_get_clean();
-
-	}
-
-
 	/**
 	 * Removes wpautop from happening inside shortcodes
 	 * http://stackoverflow.com/questions/5940854/disable-automatic-formatting-inside-wordpress-shortcodes
