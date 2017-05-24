@@ -69,11 +69,15 @@ class Users extends Base {
         $fields = $this->parseFields( $userId );
         $this->addInfusionsoftContact( $userId, $fields );
 
+
+        # @todo: comment out for now...
+
         # log in, redirect to homepage after registration
         #do_action( 'wp_login', $user_login );
-        #wp_set_current_user( $user->ID, $user_login );
-        wp_set_auth_cookie( $userId, true, is_ssl() );
-        wp_safe_redirect( home_url() );
+        #$user = get_user_by( 'id', $userId );
+        #wp_set_current_user( $user->ID, $user->user_login );
+        #wp_set_auth_cookie( $userId, true, is_ssl() );
+        #wp_safe_redirect( home_url() );
     }
 
 
