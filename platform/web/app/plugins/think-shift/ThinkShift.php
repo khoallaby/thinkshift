@@ -23,6 +23,9 @@ require_once( dirname(__FILE__) . '/PBClub/TSDBObj.php');
 require_once( dirname(__FILE__) . '/resources/controllers/CustomPostTypes.php');
 require_once( dirname(__FILE__) . '/resources/controllers/CustomTables.php');
 require_once( dirname(__FILE__) . '/resources/controllers/CustomTables/Contacts.php');
+require_once( dirname(__FILE__) . '/resources/controllers/CustomTables/Tagz.php');
+require_once( dirname(__FILE__) . '/resources/controllers/CustomTables/TagCategories.php');
+require_once( dirname(__FILE__) . '/resources/controllers/CustomTables/TagAssign.php');
 
 require_once( dirname(__FILE__) . '/resources/controllers/Assessments.php');
 require_once( dirname(__FILE__) . '/resources/controllers/Careers.php');

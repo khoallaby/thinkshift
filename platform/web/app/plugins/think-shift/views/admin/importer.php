@@ -10,19 +10,24 @@ use \ThinkShift\Plugin\Contacts;
         <input type="hidden" name="action" value="thinkshift-importer" />
         <input type="hidden" name="page" value="thinkshift-importer" />
 
-        <h2 class="title">Contacts</h2>
         <table class="form-table">
             <tbody>
-            <tr>
-                <th scope="row"><label for="contacts-import-file">File to import</label></th>
-                <td><input type="file" name="contacts-import-file" id="contacts-import-file"></td>
-            </tr>
-            <!--
-            <tr>
-                <th scope="row"><label for="regions-import-replace">Replace data (@todo)</label></th>
-                <td><input type="checkbox" name="regions-import-replace" id="regions-import-replace"></td>
-            </tr>
-            -->
+                <tr>
+                    <th scope="row"><label for="contacts-import-file">Import Contacts</label></th>
+                    <td><input type="file" name="contacts-import-file" id="contacts-import-file"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="tag-categories-import-file">Import Tag Categories</label></th>
+                    <td><input type="file" name="contacts-import-file" id="contacts-import-file"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="tags-import-file">Import Tags</label></th>
+                    <td><input type="file" name="contacts-import-file" id="contacts-import-file"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="tag-assign-import-file">Import Tag Assignments</label></th>
+                    <td><input type="file" name="contacts-import-file" id="contacts-import-file"></td>
+                </tr>
             </tbody>
         </table>
 

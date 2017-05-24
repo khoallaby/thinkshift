@@ -1,8 +1,9 @@
 <?php
 namespace ThinkShift\Plugin;
 
+use \TSDBObj;
 
-class ImportContacts extends Importer {
+class ImportTagz extends Importer {
 
 
     public function init() {
@@ -11,7 +12,7 @@ class ImportContacts extends Importer {
 
 
 	public static function setTableKeys() {
-        $columns = Contacts::getTableColumns();
+        $columns = Tagz::getTableColumns();
         $columnsExtra = [
         ];
 
@@ -23,6 +24,7 @@ class ImportContacts extends Importer {
 
 
 	public static function importData( $rows = [] ) {
+
         if( $rows ) {
             foreach( $rows as $row ) :
                 if( $user = get_user_by( 'email', $row['Email1'] ) )
@@ -33,16 +35,9 @@ class ImportContacts extends Importer {
                 $insertData = [
                     'Is_id'       => $row['Is_id'],
                     'Wp_id'       => $wpId,
-                    'FirstName'   => $row['FirstName'],
-                    'LastName'    => $row['LastName'],
-                    'Email1'      => $row['Email1'],
-                    'PostalCode'  => $row['PostalCode'],
-                    'Tags'        => $row['Tags'],
-                    'CreatedBy'   => $row['CreatedBy'],
-                    'DateCreated' => $row['DateCreated'],
-                    'LastUpdated' => $row['LastUpdated'],
-                    'OwnerID'     => $row['OwnerID'],
-                    'Leadsource'  => $row['Leadsource'],
+                    'GroupName'   => $row['GroupName'],
+                    'GroupDesc'   => $row['GroupDesc'],
+                    'GroupCatId'  => $row['GroupCatId'],
                 ];
 
                 $insert = Contacts::insert( $insertData );
@@ -53,7 +48,7 @@ class ImportContacts extends Importer {
 
 
     public static function parseUpload() {
-        if( $file = $_FILES['contacts-import-file']['tmp_name'] ) {
+        if( $file = $_FILES['tags-import-file']['tmp_name'] ) {
             self::setTableKeys();
             $data = static::parseFile( $file );
             self::importData( $data );
@@ -68,4 +63,4 @@ class ImportContacts extends Importer {
 
 }
 
-add_action( 'plugins_loaded', array( \ThinkShift\Plugin\ImportContacts::get_instance(), 'init' ));
+add_action( 'plugins_loaded', array( \ThinkShift\Plugin\ImportTagz::get_instance(), 'init' ));

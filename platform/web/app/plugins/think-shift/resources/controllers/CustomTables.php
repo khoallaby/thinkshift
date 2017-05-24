@@ -14,7 +14,7 @@ use \TSDBObj;
  */
 class CustomTables extends Base {
 
-    static $primary_key = 'id';
+    static $primary_key = 'Id';
     static $table = '';
     static $prefix = '';
     static $db, $tsdb, $tsdbcon;
@@ -32,7 +32,7 @@ class CustomTables extends Base {
         }
         if( !isset(self::$tsdb) ) {
             self::$tsdb = new \TSDBObj();
-            self::$tsdbcon = self::$tsdb->get_connection();
+            #self::$tsdbcon = self::$tsdb->get_connection();
         }
 
         if( static::$table == null )
