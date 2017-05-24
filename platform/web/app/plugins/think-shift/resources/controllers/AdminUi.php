@@ -7,6 +7,9 @@ namespace ThinkShift\Plugin;
 
 
 class AdminUi extends Base {
+    static $capability = 'edit_theme_options';
+    static $menuSlug = 'thinkshift-menu';
+
 
 	public function init() {
 
@@ -26,7 +29,11 @@ class AdminUi extends Base {
 
         # shows the strength Tags on admin CPTs like videos/careers
         add_filter( 'wp_terms_checklist_args', array( $this, 'showStrengthsOnly' ), 20, 2 );
+        add_action( 'admin_menu', [ $this, 'adminMenu' ] );
     }
+
+
+
 
 
 
@@ -35,6 +42,12 @@ class AdminUi extends Base {
      ******************************************************************************************/
 
 
+
+    public function adminMenu() {
+        add_menu_page( 'ThinkShift Dashboard', 'ThinkShift', static::$capability, static::$menuSlug, [ $this, 'viewIndex' ], 'dashicons-chart-pie', 3 );
+        # submenus
+        add_submenu_page( static::$menuSlug, 'Importer', 'Importer', static::$capability, 'thinkshift-importer', [ $this, 'viewImporter' ] );
+    }
 
 
 
@@ -51,6 +64,8 @@ class AdminUi extends Base {
 
         return $args;
     }
+
+
 
     /**
      * Re-register our tag-category taxonomy, so it shows up on admin / user profile
@@ -75,6 +90,37 @@ class AdminUi extends Base {
 
         return $taxonomies;
     }
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Generic getView() function that runs common functions like checking for capability access
+     * @param string $view  File name of the view w/o .php
+     */
+    public function getMenuView( $view ) {
+        if ( !current_user_can( static::$capability ) )
+            wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+        static::getView( $view );
+    }
+
+    public function viewIndex() {
+        self::getMenuView( 'admin/index' );
+    }
+
+    public function viewImporter() {
+        self::getMenuView( 'admin/importer' );
+    }
+
+
+
+
 
 }
 
