@@ -3,7 +3,7 @@ namespace ThinkShift\Plugin;
 
 use \TSDBObj;
 
-class ImportTagz extends Importer {
+class ImportTags extends Importer {
 
 
     public function init() {
@@ -12,7 +12,7 @@ class ImportTagz extends Importer {
 
 
 	public static function setTableKeys() {
-        $columns = Tagz::getTableColumns();
+        $columns = Tag::getTableColumns();
         $columnsExtra = [
         ];
 
@@ -27,7 +27,7 @@ class ImportTagz extends Importer {
 
         if( $rows ) {
             foreach( $rows as $row ) :
-                if( $user = get_user_by( 'email', $row['Email1'] ) )
+                if( $user = Tags::getTagBy( 'slug', $row['GroupName'] ) )
                     $wpId = $user->ID;
                 else
                     $wpId = null;
@@ -40,7 +40,7 @@ class ImportTagz extends Importer {
                     'GroupCatId'  => $row['GroupCatId'],
                 ];
 
-                $insert = Contacts::insert( $insertData );
+                $insert = Tag::insert( $insertData );
             endforeach;
         }
 
@@ -63,4 +63,4 @@ class ImportTagz extends Importer {
 
 }
 
-add_action( 'plugins_loaded', array( \ThinkShift\Plugin\ImportTagz::get_instance(), 'init' ));
+add_action( 'plugins_loaded', array( \ThinkShift\Plugin\ImportTags::get_instance(), 'init' ));

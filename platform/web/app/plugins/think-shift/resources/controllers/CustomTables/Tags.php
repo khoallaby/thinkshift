@@ -4,7 +4,7 @@ namespace ThinkShift\Plugin;
 
 
 
-class Tagz extends CustomTables {
+class Tag extends CustomTables {
 
     static $table = 'ContactGroup';
 
@@ -15,6 +15,7 @@ class Tagz extends CustomTables {
 
 
     public static function getTableColumns() {
+        # @todo: wp id
 
         $columns = [
             'Is_id'      => 'Infusionsoft ID',
@@ -37,4 +38,4 @@ class Tagz extends CustomTables {
 
 }
 
-add_action( 'plugins_loaded', array( \ThinkShift\Plugin\Tagz::get_instance(), 'init' ));
+add_action( 'plugins_loaded', array( \ThinkShift\Plugin\Tag::get_instance(), 'init' ));

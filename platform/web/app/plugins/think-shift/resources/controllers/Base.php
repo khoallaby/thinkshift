@@ -45,7 +45,7 @@ class Base {
         require_once( dirname(__FILE__) . '/AdminUi.php');
         require_once( dirname(__FILE__) . '/Importer.php');
         require_once( dirname(__FILE__) . '/Importer/Contacts.php');
-        require_once( dirname(__FILE__) . '/Importer/Tagz.php');
+        require_once( dirname(__FILE__) . '/Importer/Tags.php');
         require_once( dirname(__FILE__) . '/Importer/TagCategories.php');
         require_once( dirname(__FILE__) . '/Importer/TagAssign.php');
     }
