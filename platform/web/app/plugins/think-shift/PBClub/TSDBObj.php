@@ -218,9 +218,9 @@ class TSDBObj
      */
 
     // create a row on the ContactGroup table with dup check
-    public function ts_tag_create($name, $desc, $tcid){ ## Tested
+    public function ts_tag_create($wpid, $name, $desc, $tcid){ ## Tested
         self::sql_open();
-        $query="CALL ts_tag_create('$name', '$desc', '$tcid');";
+        $query="CALL ts_tag_create($wpid, '$name', '$desc', '$tcid');";
         $return=mysqli_query($this->con,$query);
         $rows=$return->fetch_array();
         self::sql_close();
