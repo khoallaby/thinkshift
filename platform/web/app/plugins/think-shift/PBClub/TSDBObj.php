@@ -249,7 +249,6 @@ class TSDBObj
     /**
      * CRUD Custom Fields
      */
-
     // create a row on the DataFormField table with dup check
     public function ts_custom_field_create($label, $dataType){
         self::sql_open();
