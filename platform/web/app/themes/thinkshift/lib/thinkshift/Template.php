@@ -28,9 +28,9 @@ class Template {
      */
     public static function isExternalPage ( $homePageCheck = false ) {
         if( $homePageCheck ) {
-            # if logged in on front page, return false, so we can pull the real dashboard. unless role = subscriber
+            # if logged in on front page, return false, so we can pull the real dashboard
             if( is_front_page() )
-                return is_user_logged_in() && current_user_can( UserAuthentication::$marketplaceAccess ) ? false : true;
+                return is_user_logged_in() /*&& current_user_can( UserAuthentication::$marketplaceAccess )*/ ? false : true;
         }
         return is_page_template( 'template-external.php' );
     }

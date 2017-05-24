@@ -17,8 +17,13 @@ class UserAuthentication extends Users {
         # redirect normal users to homepage (on login)
         add_filter( 'login_redirect', [ $this, 'login_redirect' ], 10, 3 );
 
+
+        # redirect overrides on certain pages
+        add_action( 'wp', [ $this, 'userRouteHome' ], 50 );
+        add_action( 'wp', [ $this, 'userRouteRegister' ], 60 );
+
         # checks for user role and redirects accordingly
-        add_action( 'wp', array( $this, 'userCanAccess' ) );
+        add_action( 'wp', [ $this, 'userCanAccess' ], 70 );
 
 
 
@@ -94,10 +99,12 @@ class UserAuthentication extends Users {
                 #'user_login' => $user->user_email # updating user_login not allowed
             ] );
 
+            # @todo: try querying
             # can't save email as user_login before activating
             #self::updateUserLogin( $userId, $user->user_email );
 
 
+            return $updateUserId;
         }
     }
 
@@ -125,7 +132,7 @@ class UserAuthentication extends Users {
         ) {
             return true;
         } elseif( is_user_logged_in()) {
-            # assessments are always available to loggered in users
+            # assessments are always available to logged in users
             if( is_post_type_archive( 'assessment' ) || is_singular( 'assessment' ) )
                 return true;
             # everything else needs marketplace access
@@ -137,6 +144,40 @@ class UserAuthentication extends Users {
 
     }
 
+
+
+    /******************************************************************************************
+     * Routing/redirects for certain pages
+     ******************************************************************************************/
+
+
+    /**
+     * Determines what should happen on the home page, '/'
+     * If not marketplace user, will be redirected to assessments
+     */
+    public function userRouteHome() {
+        if( is_user_logged_in() ) {
+            if( is_front_page() || is_page( 'register' ) || is_page( 'login' )) {
+                # redirect regular users to /assessments
+                if ( ! current_user_can( self::$marketplaceAccess ) )
+                    wp_redirect( home_url( '/assessments/' ) );
+            }
+        }
+    }
+
+
+    /**
+     * Fixes #108 - redirects register page to itself with trailing slash
+     */
+    public function userRouteRegister() {
+        if( $_SERVER['REQUEST_URI'] == '/register' ) {
+            if( function_exists( 'bp_core_redirect' ) )
+                bp_core_redirect( home_url( '/register/' ) );
+            else
+                # wp_redirect backup as this issue is prob due to BP anyways
+                wp_redirect( home_url( '/register/' ) );
+        }
+    }
 
 
     # blocks access to wp-admin
@@ -246,16 +287,10 @@ class UserAuthentication extends Users {
                 return __( 'Password required', 'thinkshift' );
 
             case 'invalid_username':
-                return __(
-                    "Invalid email address entered",
-                    'thinkshift'
-                );
+                return __( 'Invalid email address entered', 'thinkshift' );
 
             case 'incorrect_password':
-                $err = __(
-                    "Invalid assword entered",
-                    'thinkshift'
-                );
+                $err = __( 'Invalid password entered', 'thinkshift' );
                 return $err;
                 #return sprintf( $err, wp_lostpassword_url() );
 
@@ -263,7 +298,7 @@ class UserAuthentication extends Users {
                 break;
         }
 
-        return __( 'An unknown error occurred. Please try again later.', 'thinkshift' );
+        return __( 'Sorry, incorrect username or password', 'thinkshift' );
     }
 
 

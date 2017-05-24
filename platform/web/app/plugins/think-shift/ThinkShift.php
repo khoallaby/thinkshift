@@ -2,11 +2,11 @@
 
 /**
  * Plugin Name: Think Shift Plugin
- * Plugin URI: http://www.domain.tld
- * Description: Communicates with Infusionsoft
- * Version: 0.2.0
+ * Plugin URI: http://thinkshiftopportunity.org
+ * Description: Does some random things for the site
+ * Version: 0.3.1
  * Author: Think Shift
- * Author URI: http://tsdevserver.com/
+ * Author URI: http://wethinkshift.org
  * Text Domain: ts
  * Domain Path: /languages
  * Plugin Type: Piklist

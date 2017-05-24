@@ -36,7 +36,7 @@ class Base {
 
 
     /******************************************************************************************
-     * Actions/filters, i.e. for user log in/registration
+     * Actions/filters
      ******************************************************************************************/
 
     /**
@@ -213,6 +213,55 @@ class Base {
 
 
 
+
+
+
+
+    /******************************************************************************************
+     * Random helper functions
+     ******************************************************************************************/
+
+    /**
+     * Figure out what page you're on
+     * @return string
+     */
+    function getPageType() {
+        global $wp_query;
+        $page = 'notfound';
+
+        if ( $wp_query->is_page ) {
+            $page = is_front_page() ? 'front' : 'page';
+        } elseif ( $wp_query->is_home ) {
+            $page = 'home';
+        } elseif ( $wp_query->is_single ) {
+            $page = ( $wp_query->is_attachment ) ? 'attachment' : 'single';
+        } elseif ( $wp_query->is_category ) {
+            $page = 'category';
+        } elseif ( $wp_query->is_tag ) {
+            $page = 'tag';
+        } elseif ( $wp_query->is_tax ) {
+            $page = 'tax';
+        } elseif ( $wp_query->is_archive ) {
+
+            if ( $wp_query->is_day )
+                $page = 'day';
+            elseif ( $wp_query->is_month )
+                $page = 'month';
+            elseif ( $wp_query->is_year )
+                $page = 'year';
+            elseif ( $wp_query->is_author )
+                $page = 'author';
+            else
+                $page = 'archive';
+            
+        } elseif ( $wp_query->is_search ) {
+            $page = 'search';
+        } elseif ( $wp_query->is_404 ) {
+            $page = 'notfound';
+        }
+
+        return $page;
+    }
 }
 
 

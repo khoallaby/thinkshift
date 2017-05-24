@@ -16,8 +16,9 @@ class Assessments extends CustomPostTypes {
 
 
     /**
-     * Sees what assessments the user can access
-     * @return array
+     * Sees what assessments the user can access, user can only access the first incompleted assessment
+     *
+     * @return array    The element with false, is the current one
      */
     public static function canAccess() {
         $assesments = self::getCompletedStatus();

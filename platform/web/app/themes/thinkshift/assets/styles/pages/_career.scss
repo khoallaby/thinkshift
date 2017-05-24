@@ -1,3 +1,84 @@
+/*
+Archive - Career page
+ */
+.post-type-archive-career {
+	.filter {
+		label {
+			width: 100%;
+			text-align: left;
+			margin-bottom: 2px;
+		}
+		h5 {
+			text-align: left;
+			margin: 10px 0;
+		}
+	}
+
+}
+
+
+.career-card-job-desc .card-header{
+	font-weight: bold !important;
+	color: #fff !important;
+	font-size: 26px !important;
+	padding: 20px !important;
+	background: #8f8f8f !important;
+}
+
+.career-card-job-desc h5 {
+	font-weight: bold;
+}
+
+#assessment-position {
+	.card {
+		display: table;
+	}
+
+	.card-body {
+		display: table-cell;
+		vertical-align: middle;
+		height: 100%;
+	}
+
+	h5 {
+		font-size: 37px;
+		line-height: 40px;
+	}
+
+	.description {
+		&.completed {
+			color: #25ad25;
+			font-size: 20px;
+			line-height: 25px;
+		}
+	}
+
+	.fa-check {
+		color: #25ad25 !important;
+	}
+}
+
+#assessment-position .bg-themec-yellow {
+	h5, .description, a,.fa.lg {
+		color: #fff !important;
+		font-weight: bold;
+	}
+
+	h5 {
+		text-shadow: 1px 1px #b1871d;
+	}
+
+	a {
+		display: block;
+    width: 100%;
+		margin-top: 20px;
+    background: #dc9d00;
+    padding: 23px;
+    border-top: 1px solid #c38c00;
+    font-size: 19px;
+	}
+}
+
 //default code from third party script
 
 .og-grid {
@@ -85,7 +166,7 @@
 
 		li {
 			height: auto;
-			width:: 100%;
+			width: 100%;
 			text-align:left;
 			margin:0;
 		}
