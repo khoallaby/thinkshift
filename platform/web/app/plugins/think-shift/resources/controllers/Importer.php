@@ -1,5 +1,5 @@
 <?php
-namespace Reignite\Plugin;
+namespace ThinkShift\Plugin;
 
 use PHPExcel_IOFactory;
 
@@ -8,15 +8,20 @@ class Importer extends Base {
     public static $keys;
 
 
-    public function __construct( $keys = [] ) {
-        if( !empty($keys) )
-            self::setKeys( $keys );
-
+    public function init() {
+        #require_once dirname(__FILE__) . '/../../vendor/autoload.php';
+        add_action( 'admin_action_thinkshift-importer', [ $this, 'parseUploads' ], 100 );
     }
 
-    public function init() {
 
-	}
+
+    public static function parseUploads() {
+        #@todo: add nonce
+        #$url = $_SERVER['HTTP_REFERER'];
+        $url = menu_page_url( $_POST['page'], false );
+
+        wp_redirect( $url );
+    }
 
 
 
@@ -25,12 +30,12 @@ class Importer extends Base {
      * Sets the keys array. Which converts the meta_key names used between the file and the data in the DB
      * @param $keys
      */
-    public static function setKeys( $keys ) {
-        if( file_exists($keys) ) {
+    public static function setImportKeys( $keys ) {
+        if( is_array($keys) ) {
+            self::$keys = $keys;
+        } elseif( file_exists($keys) ) {
             $file = file_get_contents( $keys );
             $keys = json_decode( $file, true );
-            self::$keys = $keys;
-        } else {
             self::$keys = $keys;
         }
 
@@ -56,6 +61,33 @@ class Importer extends Base {
 
 
     /**
+     * Loads a file, and gets it ready for parsing. Checks for CSV
+     *
+     * @todo: do a better job at checking for csv
+     * @param $file
+     *
+     * @return mixed
+     */
+    public static function loadFile( $file ) {
+
+        $filetype = wp_check_filetype( basename( $file ), null );
+        $csv = $filetype['type'] == 'text/csv' ? true : false;
+
+        if( $csv ) {
+            $inputFileType = 'CSV';
+            $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+            $phpExcel = $objReader->load($file);
+        } else {
+            $phpExcel = PHPExcel_IOFactory::load( $file );
+        }
+
+        $worksheet = $phpExcel->getActiveSheet();
+
+        return $worksheet;
+
+    }
+
+    /**
      * Parses a file into an array
      * https://gist.github.com/calvinchoy/5821235
      * @param string $file      Filename
@@ -64,9 +96,8 @@ class Importer extends Base {
      * @return array
      */
     public static function parseFile( $file, $useHeaders = true ) {
+        $worksheet = self::loadFile( $file );
 
-        $phpExcel = PHPExcel_IOFactory::load( $file );
-        $worksheet = $phpExcel->getActiveSheet();
 
         //excel with first row header, use header as key
         if ( $useHeaders ) {
@@ -81,8 +112,13 @@ class Importer extends Base {
                 $dataRow = $worksheet->rangeToArray( 'A' . $row . ':' . $highestColumn . $row, null, true, true, true );
                 if ( ( isset( $dataRow[ $row ]['A'] ) ) && ( $dataRow[ $row ]['A'] > '' ) ) {
                     ++ $r;
-                    foreach ( $headingsArray as $columnKey => $columnHeading )
+                    foreach ( $headingsArray as $columnKey => $columnHeading ) {
+                        # if keys are set, use them to replace the existing headers
+                        if( self::$keys && isset(self::$keys[$columnHeading]) ) {
+                            $columnHeading = self::$keys[$columnHeading];
+                        }
                         $dataArray[ $r ][ $columnHeading ] = $dataRow[ $row ][ $columnKey ];
+                    }
                 }
             }
         } else {
@@ -91,18 +127,6 @@ class Importer extends Base {
 
         return $dataArray;
 
-    }
-
-    public static function parseCsv( $file ) {
-        $arrResult  = array();
-        $handle     = fopen($file, "r");
-        if(empty($handle) === false) {
-            while(($data = fgetcsv($handle, 1000, ",")) !== FALSE){
-                $arrResult[] = $data;
-            }
-            fclose($handle);
-        }
-        return $arrResult;
     }
 
 
@@ -188,4 +212,4 @@ class Importer extends Base {
 
 }
 
-#add_action( 'plugins_loaded', array( \ThinkShift\Plugin\Importer::get_instance(), 'init' ));
+add_action( 'plugins_loaded', array( \ThinkShift\Plugin\Importer::get_instance(), 'init' ));
