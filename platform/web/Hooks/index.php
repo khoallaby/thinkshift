@@ -31,11 +31,8 @@ header('X-Hook-Secret: ' . $headers['X-Hook-Secret'] . '');
 error_reporting(E_ALL);
 
 require('src/isdk.php');
-//require '/../app/plugins/think-shift/vendor\infusionsoft-oauth-isdk/src/isdk.php';
-//require_once 'LogFileObj.php';
 
 $con=null;
-//$log=new LogFileObj('hooks.log');
 $app=new iSDK();
 
 /**
@@ -62,17 +59,6 @@ function dbclose(){
     global $con;
     $con->close();
 }
-
-// Output post data to a file (debug)
-// TODO: Not necessary to use when everything is up and running
-/**function foutput($fname){
-    $fn=$fname.'.payload.log';
-    $st=file_get_contents('PHP://input').chr(10);
-    $file=fopen($fn,'a+');
-    fputs($file,$st);
-    fclose($file);
-    //file_put_contents($fn, file_get_contents('PHP://input'));
-}**/
 
 // Get the database email id
 function getEmailId($email){
@@ -122,7 +108,6 @@ function conAdd($j)
     global $con, $app;
     dbconnect();
     $test=json_decode($j);
-    //foutput('contact.add');
     $data=$app->dsLoad('Contact',$test->object_key,array('Id','FirstName','LastName','Email','Phone1'));
     $fname=$data['FirstName'];
     $lname=$data['LastName'];
@@ -148,7 +133,6 @@ function conDelete($j)
     dbconnect();
     $return=mysqli_query($con,$query);
     dbclose();
-    //foutput('contact.delete');
 }
 
 // Add a row to the ContactGroup table
@@ -165,7 +149,6 @@ function groupAdd($j)
     dbconnect();
     $return=mysqli_query($con,$query);
     dbclose();
-    //foutput('contactGroup.add');
     return $return;
 }
 
@@ -182,7 +165,6 @@ function groupEdit($j)
     $query="UPDATE ContactGroup SET GroupName='$tagName', GroupDesc='$tagDesc', GroupCatId=$tagCat WHERE GroupName='$tagName';";
     dbconnect();
     $return=$con->query($query);
-    //foutput('contactGroup.edit');
     return $return;
 }
 
@@ -198,7 +180,6 @@ function groupDelete($j)
     dbconnect();
     $return=mysqli_query($con,$query);
     dbclose();
-    //foutput('contactGroup.delete');
 }
 
 // Add a row to the ContactGroupAssign table
@@ -217,7 +198,6 @@ function groupApplied($j)
         }
     }
     dbclose();
-    //foutput('contactGroup.applied');
 }
 
 // Delete a row from the ContactGroupAssign table
@@ -236,12 +216,25 @@ function groupRemoved($j)
         }
     }
     dbclose();
-    //foutput('contactGroup.removed');
+}
+
+/**function showTrigger($name){
+    $file=fopen('$name'.'.log','w+');
+    fputs($file,$name.chr(10));
+    fclose($file);
+}**/
+
+function addTransaction($j){
+    global $con;
+    dbconnect();
+    $query="INSERT INTO Transactions (JSON) VALUE ('$j');";
+    $con->query($query);
+    dbclose();
 }
 
 // Process the incoming webhook and use the appropriate function
 function doHook($j=''){
-    global $log;
+    //global $log;
 
     if ($j=='') {
         $pl = file_get_contents('PHP://input');
@@ -252,35 +245,26 @@ function doHook($j=''){
     $json=json_decode($pl);
     switch ($json->event_key) {
         case 'contact.add':
-            //$log->lfWriteLn('conAdd()');
             conAdd($json);break;
         case 'contact.delete':
-            //$log->lfWriteLn('conDelete()');
             conDelete($json);break;
         case 'contactGroup.add':
-            //$log->lfWriteLn('groupAdd()');
             groupAdd($json);break;
         case 'contactGroup.delete':
-            //$log->lfWriteLn('groupDelete()');
             groupDelete($json);break;
         case 'contactGroup.edit':
-            //$log->lfWriteLn('groupEdit()');
             groupEdit($json);break;
         case 'contactGroup.applied':
-            //$log->lfWriteLn('groupApplied()');
             groupApplied($json);break;
         case 'contactGroup.removed':
-            //$log->lfWriteLn('groupRemoved()');
             groupRemoved($json);break;
         default:
-            //$log->lfWriteLn('Un-monitored event key');
-            //foutput('unknown.log');
             echo 'Un-monitored event key';break;
     }
-    //$log->lfWriteLn('End *********************************************************');
 }
 
 // Get data block sent from IS and convert to JSON object then call doHook($json)
 $in=file_get_contents('PHP://input');
+addTransaction($in);
 $json=json_decode($in);
 doHook($json);
