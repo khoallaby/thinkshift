@@ -1,4 +1,4 @@
-<div class="card card-profile mb-4 pn">
+<div class="card card-profile mb-4 pn bg-themec-orange" id="dashboard-dream-declaration">
     <!-- <div class="card-header" style="background-image: url(assets/img/iceland.jpg);"></div> -->
     <div class="card-block text-center">
         <!-- <a href="profile/index.html">

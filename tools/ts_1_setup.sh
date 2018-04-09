@@ -5,6 +5,11 @@ sudo apt-get update
 
 # git
 sudo apt-get -y install git
+# git st, ci aliases
+git config --global alias.st status
+git config --global alias.ci 'commit -v'
+git config --global push.default simple
+
 
 
 # Install wp-cli as 'wp'
@@ -51,6 +56,15 @@ sudo apt-get update && sudo apt-get -y install yarn
 
 
 
+if [ $WP_ENV = "production" ] ; then
+    vhost_file="conf/bitnami-apps-vhosts-prod.conf"
+else
+    vhost_file="conf/bitnami-apps-vhosts.conf"
+fi
+
+cp "$vhost_file" "$lamp_dir"/apache2/conf/bitnami/bitnami-apps-vhosts.conf
+cp conf/php.ini "$lamp_dir"/php/etc/
+
 
 # clear out htdocs
 #bash ts_bedrock.sh
@@ -65,6 +79,25 @@ cd ../platform
 composer install
 #ignore our .env file, even if changed.
 git update-index --assume-unchanged .env
+#cp .env.copy .env
+
+# permissions - allow write access to uploads/plugins
+sudo chown -v -R bitnami:daemon web/app/uploads
+#sudo chmod -v -R 755 web/app/uploads
+#sudo chown -v -R bitnami:daemon web/app/plugins
+#sudo chmod -v -R 755 web/app/plugins
+#sudo find web/ -type f -exec chmod 664 {} \;
+#sudo find web/ -type d -exec chmod 775 {} \;
+
+
+# install wordpress
+# @todo: remove this later when figure out how bedrock installs WP
+cd web/wp
+composer install
+mv wordpress/* ./
+rm -rf wordpress
+cd ../..
+
 
 
 # run yarn, and build assets
@@ -72,7 +105,9 @@ cd web/app/themes/thinkshift
 composer install
 yarn
 yarn run build
-
+if [ $WP_ENV = "production" ] ; then
+    gulp -production
+fi
 
 
 

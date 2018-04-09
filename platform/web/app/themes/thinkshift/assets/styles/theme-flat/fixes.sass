@@ -1,0 +1,37 @@
+/* fixes for theme-flat */
+
+
+
+
+/* fixes nav alignment */
+#navbar
+  display: block
+
+nav .collapse.in
+  display: flex
+
+
+aside.app-sidebar,
+.navbar
+  z-index: 10
+
+
+.main
+  padding: 30px
+
+.navbar-right .dropdown-menu
+  left: auto
+
+
+
+
+@include breakpoint($sm)
+  html
+    margin-top: 0 !important
+  body .app-container
+    padding-top: 0
+  .sidebar-toggle
+    background-color: transparent
+    border: 0
+  #sidebar .sidebar-toggle
+    color: white

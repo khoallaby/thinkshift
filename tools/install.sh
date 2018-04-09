@@ -19,6 +19,9 @@ export ts_dir
 
 # Database Information
 # todo: pull from .env
+export lamp_dir="/opt/bitnami"
+
+
 export ts_DB="thinkshift"
 export ts_DB_user="thinkshift"
 export ts_DB_password="tH1nk~_sh1ft@20141188sdfF"
@@ -27,21 +30,28 @@ export ts_DB_password="tH1nk~_sh1ft@20141188sdfF"
 while true; do
     clear
     echo "
+    [initial installation process]
+    ------------------------------------------
     1   Install wp/project files
     2   Install mysql DB, user
+    ------------------------------------------
     3   Git pull/Update project
+    ------------------------------------------
     4   Restart services
-    5   Import DB
+    5   Import/Export DB
     6   Log into MySQL
-    ( Delete everything (todo) )
-    6   Quit
+    ------------------------------------------
+    7   Run all cron jobs (once)
+    _   ( Delete everything (todo) )
+
+    0   Quit
+
     "
     read INPUT
 
     case $INPUT in
         1)
-
-            bash ts_1_setup.sh
+            sh -ac ' . ../platform/.env; bash ts_1_setup.sh'
             #./ts_4_finalize.sh
 
             echo -e "\n#########################################################################################################"
@@ -71,14 +81,16 @@ while true; do
             read
             ;;
         5)
-            bash import_db.sh
-            echo -e "\n#########################################################################################################"
-            echo "sql imported"
-            echo -e "#########################################################################################################"
-            read
+
+            read -p "File name to use? (defaults to {dev/prod}.sql)" RESP
+            sh -ac ' . ../platform/.env; bash import_db.sh "$RESP"'
             ;;
         6)
-            mysql -u root -p"$ts_DB_password"
+            mysql -u root -p"$ts_DB_password" "$ts_DB"
+            read
+            ;;
+        7)
+            php cron-jobs/run-all.php
             read
             ;;
         9)
@@ -93,7 +105,6 @@ while true; do
             ;;
     esac
 done
-
 
 
 

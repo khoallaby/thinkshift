@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cc873dba0b0f7e9a1afff3a6e35e8371",
+    "content-hash": "5f21398a5343511a0358f82e97b8a2c9",
     "packages": [
         {
             "name": "composer/installers",
@@ -361,16 +361,16 @@
             "homepage": "https://wordpress.org/plugins/bbpress/"
         },
         {
-            "name": "wpackagist-plugin/profilepress",
-            "version": "0.0.7",
+            "name": "wpackagist-plugin/bp-disable-activation-reloaded",
+            "version": "1.2.1",
             "source": {
                 "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/profilepress/",
-                "reference": "trunk"
+                "url": "https://plugins.svn.wordpress.org/bp-disable-activation-reloaded/",
+                "reference": "tags/1.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/profilepress.zip?timestamp=1427856342",
+                "url": "https://downloads.wordpress.org/plugin/bp-disable-activation-reloaded.1.2.1.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -378,22 +378,162 @@
                 "composer/installers": "~1.0"
             },
             "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/profilepress/"
+            "homepage": "https://wordpress.org/plugins/bp-disable-activation-reloaded/"
+        },
+        {
+            "name": "wpackagist-plugin/buddypress",
+            "version": "2.8.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/buddypress/",
+                "reference": "tags/2.8.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/buddypress.2.8.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/buddypress/"
+        },
+        {
+            "name": "wpackagist-plugin/gmail-smtp",
+            "version": "1.1.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/gmail-smtp/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/gmail-smtp.zip?timestamp=1485311259",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/gmail-smtp/"
+        },
+        {
+            "name": "wpackagist-plugin/lh-user-taxonomies",
+            "version": "1.55",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/lh-user-taxonomies/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/lh-user-taxonomies.zip?timestamp=1494929232",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/lh-user-taxonomies/"
+        },
+        {
+            "name": "wpackagist-plugin/piklist",
+            "version": "0.9.9.12",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/piklist/",
+                "reference": "tags/0.9.9.12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/piklist.0.9.9.12.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/piklist/"
+        },
+        {
+            "name": "wpackagist-plugin/wordpress-social-login",
+            "version": "2.3.3",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wordpress-social-login/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wordpress-social-login.zip?timestamp=1490825993",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wordpress-social-login/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-mail-smtp",
+            "version": "0.10.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-mail-smtp/",
+                "reference": "tags/0.10.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.0.10.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-mail-smtp/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-smtp",
+            "version": "1.1.9",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-smtp/",
+                "reference": "tags/1.1.9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-smtp.1.1.9.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-smtp/"
         }
     ],
     "packages-dev": [
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.8.1",
+            "version": "2.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "d7cf0d894e8aa4c73712ee4a331cc1eaa37cdc7d"
+                "reference": "dcbed1074f8244661eecddfc2a675430d8d33f62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/d7cf0d894e8aa4c73712ee4a331cc1eaa37cdc7d",
-                "reference": "d7cf0d894e8aa4c73712ee4a331cc1eaa37cdc7d",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/dcbed1074f8244661eecddfc2a675430d8d33f62",
+                "reference": "dcbed1074f8244661eecddfc2a675430d8d33f62",
                 "shasum": ""
             },
             "require": {
@@ -458,7 +598,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-03-01T22:17:45+00:00"
+            "time": "2017-05-22T02:43:20+00:00"
         }
     ],
     "aliases": [],

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 
+# todo: set this as a prompt, reset pw/create user if yes. create database regardless
 # resets root password to the same pw
 read -p "Do you want to reset the root user's password? useful for first install of bitnami (y/n) " RESP
 if [ "$RESP" = "y" ]; then

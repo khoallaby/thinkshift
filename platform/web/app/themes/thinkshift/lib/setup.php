@@ -3,6 +3,7 @@
 namespace Roots\Sage\Setup;
 
 use Roots\Sage\Assets;
+use ThinkShift\Theme\Template;
 
 /**
  * Theme setup
@@ -27,7 +28,9 @@ function setup() {
   // Register wp_nav_menu() menus
   // http://codex.wordpress.org/Function_Reference/register_nav_menus
   register_nav_menus([
-    'primary_navigation' => __('Primary Navigation', 'sage')
+      'primary_navigation' => __('Primary Navigation', 'sage'),
+      'subscriber_navigation' => __('Subscriber Navigation', 'sage'),
+      'logged_out_navigation' => __('Logged Out Navigation', 'sage'),
   ]);
 
   // Enable post thumbnails
@@ -95,12 +98,33 @@ function display_sidebar() {
  * Theme assets
  */
 function assets() {
-  wp_enqueue_style('sage/css', Assets\asset_path('styles/main.css'), false, null);
+    if( WP_ENV == 'development' )
+        wp_register_script( 'bootstrap', get_stylesheet_directory_uri() . '/bower_components/bootstrap/dist/js/bootstrap.min.js', ['jquery'], '4.0.0-alpha.6', true );
+    else
+        wp_register_script( 'bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js', ['jquery'], '4.0.0-alpha.6', true );
 
-  if (is_single() && comments_open() && get_option('thread_comments')) {
-    wp_enqueue_script('comment-reply');
-  }
 
-  wp_enqueue_script('sage/js', Assets\asset_path('scripts/main.js'), ['jquery'], null, true);
+    if( Template::isExternalPage(true) ) {
+        wp_enqueue_style( 'sage/css', Assets\asset_path( 'styles/main-external.css' ), false, null );
+        wp_enqueue_style( 'font-lato', 'https://fonts.googleapis.com/css?family=Lato');
+        wp_enqueue_style( 'font-catamaran', 'https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900');
+        wp_enqueue_style( 'font-muli', 'https://fonts.googleapis.com/css?family=Muli');
+
+
+        wp_enqueue_script( 'bootstrap' );
+        wp_enqueue_script( 'jquery-effects-core' );
+        wp_enqueue_script( 'sage/js', Assets\asset_path( 'scripts/main-external.js' ), [ 'jquery' ], null, true );
+
+    } else {
+        wp_enqueue_style( 'sage/css', Assets\asset_path( 'styles/main.css' ), false, null );
+        wp_enqueue_script( 'sage/js', Assets\asset_path( 'scripts/main.js' ), [ 'jquery' ], null, true );
+    }
+
+
+    if ( is_single() && comments_open() && get_option( 'thread_comments' ) ) {
+        wp_enqueue_script( 'comment-reply' );
+    }
+
 }
-add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\assets', 100);
+
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\assets', 100);

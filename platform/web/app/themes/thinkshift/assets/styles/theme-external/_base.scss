@@ -1,0 +1,149 @@
+body.page-template-template-external {
+  background: #fff;
+}
+#loggedout {
+  $bg-light-darker: #bccbde;
+  $bg-light-secondary: #c2dde6;
+  $bg-light-primary: #e6e9f0;
+  $purple: #431c5d;
+  $orange: #e05915;
+  $yellow: #cdd422;
+
+  body & {
+    background: #fff;
+  }
+
+  header {
+    background: $bg-light-primary;
+
+    a {
+      color: $orange;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+/*Added by MM*/
+.bg-blue { background: #52abfd !important; }
+.bg-green { background: #fd5252 !important; }
+.bg-green.bg-primary p { color: #fff !important; }
+.bg-primary { color: white; }
+
+#steps {
+  .row.mb-5 { margin-bottom: 50px; }
+  .pd-2 { padding-top: 30px; }
+}
+
+header {
+  background-position: center center;
+  background-size: cover;
+  .noimage {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    overflow-y: hidden;
+    background: url(../images/bg-pattern.png), linear-gradient(to left, #7b4397, #dc2430);
+    color: #fff
+  }
+}
+
+nav {
+  // todo: need to apply this when scrolling down
+  background-color: #fff;
+  border-color: rgba(34,34,34,.1);
+  a { color: #222; }
+  // -------------------------------------------- \\
+
+  padding: 30px 0;
+  .navbar-header { align-self: flex-start; }
+  .navbar-brand { font-size: .8rem; }
+
+  .navbar-toggler-right {
+    position: fixed;
+    right: 0;
+  }
+
+  ul.nav {
+    // primary menu
+    & > li {
+      position: relative;
+
+
+      &:hover {
+        ul.sub-menu {
+          display: block;
+        }
+      }
+
+      ul.sub-menu {
+        /*position: absolute;*/
+        background: #fff;
+        width: 270px;
+      }
+      // child menu
+      & > ul > li {
+        // display: none;
+
+
+      }
+    }
+  }
+
+  & .navbar-default {
+    .navbar-header .navbar-toggle {
+      background: #f0f0f0;
+    }
+    /*
+    @media (min-width: 992px) {
+      background-color: transparent;
+      border-color: transparent;
+    }*/
+  }
+}
+
+
+
+
+
+
+
+/* Responsive */
+
+@media (min-width: 768px) {
+
+
+}
+
+
+
+
+@media (min-width: 992px) {
+
+  nav ul.nav {
+
+    & > li {
+      ul.sub-menu {
+        display: none;
+        position: absolute;
+      }
+
+      &:hover {
+        ul.sub-menu {
+          position: absolute;
+        }
+      }
+    }
+
+    & .navbar-default {
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
+}
